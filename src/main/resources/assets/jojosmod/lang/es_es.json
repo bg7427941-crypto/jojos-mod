@@ -2,5 +2,11 @@
   "itemGroup.jojosmod": "JoJo's Mod",
   "item.jojosmod.stand_arrow": "Flecha de Stand",
   "item.jojosmod.stand_disc_fragment": "Fragmento de disco de Stand",
-  "item.jojosmod.stand_disc": "Disco de Stand"
+  "item.jojosmod.stand_disc": "Disco de Stand",
+  "entity.jojosmod.training_stand": "Stand de entrenamiento",
+  "key.category.jojosmod.stands": "JoJo's Mod — Stands",
+  "key.jojosmod.toggle_stand": "Invocar / desinvocar Stand",
+  "key.jojosmod.basic_attack": "Ataque básico del Stand",
+  "command.jojosmod.training_assigned": "Stand de entrenamiento asignado. Pulsa %s para invocarlo.",
+  "command.jojosmod.stand_cleared": "Stand asignado eliminado."
 }

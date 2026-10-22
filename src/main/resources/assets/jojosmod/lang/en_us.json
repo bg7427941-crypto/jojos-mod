@@ -2,5 +2,11 @@
   "itemGroup.jojosmod": "JoJo's Mod",
   "item.jojosmod.stand_arrow": "Stand Arrow",
   "item.jojosmod.stand_disc_fragment": "Stand Disc Fragment",
-  "item.jojosmod.stand_disc": "Stand Disc"
+  "item.jojosmod.stand_disc": "Stand Disc",
+  "entity.jojosmod.training_stand": "Training Stand",
+  "key.category.jojosmod.stands": "JoJo's Mod — Stands",
+  "key.jojosmod.toggle_stand": "Summon / dismiss Stand",
+  "key.jojosmod.basic_attack": "Stand basic attack",
+  "command.jojosmod.training_assigned": "Training Stand assigned. Press %s to summon it.",
+  "command.jojosmod.stand_cleared": "Stand assignment cleared."
 }

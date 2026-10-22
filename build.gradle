@@ -9,11 +9,28 @@ base.archivesName = mod_id
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
+repositories {
+    maven {
+        name = 'GeckoLib'
+        url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        content { includeGroupAndSubgroups 'com.geckolib' }
+    }
+}
+
+dependencies {
+    implementation "com.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
+}
+
 sourceSets {
     gameTest {
         compileClasspath += sourceSets.main.output
         runtimeClasspath += sourceSets.main.output
     }
+}
+
+configurations {
+    gameTestImplementation.extendsFrom implementation
+    gameTestRuntimeOnly.extendsFrom runtimeOnly
 }
 
 neoForge {
@@ -57,7 +74,8 @@ def generateModMetadata = tasks.register('generateModMetadata', ProcessResources
         mod_name: mod_name,
         mod_version: mod_version,
         minecraft_version: minecraft_version,
-        neo_version: neo_version
+        neo_version: neo_version,
+        geckolib_version: geckolib_version
     ]
     inputs.properties properties
     expand properties

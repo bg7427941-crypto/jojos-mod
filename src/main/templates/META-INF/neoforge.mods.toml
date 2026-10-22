@@ -6,7 +6,7 @@ version="${mod_version}"
 displayName="${mod_name}"
 description='''
 An original Minecraft Stand system inspired by JoJo's Bizarre Adventure.
-Phase 1: items and persistent player data.
+Phase 2: a summonable, animated training Stand with a server-authoritative basic attack.
 '''
 
 [[dependencies.${mod_id}]]
@@ -14,6 +14,13 @@ modId="neoforge"
 type="required"
 versionRange="[${neo_version},)"
 ordering="NONE"
+side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="geckolib"
+type="required"
+versionRange="[${geckolib_version},6.0)"
+ordering="AFTER"
 side="BOTH"
 
 [[dependencies.${mod_id}]]

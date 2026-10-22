@@ -7,7 +7,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
-/** Server-owned assignment API; IDs will be checked against Stand definitions when those exist. */
+/** Server-owned storage; gameplay controllers validate IDs against registered Stand definitions. */
 public final class PlayerStands {
     private PlayerStands() {}
 

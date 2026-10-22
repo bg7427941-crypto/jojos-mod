@@ -1,0 +1,95 @@
+package io.github.bg7427941.jojosmod.stands;
+
+import io.github.bg7427941.jojosmod.abilities.BasicAttack;
+import io.github.bg7427941.jojosmod.entities.TrainingStandEntity;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
+import io.github.bg7427941.jojosmod.registry.ModEntities;
+import io.github.bg7427941.jojosmod.registry.ModStands;
+import java.util.Optional;
+import net.minecraft.server.level.ServerPlayer;
+
+/** All entry points run on the logical server thread. Clients send intentions only. */
+public final class StandController {
+    public static final int TOGGLE_COOLDOWN_TICKS = 5;
+
+    private StandController() {}
+
+    private static StandSession session(ServerPlayer owner) {
+        return owner.getExistingData(ModAttachments.STAND_SESSION).orElse(StandSession.EMPTY);
+    }
+
+    private static Optional<StandDefinition> definition(ServerPlayer owner) {
+        return PlayerStands.get(owner).standId().flatMap(ModStands::find);
+    }
+
+    public static Optional<TrainingStandEntity> getActive(ServerPlayer owner) {
+        return session(owner).activeEntity()
+                .map(id -> owner.level().getEntities().get(id))
+                .filter(TrainingStandEntity.class::isInstance)
+                .map(TrainingStandEntity.class::cast)
+                .filter(stand -> !stand.isRemoved() && stand.getOwner() == owner);
+    }
+
+    public static boolean isActive(ServerPlayer owner, TrainingStandEntity stand) {
+        return session(owner).activeEntity().filter(stand.getUUID()::equals).isPresent()
+                && definition(owner).filter(ModStands.TRAINING_STAND::equals).isPresent();
+    }
+
+    public static boolean toggle(ServerPlayer owner) {
+        if (!owner.isAlive() || owner.isRemoved() || owner.isSpectator()) {
+            return false;
+        }
+        var state = session(owner);
+        long now = owner.level().getGameTime();
+        if (now < state.nextToggleTick()) {
+            return false;
+        }
+        var active = getActive(owner);
+        if (active.isPresent()) {
+            active.get().discard();
+            owner.setData(ModAttachments.STAND_SESSION,
+                    new StandSession(Optional.empty(), now + TOGGLE_COOLDOWN_TICKS, state.nextAttackTick()));
+            return true;
+        }
+        if (definition(owner).filter(ModStands.TRAINING_STAND::equals).isEmpty()) {
+            return false;
+        }
+
+        var stand = new TrainingStandEntity(ModEntities.TRAINING_STAND.get(), owner.level());
+        stand.setOwner(owner);
+        stand.snapTo(owner.position(), owner.getYRot(), 0);
+        if (!owner.level().addFreshEntity(stand)) {
+            return false;
+        }
+        owner.setData(ModAttachments.STAND_SESSION, new StandSession(
+                Optional.of(stand.getUUID()), now + TOGGLE_COOLDOWN_TICKS, state.nextAttackTick()));
+        return true;
+    }
+
+    /** Returns whether an attempt was accepted; misses consume cooldown as well. */
+    public static boolean attack(ServerPlayer owner) {
+        if (!owner.isAlive() || owner.isRemoved() || owner.isSpectator()) {
+            return false;
+        }
+        var active = getActive(owner);
+        var definition = definition(owner);
+        var state = session(owner);
+        long now = owner.level().getGameTime();
+        if (active.isEmpty() || definition.isEmpty() || !isActive(owner, active.get())
+                || now < state.nextAttackTick()
+                || active.get().distanceToSqr(owner) > Math.pow(definition.get().stats().maxOwnerDistance(), 2)) {
+            return false;
+        }
+        owner.setData(ModAttachments.STAND_SESSION, new StandSession(state.activeEntity(),
+                state.nextToggleTick(), now + definition.get().stats().attackCooldownTicks()));
+        BasicAttack.perform(owner, active.get(), definition.get());
+        return true;
+    }
+
+    public static void dismiss(ServerPlayer owner) {
+        getActive(owner).ifPresent(TrainingStandEntity::discard);
+        var state = session(owner);
+        owner.setData(ModAttachments.STAND_SESSION,
+                new StandSession(Optional.empty(), state.nextToggleTick(), state.nextAttackTick()));
+    }
+}

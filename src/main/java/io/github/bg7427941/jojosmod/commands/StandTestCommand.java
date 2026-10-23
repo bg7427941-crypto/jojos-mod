@@ -7,7 +7,7 @@ import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
-/** Operator-only testing hook until the acquisition mechanics are implemented. */
+/** Operator-only testing hook; normal acquisition uses the Stand Arrow. */
 public final class StandTestCommand {
     private StandTestCommand() {}
 

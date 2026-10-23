@@ -17,7 +17,7 @@ public final class ModAttachments {
             ATTACHMENTS.register("stand_data", () -> AttachmentType.builder(() -> StandData.EMPTY)
                     .serialize(StandData.CODEC)
                     .copyOnDeath()
-                    // Assignment is private player data until other clients need it for rendered Stands.
+                    // Manifested entities sync their own identity; the player's assignment stays private.
                     .sync((holder, recipient) -> holder == recipient, StandData.STREAM_CODEC)
                     .build());
 

@@ -8,10 +8,13 @@ import com.geckolib.animation.RawAnimation;
 import com.geckolib.util.GeckoLibUtil;
 import io.github.bg7427941.jojosmod.registry.ModStands;
 import io.github.bg7427941.jojosmod.stands.StandController;
+import io.github.bg7427941.jojosmod.stands.StandDefinition;
 import java.util.Objects;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -25,10 +28,12 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
-/** A temporary manifestation; the player's persistent attachment owns the Stand assignment. */
+/** Shared placeholder manifestation; the player's attachment owns the persistent assignment. */
 public final class TrainingStandEntity extends Entity implements GeoEntity {
     private static final EntityDataAccessor<Integer> OWNER_ID =
             SynchedEntityData.defineId(TrainingStandEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<String> STAND_ID =
+            SynchedEntityData.defineId(TrainingStandEntity.class, EntityDataSerializers.STRING);
     private static final double FOLLOW_BEHIND = 1.25;
     private static final double FOLLOW_SIDE = 0.9;
     private static final double FOLLOW_HEIGHT = 0.15;
@@ -55,9 +60,25 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         return owner;
     }
 
+    public void setStandDefinition(StandDefinition definition) {
+        entityData.set(STAND_ID, definition.id().toString());
+    }
+
+    /** Entity data also reaches observers, without making the owner's private attachment public. */
+    public StandDefinition getStandDefinition() {
+        var id = Identifier.tryParse(entityData.get(STAND_ID));
+        return id == null ? ModStands.TRAINING_STAND : ModStands.find(id).orElse(ModStands.TRAINING_STAND);
+    }
+
+    @Override
+    protected Component getTypeName() {
+        return Component.translatable(getStandDefinition().translationKey());
+    }
+
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         builder.define(OWNER_ID, -1);
+        builder.define(STAND_ID, ModStands.TRAINING_STAND.id().toString());
     }
 
     @Override
@@ -86,7 +107,7 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
                 .add(forward.scale(-FOLLOW_BEHIND))
                 .add(side.scale(FOLLOW_SIDE))
                 .add(0, FOLLOW_HEIGHT, 0);
-        double maxDistance = ModStands.TRAINING_STAND.stats().maxOwnerDistance();
+        double maxDistance = getStandDefinition().stats().maxOwnerDistance();
 
         // Snap after teleports so this temporary entity cannot remain separated from its owner.
         setPos(distanceToSqr(player) > maxDistance * maxDistance

@@ -1,6 +1,7 @@
 package io.github.bg7427941.jojosmod.registry;
 
 import io.github.bg7427941.jojosmod.JojosMod;
+import io.github.bg7427941.jojosmod.items.StandArrowItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -11,14 +12,14 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-/** Registers the initial items; acquisition and Stand-granting behavior come later. */
+/** Registers progression items and their creative tab. */
 public final class ModItems {
     private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(JojosMod.MOD_ID);
     private static final DeferredRegister<CreativeModeTab> TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, JojosMod.MOD_ID);
 
-    public static final DeferredItem<Item> STAND_ARROW =
-            ITEMS.registerSimpleItem("stand_arrow", properties -> properties.stacksTo(1));
+    public static final DeferredItem<StandArrowItem> STAND_ARROW =
+            ITEMS.registerItem("stand_arrow", StandArrowItem::new, properties -> properties.stacksTo(1));
     public static final DeferredItem<Item> STAND_DISC_FRAGMENT =
             ITEMS.registerSimpleItem("stand_disc_fragment");
     public static final DeferredItem<Item> STAND_DISC =

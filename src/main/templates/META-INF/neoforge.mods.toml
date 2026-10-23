@@ -6,7 +6,7 @@ version="${mod_version}"
 displayName="${mod_name}"
 description='''
 An original Minecraft Stand system inspired by JoJo's Bizarre Adventure.
-Phase 2: a summonable, animated training Stand with a server-authoritative basic attack.
+Phase 3: Stand Arrows grant Echoes ACT 1 or Little Feet, with server-authoritative basic combat.
 '''
 
 [[dependencies.${mod_id}]]

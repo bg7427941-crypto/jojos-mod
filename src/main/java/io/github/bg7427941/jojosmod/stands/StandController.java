@@ -32,7 +32,8 @@ public final class StandController {
 
     public static boolean isActive(ServerPlayer owner, TrainingStandEntity stand) {
         return session(owner).activeEntity().filter(stand.getUUID()::equals).isPresent()
-                && definition(owner).filter(ModStands.TRAINING_STAND::equals).isPresent();
+                && stand.getOwner() == owner
+                && definition(owner).filter(stand.getStandDefinition()::equals).isPresent();
     }
 
     public static boolean toggle(ServerPlayer owner) {
@@ -51,12 +52,14 @@ public final class StandController {
                     new StandSession(Optional.empty(), now + TOGGLE_COOLDOWN_TICKS, state.nextAttackTick()));
             return true;
         }
-        if (definition(owner).filter(ModStands.TRAINING_STAND::equals).isEmpty()) {
+        var definition = definition(owner);
+        if (definition.isEmpty()) {
             return false;
         }
 
         var stand = new TrainingStandEntity(ModEntities.TRAINING_STAND.get(), owner.level());
         stand.setOwner(owner);
+        stand.setStandDefinition(definition.get());
         stand.snapTo(owner.position(), owner.getYRot(), 0);
         if (!owner.level().addFreshEntity(stand)) {
             return false;

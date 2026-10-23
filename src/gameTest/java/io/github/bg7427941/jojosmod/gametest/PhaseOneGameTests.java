@@ -57,6 +57,7 @@ public final class PhaseOneGameTests {
         modBus.addListener(PhaseOneGameTests::registerTests);
         PhaseTwoGameTests.register(modBus);
         PhaseThreeGameTests.register(modBus);
+        PhaseFourGameTests.register(modBus);
     }
 
     private static void registerTests(RegisterGameTestsEvent event) {

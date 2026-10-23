@@ -6,7 +6,7 @@ version="${mod_version}"
 displayName="${mod_name}"
 description='''
 An original Minecraft Stand system inspired by JoJo's Bizarre Adventure.
-Phase 3: Stand Arrows grant Echoes ACT 1 or Little Feet, with server-authoritative basic combat.
+Phase 4A: Ancient City fragments and costly empty Stand Discs, alongside Stand Arrow progression.
 '''
 
 [[dependencies.${mod_id}]]

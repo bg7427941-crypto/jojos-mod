@@ -22,6 +22,8 @@ public final class ModItems {
             ITEMS.registerItem("stand_arrow", StandArrowItem::new, properties -> properties.stacksTo(1));
     public static final DeferredItem<Item> STAND_DISC_FRAGMENT =
             ITEMS.registerSimpleItem("stand_disc_fragment");
+    public static final DeferredItem<Item> EMPTY_STAND_DISC =
+            ITEMS.registerSimpleItem("empty_stand_disc", properties -> properties.stacksTo(1));
     public static final DeferredItem<Item> STAND_DISC =
             ITEMS.registerSimpleItem("stand_disc", properties -> properties.stacksTo(1));
 
@@ -33,6 +35,7 @@ public final class ModItems {
                     .displayItems((parameters, output) -> {
                         output.accept(STAND_ARROW.get());
                         output.accept(STAND_DISC_FRAGMENT.get());
+                        output.accept(EMPTY_STAND_DISC.get());
                         output.accept(STAND_DISC.get());
                     })
                     .build());

@@ -3,14 +3,14 @@
 Mod de Minecraft inspirado en los Stands de JoJo's Bizarre Adventure. Código MIT;
 modelos, texturas y sonidos del proyecto deben ser originales o tener una licencia compatible.
 
-La Fase 3 permite obtener **Echoes ACT 1** o **Little Feet** usando una Flecha de
-Stand. Ambos se invocan, siguen al jugador y tienen un ataque básico con autoridad
-del servidor. Las flechas aparecen como loot adicional en mazmorras vanilla.
-Los discos y fragmentos siguen siendo ítems sin comportamiento; corresponden a la Fase 4.
+La **Fase 4A (0.4.0)** incorpora fragmentos en Ancient Cities y la fabricación de
+un disco de Stand vacío con ingredientes escasos. Las flechas de la Fase 3 siguen
+otorgando **Echoes ACT 1** o **Little Feet**, invocables y con combate básico.
 
 El diseño ampliado de núcleos, voluntad y extracción con Whitesnake está en
-[la propuesta de Fase 4](docs/phase-four-design.md), con los requisitos confirmados
-y los valores de balance pendientes de aprobación.
+[el diseño de Fase 4](docs/phase-four-design.md), con el balance aprobado y las
+decisiones de progresión que siguen abiertas. Los núcleos, la voluntad, el jefe y
+la extracción se desarrollarán en las siguientes entregas.
 
 ## Requisitos
 
@@ -64,11 +64,54 @@ En un mundo creativo, abre la pestaña **JoJo's Mod**, o ejecuta con permisos:
 ```mcfunction
 /give @s jojosmod:stand_arrow
 /give @s jojosmod:stand_disc_fragment
+/give @s jojosmod:empty_stand_disc
 /give @s jojosmod:stand_disc
 ```
 
-La flecha y el disco se apilan de uno en uno; los fragmentos, hasta 64.
+La flecha y ambos discos se apilan de uno en uno; los fragmentos, hasta 64.
 Se incluyen nombres y mensajes en inglés y español.
+
+## Fragmentos y disco vacío — Fase 4A
+
+Cada cofre principal de Ancient City, con tabla `minecraft:chests/ancient_city`,
+tiene un **25 %** de probabilidad de añadir **1–2 fragmentos de disco**. Se conserva
+el loot vanilla, incluidos sus componentes de ítem y cantidades. Los cofres de hielo
+(`minecraft:chests/ancient_city_ice_box`) conservan su loot y no reciben fragmentos.
+Los cofres cuyo contenido ya se generó no se rellenan retroactivamente.
+
+En una mesa de crafteo, coloca **7 fragmentos de disco**, **1 fragmento de eco** y
+**1 lingote de netherita** para producir **un disco vacío**:
+
+```text
+F F F
+F E F
+F N F
+```
+
+F = fragmento de disco, E = fragmento de eco, N = lingote de netherita.
+La receta aparece en el libro al obtener un fragmento de disco. Todos los ingredientes
+se consumen al fabricar; no hay una receta alternativa solo con fragmentos.
+
+Para probarla en un mundo con comandos, consigue una mesa y los materiales:
+
+```mcfunction
+/give @s minecraft:crafting_table
+/give @s jojosmod:stand_disc_fragment 7
+/give @s minecraft:echo_shard
+/give @s minecraft:netherite_ingot
+```
+
+`jojosmod:empty_stand_disc` es el disco vacío nuevo. El ítem antiguo `jojosmod:stand_disc`
+se conserva como placeholder separado y no sustituye al disco vacío en ninguna receta.
+Por ahora, el disco vacío no guarda ni equipa Stands: será el recurso necesario para
+los núcleos, el servicio del jefe y Whitesnake en las siguientes entregas.
+Ambos discos comparten temporalmente la textura original de la Fase 1, con nombres distintos.
+
+El loot usa el mismo `neoforge:add_table` que las flechas. Sus recursos están en
+`data/jojosmod/loot_modifiers/stand_fragments_in_ancient_cities.json` y
+`data/jojosmod/loot_table/chests/stand_disc_fragments.json`. La receta y su descubrimiento
+usan los sistemas nativos de Minecraft, en `recipe/empty_stand_disc.json` y
+`advancement/recipes/misc/empty_stand_disc.json`. No se añaden dependencias.
 
 ## Obtener un Stand con la flecha
 
@@ -192,7 +235,11 @@ fijas, consumo en supervivencia, rechazo de asignaciones existentes y usuarios n
 válidos, creativo/mano secundaria, guardado/copia al morir y combate con estadísticas
 de cada definición. El caso de loot compara el resultado modificado con el original
 para 256 semillas y comprueba que una tabla ajena no reciba flechas.
-En Minecraft 26.3 se ejecutan **20 tests en total: 19 del mod y uno de Minecraft**.
+Los cuatro GameTests de Fase 4A comprueban el registro del disco vacío, la receta
+cargada y el consumo al recoger su resultado en una mesa real; rechazan ingredientes
+ausentes o sustitutos baratos. Comparan el loot vanilla y modificado para 256 semillas,
+comprueban las tablas excluidas y prueban el umbral exacto del 25 % con tiradas controladas.
+En Minecraft 26.3 se ejecutan **24 tests en total: 23 del mod y uno de Minecraft**.
 
 ## Organización
 
@@ -206,14 +253,14 @@ En Minecraft 26.3 se ejecutan **20 tests en total: 19 del mod y uno de Minecraft
 - `commands`: asignación de prueba restringida a operadores.
 - `src/gameTest`: mod de pruebas separado de la distribución.
 - `assets/jojosmod`: traducciones, modelos y texturas.
-- `data/jojosmod`: tabla adicional y modificador de loot de mazmorras.
+- `data/jojosmod`: loot adicional de mazmorras y Ancient Cities, recetas y descubrimiento.
 
 El paquete `worldgen` se incorporará cuando tenga lógica propia; la inyección de
 loot actual solo necesita recursos de datos.
 
 ## Estado de validación en la nube
 
-La compilación y los 20 GameTests han pasado en la nube. El log aportado por el
+La compilación y los 24 GameTests han pasado en la nube. El log aportado por el
 usuario también confirma compilación, los seis tests de Fase 1 y arranque del cliente
 de esa fase en Windows. En Fase 2 se comprobó dentro del juego:
 
@@ -235,6 +282,13 @@ En Fase 3 se comprobó manualmente con un cliente real:
 El loot, ambos resultados del sorteo y el modo creativo se validaron mediante
 GameTests. La obtención abriendo un cofre natural de mazmorra y una sesión con dos
 clientes remotos no se han probado manualmente.
+
+En Fase 4A se comprobó con el cliente el descubrimiento de la receta al recibir
+fragmentos, su aparición en el libro y la colocación automática de los ingredientes.
+Al fabricar con 7 fragmentos, un eco y una netherita, la cuadrícula quedó vacía y
+el inventario contenía exactamente un `jojosmod:empty_stand_disc`. Se verificaron
+su nombre y su modelo provisional. El loot de Ancient City se comprobó con los
+GameTests; no se abrió manualmente un cofre natural de esa estructura.
 Los clientes se cerraron normalmente después de las comprobaciones.
 
 Dominios adicionales requeridos por la compilación y el cliente:

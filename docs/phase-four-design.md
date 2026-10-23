@@ -1,7 +1,8 @@
 # Fase 4: núcleos, voluntad y discos
 
-Documento de diseño para revisión. La versión implementada sigue siendo la Fase 3;
-las mecánicas descritas aquí todavía no están programadas.
+El usuario aprobó el coste del disco vacío y el balance inicial de extracción hostil.
+La **Fase 4A (0.4.0)** implementa el loot de fragmentos y la fabricación del disco vacío.
+Los núcleos, la voluntad, el jefe y la extracción todavía no están programados.
 
 ## Requisitos indicados por el usuario
 
@@ -14,11 +15,10 @@ las mecánicas descritas aquí todavía no están programadas.
 - Whitesnake puede robar el Stand de otro jugador sin su consentimiento mediante un disco vacío.
 - El disco vacío debe ser difícil de obtener para limitar la frecuencia de los robos.
 
-La propuesta anterior de sortear Star Platinum o The World al usar un disco queda
-pendiente de revisión: el diseño solicitado ahora relaciona cada disco con su núcleo.
+El diseño relaciona cada disco con su núcleo y el Stand que este identifica.
 Las reglas aprobadas de la flecha de Fase 3 se mantienen.
 
-## Propuesta de obtención y fabricación — pendiente de aprobación
+## Obtención y fabricación — coste aprobado
 
 Usar **núcleo de Stand** como nombre del material que identifica el Stand.
 
@@ -40,11 +40,16 @@ Usar **núcleo de Stand** como nombre del material que identifica el Stand.
 - Equipar un disco lleno requiere no tener otro Stand asignado y cumplir su requisito
   de voluntad. Al equiparlo, el disco se consume en supervivencia.
 
+El loot, el disco vacío y su receta están implementados en Fase 4A. El ítem nuevo
+es `jojosmod:empty_stand_disc`; el antiguo `jojosmod:stand_disc` sigue reservado para
+el desarrollo de los discos con identidad. La receta se descubre al obtener un fragmento.
+La fabricación con núcleo y el uso de discos llenos corresponden a entregas posteriores.
+
 Los ingredientes vinculan el disco con Ancient Cities y con la obtención de netherita.
 La rareza limita cuántos robos pueden financiarse; las condiciones de combate de abajo
 permiten defenderse incluso frente a jugadores con muchos recursos.
 
-## Propuesta de extracción hostil con Whitesnake — pendiente de aprobación
+## Extracción hostil con Whitesnake — balance inicial aprobado, pendiente de implementación
 
 - Whitesnake debe estar invocado y el usuario debe sostener un disco vacío en la mano secundaria.
 - Solo afecta a otro jugador vivo, conectado, con Stand asignado y en la misma dimensión.
@@ -79,7 +84,7 @@ secundaria que contenía el disco vacío es el destino propuesto.
 
 ## Entregas propuestas
 
-1. Fragmentos en Ancient Cities y fabricación del disco vacío con el coste aprobado.
+1. **Implementado en Fase 4A:** fragmentos en Ancient Cities y fabricación del disco vacío.
 2. Discos con identidad, núcleos, voluntad y equipamiento; concretar primero la progresión.
 3. Jefe localizable, almacenamiento voluntario y recompensa de núcleo.
 4. Extracción hostil de Whitesnake y comprobación multijugador.

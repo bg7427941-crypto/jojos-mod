@@ -8,6 +8,10 @@ Stand. Ambos se invocan, siguen al jugador y tienen un ataque básico con autori
 del servidor. Las flechas aparecen como loot adicional en mazmorras vanilla.
 Los discos y fragmentos siguen siendo ítems sin comportamiento; corresponden a la Fase 4.
 
+El diseño ampliado de núcleos, voluntad y extracción con Whitesnake está en
+[la propuesta de Fase 4](docs/phase-four-design.md), con los requisitos confirmados
+y los valores de balance pendientes de aprobación.
+
 ## Requisitos
 
 - Minecraft **26.3**, NeoForge **26.3.0.95**.

@@ -2,6 +2,7 @@ package io.github.bg7427941.jojosmod.registry;
 
 import io.github.bg7427941.jojosmod.JojosMod;
 import io.github.bg7427941.jojosmod.items.StandArrowItem;
+import io.github.bg7427941.jojosmod.items.StandDiscItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -24,8 +25,12 @@ public final class ModItems {
             ITEMS.registerSimpleItem("stand_disc_fragment");
     public static final DeferredItem<Item> EMPTY_STAND_DISC =
             ITEMS.registerSimpleItem("empty_stand_disc", properties -> properties.stacksTo(1));
-    public static final DeferredItem<Item> STAND_DISC =
-            ITEMS.registerSimpleItem("stand_disc", properties -> properties.stacksTo(1));
+    public static final DeferredItem<StandDiscItem> STAND_DISC =
+            ITEMS.registerItem("stand_disc", StandDiscItem::new, properties -> properties.stacksTo(1));
+    public static final DeferredItem<Item> ECHOES_ACT_1_CORE =
+            ITEMS.registerSimpleItem("echoes_act_1_core", properties -> properties.stacksTo(1));
+    public static final DeferredItem<Item> LITTLE_FEET_CORE =
+            ITEMS.registerSimpleItem("little_feet_core", properties -> properties.stacksTo(1));
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> JOJOS_TAB =
             TABS.register("jojos_mod", () -> CreativeModeTab.builder()
@@ -37,6 +42,10 @@ public final class ModItems {
                         output.accept(STAND_DISC_FRAGMENT.get());
                         output.accept(EMPTY_STAND_DISC.get());
                         output.accept(STAND_DISC.get());
+                        output.accept(ECHOES_ACT_1_CORE.get());
+                        output.accept(LITTLE_FEET_CORE.get());
+                        output.accept(StandDiscItem.containing(ModStands.ECHOES_ACT_1));
+                        output.accept(StandDiscItem.containing(ModStands.LITTLE_FEET));
                     })
                     .build());
 

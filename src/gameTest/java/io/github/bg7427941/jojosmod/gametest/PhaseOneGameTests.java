@@ -58,6 +58,7 @@ public final class PhaseOneGameTests {
         PhaseTwoGameTests.register(modBus);
         PhaseThreeGameTests.register(modBus);
         PhaseFourGameTests.register(modBus);
+        StandDiscGameTests.register(modBus);
     }
 
     private static void registerTests(RegisterGameTestsEvent event) {

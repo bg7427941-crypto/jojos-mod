@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_core": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {"items": [{"items": "jojosmod:little_feet_core"}]}
+    }
+  },
+  "requirements": [["has_core"]],
+  "rewards": {"recipes": ["jojosmod:little_feet_stand_disc"]}
+}

@@ -3,6 +3,7 @@ package io.github.bg7427941.jojosmod.registry;
 import io.github.bg7427941.jojosmod.JojosMod;
 import io.github.bg7427941.jojosmod.stands.StandData;
 import io.github.bg7427941.jojosmod.stands.StandSession;
+import io.github.bg7427941.jojosmod.stands.WillpowerData;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -23,6 +24,13 @@ public final class ModAttachments {
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<StandSession>> STAND_SESSION =
             ATTACHMENTS.register("stand_session", () -> AttachmentType.builder(() -> StandSession.EMPTY).build());
+
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<WillpowerData>> WILLPOWER =
+            ATTACHMENTS.register("willpower", () -> AttachmentType.builder(() -> WillpowerData.INITIAL)
+                    .serialize(WillpowerData.CODEC)
+                    .copyOnDeath()
+                    .sync((holder, recipient) -> holder == recipient, WillpowerData.STREAM_CODEC)
+                    .build());
 
     private ModAttachments() {}
 

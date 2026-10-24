@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": ["jojosmod:empty_stand_disc", "jojosmod:echoes_act_1_core"],
+  "result": {
+    "id": "jojosmod:stand_disc",
+    "count": 1,
+    "components": {"jojosmod:stand_id": "jojosmod:echoes_act_1"}
+  }
+}

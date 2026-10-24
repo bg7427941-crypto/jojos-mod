@@ -6,7 +6,7 @@ version="${mod_version}"
 displayName="${mod_name}"
 description='''
 An original Minecraft Stand system inspired by JoJo's Bizarre Adventure.
-Phase 4A: Ancient City fragments and costly empty Stand Discs, alongside Stand Arrow progression.
+Phase 4B: Stand cores, persistent disc identities and willpower-gated equipping, alongside Stand Arrow progression.
 '''
 
 [[dependencies.${mod_id}]]

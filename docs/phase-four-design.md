@@ -2,7 +2,9 @@
 
 El usuario aprobó el coste del disco vacío y el balance inicial de extracción hostil.
 La **Fase 4A (0.4.0)** implementa el loot de fragmentos y la fabricación del disco vacío.
-Los núcleos, la voluntad, el jefe y la extracción todavía no están programados.
+La **Fase 4B (0.4.1)** añade núcleos de Echoes ACT 1 y Little Feet, fabricación de
+discos identificados y equipamiento con voluntad persistente. Los valores de voluntad
+son provisionales; sus hitos, el jefe y la extracción todavía no están programados.
 
 ## Requisitos indicados por el usuario
 
@@ -41,9 +43,10 @@ Usar **núcleo de Stand** como nombre del material que identifica el Stand.
   de voluntad. Al equiparlo, el disco se consume en supervivencia.
 
 El loot, el disco vacío y su receta están implementados en Fase 4A. El ítem nuevo
-es `jojosmod:empty_stand_disc`; el antiguo `jojosmod:stand_disc` sigue reservado para
-el desarrollo de los discos con identidad. La receta se descubre al obtener un fragmento.
-La fabricación con núcleo y el uso de discos llenos corresponden a entregas posteriores.
+es `jojosmod:empty_stand_disc`; `jojosmod:stand_disc` contiene la identidad mediante
+el componente nativo `jojosmod:stand_id` desde Fase 4B. Los discos antiguos sin identidad
+se conservan y no equipan ningún Stand. La receta del disco vacío se descubre al obtener
+un fragmento; las recetas con núcleo, al obtener el núcleo correspondiente.
 
 Los ingredientes vinculan el disco con Ancient Cities y con la obtención de netherita.
 La rareza limita cuántos robos pueden financiarse; las condiciones de combate de abajo
@@ -76,6 +79,10 @@ secundaria que contenía el disco vacío es el destino propuesto.
 
 - Valores de voluntad, requisitos de cada Stand e hitos que la aumentan. Se propone
   progreso persistente, separado de la experiencia y con recompensas únicas por hito.
+  La base provisional de Fase 4B empieza en 1, exige 1 para los dos Stands básicos y
+  permite ajustar el requisito con configuración sincronizada del servidor. No consume
+  voluntad al equipar ni modifica las reglas de la flecha. El comando de operador
+  `/standtest willpower [valor]` permite probar el umbral; aún no otorga progreso natural.
 - Condiciones, coste y presentación del servicio del jefe: intercambio o misión.
 - Cómo localizar al jefe y cuándo reaparece. Se propone que el servicio siga siendo
   accesible para otros jugadores después de una derrota.
@@ -85,7 +92,8 @@ secundaria que contenía el disco vacío es el destino propuesto.
 ## Entregas propuestas
 
 1. **Implementado en Fase 4A:** fragmentos en Ancient Cities y fabricación del disco vacío.
-2. Discos con identidad, núcleos, voluntad y equipamiento; concretar primero la progresión.
+2. **Base implementada en Fase 4B:** discos con identidad, dos núcleos de prueba,
+   voluntad persistente y equipamiento. Falta concretar los hitos y el balance final.
 3. Jefe localizable, almacenamiento voluntario y recompensa de núcleo.
 4. Extracción hostil de Whitesnake y comprobación multijugador.
 

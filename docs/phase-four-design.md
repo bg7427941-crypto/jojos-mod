@@ -4,7 +4,10 @@ El usuario aprobó el coste del disco vacío y el balance inicial de extracción
 La **Fase 4A (0.4.0)** implementa el loot de fragmentos y la fabricación del disco vacío.
 La **Fase 4B (0.4.1)** añade núcleos de Echoes ACT 1 y Little Feet, fabricación de
 discos identificados y equipamiento con voluntad persistente. Los valores de voluntad
-son provisionales; sus hitos, el jefe y la extracción todavía no están programados.
+son provisionales; sus hitos y la extracción todavía no están programados.
+La **Fase 4C — prototipo de servicio (0.4.2)** implementa el guardián persistente y
+el almacenamiento voluntario. Su aparición natural, localización, combate y
+recompensa de núcleo siguen pendientes.
 
 ## Requisitos indicados por el usuario
 
@@ -84,8 +87,14 @@ secundaria que contenía el disco vacío es el destino propuesto.
   voluntad al equipar ni modifica las reglas de la flecha. El comando de operador
   `/standtest willpower [valor]` permite probar el umbral; aún no otorga progreso natural.
 - Condiciones, coste y presentación del servicio del jefe: intercambio o misión.
+  El prototipo de Fase 4C usa únicamente el disco vacío como coste. El jugador debe
+  agacharse e interactuar dentro de tres bloques y con visión directa; una interacción
+  sin agacharse muestra antes un aviso. El disco se transforma en la misma mano, incluso
+  en creativo, y se conserva la voluntad. No se exige espacio libre en el inventario.
 - Cómo localizar al jefe y cuándo reaparece. Se propone que el servicio siga siendo
   accesible para otros jugadores después de una derrota.
+  El NPC actual se invoca con `/summon jojosmod:disc_keeper`, persiste entre guardados
+  y sirve a todos los jugadores. Es inmóvil y no recibe daño: aún no hay derrota ni loot.
 - Otros núcleos, Stands disponibles y sus jefes asociados.
 - Detalles del combate del jefe, de las habilidades de Whitesnake y de sus recursos visuales.
 
@@ -94,7 +103,9 @@ secundaria que contenía el disco vacío es el destino propuesto.
 1. **Implementado en Fase 4A:** fragmentos en Ancient Cities y fabricación del disco vacío.
 2. **Base implementada en Fase 4B:** discos con identidad, dos núcleos de prueba,
    voluntad persistente y equipamiento. Falta concretar los hitos y el balance final.
-3. Jefe localizable, almacenamiento voluntario y recompensa de núcleo.
+3. **Almacenamiento implementado en el prototipo de Fase 4C:** guardián persistente,
+   consentimiento y transformación segura del disco. Faltan la aparición natural,
+   localización y combate del jefe, y su recompensa de núcleo.
 4. Extracción hostil de Whitesnake y comprobación multijugador.
 
 Cada entrega debe compilar, tener las pruebas pertinentes y publicarse en el repositorio.
@@ -109,5 +120,6 @@ Se usarán recursos visuales originales provisionales mientras no haya modelos f
 | Roundabout, referencia revisada durante la investigación inicial | Licencia propia | Concepto de discos de Stand | Inspiración conceptual; no incorporar código ni assets |
 
 La base actual ya tiene asignación persistente, desinvocación y validación PvP en el
-servidor. La transferencia a discos necesita pruebas específicas de inventario,
-concurrencia, interrupción y persistencia antes de darse por terminada.
+servidor. La transferencia voluntaria tiene pruebas de inventario, repetición,
+aislamiento entre jugadores y guardado/carga. La extracción hostil todavía necesita
+pruebas de concurrencia, interrupciones, enfriamientos y multijugador real.

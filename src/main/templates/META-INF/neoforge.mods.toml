@@ -6,7 +6,7 @@ version="${mod_version}"
 displayName="${mod_name}"
 description='''
 An original Minecraft Stand system inspired by JoJo's Bizarre Adventure.
-Phase 4B: Stand cores, persistent disc identities and willpower-gated equipping, alongside Stand Arrow progression.
+Phase 4C prototype: voluntary Stand storage through a persistent Disc Keeper service NPC.
 '''
 
 [[dependencies.${mod_id}]]

@@ -3,6 +3,14 @@
 Mod de Minecraft inspirado en los Stands de JoJo's Bizarre Adventure. Código MIT;
 modelos, texturas y sonidos del proyecto deben ser originales o tener una licencia compatible.
 
+La meta es una experiencia completa de supervivencia y multijugador, con progresión,
+habilidades fieles a JoJo y modelos y animaciones propios de cada Stand. La primera
+versión pulida se centrará en **Parte 3: Stardust Crusaders**. La
+[visión y criterios de entrega](docs/product-vision.md) guían las próximas fases.
+El [plan de Parte 3](docs/part-three-release.md) propone el catálogo y el recorrido,
+empezando por Star Platinum; el desarrollo específico de Whitesnake queda para una expansión posterior.
+El estado descrito abajo corresponde al prototipo actual.
+
 La **Fase 4C — prototipo de servicio (0.4.2)** añade un guardián persistente que guarda
 voluntariamente el Stand del jugador en un disco vacío. Conserva los núcleos de
 **Echoes ACT 1** y **Little Feet**, los discos identificados y el equipamiento con voluntad de Fase 4B.

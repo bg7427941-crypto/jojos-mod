@@ -3,14 +3,15 @@
 Mod de Minecraft inspirado en los Stands de JoJo's Bizarre Adventure. Código MIT;
 modelos, texturas y sonidos del proyecto deben ser originales o tener una licencia compatible.
 
-La **Fase 4A (0.4.0)** incorpora fragmentos en Ancient Cities y la fabricación de
-un disco de Stand vacío con ingredientes escasos. Las flechas de la Fase 3 siguen
-otorgando **Echoes ACT 1** o **Little Feet**, invocables y con combate básico.
+La **Fase 4B (0.4.1)** incorpora núcleos de **Echoes ACT 1** y **Little Feet**, discos
+con identidad persistente y equipamiento condicionado por la voluntad del jugador.
+Conserva los fragmentos de Ancient Cities y el coste del disco vacío de Fase 4A.
+Las flechas de Fase 3 siguen otorgando los mismos Stands, invocables y con combate básico.
 
 El diseño ampliado de núcleos, voluntad y extracción con Whitesnake está en
 [el diseño de Fase 4](docs/phase-four-design.md), con el balance aprobado y las
-decisiones de progresión que siguen abiertas. Los núcleos, la voluntad, el jefe y
-la extracción se desarrollarán en las siguientes entregas.
+decisiones de progresión que siguen abiertas. La voluntad tiene valores provisionales
+configurables; los hitos, los jefes y la extracción siguen pendientes.
 
 ## Requisitos
 
@@ -101,10 +102,11 @@ Para probarla en un mundo con comandos, consigue una mesa y los materiales:
 /give @s minecraft:netherite_ingot
 ```
 
-`jojosmod:empty_stand_disc` es el disco vacío nuevo. El ítem antiguo `jojosmod:stand_disc`
-se conserva como placeholder separado y no sustituye al disco vacío en ninguna receta.
-Por ahora, el disco vacío no guarda ni equipa Stands: será el recurso necesario para
-los núcleos, el servicio del jefe y Whitesnake en las siguientes entregas.
+`jojosmod:empty_stand_disc` es el disco vacío nuevo. El ítem `jojosmod:stand_disc`
+conserva su ID y no sustituye al disco vacío en ninguna receta; los ejemplares antiguos
+sin identidad siguen sin equipar ningún Stand.
+El disco vacío se combina con un núcleo para fabricar un disco con identidad (ver abajo).
+El almacenamiento del Stand actual mediante el jefe y el robo con Whitesnake siguen pendientes.
 Ambos discos comparten temporalmente la textura original de la Fase 1, con nombres distintos.
 
 El loot usa el mismo `neoforge:add_table` que las flechas. Sus recursos están en
@@ -112,6 +114,62 @@ El loot usa el mismo `neoforge:add_table` que las flechas. Sus recursos están e
 `data/jojosmod/loot_table/chests/stand_disc_fragments.json`. La receta y su descubrimiento
 usan los sistemas nativos de Minecraft, en `recipe/empty_stand_disc.json` y
 `advancement/recipes/misc/empty_stand_disc.json`. No se añaden dependencias.
+
+## Núcleos, discos identificados y voluntad — Fase 4B
+
+Un **disco vacío + un núcleo de Stand** producen **un disco con el Stand del núcleo**.
+La receta no tiene forma y funciona tanto en el inventario 2×2 como en la mesa 3×3.
+Consume ambos ingredientes y se descubre al obtener el núcleo correspondiente.
+Los núcleos no se apilan; sus iconos reutilizan provisionalmente el fragmento original.
+
+Esta entrega incluye núcleos de Echoes ACT 1 y Little Feet. Se obtienen en la pestaña
+creativa o mediante comandos de operador; **todavía no tienen loot ni receta propia**,
+porque su obtención mediante jefes corresponde a la siguiente entrega:
+
+```mcfunction
+/give @s jojosmod:empty_stand_disc
+/give @s jojosmod:echoes_act_1_core
+/give @s jojosmod:little_feet_core
+```
+
+El resultado usa el ID existente `jojosmod:stand_disc` y el componente nativo
+`jojosmod:stand_id`. El nombre muestra el Stand contenido y su identidad se conserva
+al guardar y sincronizar el inventario. Ambos discos identificados también aparecen
+en creativo. Para obtener uno directamente con comandos:
+
+```mcfunction
+/give @s jojosmod:stand_disc[jojosmod:stand_id="jojosmod:echoes_act_1"]
+/give @s jojosmod:stand_disc[jojosmod:stand_id="jojosmod:little_feet"]
+```
+
+Haz clic derecho apuntando al aire con el disco en cualquiera de las manos. El servidor
+exige un jugador vivo, que no sea espectador, sin ningún Stand asignado y con voluntad
+suficiente. Se consume el disco en supervivencia y se conserva en creativo. Pulsa **R**
+para invocar el Stand equipado. No se pierde salud ni se consume voluntad.
+Si ya tienes un Stand, el disco se conserva y no sustituye la asignación ni la manifestación.
+Los discos antiguos sin componente y los de identidad desconocida se rechazan intactos;
+no se convierten gratuitamente en discos vacíos ni sirven como ingrediente sustituto.
+
+La voluntad inicial es **1**, también para jugadores de partidas anteriores. Es un dato
+persistente separado del Stand y de la experiencia: sobrevive al guardado y a la copia al
+morir, y no se reinicia al cambiar o borrar la asignación. Solo se sincroniza al propietario.
+Los dos Stands actuales requieren **1** por defecto. El administrador puede cambiar
+`willpower.basicStandRequirement` en `config/jojosmod-synced.toml` del servidor o instancia.
+NeoForge también admite la configuración específica del mundo en `serverconfig/`.
+`strongStandRequirement = 3` queda reservado para futuros Stands fuertes; no añade ninguno.
+Estos valores son **provisionales**: aún no hay hitos que aumenten la voluntad en supervivencia.
+Los comandos de prueba, restringidos a operadores, permiten consultar y ajustar el valor propio:
+
+```mcfunction
+/standtest willpower
+/standtest willpower 0
+/standtest willpower 1
+```
+
+Con voluntad 0 y el requisito por defecto, el uso del disco se rechaza sin consumirlo;
+con voluntad 1, se puede equipar. El valor permitido va de 0 a 1 000 000.
+Esta restricción se aplica a los discos; la flecha conserva las reglas aprobadas de Fase 3.
+Bajar la voluntad o subir el requisito no elimina retroactivamente un Stand ya asignado.
 
 ## Obtener un Stand con la flecha
 
@@ -239,18 +297,22 @@ Los cuatro GameTests de Fase 4A comprueban el registro del disco vacío, la rece
 cargada y el consumo al recoger su resultado en una mesa real; rechazan ingredientes
 ausentes o sustitutos baratos. Comparan el loot vanilla y modificado para 256 semillas,
 comprueban las tablas excluidas y prueban el umbral exacto del 25 % con tiradas controladas.
-En Minecraft 26.3 se ejecutan **24 tests en total: 23 del mod y uno de Minecraft**.
+La Fase 4B añade diez GameTests de recetas y consumo de núcleos, sustituciones inválidas,
+equipamiento de ambas identidades, conservación de la asignación y manifestación,
+usuarios y discos inválidos, creativo/mano secundaria, umbral de voluntad,
+guardado y red de los ítems, y persistencia/copia al morir/sincronización de la voluntad.
+El total actual es **34 tests: 33 del mod y uno de Minecraft**.
 
 ## Organización
 
 - `registry`: ítems, entidades, definiciones y attachments.
-- `items`: obtención por flecha desde el servidor.
+- `items`: obtención por flecha y equipamiento de discos desde el servidor.
 - `stands`: datos, stats y controlador del ciclo de vida.
 - `entities`: manifestación temporal del Stand.
 - `abilities`: ataque básico autoritativo.
 - `network`: intenciones cliente → servidor, sin aceptar objetivo ni daño del cliente.
 - `client`: teclas y renderer, aislados del servidor dedicado.
-- `commands`: asignación de prueba restringida a operadores.
+- `commands`: asignación y voluntad de prueba restringidas a operadores.
 - `src/gameTest`: mod de pruebas separado de la distribución.
 - `assets/jojosmod`: traducciones, modelos y texturas.
 - `data/jojosmod`: loot adicional de mazmorras y Ancient Cities, recetas y descubrimiento.
@@ -260,7 +322,7 @@ loot actual solo necesita recursos de datos.
 
 ## Estado de validación en la nube
 
-La compilación y los 24 GameTests han pasado en la nube. El log aportado por el
+La compilación y los 34 GameTests han pasado en la nube. El log aportado por el
 usuario también confirma compilación, los seis tests de Fase 1 y arranque del cliente
 de esa fase en Windows. En Fase 2 se comprobó dentro del juego:
 
@@ -290,6 +352,14 @@ el inventario contenía exactamente un `jojosmod:empty_stand_disc`. Se verificar
 su nombre y su modelo provisional. El loot de Ancient City se comprobó con los
 GameTests; no se abrió manualmente un cofre natural de esa estructura.
 Los clientes se cerraron normalmente después de las comprobaciones.
+
+En Fase 4B se comprobó con el cliente el nombre del disco identificado, el rechazo
+por voluntad 0, el equipamiento de Echoes ACT 1 con voluntad 1 y su consumo en
+supervivencia, y la invocación con R. Con el Stand activo, un disco de Little Feet
+en la mano secundaria se rechazó sin consumirlo ni sustituir la manifestación.
+Las recetas de ambos núcleos, los datos de ítem y la copia al morir de la voluntad
+se verificaron mediante GameTests. La obtención natural de núcleos y los hitos
+de voluntad siguen pendientes, al igual que la comprobación con dos clientes remotos.
 
 Dominios adicionales requeridos por la compilación y el cliente:
 `maven.neoforged.net`, `libraries.minecraft.net`, `piston-meta.mojang.com`,

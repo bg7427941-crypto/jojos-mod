@@ -7,6 +7,7 @@ import io.github.bg7427941.jojosmod.registry.ModEntities;
 import io.github.bg7427941.jojosmod.commands.StandTestCommand;
 import io.github.bg7427941.jojosmod.network.ModNetworking;
 import io.github.bg7427941.jojosmod.stands.StandProgressionConfig;
+import io.github.bg7427941.jojosmod.abilities.StarPlatinumActions;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.ModContainer;
@@ -25,5 +26,8 @@ public final class JojosMod {
         ModEntities.register(modEventBus);
         ModNetworking.register(modEventBus);
         NeoForge.EVENT_BUS.addListener(StandTestCommand::register);
+        NeoForge.EVENT_BUS.addListener(StarPlatinumActions::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener(StarPlatinumActions::onIncomingDamage);
+        NeoForge.EVENT_BUS.addListener(StarPlatinumActions::onDamage);
     }
 }

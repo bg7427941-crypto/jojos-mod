@@ -1,6 +1,7 @@
 package io.github.bg7427941.jojosmod.stands;
 
 import io.github.bg7427941.jojosmod.abilities.BasicAttack;
+import io.github.bg7427941.jojosmod.abilities.StarPlatinumActions;
 import io.github.bg7427941.jojosmod.entities.TrainingStandEntity;
 import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import io.github.bg7427941.jojosmod.registry.ModEntities;
@@ -27,7 +28,7 @@ public final class StandController {
                 .map(id -> owner.level().getEntities().get(id))
                 .filter(TrainingStandEntity.class::isInstance)
                 .map(TrainingStandEntity.class::cast)
-                .filter(stand -> !stand.isRemoved() && stand.getOwner() == owner);
+                .filter(stand -> !stand.isRemoved() && !stand.isDismissing() && stand.getOwner() == owner);
     }
 
     public static boolean isActive(ServerPlayer owner, TrainingStandEntity stand) {
@@ -47,7 +48,8 @@ public final class StandController {
         }
         var active = getActive(owner);
         if (active.isPresent()) {
-            active.get().discard();
+            StarPlatinumActions.stop(owner);
+            active.get().dismiss();
             owner.setData(ModAttachments.STAND_SESSION,
                     new StandSession(Optional.empty(), now + TOGGLE_COOLDOWN_TICKS, state.nextAttackTick()));
             return true;
@@ -57,7 +59,9 @@ public final class StandController {
             return false;
         }
 
-        var stand = new TrainingStandEntity(ModEntities.TRAINING_STAND.get(), owner.level());
+        var type = definition.get().id().equals(ModStands.STAR_PLATINUM.id())
+                ? ModEntities.STAR_PLATINUM.get() : ModEntities.TRAINING_STAND.get();
+        var stand = new TrainingStandEntity(type, owner.level());
         stand.setOwner(owner);
         stand.setStandDefinition(definition.get());
         stand.snapTo(owner.position(), owner.getYRot(), 0);
@@ -66,6 +70,7 @@ public final class StandController {
         }
         owner.setData(ModAttachments.STAND_SESSION, new StandSession(
                 Optional.of(stand.getUUID()), now + TOGGLE_COOLDOWN_TICKS, state.nextAttackTick()));
+        stand.playSummonAnimation();
         return true;
     }
 
@@ -80,17 +85,19 @@ public final class StandController {
         long now = owner.level().getGameTime();
         if (active.isEmpty() || definition.isEmpty() || !isActive(owner, active.get())
                 || now < state.nextAttackTick()
-                || active.get().distanceToSqr(owner) > Math.pow(definition.get().stats().maxOwnerDistance(), 2)) {
+                || active.get().distanceToSqr(owner) > Math.pow(definition.get().combat().tetherDistance(), 2)) {
             return false;
         }
+        if (active.get().isStarPlatinum() && !StarPlatinumActions.preciseStrike(owner, active.get())) return false;
         owner.setData(ModAttachments.STAND_SESSION, new StandSession(state.activeEntity(),
-                state.nextToggleTick(), now + definition.get().stats().attackCooldownTicks()));
-        BasicAttack.perform(owner, active.get(), definition.get());
+                state.nextToggleTick(), now + definition.get().combat().cooldownTicks()));
+        if (!active.get().isStarPlatinum()) BasicAttack.perform(owner, active.get(), definition.get());
         return true;
     }
 
     public static void dismiss(ServerPlayer owner) {
-        getActive(owner).ifPresent(TrainingStandEntity::discard);
+        StarPlatinumActions.stop(owner);
+        getActive(owner).ifPresent(TrainingStandEntity::dismiss);
         var state = session(owner);
         owner.setData(ModAttachments.STAND_SESSION,
                 new StandSession(Optional.empty(), state.nextToggleTick(), state.nextAttackTick()));

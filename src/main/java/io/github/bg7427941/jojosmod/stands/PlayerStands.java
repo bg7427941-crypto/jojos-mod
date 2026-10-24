@@ -22,6 +22,7 @@ public final class PlayerStands {
         Objects.requireNonNull(player, "player");
         Objects.requireNonNull(standId, "standId");
         player.setData(ModAttachments.STAND_DATA, new StandData(Optional.of(standId)));
+        StarPlatinumProgress.onAssigned(player);
     }
 
     /** Clears the assignment on the server thread and synchronizes the empty value. */

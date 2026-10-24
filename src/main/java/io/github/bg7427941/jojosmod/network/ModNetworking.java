@@ -1,13 +1,14 @@
 package io.github.bg7427941.jojosmod.network;
 
 import io.github.bg7427941.jojosmod.stands.StandController;
+import io.github.bg7427941.jojosmod.abilities.StarPlatinumActions;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.HandlerThread;
 
 public final class ModNetworking {
-    private static final String PROTOCOL_VERSION = "1";
+    private static final String PROTOCOL_VERSION = "2";
 
     private ModNetworking() {}
 
@@ -26,6 +27,12 @@ public final class ModNetworking {
             if (context.player() instanceof ServerPlayer player) {
                 StandController.attack(player);
             }
+        });
+        registrar.playToServer(BarragePayload.TYPE, BarragePayload.STREAM_CODEC, (payload, context) -> {
+            if (context.player() instanceof ServerPlayer player) StarPlatinumActions.barrage(player);
+        });
+        registrar.playToServer(GuardPayload.TYPE, GuardPayload.STREAM_CODEC, (payload, context) -> {
+            if (context.player() instanceof ServerPlayer player) StarPlatinumActions.toggleGuard(player);
         });
     }
 }

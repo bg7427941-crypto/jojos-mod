@@ -12,8 +12,11 @@ import net.minecraft.resources.Identifier;
 public final class TrainingStandRenderer
         extends GeoEntityRenderer<TrainingStandEntity, EntityRenderState> {
     public TrainingStandRenderer(EntityRendererProvider.Context context) {
-        super(context, new DefaultedEntityGeoModel<>(
-                Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "training_stand")));
+        this(context, "training_stand");
+    }
+
+    public TrainingStandRenderer(EntityRendererProvider.Context context, String model) {
+        super(context, new DefaultedEntityGeoModel<>(Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, model)));
         this.shadowRadius = 0.2F;
     }
 }

@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_core": {"trigger": "minecraft:inventory_changed", "conditions": {"items": [{"items": "jojosmod:star_platinum_core"}]}},
+    "has_the_recipe": {"trigger": "minecraft:recipe_unlocked", "conditions": {"recipes": "jojosmod:star_platinum_stand_disc"}}
+  },
+  "requirements": [["has_core", "has_the_recipe"]],
+  "rewards": {"recipes": ["jojosmod:star_platinum_stand_disc"]}
+}

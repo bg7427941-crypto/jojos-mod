@@ -11,16 +11,47 @@ El [plan de Parte 3](docs/part-three-release.md) propone el catálogo y el recor
 empezando por Star Platinum; el desarrollo específico de Whitesnake queda para una expansión posterior.
 El estado descrito abajo corresponde al prototipo actual.
 
-La **Fase 4C — prototipo de servicio (0.4.2)** añade un guardián persistente que guarda
-voluntariamente el Stand del jugador en un disco vacío. Conserva los núcleos de
-**Echoes ACT 1** y **Little Feet**, los discos identificados y el equipamiento con voluntad de Fase 4B.
-Conserva los fragmentos de Ancient Cities y el coste del disco vacío de Fase 4A.
-Las flechas de Fase 3 siguen otorgando los mismos Stands, invocables y con combate básico.
+La **prueba jugable 0.5.0** añade **Star Platinum** con modelo propio, ocho
+animaciones, golpe preciso, ráfaga y guardia frontal. La flecha Stardust se obtiene
+en templos del desierto y el primer despertar concede un hito persistente de voluntad.
+Sigue la [guía de prueba de 10 minutos](docs/playtest-0.5.0.md) para valorar el modelo
+y el combate. La [ficha de Star Platinum](docs/star-platinum-design.md) detalla las reglas.
 
-El diseño ampliado de núcleos, voluntad y extracción con Whitesnake está en
-[el diseño de Fase 4](docs/phase-four-design.md), con el balance aprobado y las
-decisiones de progresión que siguen abiertas. La voluntad tiene valores provisionales
-configurables; los hitos, la aparición natural y combate del jefe, y la extracción siguen pendientes.
+Conserva Echoes ACT 1, Little Feet, sus flechas, los discos, el guardián y las recetas
+anteriores. La parada temporal, los otros Crusaders y DIO siguen pendientes; esta
+entrega no completa aún el recorrido de Parte 3. El diseño de Whitesnake se conserva
+para una expansión posterior en [Fase 4](docs/phase-four-design.md).
+
+## Star Platinum — prueba jugable
+
+Usa `/give @s jojosmod:stardust_arrow` en un mundo de prueba con un personaje sin
+Stand, y haz clic derecho apuntando al aire. En supervivencia se consume una flecha;
+en creativo se conserva. La primera asignación concede **+2 de voluntad una sola
+vez**, también tras guardar o morir. La voluntad inicial 1 pasa a 3, el requisito
+fuerte por defecto para recuperar su disco. La flecha no sustituye otro Stand.
+
+| Tecla | Acción |
+| --- | --- |
+| **R** | Invocar/desinvocar |
+| **Z** | Golpe preciso: 6 puntos, preparación 0,2 s, cooldown 0,8 s |
+| **X** | Ráfaga: 8 golpes de 1 punto, cooldown 5 s |
+| **C** | Activar/cancelar guardia frontal: 60 % de reducción, máximo 2 s, cooldown 4 s |
+
+Los golpes alcanzan 3 bloques, respetan paredes y reglas PvP/equipos. La guardia
+cubre 120 grados frente al usuario, reduce su velocidad un 45 % y no protege de
+fuego, caídas ni ataques desde atrás. El daño de salud interrumpe los ataques.
+No se pueden superponer acciones. Todos los tiempos suponen 20 TPS y los cooldowns
+se cuentan desde el inicio. Las cuatro teclas se pueden cambiar en Controles.
+
+Cada cofre nuevo de templo del desierto tiene un **20 %** de probabilidad de añadir
+una flecha Stardust, conservando el loot vanilla. Esa flecha tiene su propio sorteo,
+que por ahora contiene solo Star Platinum; la flecha antigua mantiene Echoes/Little Feet.
+El núcleo `jojosmod:star_platinum_core` está disponible en creativo/comandos y se
+combina con un disco vacío. El guardián puede guardar y recuperar este Stand.
+
+Las [fuentes editables de Blockbench](art/star_platinum/README.md) acompañan a la
+geometría, textura y ocho animaciones del juego. Los sonidos de esta prueba son
+nativos de Minecraft. El ajuste visual y de ritmo requiere valoración del jugador.
 
 ## Requisitos
 
@@ -132,9 +163,9 @@ La receta no tiene forma y funciona tanto en el inventario 2×2 como en la mesa 
 Consume ambos ingredientes y se descubre al obtener el núcleo correspondiente.
 Los núcleos no se apilan; sus iconos reutilizan provisionalmente el fragmento original.
 
-Esta entrega incluye núcleos de Echoes ACT 1 y Little Feet. Se obtienen en la pestaña
+Esta entrega incluye núcleos de Echoes ACT 1, Little Feet y Star Platinum. Se obtienen en la pestaña
 creativa o mediante comandos de operador; **todavía no tienen loot ni receta propia**,
-porque su obtención mediante jefes corresponde a la siguiente entrega:
+porque su obtención mediante encuentros sigue pendiente:
 
 ```mcfunction
 /give @s jojosmod:empty_stand_disc
@@ -144,7 +175,7 @@ porque su obtención mediante jefes corresponde a la siguiente entrega:
 
 El resultado usa el ID existente `jojosmod:stand_disc` y el componente nativo
 `jojosmod:stand_id`. El nombre muestra el Stand contenido y su identidad se conserva
-al guardar y sincronizar el inventario. Ambos discos identificados también aparecen
+al guardar y sincronizar el inventario. Los tres discos identificados también aparecen
 en creativo. Para obtener uno directamente con comandos:
 
 ```mcfunction
@@ -163,11 +194,11 @@ no se convierten gratuitamente en discos vacíos ni sirven como ingrediente sust
 La voluntad inicial es **1**, también para jugadores de partidas anteriores. Es un dato
 persistente separado del Stand y de la experiencia: sobrevive al guardado y a la copia al
 morir, y no se reinicia al cambiar o borrar la asignación. Solo se sincroniza al propietario.
-Los dos Stands actuales requieren **1** por defecto. El administrador puede cambiar
+Echoes ACT 1 y Little Feet requieren **1** por defecto. El administrador puede cambiar
 `willpower.basicStandRequirement` en `config/jojosmod-synced.toml` del servidor o instancia.
 NeoForge también admite la configuración específica del mundo en `serverconfig/`.
-`strongStandRequirement = 3` queda reservado para futuros Stands fuertes; no añade ninguno.
-Estos valores son **provisionales**: aún no hay hitos que aumenten la voluntad en supervivencia.
+`strongStandRequirement = 3` se aplica a Star Platinum.
+Estos valores son **provisionales**; el primer despertar de Star Platinum ya ofrece un hito de +2.
 Los comandos de prueba, restringidos a operadores, permiten consultar y ajustar el valor propio:
 
 ```mcfunction
@@ -320,7 +351,8 @@ hilo del servidor. No se crean datos al leer un jugador sin Stand.
 
 El attachment tiene codec de persistencia, copia al morir y sincronización con el
 propietario. `ModStands` contiene las definiciones registradas en código, con seis
-stats de 1 a 5; poder, velocidad y alcance determinan los valores del prototipo.
+stats de 1 a 5; los valores antiguos se derivan de poder, velocidad y alcance. Star Platinum usa
+un perfil de combate explícito, separado de los parámetros narrativos.
 El controlador rechaza IDs no registrados. La identidad de cada manifestación se
 sincroniza como dato de la entidad con los clientes que la observan, sin publicar
 el attachment privado del propietario. La sesión activa es un attachment
@@ -337,8 +369,8 @@ Los cinco GameTests de Fase 1 comprueban:
 Los casos de copia y serialización ejercitan los mecanismos de NeoForge; no equivalen
 a una muerte real ni a una desconexión/reconexión de un cliente. Además se comprobó
 manualmente la persistencia tras cerrar y volver a abrir el cliente. La muerte con
-respawn de un cliente real y una sesión con dos clientes remotos no se han probado
-manualmente; la copia al morir y el aislamiento entre propietarios sí tienen GameTests.
+respawn de un cliente real sigue pendiente de prueba manual. La sesión LAN de dos
+clientes de 0.5.0 se describe abajo; la copia al morir tiene GameTests.
 
 Los siete GameTests de Fase 2 comprueban rechazo de asignaciones inválidas,
 invocación única y cooldown, aislamiento por propietario, seguimiento y rango,
@@ -360,7 +392,9 @@ Los nueve GameTests de Fase 4C prueban consentimiento y almacenamiento en superv
 y creativo, ingredientes incorrectos, asignaciones desconocidas, usuarios inválidos,
 dimensión, alcance y paredes, inventario lleno y mano secundaria, guardado/carga
 nativos del jugador y del guardián, recuperación del Stand y aislamiento entre jugadores.
-El total actual es **43 tests: 42 del mod y uno de Minecraft**.
+La entrega Star Platinum añade diez GameTests de tiempos, daño, interrupciones,
+guardia, PvP/equipos con controles positivos, paredes, alcance, loot, recetas,
+almacenamiento y persistencia del hito. El total es **53 tests: 52 del mod y uno de Minecraft**.
 
 ## Organización
 
@@ -368,7 +402,7 @@ El total actual es **43 tests: 42 del mod y uno de Minecraft**.
 - `items`: obtención por flecha y equipamiento de discos desde el servidor.
 - `stands`: datos, stats, ciclo de vida y transferencia voluntaria a discos.
 - `entities`: manifestación temporal del Stand y guardián persistente de servicio.
-- `abilities`: ataque básico autoritativo.
+- `abilities`: rayos de ataque, acciones temporizadas y defensa resueltos en servidor.
 - `network`: intenciones cliente → servidor, sin aceptar objetivo ni daño del cliente.
 - `client`: teclas y renderer, aislados del servidor dedicado.
 - `commands`: asignación y voluntad de prueba restringidas a operadores.
@@ -381,7 +415,7 @@ loot actual solo necesita recursos de datos.
 
 ## Estado de validación en la nube
 
-La compilación y los 43 GameTests han pasado en la nube. El log aportado por el
+La base anterior pasó compilación y 43 GameTests en la nube. El log aportado por el
 usuario también confirma compilación, los seis tests de Fase 1 y arranque del cliente
 de esa fase en Windows. En Fase 2 se comprobó dentro del juego:
 
@@ -428,6 +462,25 @@ e invocar el mismo Stand con R. La voluntad permaneció en 7 durante todo el rec
 El inventario lleno, las dos manos, los usuarios inválidos y el guardado/carga nativo
 del jugador y del NPC se comprobaron mediante GameTests. El aislamiento entre jugadores
 se probó con FakePlayers; todavía no se ha hecho una sesión con dos clientes remotos.
+
+En **0.5.0**, `build` y los **53 GameTests** han pasado. Se verificaron los JSON,
+las referencias a huesos, los límites de UV y la correspondencia de las ocho
+animaciones con el proyecto Blockbench. El JAR contiene los recursos finales y
+excluye el mod de pruebas.
+
+Con un cliente real se comprobó la obtención de Star Platinum y el hito de +2,
+su invocación con R, el modelo frontal y el golpe con Z (objetivo de 20 a 14 de
+salud). Tras restablecerlo, X lo dejó en 12. Con **dos clientes de desarrollo en
+LAN**, ambos despertaron e invocaron Star Platinum; el segundo observó el modelo
+y la guardia animada del primero, incluida la vuelta al reposo. La guardia también
+mostró su aviso en primera persona. Se conservaron capturas de esta comprobación.
+
+La dirección y reducción del daño de guardia, sus tiempos, interrupciones, paredes,
+PvP/equipos, recetas, almacenamiento y persistencia se verificaron con GameTests.
+La sesión LAN no sustituye una prueba de servidor dedicado ni valida el recorrido
+completo en supervivencia. La muerte/reconexión con dos jugadores y el balance de
+combate compartido siguen pendientes de prueba manual. La [guía 0.5.0](docs/playtest-0.5.0.md)
+propone la revisión visual y de jugabilidad que debe hacer el jugador.
 
 Dominios adicionales requeridos por la compilación y el cliente:
 `maven.neoforged.net`, `libraries.minecraft.net`, `piston-meta.mojang.com`,

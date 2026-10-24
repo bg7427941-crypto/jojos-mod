@@ -2,6 +2,8 @@ package io.github.bg7427941.jojosmod.items;
 
 import io.github.bg7427941.jojosmod.registry.ModStands;
 import io.github.bg7427941.jojosmod.stands.PlayerStands;
+import io.github.bg7427941.jojosmod.stands.StandDefinition;
+import java.util.List;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -13,8 +15,16 @@ import net.minecraft.world.level.Level;
 
 /** The normal use-item packet supplies only the hand; the server owns the roll and consumption. */
 public final class StandArrowItem extends Item {
+    private final List<StandDefinition> pool;
+
     public StandArrowItem(Properties properties) {
+        this(properties, ModStands.ARROW_POOL);
+    }
+
+    public StandArrowItem(Properties properties, List<StandDefinition> pool) {
         super(properties);
+        if (pool.isEmpty()) throw new IllegalArgumentException("Arrow pool cannot be empty");
+        this.pool = List.copyOf(pool);
     }
 
     @Override
@@ -33,7 +43,6 @@ public final class StandArrowItem extends Item {
             return InteractionResult.FAIL;
         }
 
-        var pool = ModStands.ARROW_POOL;
         var stand = pool.get(serverPlayer.getRandom().nextInt(pool.size()));
         PlayerStands.assign(serverPlayer, stand.id());
         stack.consume(1, serverPlayer);

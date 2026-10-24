@@ -7,6 +7,8 @@ import com.geckolib.animation.AnimationController;
 import com.geckolib.animation.RawAnimation;
 import com.geckolib.util.GeckoLibUtil;
 import io.github.bg7427941.jojosmod.registry.ModStands;
+import io.github.bg7427941.jojosmod.registry.ModEntities;
+import io.github.bg7427941.jojosmod.abilities.StarPlatinumActions;
 import io.github.bg7427941.jojosmod.stands.StandController;
 import io.github.bg7427941.jojosmod.stands.StandDefinition;
 import java.util.Objects;
@@ -34,15 +36,25 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
             SynchedEntityData.defineId(TrainingStandEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<String> STAND_ID =
             SynchedEntityData.defineId(TrainingStandEntity.class, EntityDataSerializers.STRING);
+    private static final EntityDataAccessor<Boolean> GUARDING =
+            SynchedEntityData.defineId(TrainingStandEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> MOVING =
+            SynchedEntityData.defineId(TrainingStandEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> DISMISSING =
+            SynchedEntityData.defineId(TrainingStandEntity.class, EntityDataSerializers.BOOLEAN);
     private static final double FOLLOW_BEHIND = 1.25;
     private static final double FOLLOW_SIDE = 0.9;
     private static final double FOLLOW_HEIGHT = 0.15;
     private static final double FOLLOW_SMOOTHING = 0.35;
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.training_stand.idle");
     private static final RawAnimation ATTACK = RawAnimation.begin().thenPlay("animation.training_stand.attack");
+    private static final RawAnimation STAR_IDLE = RawAnimation.begin().thenLoop("animation.star_platinum.idle");
+    private static final RawAnimation STAR_MOVE = RawAnimation.begin().thenLoop("animation.star_platinum.move");
+    private static final RawAnimation STAR_GUARD = RawAnimation.begin().thenLoop("animation.star_platinum.guard");
 
     private final AnimatableInstanceCache animationCache = GeckoLibUtil.createInstanceCache(this);
     private @Nullable ServerPlayer owner;
+    private long dismissAt = -1;
 
     public TrainingStandEntity(EntityType<? extends TrainingStandEntity> type, Level level) {
         super(type, level);
@@ -79,6 +91,9 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         builder.define(OWNER_ID, -1);
         builder.define(STAND_ID, ModStands.TRAINING_STAND.id().toString());
+        builder.define(GUARDING, false);
+        builder.define(MOVING, false);
+        builder.define(DISMISSING, false);
     }
 
     @Override
@@ -92,6 +107,10 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         if (level().isClientSide()) {
             return;
         }
+        if (dismissAt >= 0) {
+            if (level().getGameTime() >= dismissAt) discard();
+            return;
+        }
 
         var player = getOwner();
         if (player == null || player.isRemoved() || !player.isAlive() || player.isSpectator()
@@ -103,11 +122,12 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         double yaw = Math.toRadians(player.getYRot());
         var forward = new Vec3(-Math.sin(yaw), 0, Math.cos(yaw));
         var side = new Vec3(Math.cos(yaw), 0, Math.sin(yaw));
+        boolean acting = isStarPlatinum() && StarPlatinumActions.isBusy(player);
         var target = player.position()
-                .add(forward.scale(-FOLLOW_BEHIND))
+                .add(forward.scale(acting ? 0.45 : -FOLLOW_BEHIND))
                 .add(side.scale(FOLLOW_SIDE))
                 .add(0, FOLLOW_HEIGHT, 0);
-        double maxDistance = getStandDefinition().stats().maxOwnerDistance();
+        double maxDistance = getStandDefinition().combat().tetherDistance();
 
         // Snap after teleports so this temporary entity cannot remain separated from its owner.
         setPos(distanceToSqr(player) > maxDistance * maxDistance
@@ -115,6 +135,7 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         setYRot(player.getYRot());
         setXRot(0);
         setDeltaMovement(Vec3.ZERO);
+        if (isStarPlatinum()) entityData.set(MOVING, player.getDeltaMovement().horizontalDistanceSqr() > 0.001);
     }
 
     /** Called by the server after it accepts the basic-attack request. */
@@ -122,11 +143,73 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         triggerAnim("main", "attack");
     }
 
+    public boolean isStarPlatinum() {
+        return getType() == ModEntities.STAR_PLATINUM.get();
+    }
+
+    public boolean isDismissing() {
+        return entityData.get(DISMISSING);
+    }
+
+    public void playSummonAnimation() {
+        if (isStarPlatinum()) triggerAnim("main", "summon");
+    }
+
+    public void playBarrageAnimation() {
+        triggerAnim("main", "barrage");
+    }
+
+    public void setGuarding(boolean guarding) {
+        if (guarding) {
+            stopTriggeredAnim("main", "summon");
+            stopTriggeredAnim("main", "recover");
+        }
+        entityData.set(GUARDING, guarding);
+    }
+
+    public void stopActionAnimation() {
+        setGuarding(false);
+        stopTriggeredAnim("main", "attack");
+        stopTriggeredAnim("main", "barrage");
+        if (isStarPlatinum()) triggerAnim("main", "recover");
+    }
+
+    /** Clears gameplay immediately while giving Star Platinum four ticks to disappear visually. */
+    public void dismiss() {
+        if (!isStarPlatinum()) {
+            discard();
+            return;
+        }
+        entityData.set(DISMISSING, true);
+        dismissAt = level().getGameTime() + 4;
+        triggerAnim("main", "dismiss");
+    }
+
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<TrainingStandEntity>(
-                "main", animation -> animation.setAndContinue(IDLE))
-                .triggerableAnim("attack", ATTACK));
+        if (!isStarPlatinum()) {
+            controllers.add(new AnimationController<TrainingStandEntity>("main", state -> state.setAndContinue(IDLE))
+                    .triggerableAnim("attack", ATTACK));
+            return;
+        }
+        controllers.add(new AnimationController<TrainingStandEntity>("main", state -> state.setAndContinue(
+                starAnimation(entityData.get(GUARDING) ? "guard" : entityData.get(MOVING) ? "move" : "idle", true)))
+                .triggerableAnim("attack", starAnimation("strike", false))
+                .triggerableAnim("barrage", starAnimation("barrage", false))
+                .triggerableAnim("summon", starAnimation("summon", false))
+                .triggerableAnim("dismiss", starAnimation("dismiss", false))
+                .triggerableAnim("recover", starAnimation("recover", false)));
+    }
+
+    private static RawAnimation starAnimation(String name, boolean loop) {
+        if (loop) return switch (name) {
+            case "idle" -> STAR_IDLE;
+            case "move" -> STAR_MOVE;
+            case "guard" -> STAR_GUARD;
+            default -> throw new IllegalArgumentException("Unknown looping Star Platinum animation: " + name);
+        };
+        String key = "animation.star_platinum." + name;
+        return RawAnimation.begin().thenPlay(key);
     }
 
     @Override

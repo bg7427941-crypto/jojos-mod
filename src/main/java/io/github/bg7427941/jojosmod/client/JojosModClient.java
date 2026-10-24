@@ -4,6 +4,8 @@ import com.mojang.blaze3d.platform.InputConstants;
 import io.github.bg7427941.jojosmod.JojosMod;
 import io.github.bg7427941.jojosmod.network.BasicAttackPayload;
 import io.github.bg7427941.jojosmod.network.ToggleStandPayload;
+import io.github.bg7427941.jojosmod.network.BarragePayload;
+import io.github.bg7427941.jojosmod.network.GuardPayload;
 import io.github.bg7427941.jojosmod.registry.ModEntities;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -26,6 +28,10 @@ public final class JojosModClient {
             new KeyMapping("key.jojosmod.toggle_stand", InputConstants.KEY_R, STAND_CATEGORY);
     private static final KeyMapping BASIC_ATTACK =
             new KeyMapping("key.jojosmod.basic_attack", InputConstants.KEY_Z, STAND_CATEGORY);
+    private static final KeyMapping STAR_BARRAGE =
+            new KeyMapping("key.jojosmod.star_barrage", InputConstants.KEY_X, STAND_CATEGORY);
+    private static final KeyMapping STAR_GUARD =
+            new KeyMapping("key.jojosmod.star_guard", InputConstants.KEY_C, STAND_CATEGORY);
 
     public JojosModClient(IEventBus modEventBus) {
         modEventBus.addListener(JojosModClient::registerKeys);
@@ -37,11 +43,14 @@ public final class JojosModClient {
         event.registerCategory(STAND_CATEGORY);
         event.register(TOGGLE_STAND);
         event.register(BASIC_ATTACK);
+        event.register(STAR_BARRAGE);
+        event.register(STAR_GUARD);
     }
 
     private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.TRAINING_STAND.get(), TrainingStandRenderer::new);
         event.registerEntityRenderer(ModEntities.DISC_KEEPER.get(), DiscKeeperRenderer::new);
+        event.registerEntityRenderer(ModEntities.STAR_PLATINUM.get(), context -> new TrainingStandRenderer(context, "star_platinum"));
     }
 
     private static void onClientTick(ClientTickEvent.Post event) {
@@ -63,6 +72,12 @@ public final class JojosModClient {
             if (canSend) {
                 ClientPacketDistributor.sendToServer(BasicAttackPayload.INSTANCE);
             }
+        }
+        while (STAR_BARRAGE.consumeClick()) {
+            if (canSend) ClientPacketDistributor.sendToServer(BarragePayload.INSTANCE);
+        }
+        while (STAR_GUARD.consumeClick()) {
+            if (canSend) ClientPacketDistributor.sendToServer(GuardPayload.INSTANCE);
         }
     }
 }

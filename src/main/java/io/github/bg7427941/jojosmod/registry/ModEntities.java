@@ -2,6 +2,7 @@ package io.github.bg7427941.jojosmod.registry;
 
 import io.github.bg7427941.jojosmod.JojosMod;
 import io.github.bg7427941.jojosmod.entities.TrainingStandEntity;
+import io.github.bg7427941.jojosmod.entities.DiscKeeperEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -29,6 +30,14 @@ public final class ModEntities {
                     .updateInterval(UPDATE_INTERVAL)
                     .build(ResourceKey.create(Registries.ENTITY_TYPE,
                             Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "training_stand"))));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<DiscKeeperEntity>> DISC_KEEPER =
+            ENTITIES.register("disc_keeper", () -> EntityType.Builder
+                    .of(DiscKeeperEntity::new, MobCategory.MISC)
+                    .sized(0.6F, 1.8F)
+                    .clientTrackingRange(TRACKING_RANGE)
+                    .build(ResourceKey.create(Registries.ENTITY_TYPE,
+                            Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "disc_keeper"))));
 
     private ModEntities() {}
 

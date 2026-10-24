@@ -3,15 +3,16 @@
 Mod de Minecraft inspirado en los Stands de JoJo's Bizarre Adventure. Código MIT;
 modelos, texturas y sonidos del proyecto deben ser originales o tener una licencia compatible.
 
-La **Fase 4B (0.4.1)** incorpora núcleos de **Echoes ACT 1** y **Little Feet**, discos
-con identidad persistente y equipamiento condicionado por la voluntad del jugador.
+La **Fase 4C — prototipo de servicio (0.4.2)** añade un guardián persistente que guarda
+voluntariamente el Stand del jugador en un disco vacío. Conserva los núcleos de
+**Echoes ACT 1** y **Little Feet**, los discos identificados y el equipamiento con voluntad de Fase 4B.
 Conserva los fragmentos de Ancient Cities y el coste del disco vacío de Fase 4A.
 Las flechas de Fase 3 siguen otorgando los mismos Stands, invocables y con combate básico.
 
 El diseño ampliado de núcleos, voluntad y extracción con Whitesnake está en
 [el diseño de Fase 4](docs/phase-four-design.md), con el balance aprobado y las
 decisiones de progresión que siguen abiertas. La voluntad tiene valores provisionales
-configurables; los hitos, los jefes y la extracción siguen pendientes.
+configurables; los hitos, la aparición natural y combate del jefe, y la extracción siguen pendientes.
 
 ## Requisitos
 
@@ -106,7 +107,8 @@ Para probarla en un mundo con comandos, consigue una mesa y los materiales:
 conserva su ID y no sustituye al disco vacío en ninguna receta; los ejemplares antiguos
 sin identidad siguen sin equipar ningún Stand.
 El disco vacío se combina con un núcleo para fabricar un disco con identidad (ver abajo).
-El almacenamiento del Stand actual mediante el jefe y el robo con Whitesnake siguen pendientes.
+El guardián de Fase 4C ya permite guardar el Stand actual. Su combate como jefe y el
+robo con Whitesnake siguen pendientes.
 Ambos discos comparten temporalmente la textura original de la Fase 1, con nombres distintos.
 
 El loot usa el mismo `neoforge:add_table` que las flechas. Sus recursos están en
@@ -170,6 +172,51 @@ Con voluntad 0 y el requisito por defecto, el uso del disco se rechaza sin consu
 con voluntad 1, se puede equipar. El valor permitido va de 0 a 1 000 000.
 Esta restricción se aplica a los discos; la flecha conserva las reglas aprobadas de Fase 3.
 Bajar la voluntad o subir el requisito no elimina retroactivamente un Stand ya asignado.
+
+## Guardar el Stand con el guardián — prototipo de Fase 4C
+
+El **Guardián de discos** es un NPC persistente de servicio. Por ahora se crea con
+permisos de operador; permanece donde aparece, no recibe daño ni ofrece recompensas
+y reutiliza el modelo y la animación originales del maniquí. Su aparición natural,
+localización, combate como jefe y recompensa de núcleo se implementarán después.
+
+```mcfunction
+/summon jojosmod:disc_keeper ~ ~ ~2
+/give @s jojosmod:empty_stand_disc
+```
+
+Con un Stand asignado, acércate a **3 bloques o menos**, sin paredes entre ambos.
+Sostén **un disco vacío** en cualquiera de las manos y haz clic derecho sobre el guardián:
+
+1. Sin agacharte, muestra un aviso que explica que guardar el Stand lo retirará del personaje.
+2. **Agáchate y vuelve a interactuar** para realizar la transferencia voluntaria.
+3. El disco vacío se transforma, en esa misma mano, en un disco con tu Stand. La
+   asignación se borra y la manifestación activa desaparece. El guardián sigue disponible.
+
+El servicio también funciona con el Stand desinvocado y con el inventario lleno: no
+necesita una casilla libre ni arroja el disco al suelo. Si el disco está en la mano
+secundaria, lo usa aunque sostengas otro objeto en la principal. Si ambas manos
+tienen un disco vacío, se usa el de la interacción recibida (normalmente, la principal).
+Transforma el disco también en creativo; no conserva una copia adicional del disco vacío.
+Su único coste provisional es el disco vacío entregado. No consume salud ni voluntad.
+
+El servidor comprueba el estado del jugador y del guardián, la dimensión, el alcance,
+la visión, la acción de agacharse, el ítem en la mano y la identidad del Stand antes
+de modificar nada. Un jugador sin Stand, una identidad desconocida o un ítem
+incorrecto conservan sus datos y objetos. El servicio solo guarda el Stand del
+jugador que interactúa, y cada jugador puede utilizar al mismo guardián.
+
+El disco resultante permite recuperar el mismo Stand mediante su uso normal,
+con los requisitos de voluntad de Fase 4B. También puedes obtener otro Stand con una
+flecha mientras tu asignación esté vacía. Guardar y recuperar no reinicia la voluntad.
+La transferencia usa el inventario y los datos nativos del jugador, sin un almacén
+adicional en el NPC ni un paquete que acepte una identidad enviada por el cliente.
+
+Para retirar un guardián de prueba cercano, un operador puede ejecutar:
+
+```mcfunction
+/kill @e[type=jojosmod:disc_keeper,sort=nearest,limit=1,distance=..5]
+```
 
 ## Obtener un Stand con la flecha
 
@@ -301,14 +348,18 @@ La Fase 4B añade diez GameTests de recetas y consumo de núcleos, sustituciones
 equipamiento de ambas identidades, conservación de la asignación y manifestación,
 usuarios y discos inválidos, creativo/mano secundaria, umbral de voluntad,
 guardado y red de los ítems, y persistencia/copia al morir/sincronización de la voluntad.
-El total actual es **34 tests: 33 del mod y uno de Minecraft**.
+Los nueve GameTests de Fase 4C prueban consentimiento y almacenamiento en supervivencia
+y creativo, ingredientes incorrectos, asignaciones desconocidas, usuarios inválidos,
+dimensión, alcance y paredes, inventario lleno y mano secundaria, guardado/carga
+nativos del jugador y del guardián, recuperación del Stand y aislamiento entre jugadores.
+El total actual es **43 tests: 42 del mod y uno de Minecraft**.
 
 ## Organización
 
 - `registry`: ítems, entidades, definiciones y attachments.
 - `items`: obtención por flecha y equipamiento de discos desde el servidor.
-- `stands`: datos, stats y controlador del ciclo de vida.
-- `entities`: manifestación temporal del Stand.
+- `stands`: datos, stats, ciclo de vida y transferencia voluntaria a discos.
+- `entities`: manifestación temporal del Stand y guardián persistente de servicio.
 - `abilities`: ataque básico autoritativo.
 - `network`: intenciones cliente → servidor, sin aceptar objetivo ni daño del cliente.
 - `client`: teclas y renderer, aislados del servidor dedicado.
@@ -322,7 +373,7 @@ loot actual solo necesita recursos de datos.
 
 ## Estado de validación en la nube
 
-La compilación y los 34 GameTests han pasado en la nube. El log aportado por el
+La compilación y los 43 GameTests han pasado en la nube. El log aportado por el
 usuario también confirma compilación, los seis tests de Fase 1 y arranque del cliente
 de esa fase en Windows. En Fase 2 se comprobó dentro del juego:
 
@@ -360,6 +411,15 @@ en la mano secundaria se rechazó sin consumirlo ni sustituir la manifestación.
 Las recetas de ambos núcleos, los datos de ítem y la copia al morir de la voluntad
 se verificaron mediante GameTests. La obtención natural de núcleos y los hitos
 de voluntad siguen pendientes, al igual que la comprobación con dos clientes remotos.
+
+En el prototipo de Fase 4C se comprobó con el cliente el renderizado y nombre del
+guardián, el aviso sin agacharse y el almacenamiento de Echoes ACT 1 al agacharse.
+El disco vacío de la mano principal se transformó en un disco con la identidad
+`jojosmod:echoes_act_1`. Al usarlo apuntando al aire, se consumió y permitió recuperar
+e invocar el mismo Stand con R. La voluntad permaneció en 7 durante todo el recorrido.
+El inventario lleno, las dos manos, los usuarios inválidos y el guardado/carga nativo
+del jugador y del NPC se comprobaron mediante GameTests. El aislamiento entre jugadores
+se probó con FakePlayers; todavía no se ha hecho una sesión con dos clientes remotos.
 
 Dominios adicionales requeridos por la compilación y el cliente:
 `maven.neoforged.net`, `libraries.minecraft.net`, `piston-meta.mojang.com`,

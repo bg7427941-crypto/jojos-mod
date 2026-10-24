@@ -1,5 +1,12 @@
 # Fase 4: núcleos, voluntad y discos
 
+La [visión del mod](product-vision.md) incorpora la meta del usuario de una experiencia
+completa, fiel a JoJo, con recursos visuales terminados, progresión divertida y juego
+con amigos. El usuario eligió **Parte 3: Stardust Crusaders** para la primera versión;
+el [plan de Parte 3](part-three-release.md) prioriza Star Platinum. El contenido
+específico de Whitesnake se retoma en una expansión posterior de Stone Ocean.
+Las decisiones aprobadas de este documento se conservan como diseño del mod completo.
+
 El usuario aprobó el coste del disco vacío y el balance inicial de extracción hostil.
 La **Fase 4A (0.4.0)** implementa el loot de fragmentos y la fabricación del disco vacío.
 La **Fase 4B (0.4.1)** añade núcleos de Echoes ACT 1 y Little Feet, fabricación de

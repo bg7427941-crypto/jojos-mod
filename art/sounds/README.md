@@ -46,8 +46,11 @@ decodificado para corregir el sobreimpulso del códec: los picos finales quedan 
 | `star_platinum.guard` | `guard.ogg` | 0,22 s | Energía corta con menos graves |
 | `star_platinum.guard_block` | `guard_block.ogg` | 0,18 s | Impacto metálico corto |
 
-`sounds.json` declara seis eventos, con dos variantes para los impactos y sin
-bucles ni streaming. El swing dura menos que el intervalo de 0,15 s de la ráfaga,
+`sounds.json` declara ocho eventos, con dos variantes para los impactos y sin
+bucles ni streaming. Desde 0.6.0, `star_platinum.barrage_start` reutiliza `guard.ogg`
+una vez al iniciar la ráfaga, y `star_platinum.star_finger` reutiliza `swing.ogg`
+con otro tono al extender los dedos. El [pack local](../../docs/anime-audio.md)
+permite sustituir cada evento con clips autorizados. El swing dura menos que el intervalo de 0,15 s de la ráfaga,
 para evitar una cola larga superpuesta en cada golpe. El volumen y el momento de
 reproducción los decide la lógica del mod. El timbre y el balance final se deben
 valorar en el juego con una salida de audio real.

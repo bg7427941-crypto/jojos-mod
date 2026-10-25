@@ -49,6 +49,17 @@ public final class StarPlatinumEffects {
         }
     }
 
+    public static void starFinger(ServerPlayer owner, TrainingStandEntity stand, double reach) {
+        var level = server(stand);
+        if (level == null || owner.level() != level) return;
+        var end = owner.pick(reach, 0, false).getLocation();
+        var start = stand.position().add(0, 1.4, 0);
+        for (int i = 1; i <= 10; i++) {
+            var point = start.lerp(end, i / 10.0);
+            dust(level, i % 2 == 0 ? GOLD : VIOLET, point, 1, 0.015, 0.015, 0.015);
+        }
+    }
+
     public static void impact(ServerPlayer owner, LivingEntity target, boolean barrage) {
         if (!(target.level() instanceof ServerLevel level) || owner.level() != level) return;
         var point = target.position().add(0, target.getBbHeight() * 0.6, 0);

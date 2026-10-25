@@ -8,7 +8,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.HandlerThread;
 
 public final class ModNetworking {
-    private static final String PROTOCOL_VERSION = "2";
+    private static final String PROTOCOL_VERSION = "3";
 
     private ModNetworking() {}
 
@@ -33,6 +33,9 @@ public final class ModNetworking {
         });
         registrar.playToServer(GuardPayload.TYPE, GuardPayload.STREAM_CODEC, (payload, context) -> {
             if (context.player() instanceof ServerPlayer player) StarPlatinumActions.toggleGuard(player);
+        });
+        registrar.playToServer(StarFingerPayload.TYPE, StarFingerPayload.STREAM_CODEC, (payload, context) -> {
+            if (context.player() instanceof ServerPlayer player) StarPlatinumActions.starFinger(player);
         });
     }
 }

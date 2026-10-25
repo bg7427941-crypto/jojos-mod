@@ -6,6 +6,7 @@ import io.github.bg7427941.jojosmod.network.BasicAttackPayload;
 import io.github.bg7427941.jojosmod.network.ToggleStandPayload;
 import io.github.bg7427941.jojosmod.network.BarragePayload;
 import io.github.bg7427941.jojosmod.network.GuardPayload;
+import io.github.bg7427941.jojosmod.network.StarFingerPayload;
 import io.github.bg7427941.jojosmod.registry.ModEntities;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -32,10 +33,13 @@ public final class JojosModClient {
             new KeyMapping("key.jojosmod.star_barrage", InputConstants.KEY_X, STAND_CATEGORY);
     private static final KeyMapping STAR_GUARD =
             new KeyMapping("key.jojosmod.star_guard", InputConstants.KEY_C, STAND_CATEGORY);
+    private static final KeyMapping STAR_FINGER =
+            new KeyMapping("key.jojosmod.star_finger", InputConstants.KEY_V, STAND_CATEGORY);
 
     public JojosModClient(IEventBus modEventBus) {
         modEventBus.addListener(JojosModClient::registerKeys);
         modEventBus.addListener(JojosModClient::registerRenderers);
+        modEventBus.addListener(StandHud::register);
         NeoForge.EVENT_BUS.addListener(JojosModClient::onClientTick);
     }
 
@@ -45,6 +49,7 @@ public final class JojosModClient {
         event.register(BASIC_ATTACK);
         event.register(STAR_BARRAGE);
         event.register(STAR_GUARD);
+        event.register(STAR_FINGER);
     }
 
     private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
@@ -78,6 +83,9 @@ public final class JojosModClient {
         }
         while (STAR_GUARD.consumeClick()) {
             if (canSend) ClientPacketDistributor.sendToServer(GuardPayload.INSTANCE);
+        }
+        while (STAR_FINGER.consumeClick()) {
+            if (canSend) ClientPacketDistributor.sendToServer(StarFingerPayload.INSTANCE);
         }
     }
 }

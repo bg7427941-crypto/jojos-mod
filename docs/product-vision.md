@@ -27,7 +27,8 @@ dos núcleos de prueba, equipamiento con voluntad y almacenamiento voluntario.
 Sus 43 GameTests y la comprobación con un cliente verifican esos recorridos.
 
 Echoes ACT 1 y Little Feet todavía comparten un maniquí y un golpe genérico.
-Whitesnake no está implementado. La voluntad aún no tiene hitos de progreso natural;
+Whitesnake no está implementado. En 0.6.0, Star Platinum añade Star Finger y tres
+desafíos de voluntad que se completan con acciones propias en supervivencia;
 los núcleos se obtienen con creativo/comandos y el guardián se invoca por comandos.
 El juego con dos clientes remotos sigue pendiente. Estos puntos impiden considerar
 terminada una experiencia de supervivencia o un Stand solo por estar registrado.

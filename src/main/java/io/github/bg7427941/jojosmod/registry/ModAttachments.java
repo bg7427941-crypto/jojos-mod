@@ -39,7 +39,9 @@ public final class ModAttachments {
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<StarPlatinumProgress>> STAR_PROGRESS =
             ATTACHMENTS.register("star_progress", () -> AttachmentType.builder(() -> StarPlatinumProgress.EMPTY)
-                    .serialize(StarPlatinumProgress.CODEC).copyOnDeath().build());
+                    .serialize(StarPlatinumProgress.CODEC).copyOnDeath()
+                    .sync((holder, recipient) -> holder == recipient, StarPlatinumProgress.STREAM_CODEC)
+                    .build());
 
     private ModAttachments() {}
 

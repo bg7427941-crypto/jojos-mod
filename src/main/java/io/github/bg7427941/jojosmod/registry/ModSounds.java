@@ -16,6 +16,8 @@ public final class ModSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> STAR_SUMMON = sound("star_platinum.summon");
     public static final DeferredHolder<SoundEvent, SoundEvent> STAR_DISMISS = sound("star_platinum.dismiss");
     public static final DeferredHolder<SoundEvent, SoundEvent> STAR_SWING = sound("star_platinum.swing");
+    public static final DeferredHolder<SoundEvent, SoundEvent> STAR_BARRAGE_START = sound("star_platinum.barrage_start");
+    public static final DeferredHolder<SoundEvent, SoundEvent> STAR_FINGER = sound("star_platinum.star_finger");
     public static final DeferredHolder<SoundEvent, SoundEvent> STAR_IMPACT = sound("star_platinum.impact");
     public static final DeferredHolder<SoundEvent, SoundEvent> STAR_GUARD = sound("star_platinum.guard");
     public static final DeferredHolder<SoundEvent, SoundEvent> STAR_GUARD_BLOCK = sound("star_platinum.guard_block");

@@ -1,3 +1,6 @@
 {
-  "model": {"type": "minecraft:model", "model": "jojosmod:item/stand_arrow"}
+  "model": {
+    "type": "minecraft:model",
+    "model": "jojosmod:item/stardust_arrow"
+  }
 }

@@ -11,7 +11,8 @@ La prueba jugable 0.5.0 implementó el combate base de Star Platinum. La 0.5.1
 mejora la presentación con un modelo adaptado de Roundabout, ocho animaciones
 ajustadas, audio CC0 y efectos visuales; sus [créditos](../THIRD_PARTY_NOTICES.md)
 acompañan a los recursos. La [ficha de habilidades](star-platinum-design.md)
-registra sus reglas y la [guía de prueba](playtest-0.5.1.md) permite evaluarlo.
+registra sus reglas. La 0.6.0 añade Star Finger, desafíos persistentes de voluntad,
+panel de progreso y sprites de ítems; su [guía de prueba](playtest-0.6.0.md) permite evaluarlo.
 Este plan sigue describiendo el lanzamiento completo, que aún está en desarrollo.
 
 La propuesta de catálogo principal sigue a los Crusaders, con DIO como encuentro de
@@ -82,10 +83,11 @@ la forma idéntica en que despertó cada personaje de Stardust Crusaders. La tab
 obtención de los futuros Stands de Parte 3 se definirá expresamente, conservando los
 IDs y los datos de Echoes ACT 1 y Little Feet que ya existan en partidas anteriores.
 
-La voluntad mantendrá progreso persistente, con hitos de recompensa única. La propuesta
-es combinar aprendizaje del Stand, exploración y superación de encuentros. Los hitos,
-sus cantidades y las recompensas de grupo siguen pendientes de diseño. La interfaz
-debe explicar qué se ha conseguido y qué objetivo está disponible a continuación.
+La voluntad tiene tres desafíos de entrenamiento de Star Platinum con recompensa
+única y progreso persistente, explicados en la ficha y en el panel. Se completan
+con acciones propias, también contra enemigos compartidos. La propuesta posterior
+es combinar este aprendizaje con exploración y superación de encuentros; esos
+hitos y sus recompensas de grupo siguen pendientes de diseño.
 
 El encuentro de DIO necesitará pistas para localizarlo, preparación, patrones legibles,
 una forma definida de reintento y recompensas coherentes para quienes participen.

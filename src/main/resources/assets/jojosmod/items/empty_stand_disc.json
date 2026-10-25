@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "jojosmod:item/stand_disc"
+    "model": "jojosmod:item/empty_stand_disc"
   }
 }

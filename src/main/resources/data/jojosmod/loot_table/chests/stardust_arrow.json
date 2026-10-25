@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:chest",
-  "pools": [{
-    "rolls": 1,
-    "condition": {"type": "minecraft:random_chance", "chance": 0.2},
-    "entries": [{"type": "minecraft:item", "name": "jojosmod:stardust_arrow"}]
-  }]
-}

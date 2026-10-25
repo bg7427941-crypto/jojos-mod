@@ -1,8 +1,8 @@
 # Star Platinum — prueba jugable 0.5.0
 
-Primera entrega del combate base de Parte 3. La [ficha oficial de Jotaro](https://jojo-portal.com/en/anime/sc/character/01/)
-sirve de referencia para la fuerza, precisión y ráfagas de puñetazos. El modelo y
-sus animaciones son originales, adaptados a Minecraft. Los valores siguientes son
+Primera entrega del combate base de Parte 3; balance vigente en 0.5.0 y 0.5.1. La [ficha oficial de Jotaro](https://jojo-portal.com/en/anime/sc/character/01/)
+sirve de referencia para la fuerza, precisión y ráfagas de puñetazos. La presentación 0.5.1 adapta un modelo y poses de Roundabout, con
+créditos y licencia propios, y ajusta sus animaciones a Minecraft/GeckoLib. Los valores siguientes son
 decisiones de balance del mod, independientes de los parámetros del manga.
 
 ## Obtención y progreso
@@ -57,8 +57,11 @@ cooldowns son temporales; el Stand y el hito de voluntad sí se guardan.
 
 El modelo tiene cabello, cinta, gema, hombreras, guantes, puños articulados, botas,
 bufanda y faldón. Sus ocho animaciones cubren reposo, movimiento, invocación,
-desinvocación, golpe, ráfaga, guardia y recuperación. Los impactos usan partículas
-CRIT y sonidos nativos de Minecraft; no se incluyen voces extraídas del anime.
+desinvocación, golpe, ráfaga, guardia y recuperación. En 0.5.1 hay aura violeta/dorada,
+trayectorias de puños, destellos de impacto y arco frontal de guardia, con partículas
+nativas. Los efectos de audio proceden de Kenney (CC0), recortados en clips breves
+mono; incluyen invocación, retirada, swing, impacto y guardia, sin voces del anime.
+Consulta los [créditos y licencias](../THIRD_PARTY_NOTICES.md).
 Las fuentes editables están en [art/star_platinum](../art/star_platinum/README.md).
 
 La parada temporal, Star Finger, los otros Crusaders, DIO y el recorrido completo

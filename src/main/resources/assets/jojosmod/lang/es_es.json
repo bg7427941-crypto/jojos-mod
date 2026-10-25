@@ -41,5 +41,11 @@
   "key.jojosmod.toggle_stand": "Invocar / desinvocar Stand",
   "key.jojosmod.basic_attack": "Ataque básico del Stand",
   "command.jojosmod.training_assigned": "Stand de entrenamiento asignado. Pulsa %s para invocarlo.",
-  "command.jojosmod.stand_cleared": "Stand asignado eliminado."
+  "command.jojosmod.stand_cleared": "Stand asignado eliminado.",
+  "subtitles.jojosmod.star_platinum.summon": "Star Platinum se manifiesta",
+  "subtitles.jojosmod.star_platinum.dismiss": "Star Platinum desaparece",
+  "subtitles.jojosmod.star_platinum.swing": "Puñetazo de Stand",
+  "subtitles.jojosmod.star_platinum.impact": "Impacto de Star Platinum",
+  "subtitles.jojosmod.star_platinum.guard": "Star Platinum se pone en guardia",
+  "subtitles.jojosmod.star_platinum.guard_block": "Star Platinum amortigua un golpe"
 }

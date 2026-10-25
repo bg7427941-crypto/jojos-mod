@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.resources.Identifier;
 
-/** Renders the original placeholder model used to exercise the Stand lifecycle. */
+/** GeckoLib rendering for temporary Stands, with a separate model for Star Platinum. */
 public final class TrainingStandRenderer
         extends GeoEntityRenderer<TrainingStandEntity, EntityRenderState> {
     public TrainingStandRenderer(EntityRendererProvider.Context context) {

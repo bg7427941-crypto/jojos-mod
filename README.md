@@ -1,7 +1,8 @@
 # JoJo's Mod
 
 Mod de Minecraft inspirado en los Stands de JoJo's Bizarre Adventure. Código MIT;
-modelos, texturas y sonidos del proyecto deben ser originales o tener una licencia compatible.
+los recursos originales son MIT y los recursos de terceros mantienen sus licencias.
+Consulta [créditos y condiciones de uso](THIRD_PARTY_NOTICES.md).
 
 La meta es una experiencia completa de supervivencia y multijugador, con progresión,
 habilidades fieles a JoJo y modelos y animaciones propios de cada Stand. La primera
@@ -11,11 +12,11 @@ El [plan de Parte 3](docs/part-three-release.md) propone el catálogo y el recor
 empezando por Star Platinum; el desarrollo específico de Whitesnake queda para una expansión posterior.
 El estado descrito abajo corresponde al prototipo actual.
 
-La **prueba jugable 0.5.0** añade **Star Platinum** con modelo propio, ocho
-animaciones, golpe preciso, ráfaga y guardia frontal. La flecha Stardust se obtiene
-en templos del desierto y el primer despertar concede un hito persistente de voluntad.
-Sigue la [guía de prueba de 10 minutos](docs/playtest-0.5.0.md) para valorar el modelo
-y el combate. La [ficha de Star Platinum](docs/star-platinum-design.md) detalla las reglas.
+La **prueba jugable 0.5.1** mejora la presentación de **Star Platinum**: modelo
+adaptado de Roundabout con su atlas anime, ocho animaciones ajustadas, sonidos CC0
+de Kenney y efectos de aura, puños, impacto y guardia. Conserva las habilidades y
+el balance de 0.5.0 que ya se probaron. Sigue la [guía de presentación](docs/playtest-0.5.1.md)
+para valorar estos cambios; la [ficha de combate](docs/star-platinum-design.md) sigue vigente.
 
 Conserva Echoes ACT 1, Little Feet, sus flechas, los discos, el guardián y las recetas
 anteriores. La parada temporal, los otros Crusaders y DIO siguen pendientes; esta
@@ -50,8 +51,12 @@ El núcleo `jojosmod:star_platinum_core` está disponible en creativo/comandos y
 combina con un disco vacío. El guardián puede guardar y recuperar este Stand.
 
 Las [fuentes editables de Blockbench](art/star_platinum/README.md) acompañan a la
-geometría, textura y ocho animaciones del juego. Los sonidos de esta prueba son
-nativos de Minecraft. El ajuste visual y de ritmo requiere valoración del jugador.
+geometría, textura y ocho animaciones. El modelo adaptado conserva la licencia de
+Roundabout; los [sonidos de Kenney](art/sounds/README.md) son CC0, mono y espaciales,
+con subtítulos en inglés/español y volumen bajo la categoría Jugadores. La ráfaga
+reproduce un sonido breve por pulso y otro al impactar, sin un bucle que pueda
+quedar activo al interrumpirla. Los efectos usan partículas nativas y respetan los
+ajustes del cliente; el aura está limitada a ocho partículas por segundo y Stand.
 
 ## Requisitos
 
@@ -481,6 +486,21 @@ La sesión LAN no sustituye una prueba de servidor dedicado ni valida el recorri
 completo en supervivencia. La muerte/reconexión con dos jugadores y el balance de
 combate compartido siguen pendientes de prueba manual. La [guía 0.5.0](docs/playtest-0.5.0.md)
 propone la revisión visual y de jugabilidad que debe hacer el jugador.
+
+En **0.5.1**, la compilación y los **53 GameTests** han pasado de nuevo tras integrar
+sonidos y partículas. La geometría y las animaciones se contrastaron con las
+funciones del exportador oficial de Blockbench: 57 huesos, 69 cubos y 769 keyframes,
+con UV orientadas y referencias válidas. El JAR contiene las siete muestras de
+sonido y los avisos de licencias de terceros, y excluye el mod de pruebas.
+
+Se abrió el cliente con el modelo nuevo: se revisaron reposo, invocación, guardia,
+articulaciones, aura y subtítulos. El golpe dejó al objetivo en 14 de salud y la
+ráfaga en 12 tras restablecer sus 20 puntos. El impacto mostró partículas y los
+subtítulos de movimiento del puño e impacto. Los recursos de sonido se cargan sin
+avisos de archivos o eventos ausentes. El volumen y el timbre final requieren
+valoración con una salida de audio real; en la nube la salida es virtual. La
+sesión compartida de 0.5.0 no se ha repetido con esta revisión visual; la [guía
+0.5.1](docs/playtest-0.5.1.md) incluye la comprobación con un amigo.
 
 Dominios adicionales requeridos por la compilación y el cliente:
 `maven.neoforged.net`, `libraries.minecraft.net`, `piston-meta.mojang.com`,

@@ -1,0 +1,29 @@
+{
+  "star_platinum.summon": {
+    "subtitle": "subtitles.jojosmod.star_platinum.summon",
+    "sounds": [{"name": "jojosmod:star_platinum/summon", "attenuation_distance": 16}]
+  },
+  "star_platinum.dismiss": {
+    "subtitle": "subtitles.jojosmod.star_platinum.dismiss",
+    "sounds": [{"name": "jojosmod:star_platinum/dismiss", "attenuation_distance": 16}]
+  },
+  "star_platinum.swing": {
+    "subtitle": "subtitles.jojosmod.star_platinum.swing",
+    "sounds": [{"name": "jojosmod:star_platinum/swing", "attenuation_distance": 12}]
+  },
+  "star_platinum.impact": {
+    "subtitle": "subtitles.jojosmod.star_platinum.impact",
+    "sounds": [
+      {"name": "jojosmod:star_platinum/impact_1", "attenuation_distance": 16},
+      {"name": "jojosmod:star_platinum/impact_2", "attenuation_distance": 16}
+    ]
+  },
+  "star_platinum.guard": {
+    "subtitle": "subtitles.jojosmod.star_platinum.guard",
+    "sounds": [{"name": "jojosmod:star_platinum/guard", "attenuation_distance": 12}]
+  },
+  "star_platinum.guard_block": {
+    "subtitle": "subtitles.jojosmod.star_platinum.guard_block",
+    "sounds": [{"name": "jojosmod:star_platinum/guard_block", "attenuation_distance": 16}]
+  }
+}

@@ -7,9 +7,11 @@ La meta combina fidelidad a JoJo, modelos y animaciones propios, progresión ent
 y juego con amigos. Este plan desarrolla esa dirección; sus propuestas de catálogo,
 recompensas y balance todavía deben concretarse durante la implementación.
 
-La prueba jugable 0.5.0 ya implementa el combate base de Star Platinum con modelo
-y ocho animaciones propios. La [ficha de habilidades](star-platinum-design.md)
-registra sus reglas y la [guía de prueba](playtest-0.5.0.md) permite evaluarlo.
+La prueba jugable 0.5.0 implementó el combate base de Star Platinum. La 0.5.1
+mejora la presentación con un modelo adaptado de Roundabout, ocho animaciones
+ajustadas, audio CC0 y efectos visuales; sus [créditos](../THIRD_PARTY_NOTICES.md)
+acompañan a los recursos. La [ficha de habilidades](star-platinum-design.md)
+registra sus reglas y la [guía de prueba](playtest-0.5.1.md) permite evaluarlo.
 Este plan sigue describiendo el lanzamiento completo, que aún está en desarrollo.
 
 La propuesta de catálogo principal sigue a los Crusaders, con DIO como encuentro de

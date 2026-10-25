@@ -3,8 +3,8 @@ package io.github.bg7427941.jojosmod.abilities;
 import io.github.bg7427941.jojosmod.entities.TrainingStandEntity;
 import io.github.bg7427941.jojosmod.stands.StandDefinition;
 import io.github.bg7427941.jojosmod.registry.ModDamageTypes;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvents;
+import io.github.bg7427941.jojosmod.registry.ModSounds;
+import io.github.bg7427941.jojosmod.effects.StarPlatinumEffects;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
@@ -39,10 +39,9 @@ public final class BasicAttack {
         boolean hurt = target.hurtServer(owner.level(), barrage ? ModDamageTypes.barrage(owner, stand)
                 : owner.damageSources().playerAttack(owner), damage);
         if (hurt && stand.isStarPlatinum()) {
-            owner.level().playSound(null, target.blockPosition(), SoundEvents.PLAYER_ATTACK_STRONG,
-                    SoundSource.PLAYERS, barrage ? 0.45F : 0.8F, barrage ? 1.35F : 0.9F);
-            owner.level().sendParticles(ParticleTypes.CRIT, target.getX(), target.getY() + target.getBbHeight() * 0.6,
-                    target.getZ(), barrage ? 3 : 8, 0.15, 0.2, 0.15, 0.05);
+            owner.level().playSound(null, target.blockPosition(), ModSounds.STAR_IMPACT.get(),
+                    SoundSource.PLAYERS, barrage ? 0.38F : 0.7F, barrage ? 1.12F : 0.94F);
+            StarPlatinumEffects.impact(owner, target, barrage);
         }
         return hurt;
     }

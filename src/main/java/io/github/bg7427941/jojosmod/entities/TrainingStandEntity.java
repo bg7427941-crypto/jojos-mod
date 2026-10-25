@@ -8,6 +8,8 @@ import com.geckolib.animation.RawAnimation;
 import com.geckolib.util.GeckoLibUtil;
 import io.github.bg7427941.jojosmod.registry.ModStands;
 import io.github.bg7427941.jojosmod.registry.ModEntities;
+import io.github.bg7427941.jojosmod.registry.ModSounds;
+import io.github.bg7427941.jojosmod.effects.StarPlatinumEffects;
 import io.github.bg7427941.jojosmod.abilities.StarPlatinumActions;
 import io.github.bg7427941.jojosmod.stands.StandController;
 import io.github.bg7427941.jojosmod.stands.StandDefinition;
@@ -19,6 +21,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -30,7 +33,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
-/** Shared placeholder manifestation; the player's attachment owns the persistent assignment. */
+/** Temporary Stand manifestation; the player's attachment owns the persistent assignment. */
 public final class TrainingStandEntity extends Entity implements GeoEntity {
     private static final EntityDataAccessor<Integer> OWNER_ID =
             SynchedEntityData.defineId(TrainingStandEntity.class, EntityDataSerializers.INT);
@@ -135,7 +138,10 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         setYRot(player.getYRot());
         setXRot(0);
         setDeltaMovement(Vec3.ZERO);
-        if (isStarPlatinum()) entityData.set(MOVING, player.getDeltaMovement().horizontalDistanceSqr() > 0.001);
+        if (isStarPlatinum()) {
+            entityData.set(MOVING, player.getDeltaMovement().horizontalDistanceSqr() > 0.001);
+            StarPlatinumEffects.aura(this, level().getGameTime());
+        }
     }
 
     /** Called by the server after it accepts the basic-attack request. */
@@ -152,7 +158,13 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
     }
 
     public void playSummonAnimation() {
-        if (isStarPlatinum()) triggerAnim("main", "summon");
+        if (isStarPlatinum()) {
+            triggerAnim("main", "summon");
+            if (level() instanceof ServerLevel server) {
+                server.playSound(null, blockPosition(), ModSounds.STAR_SUMMON.get(), SoundSource.PLAYERS, 0.65F, 1.0F);
+                StarPlatinumEffects.summon(this);
+            }
+        }
     }
 
     public void playBarrageAnimation() {
@@ -183,6 +195,10 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         entityData.set(DISMISSING, true);
         dismissAt = level().getGameTime() + 4;
         triggerAnim("main", "dismiss");
+        if (level() instanceof ServerLevel server) {
+            server.playSound(null, blockPosition(), ModSounds.STAR_DISMISS.get(), SoundSource.PLAYERS, 0.45F, 1.1F);
+            StarPlatinumEffects.dismiss(this);
+        }
     }
 
     @Override

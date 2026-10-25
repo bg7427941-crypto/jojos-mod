@@ -93,6 +93,8 @@ tasks.withType(JavaCompile).configureEach {
 tasks.named('jar', Jar) {
     from('LICENSE')
     from('LICENSE-MDK.txt')
+    from('THIRD_PARTY_NOTICES.md')
+    from('third_party') { into 'META-INF/licenses' }
 }
 
 // Compile the integration suite during a normal build; execute it with runGameTestServer.

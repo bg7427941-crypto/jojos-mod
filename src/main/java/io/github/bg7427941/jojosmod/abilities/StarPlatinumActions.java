@@ -4,6 +4,8 @@ import io.github.bg7427941.jojosmod.JojosMod;
 import io.github.bg7427941.jojosmod.entities.TrainingStandEntity;
 import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import io.github.bg7427941.jojosmod.registry.ModStands;
+import io.github.bg7427941.jojosmod.registry.ModSounds;
+import io.github.bg7427941.jojosmod.effects.StarPlatinumEffects;
 import io.github.bg7427941.jojosmod.stands.PlayerStands;
 import io.github.bg7427941.jojosmod.stands.StandController;
 import io.github.bg7427941.jojosmod.stands.StarPlatinumSession;
@@ -12,7 +14,6 @@ import java.util.Optional;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -68,7 +69,6 @@ public final class StarPlatinumActions {
                 new StarPlatinumSession(Action.STRIKE, owner.level().getGameTime(), 0,
                         state.barrageReadyAt(), state.guardReadyAt()));
         stand.playAttackAnimation();
-        swing(owner);
         return true;
     }
 
@@ -81,7 +81,6 @@ public final class StarPlatinumActions {
                 new StarPlatinumSession(Action.BARRAGE, now, 0, now + BARRAGE_COOLDOWN, state.guardReadyAt()));
         stand.get().playBarrageAnimation();
         owner.sendSystemMessage(Component.translatable("message.jojosmod.star.barrage"), true);
-        swing(owner);
         return true;
     }
 
@@ -101,6 +100,8 @@ public final class StarPlatinumActions {
             speed.addTransientModifier(new AttributeModifier(GUARD_SLOW, -0.45, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
         }
         stand.get().setGuarding(true);
+        owner.level().playSound(null, owner.blockPosition(), ModSounds.STAR_GUARD.get(), SoundSource.PLAYERS, 0.5F, 1.0F);
+        StarPlatinumEffects.guardStart(owner, stand.get());
         owner.sendSystemMessage(Component.translatable("message.jojosmod.star.guard"), true);
         return true;
     }
@@ -115,11 +116,6 @@ public final class StarPlatinumActions {
         if (remaining <= 0) return false;
         owner.sendSystemMessage(Component.translatable("message.jojosmod.star.cooldown", (remaining + 19) / 20), true);
         return true;
-    }
-
-    private static void swing(ServerPlayer owner) {
-        owner.level().playSound(null, owner.blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP,
-                SoundSource.PLAYERS, 0.45F, 1.1F);
     }
 
     public static void onPlayerTick(PlayerTickEvent.Post event) {
@@ -144,6 +140,9 @@ public final class StarPlatinumActions {
         int next = WINDUP_TICKS + (strike ? 0 : state.pulses() * BARRAGE_INTERVAL);
         if (state.pulses() < total && elapsed >= next) {
             var profile = ModStands.STAR_PLATINUM.combat();
+            owner.level().playSound(null, stand.get().blockPosition(), ModSounds.STAR_SWING.get(),
+                    SoundSource.PLAYERS, strike ? 0.55F : 0.27F, strike ? 0.94F : 1.14F);
+            StarPlatinumEffects.swing(owner, stand.get(), !strike);
             BasicAttack.hit(owner, stand.get(), strike ? profile.damage() : 1.0F, profile.reach(), !strike);
             // Damage hooks from other mods may have interrupted the owner during a strike.
             if (session(owner).action() != state.action() || session(owner).startedAt() != state.startedAt()) return;
@@ -177,7 +176,8 @@ public final class StarPlatinumActions {
         if (direction.lengthSqr() < 0.0001 || look.lengthSqr() < 0.0001
                 || direction.normalize().dot(look.normalize()) < 0.5) return;
         event.setAmount(event.getAmount() * GUARD_DAMAGE_MULTIPLIER);
-        owner.level().playSound(null, owner.blockPosition(), SoundEvents.SHIELD_BLOCK.value(), SoundSource.PLAYERS, 0.6F, 1.25F);
+        owner.level().playSound(null, owner.blockPosition(), ModSounds.STAR_GUARD_BLOCK.get(), SoundSource.PLAYERS, 0.6F, 1.05F);
+        StarPlatinumEffects.guardBlock(owner);
     }
 
     public static void onDamage(LivingDamageEvent.Post event) {

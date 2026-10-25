@@ -1,0 +1,18 @@
+{
+  "project": "Roundabout: The JoJo Mod",
+  "repository": "https://github.com/Hydraheads/RoundaboutMod",
+  "commit": "cdd6dc35aead479aef4cebce873c1e532c0eccf3",
+  "license": "Roundabout License v1.2 (custom; retained verbatim in LICENSE.txt)",
+  "credit": "Hydraheads and the Roundabout team; GenericName / GenericName72 for model contributions",
+  "files": [
+    {
+      "path": "bbmodels/Stands/Star Platinum/star_platinum.bbmodel",
+      "git_blob_sha": "9f53f81eea39e4a5ba6f37f211a426f7f921ad86"
+    },
+    {
+      "path": "common/src/main/resources/assets/roundabout/textures/stand/star_platinum/anime.png",
+      "git_blob_sha": "154bfe9038ffeb2a77ea3767d186bfef92124aa1"
+    }
+  ],
+  "adaptation": "Subset of the model rig converted to GeckoLib; anime atlas; eight retimed/modified animations. No Roundabout Java or audio included."
+}

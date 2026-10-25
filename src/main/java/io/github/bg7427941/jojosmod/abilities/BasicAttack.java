@@ -5,6 +5,8 @@ import io.github.bg7427941.jojosmod.stands.StandDefinition;
 import io.github.bg7427941.jojosmod.registry.ModDamageTypes;
 import io.github.bg7427941.jojosmod.registry.ModSounds;
 import io.github.bg7427941.jojosmod.effects.StarPlatinumEffects;
+import io.github.bg7427941.jojosmod.stands.StarPlatinumProgress;
+import io.github.bg7427941.jojosmod.stands.StarPlatinumSession.Action;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
@@ -36,9 +38,15 @@ public final class BasicAttack {
                 && (!owner.level().isPvpAllowed() || !owner.canHarmPlayer(otherPlayer))) {
             return false;
         }
+        float healthBefore = target.getHealth();
+        var action = StarPlatinumActions.session(owner).action();
         boolean hurt = target.hurtServer(owner.level(), barrage ? ModDamageTypes.barrage(owner, stand)
                 : owner.damageSources().playerAttack(owner), damage);
         if (hurt && stand.isStarPlatinum()) {
+            if (target.getHealth() < healthBefore) {
+                if (action == Action.STRIKE) StarPlatinumProgress.onPreciseHit(owner, target);
+                if (action == Action.BARRAGE) StarPlatinumProgress.onBarrageHit(owner, target);
+            }
             owner.level().playSound(null, target.blockPosition(), ModSounds.STAR_IMPACT.get(),
                     SoundSource.PLAYERS, barrage ? 0.38F : 0.7F, barrage ? 1.12F : 0.94F);
             StarPlatinumEffects.impact(owner, target, barrage);

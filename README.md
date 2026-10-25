@@ -12,11 +12,11 @@ El [plan de Parte 3](docs/part-three-release.md) propone el catálogo y el recor
 empezando por Star Platinum; el desarrollo específico de Whitesnake queda para una expansión posterior.
 El estado descrito abajo corresponde al prototipo actual.
 
-La **prueba jugable 0.5.1** mejora la presentación de **Star Platinum**: modelo
-adaptado de Roundabout con su atlas anime, ocho animaciones ajustadas, sonidos CC0
-de Kenney y efectos de aura, puños, impacto y guardia. Conserva las habilidades y
-el balance de 0.5.0 que ya se probaron. Sigue la [guía de presentación](docs/playtest-0.5.1.md)
-para valorar estos cambios; la [ficha de combate](docs/star-platinum-design.md) sigue vigente.
+La **prueba jugable 0.6.0** añade **Star Finger**, tres desafíos persistentes de
+voluntad, un panel de progreso y ocho sprites originales de ítems. Conserva el
+modelo adaptado de Roundabout con su atlas anime y añade una novena animación.
+Sigue la [guía de prueba](docs/playtest-0.6.0.md) y la
+[ficha de combate](docs/star-platinum-design.md).
 
 Conserva Echoes ACT 1, Little Feet, sus flechas, los discos, el guardián y las recetas
 anteriores. La parada temporal, los otros Crusaders y DIO siguen pendientes; esta
@@ -37,12 +37,28 @@ fuerte por defecto para recuperar su disco. La flecha no sustituye otro Stand.
 | **Z** | Golpe preciso: 6 puntos, preparación 0,2 s, cooldown 0,8 s |
 | **X** | Ráfaga: 8 golpes de 1 punto, cooldown 5 s |
 | **C** | Activar/cancelar guardia frontal: 60 % de reducción, máximo 2 s, cooldown 4 s |
+| **V** | Star Finger: 4 puntos, alcance 6 bloques, preparación 0,4 s, cooldown 6 s; requiere 5 de voluntad |
 
-Los golpes alcanzan 3 bloques, respetan paredes y reglas PvP/equipos. La guardia
+El golpe preciso y la ráfaga alcanzan 3 bloques; Star Finger alcanza 6. Respetan
+paredes y reglas PvP/equipos. La guardia
 cubre 120 grados frente al usuario, reduce su velocidad un 45 % y no protege de
 fuego, caídas ni ataques desde atrás. El daño de salud interrumpe los ataques.
 No se pueden superponer acciones. Todos los tiempos suponen 20 TPS y los cooldowns
-se cuentan desde el inicio. Las cuatro teclas se pueden cambiar en Controles.
+se cuentan desde el inicio. Las cinco teclas se pueden cambiar en Controles.
+
+Después del despertar, completa desafíos de **precisión**, **ráfaga** y **guardia**.
+Cada uno exige usar esa acción contra **3 enemigos hostiles distintos** y concede
+**+1 de voluntad una sola vez**. Precisión y ráfaga deben causar daño de salud;
+la guardia debe reducir daño físico frontal. Repetir el mismo enemigo no avanza
+ese desafío; animales, jugadores y enemigos aliados tampoco cuentan. El progreso
+se gana en supervivencia, se guarda al morir y no se reinicia al cambiar de Stand.
+Con dos desafíos y la voluntad inicial se alcanza 5 y se desbloquea Star Finger.
+Los tres permiten alcanzar 6. Cada jugador obtiene su progreso por sus propias
+acciones, incluso contra enemigos compartidos. La voluntad no se consume.
+
+El panel muestra voluntad y desafíos; **`/stand`** o **`/stand progress`** permiten
+consultarlos sin permisos de operador. Los valores de daño, tiempos y requisitos
+son decisiones de balance del mod.
 
 Cada cofre nuevo de templo del desierto tiene un **20 %** de probabilidad de añadir
 una flecha Stardust, conservando el loot vanilla. Esa flecha tiene su propio sorteo,
@@ -51,11 +67,13 @@ El núcleo `jojosmod:star_platinum_core` está disponible en creativo/comandos y
 combina con un disco vacío. El guardián puede guardar y recuperar este Stand.
 
 Las [fuentes editables de Blockbench](art/star_platinum/README.md) acompañan a la
-geometría, textura y ocho animaciones. El modelo adaptado conserva la licencia de
+geometría, textura y nueve animaciones. El modelo adaptado conserva la licencia de
 Roundabout; los [sonidos de Kenney](art/sounds/README.md) son CC0, mono y espaciales,
 con subtítulos en inglés/español y volumen bajo la categoría Jugadores. La ráfaga
-reproduce un sonido breve por pulso y otro al impactar, sin un bucle que pueda
-quedar activo al interrumpirla. Los efectos usan partículas nativas y respetan los
+reproduce una señal al inicio, un sonido breve por pulso y otro al impactar.
+El [constructor de un paquete de audio local](docs/anime-audio.md) permite sustituir
+eventos con clips autorizados; no incluye ni descarga grabaciones del anime.
+Los efectos usan partículas nativas y respetan los
 ajustes del cliente; el aura está limitada a ocho partículas por segundo y Stand.
 
 ## Requisitos
@@ -153,7 +171,7 @@ sin identidad siguen sin equipar ningún Stand.
 El disco vacío se combina con un núcleo para fabricar un disco con identidad (ver abajo).
 El guardián de Fase 4C ya permite guardar el Stand actual. Su combate como jefe y el
 robo con Whitesnake siguen pendientes.
-Ambos discos comparten temporalmente la textura original de la Fase 1, con nombres distintos.
+Los discos vacío y cargado tienen sprites distintos de 32×32.
 
 El loot usa el mismo `neoforge:add_table` que las flechas. Sus recursos están en
 `data/jojosmod/loot_modifiers/stand_fragments_in_ancient_cities.json` y
@@ -166,7 +184,7 @@ usan los sistemas nativos de Minecraft, en `recipe/empty_stand_disc.json` y
 Un **disco vacío + un núcleo de Stand** producen **un disco con el Stand del núcleo**.
 La receta no tiene forma y funciona tanto en el inventario 2×2 como en la mesa 3×3.
 Consume ambos ingredientes y se descubre al obtener el núcleo correspondiente.
-Los núcleos no se apilan; sus iconos reutilizan provisionalmente el fragmento original.
+Los núcleos no se apilan y tienen iconos propios.
 
 Esta entrega incluye núcleos de Echoes ACT 1, Little Feet y Star Platinum. Se obtienen en la pestaña
 creativa o mediante comandos de operador; **todavía no tienen loot ni receta propia**,
@@ -203,7 +221,8 @@ Echoes ACT 1 y Little Feet requieren **1** por defecto. El administrador puede c
 `willpower.basicStandRequirement` en `config/jojosmod-synced.toml` del servidor o instancia.
 NeoForge también admite la configuración específica del mundo en `serverconfig/`.
 `strongStandRequirement = 3` se aplica a Star Platinum.
-Estos valores son **provisionales**; el primer despertar de Star Platinum ya ofrece un hito de +2.
+Estos valores son **provisionales**; Star Platinum ofrece +2 por despertar y
+tres desafíos de entrenamiento de +1 cada uno.
 Los comandos de prueba, restringidos a operadores, permiten consultar y ajustar el valor propio:
 
 ```mcfunction
@@ -344,9 +363,9 @@ Este prototipo no tiene salud ni refleja daño al propietario; esa mecánica y s
 configuración se implementarán en una fase posterior. Los valores actuales sirven
 para probar el sistema, no constituyen el balance final.
 
-Los tres PNG de `src/main/resources/assets/jojosmod/textures/item/` son **placeholders
-originales de 16×16**: flecha dorada, fragmento violeta/plata y disco violeta/plata.
-Se pueden sustituir conservando sus nombres y rutas. No contienen arte de la serie.
+Los ocho sprites de `src/main/resources/assets/jojosmod/textures/item/` son
+originales de **32×32**, con fuentes SVG y generador en [art/items](art/items/README.md).
+Flechas, discos, fragmentos y cada núcleo tienen su propia identidad visual.
 
 ## Datos del jugador y pruebas
 
@@ -501,6 +520,19 @@ avisos de archivos o eventos ausentes. El volumen y el timbre final requieren
 valoración con una salida de audio real; en la nube la salida es virtual. La
 sesión compartida de 0.5.0 no se ha repetido con esta revisión visual; la [guía
 0.5.1](docs/playtest-0.5.1.md) incluye la comprobación con un amigo.
+
+En **0.6.0**, `build` y los **65 GameTests** han pasado: los doce casos nuevos
+cubren Star Finger, premios únicos, enemigos compartidos, formato de guardado
+anterior, copia al morir y sincronización. Se comprobaron JSON, idiomas, referencias
+de audio, conservación del cuerpo y atlas, exportación reproducible y construcción
+parcial del paquete de audio con rechazo de entradas inválidas y sobrescritura.
+
+En el cliente, desde voluntad 3, precisión y ráfaga se completaron contra tres husks
+distintos por categoría y concedieron +1 cada una. El panel mostró 3 → 4 → 5 y el
+desbloqueo de V. Star Finger dejó a un objetivo situado a cinco bloques en 16 de
+sus 20 puntos de salud. La revisión con dos clientes no se ha repetido para 0.6.0;
+el balance de progresión y la claridad visual requieren valoración del jugador.
+La [guía 0.6.0](docs/playtest-0.6.0.md) detalla esa prueba y el recorrido con un amigo.
 
 Dominios adicionales requeridos por la compilación y el cliente:
 `maven.neoforged.net`, `libraries.minecraft.net`, `piston-meta.mojang.com`,

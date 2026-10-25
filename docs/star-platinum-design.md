@@ -1,6 +1,6 @@
-# Star Platinum — prueba jugable 0.5.0
+# Star Platinum — prueba jugable 0.6.0
 
-Primera entrega del combate base de Parte 3; balance vigente en 0.5.0 y 0.5.1. La [ficha oficial de Jotaro](https://jojo-portal.com/en/anime/sc/character/01/)
+Combate base y primeros desafíos de progresión de Parte 3. La [ficha oficial de Jotaro](https://jojo-portal.com/en/anime/sc/character/01/)
 sirve de referencia para la fuerza, precisión y ráfagas de puñetazos. La presentación 0.5.1 adapta un modelo y poses de Roundabout, con
 créditos y licencia propios, y ajusta sus animaciones a Minecraft/GeckoLib. Los valores siguientes son
 decisiones de balance del mod, independientes de los parámetros del manga.
@@ -24,6 +24,20 @@ y recuperar este Stand con las mismas reglas de voluntad. Todavía no hay obtenc
 natural del núcleo. Las flechas y los discos son adaptaciones de progresión del mod:
 no representan literalmente cómo despertó Jotaro su Stand en la historia.
 
+En supervivencia, precisión, ráfaga y guardia registran hasta tres UUID de enemigos
+hostiles distintos por categoría. Un golpe debe causar daño real de salud; una
+guardia debe reducir daño físico frontal positivo. Repetir un enemigo no vuelve
+a contar para ese desafío. Cada categoría completa concede +1 una sola vez.
+No cuentan jugadores, criaturas pasivas, enemigos aliados ni acciones de usuarios
+creativos/espectadores. Los objetivos compartidos pueden dar progreso a cada
+participante por sus propias acciones, sin exigir el golpe final.
+
+Estos tres desafíos se conservan al guardar, morir, retirar o recuperar el Stand.
+El formato anterior `{awakened: true}` carga con los nuevos contadores vacíos sin
+repetir su premio. El panel y `/stand progress` muestran el avance al propietario.
+Con voluntad 5 se desbloquea Star Finger: despertar desde 1 y completar dos desafíos
+permite alcanzarla; el tercero lleva a 6. No se consume voluntad.
+
 ## Acciones a 20 TPS
 
 | Tecla predeterminada | Acción | Efecto sin armadura | Tiempos |
@@ -32,6 +46,7 @@ no representan literalmente cómo despertó Jotaro su Stand en la historia.
 | Z | Golpe preciso | 6 puntos; alcance 3 bloques | Preparación 4 ticks; acción 12; cooldown 16 desde el inicio |
 | X | Ráfaga | 8 golpes de 1 punto; alcance 3 bloques | Golpes en ticks 4, 7, 10, 13, 16, 19, 22 y 25; acción 30; cooldown 100 desde el inicio |
 | C | Activar/cancelar guardia | Reduce un 60 % el daño físico frontal | Máximo 40 ticks; cooldown 80 desde el inicio |
+| V | Star Finger (voluntad ≥5) | 4 puntos; alcance 6 bloques | Preparación 8 ticks; acción 18; cooldown 120 desde el inicio |
 
 Las teclas se pueden cambiar en Controles. La guardia cubre un arco horizontal de
 120 grados frente a la mirada del usuario. Afecta ataques de jugadores y criaturas
@@ -40,7 +55,7 @@ la velocidad de movimiento un 45 % mientras está activa. Cancelarla antes manti
 su cooldown. Su duración y alcance son límites de jugabilidad.
 
 No se pueden superponer acciones. Recibir daño real de salud interrumpe el golpe
-o la ráfaga y conserva sus cooldowns. Cada impacto vuelve a comprobar la mirada,
+preciso, la ráfaga o Star Finger y conserva sus cooldowns. Cada impacto vuelve a comprobar la mirada,
 el alcance, paredes, estado del objetivo, PvP y fuego amigo. La ráfaga usa un tipo
 de daño específico para resolver sus pulsos sin que la inmunidad normal entre
 golpes los descarte; respeta armadura e invulnerabilidad y no reinicia globalmente
@@ -51,20 +66,28 @@ a su frente durante las acciones. Morir, desconectarse, cambiar de dimensión,
 desinvocar o perder la asignación terminan las acciones. El modificador de guardia
 se elimina al terminar. Al desinvocar, el combate se desactiva inmediatamente y
 la animación dispone de 4 ticks para retirar el modelo. Los estados activos y sus
-cooldowns son temporales; el Stand y el hito de voluntad sí se guardan.
+cooldowns son temporales; el Stand, la voluntad y los desafíos sí se guardan.
+
+Star Finger extiende dos dedos, como en el combate con Dark Blue Moon, referido
+en el [episodio 6 del anime](https://jojo-animation.com/sc/contents/story/06.html)
+y la [referencia de ese arco](https://jojowiki.com/Dark_Blue_Moon_(story_arc)).
+El daño, alcance de 6 bloques y requisito de voluntad son adaptaciones de balance.
+No atraviesa paredes y usa las mismas reglas de PvP/equipos que los otros golpes.
 
 ## Presentación y alcance pendiente
 
 El modelo tiene cabello, cinta, gema, hombreras, guantes, puños articulados, botas,
-bufanda y faldón. Sus ocho animaciones cubren reposo, movimiento, invocación,
-desinvocación, golpe, ráfaga, guardia y recuperación. En 0.5.1 hay aura violeta/dorada,
+bufanda y faldón. Sus nueve animaciones cubren reposo, movimiento, invocación,
+desinvocación, golpe, ráfaga, guardia, recuperación y Star Finger. Los dedos
+extensibles solo son visibles durante esta última acción; el rig corporal y el
+atlas aprobados se conservan. Hay aura violeta/dorada,
 trayectorias de puños, destellos de impacto y arco frontal de guardia, con partículas
 nativas. Los efectos de audio proceden de Kenney (CC0), recortados en clips breves
 mono; incluyen invocación, retirada, swing, impacto y guardia, sin voces del anime.
 Consulta los [créditos y licencias](../THIRD_PARTY_NOTICES.md).
 Las fuentes editables están en [art/star_platinum](../art/star_platinum/README.md).
 
-La parada temporal, Star Finger, los otros Crusaders, DIO y el recorrido completo
+La parada temporal, los otros Crusaders, DIO y el recorrido completo
 de encuentros quedan pendientes. Esta entrega permite decidir sobre silueta,
 encuadre, legibilidad y ritmo antes de ampliar el catálogo. El lanzamiento completo
 mantiene los criterios del [plan de Parte 3](part-three-release.md), incluida la

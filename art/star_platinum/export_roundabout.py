@@ -36,7 +36,10 @@ ART = ROOT / "art/star_platinum"
 ASSETS = ROOT / "src/main/resources/assets/jojosmod"
 PROJECT = ART / "star_platinum.bbmodel"
 PREFIX = "animation.star_platinum."
-EXCLUDED = {"BAM", "kick_barrage", "finger"}
+EXCLUDED = {"BAM", "kick_barrage"}
+FINGER_UUID = "0dd46fb2-ea46-1819-defd-e038cb30e15d"
+FINGER_INDEX_UUID = "fb9400da-1b54-6ed3-beec-77b7298965d6"
+FINGER_MIDDLE_UUID = "d982a1e5-945c-57c6-928d-91628ee29dd8"
 UPSTREAM_MODEL_SHA = "9f53f81eea39e4a5ba6f37f211a426f7f921ad86"
 UPSTREAM_TEXTURE_SHA = "154bfe9038ffeb2a77ea3767d186bfef92124aa1"
 
@@ -207,7 +210,128 @@ def authored_animations():
         "front_belt": {"rotation": curve((0, [10, 0, 0]), (.2, [2, 0, 0]))},
         "back_belt": {"rotation": curve((0, [6, 0, 0]), (.2, [-2, 0, 0]))},
     })
+
+    # No extension may remain visible when another action replaces Star Finger.
+    for animation in result.values():
+        animation["tracks"]["finger"] = {"scale": [[0, [0, 0, 0]]]}
+
+    # The left hand extends two narrow digits at contact (server tick 8). The
+    # original Roundabout finger pivot points +Y down the hand after its 180°
+    # rest rotation; an 80-unit scale gives a five-block, rather than thick, beam.
+    clip("star_finger", .9, {
+        "stand2": {"position": curve((0, [0, 0, 0]), (.26, [0, -.18, .3]), (.4, [0, -.1, -.7]), (.48, [0, -.1, -.7]), (.9, [0, 0, 0]))},
+        "upper_chest": {"rotation": curve((0, [-1, 0, 0]), (.26, [-2, 13, -1]), (.4, [-5, -7, 0]), (.48, [-5, -7, 0]), (.9, [-1, 0, 0]))},
+        "lower_torso": {"rotation": curve((0, [0, 0, 0]), (.26, [0, -5, 0]), (.4, [0, 4, 0]), (.9, [0, 0, 0]))},
+        "head": {"rotation": curve((0, [0, 0, 0]), (.26, [2, -9, 0]), (.4, [4, 4, 0]), (.9, [0, 0, 0]))},
+        "left_arm": {
+            "rotation": curve((0, idle_left), (.2, [25, 13, -18]), (.32, [72, -3, -3]), (.4, [95, 7, 0]), (.48, [95, 7, 0]), (.68, [60, 5, -4]), (.9, idle_left)),
+            "position": curve((0, [0, 0, 0]), (.26, [0, .15, .7]), (.4, [0, 0, -1]), (.48, [0, 0, -1]), (.9, [0, 0, 0])),
+        },
+        "lower_left_arm": {"rotation": curve((0, idle_elbow), (.2, [76, 0, 0]), (.32, [18, 0, 0]), (.4, [0, 0, 0]), (.48, [0, 0, 0]), (.68, [58, 0, 0]), (.9, idle_elbow))},
+        "right_arm": {"rotation": curve((0, idle_right), (.26, [52, 14, 10]), (.48, [52, 14, 10]), (.9, idle_right))},
+        "lower_right_arm": {"rotation": curve((0, idle_elbow), (.26, [78, 0, 0]), (.48, [78, 0, 0]), (.9, idle_elbow))},
+        "finger": {"scale": curve((0, [0, 0, 0]), (.28, [0, 0, 0]), (.32, [1, 1, 1]), (.4, [1, 80, 1]), (.46, [1, 80, 1]), (.64, [1, 1, 1]), (.7, [0, 0, 0]), (.9, [0, 0, 0]))},
+        "right_leg": {"rotation": curve((0, [0, 0, 0]), (.4, [8, 0, 3]), (.9, [0, 0, 0]))},
+        "left_leg": {"rotation": curve((0, [0, 0, 0]), (.4, [-7, 0, -3]), (.9, [0, 0, 0]))},
+        "front_belt": {"rotation": curve((0, [2, 0, 0]), (.26, [-4, 0, 3]), (.42, [13, 0, -3]), (.9, [2, 0, 0]))},
+        "back_belt": {"rotation": curve((0, [-2, 0, 0]), (.42, [12, 0, 2]), (.9, [-2, 0, 0]))},
+    })
     return result
+
+
+def project_animation(name, animation, group_ids):
+    animators = {}
+    for bone, channels in animation["tracks"].items():
+        assert bone in group_ids, bone
+        keyframes = []
+        for key, values in channels.items():
+            for time, vector in values:
+                keyframes.append({
+                    "uuid": identity(name + bone + key + str(time)),
+                    "channel": key, "time": round(time, 6), "interpolation": "linear",
+                    "data_points": [dict(zip(("x", "y", "z"), map(str, tidy(vector))))],
+                })
+        animators[group_ids[bone]] = {"name": bone, "type": "bone", "keyframes": keyframes}
+    return {
+        "name": PREFIX + name, "uuid": identity(name),
+        "loop": "loop" if animation["loop"] else "once",
+        "length": animation["length"], "snapping": 60, "animators": animators,
+    }
+
+
+def ensure_star_finger(project):
+    """Add only the new mesh/track to an existing editable 0.5.1 project.
+
+    The pivot and face UVs derive from Roundabout's original finger. The extra
+    adjacent digit, shape adaptation and timing are authored for this mod; they
+    retain the model's Roundabout license. Existing body elements are untouched.
+    """
+    group_ids = {}
+    groups = {}
+
+    def collect(nodes):
+        for node in nodes:
+            if isinstance(node, dict):
+                group_ids[node["name"]] = node["uuid"]
+                groups[node["name"]] = node
+                collect(node.get("children", []))
+
+    collect(project["outliner"])
+    credit = "Dual-finger mesh adaptation and Star Finger timing: JoJo's Mod."
+    if credit not in project.get("credit", ""):
+        project["credit"] = project.get("credit", "").rstrip() + " " + credit
+    if "finger" not in groups:
+        finger = {
+            "name": "finger", "uuid": FINGER_UUID,
+            "origin": [-6, 13.375, -.925], "rotation": [0, 0, -180],
+            "export": True, "visibility": True, "children": [],
+        }
+        groups["lower_left_arm"]["children"].append(finger)
+        groups["finger"] = finger
+        group_ids["finger"] = FINGER_UUID
+
+    if not any(element["uuid"] == FINGER_MIDDLE_UUID for element in project["elements"]):
+        finger = groups["finger"]
+        original = next((element for element in project["elements"]
+                         if element["uuid"] == FINGER_INDEX_UUID), None)
+        # Minimal numeric source for upgrading the already-exported 0.5.1 BB.
+        # It carries the same six face rectangles as the pinned upstream cube.
+        template = copy.deepcopy(original) if original else {
+            "name": "finger_cube", "type": "cube", "uuid": FINGER_INDEX_UUID,
+            "box_uv": False, "export": True,
+            "origin": [-6, 13.375, -.925],
+            "faces": {
+                face: {"uv": uv, "texture": 0} for face, uv in {
+                    "north": [35, 126, 36, 127], "east": [33, 126, 35, 127],
+                    "south": [38, 126, 39, 127], "west": [36, 126, 38, 127],
+                    "up": [36, 126, 35, 124], "down": [37, 124, 36, 126],
+                }.items()
+            },
+        }
+        if original:
+            project["elements"].remove(original)
+        finger["children"] = [child for child in finger["children"]
+                              if child != FINGER_INDEX_UUID]
+        for name, uid, x in [("star_finger_index", FINGER_INDEX_UUID, -7),
+                             ("star_finger_middle", FINGER_MIDDLE_UUID, -6)]:
+            element = copy.deepcopy(template)
+            element.update(name=name, uuid=uid, box_uv=False,
+                           **{"from": [x, 13.375, -1.425],
+                              "to": [x + .75, 14.375, -.425]})
+            project["elements"].append(element)
+            finger["children"].append(uid)
+
+    authored = authored_animations()
+    existing_names = {animation["name"] for animation in project["animations"]}
+    for animation in project["animations"]:
+        if animation["name"] != PREFIX + "star_finger" and group_ids["finger"] not in animation["animators"]:
+            name = animation["name"].removeprefix(PREFIX)
+            hidden = project_animation(name, {"length": animation["length"], "loop": False,
+                    "tracks": {"finger": {"scale": [[0, [0, 0, 0]]]}}}, group_ids)
+            animation["animators"][group_ids["finger"]] = hidden["animators"][group_ids["finger"]]
+    if PREFIX + "star_finger" not in existing_names:
+        project["animations"].append(project_animation("star_finger", authored["star_finger"], group_ids))
+    return project
 
 
 def build_project(upstream, atlas):
@@ -248,30 +372,13 @@ def build_project(upstream, atlas):
                 collect(node["children"])
 
     collect(outliner)
-    animations = []
-    for name, animation in authored_animations().items():
-        animators = {}
-        for bone, channels in animation["tracks"].items():
-            assert bone in group_ids, bone
-            keyframes = []
-            for key, values in channels.items():
-                for time, vector in values:
-                    keyframes.append({
-                        "uuid": identity(name + bone + key + str(time)),
-                        "channel": key, "time": round(time, 6), "interpolation": "linear",
-                        "data_points": [dict(zip(("x", "y", "z"), map(str, tidy(vector))))],
-                    })
-            animators[group_ids[bone]] = {"name": bone, "type": "bone", "keyframes": keyframes}
-        animations.append({
-            "name": PREFIX + name, "uuid": identity(name),
-            "loop": "loop" if animation["loop"] else "once",
-            "length": animation["length"], "snapping": 60, "animators": animators,
-        })
-    return {
+    animations = [project_animation(name, animation, group_ids)
+                  for name, animation in authored_animations().items()]
+    return ensure_star_finger({
         "meta": {"format_version": "4.10", "model_format": "geckolib_model", "box_uv": False},
         "name": "Star Platinum — Roundabout adaptation for Part 3",
         "model_identifier": "star_platinum", "visible_box": [3.4, 3.6, 1.4],
-        "credit": "Model and anime atlas: Hydraheads, GenericName and Roundabout contributors; Roundabout License v1.2. Timing curves: JoJo's Mod. Guard pose adapted from Roundabout Block.",
+        "credit": "Model and anime atlas: Hydraheads, GenericName and Roundabout contributors; Roundabout License v1.2. Timing curves and dual-finger adaptation: JoJo's Mod. Guard pose adapted from Roundabout Block.",
         "resolution": {"width": 128, "height": 128}, "elements": kept_elements,
         "outliner": outliner,
         "textures": [{
@@ -280,7 +387,7 @@ def build_project(upstream, atlas):
             "source": "data:image/png;base64," + base64.b64encode(atlas).decode(),
         }],
         "animations": animations,
-    }
+    })
 
 
 def export_project(project):
@@ -395,10 +502,23 @@ def audit(project, geometry, animations, atlas):
         side = "right" if pulse % 2 == 0 else "left"
         time = str(round(.2 + pulse * .15, 3))
         assert barrage[side + "_arm"]["rotation"][time][0] == -96
+    clips = animations["animations"]
+    for name, animation in clips.items():
+        scale = animation["bones"]["finger"]["scale"]
+        if name != PREFIX + "star_finger":
+            assert all(vector == [0, 0, 0] for vector in scale.values()), name
+    finger = clips[PREFIX + "star_finger"]
+    assert finger["animation_length"] == .9
+    assert finger["bones"]["finger"]["scale"]["0.4"] == [1, 80, 1]
+    assert finger["bones"]["finger"]["scale"]["0.9"] == [0, 0, 0]
+    assert finger["bones"]["left_arm"]["rotation"]["0.4"] == [-95, -7, 0]
+    assert sum(1 for element in project["elements"]
+               if element["uuid"] in {FINGER_INDEX_UUID, FINGER_MIDDLE_UUID}) == 2
     assert len(project["elements"]) == sum(len(bone.get("cubes", [])) for bone in bones)
     return {"bones": len(bones), "cubes": len(project["elements"]),
             "animations": len(animations["animations"]), "atlas": "128x128",
-            "contact": .2, "barrage_pulses": [.2, .35, .5, .65, .8, .95, 1.1, 1.25]}
+            "contact": .2, "barrage_pulses": [.2, .35, .5, .65, .8, .95, 1.1, 1.25],
+            "star_finger_contact": .4, "star_finger_extension_blocks": 5}
 
 
 def main():
@@ -415,6 +535,10 @@ def main():
         PROJECT.write_text(json.dumps(project, ensure_ascii=False, indent=2) + "\n")
     else:
         project = json.loads(PROJECT.read_text())
+        adapted = tidy(ensure_star_finger(copy.deepcopy(project)))
+        if adapted != project:
+            PROJECT.write_text(json.dumps(adapted, ensure_ascii=False, indent=2) + "\n")
+        project = adapted
     geometry, animations, atlas = export_project(project)
     summary = audit(project, geometry, animations, atlas)
     paths = {

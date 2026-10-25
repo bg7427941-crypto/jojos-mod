@@ -25,7 +25,9 @@ el JAR los incluye en `META-INF/licenses/roundabout/`.
 
 Adaptación realizada aquí: conversión a GeckoLib y a un proyecto editable de
 Blockbench, selección del rig corporal, retirada de geometría de habilidades no
-implementadas y ocho animaciones ajustadas a los tiempos del combate de este mod.
+implementadas y nueve animaciones ajustadas a los tiempos del combate de este mod.
+Star Finger adapta la pieza extensible original a dos dedos; el cuerpo y el atlas
+permanecen iguales respecto a la presentación 0.5.1.
 No se incorpora código Java ni audio de Roundabout. JoJo y sus personajes son
 creación de Hirohiko Araki; estos créditos no implican afiliación oficial.
 

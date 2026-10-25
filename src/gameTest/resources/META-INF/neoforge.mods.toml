@@ -2,13 +2,13 @@ license="MIT"
 
 [[mods]]
 modId="jojosmod_tests"
-version="0.5.1"
+version="0.6.0"
 displayName="JoJo's Mod Integration Tests"
 description='''Development-only GameTests; not distributed in the mod JAR.'''
 
 [[dependencies.jojosmod_tests]]
 modId="jojosmod"
 type="required"
-versionRange="[0.5.0,0.6.0)"
+versionRange="[0.6.0,0.7.0)"
 ordering="AFTER"
 side="BOTH"

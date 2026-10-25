@@ -22,6 +22,14 @@
     "subtitle": "subtitles.jojosmod.star_platinum.guard",
     "sounds": [{"name": "jojosmod:star_platinum/guard", "attenuation_distance": 12}]
   },
+  "star_platinum.barrage_start": {
+    "subtitle": "subtitles.jojosmod.star_platinum.barrage_start",
+    "sounds": [{"name": "jojosmod:star_platinum/guard", "attenuation_distance": 16}]
+  },
+  "star_platinum.star_finger": {
+    "subtitle": "subtitles.jojosmod.star_platinum.star_finger",
+    "sounds": [{"name": "jojosmod:star_platinum/swing", "pitch": 1.2, "attenuation_distance": 16}]
+  },
   "star_platinum.guard_block": {
     "subtitle": "subtitles.jojosmod.star_platinum.guard_block",
     "sounds": [{"name": "jojosmod:star_platinum/guard_block", "attenuation_distance": 16}]

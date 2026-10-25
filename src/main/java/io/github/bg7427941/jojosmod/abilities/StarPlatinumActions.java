@@ -9,6 +9,7 @@ import io.github.bg7427941.jojosmod.effects.StarPlatinumEffects;
 import io.github.bg7427941.jojosmod.stands.PlayerStands;
 import io.github.bg7427941.jojosmod.stands.StandController;
 import io.github.bg7427941.jojosmod.stands.StarPlatinumSession;
+import io.github.bg7427941.jojosmod.stands.StarPlatinumProgress;
 import io.github.bg7427941.jojosmod.stands.StarPlatinumSession.Action;
 import java.util.Optional;
 import net.minecraft.network.chat.Component;
@@ -34,6 +35,11 @@ public final class StarPlatinumActions {
     public static final int GUARD_TICKS = 40;
     public static final int GUARD_COOLDOWN = 80;
     public static final float GUARD_DAMAGE_MULTIPLIER = 0.4F;
+    public static final int STAR_FINGER_WINDUP = 8;
+    public static final int STAR_FINGER_TICKS = 18;
+    public static final int STAR_FINGER_COOLDOWN = 120;
+    public static final float STAR_FINGER_DAMAGE = 4;
+    public static final double STAR_FINGER_REACH = 6;
     private static final Identifier GUARD_SLOW = Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "star_guard");
 
     private StarPlatinumActions() {}
@@ -67,7 +73,7 @@ public final class StarPlatinumActions {
         if (active(owner).filter(s -> s == stand).isEmpty() || busy(owner, state)) return false;
         owner.setData(ModAttachments.STAR_SESSION,
                 new StarPlatinumSession(Action.STRIKE, owner.level().getGameTime(), 0,
-                        state.barrageReadyAt(), state.guardReadyAt()));
+                        state.barrageReadyAt(), state.guardReadyAt(), state.fingerReadyAt()));
         stand.playAttackAnimation();
         return true;
     }
@@ -78,9 +84,29 @@ public final class StarPlatinumActions {
         long now = owner.level().getGameTime();
         if (stand.isEmpty() || busy(owner, state) || coolingDown(owner, state.barrageReadyAt() - now)) return false;
         owner.setData(ModAttachments.STAR_SESSION,
-                new StarPlatinumSession(Action.BARRAGE, now, 0, now + BARRAGE_COOLDOWN, state.guardReadyAt()));
+                new StarPlatinumSession(Action.BARRAGE, now, 0, now + BARRAGE_COOLDOWN, state.guardReadyAt(), state.fingerReadyAt()));
         stand.get().playBarrageAnimation();
+        owner.level().playSound(null, stand.get().blockPosition(), ModSounds.STAR_BARRAGE_START.get(),
+                SoundSource.PLAYERS, 0.28F, 1.15F);
         owner.sendSystemMessage(Component.translatable("message.jojosmod.star.barrage"), true);
+        return true;
+    }
+
+    public static boolean starFinger(ServerPlayer owner) {
+        var stand = requireActive(owner);
+        if (stand.isEmpty()) return false;
+        if (!StarPlatinumProgress.starFingerUnlocked(owner)) {
+            owner.sendSystemMessage(Component.translatable("message.jojosmod.star.finger_locked",
+                    StarPlatinumProgress.STAR_FINGER_REQUIREMENT), true);
+            return false;
+        }
+        var state = session(owner);
+        long now = owner.level().getGameTime();
+        if (busy(owner, state) || coolingDown(owner, state.fingerReadyAt() - now)) return false;
+        owner.setData(ModAttachments.STAR_SESSION, new StarPlatinumSession(Action.STAR_FINGER, now, 0,
+                state.barrageReadyAt(), state.guardReadyAt(), now + STAR_FINGER_COOLDOWN));
+        stand.get().playStarFingerAnimation();
+        owner.sendSystemMessage(Component.translatable("message.jojosmod.star.finger"), true);
         return true;
     }
 
@@ -94,7 +120,7 @@ public final class StarPlatinumActions {
         long now = owner.level().getGameTime();
         if (stand.isEmpty() || busy(owner, state) || coolingDown(owner, state.guardReadyAt() - now)) return false;
         owner.setData(ModAttachments.STAR_SESSION,
-                new StarPlatinumSession(Action.GUARD, now, 0, state.barrageReadyAt(), now + GUARD_COOLDOWN));
+                new StarPlatinumSession(Action.GUARD, now, 0, state.barrageReadyAt(), now + GUARD_COOLDOWN, state.fingerReadyAt()));
         var speed = owner.getAttribute(Attributes.MOVEMENT_SPEED);
         if (speed != null && !speed.hasModifier(GUARD_SLOW)) {
             speed.addTransientModifier(new AttributeModifier(GUARD_SLOW, -0.45, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
@@ -136,20 +162,25 @@ public final class StarPlatinumActions {
             return;
         }
         boolean strike = state.action() == Action.STRIKE;
-        int total = strike ? 1 : BARRAGE_HITS;
-        int next = WINDUP_TICKS + (strike ? 0 : state.pulses() * BARRAGE_INTERVAL);
+        boolean finger = state.action() == Action.STAR_FINGER;
+        boolean barrage = state.action() == Action.BARRAGE;
+        int total = barrage ? BARRAGE_HITS : 1;
+        int next = (finger ? STAR_FINGER_WINDUP : WINDUP_TICKS) + (barrage ? state.pulses() * BARRAGE_INTERVAL : 0);
         if (state.pulses() < total && elapsed >= next) {
             var profile = ModStands.STAR_PLATINUM.combat();
-            owner.level().playSound(null, stand.get().blockPosition(), ModSounds.STAR_SWING.get(),
-                    SoundSource.PLAYERS, strike ? 0.55F : 0.27F, strike ? 0.94F : 1.14F);
-            StarPlatinumEffects.swing(owner, stand.get(), !strike);
-            BasicAttack.hit(owner, stand.get(), strike ? profile.damage() : 1.0F, profile.reach(), !strike);
+            owner.level().playSound(null, stand.get().blockPosition(),
+                    finger ? ModSounds.STAR_FINGER.get() : ModSounds.STAR_SWING.get(),
+                    SoundSource.PLAYERS, barrage ? 0.27F : 0.55F, barrage ? 1.14F : 0.94F);
+            if (finger) StarPlatinumEffects.starFinger(owner, stand.get(), STAR_FINGER_REACH);
+            else StarPlatinumEffects.swing(owner, stand.get(), barrage);
+            BasicAttack.hit(owner, stand.get(), finger ? STAR_FINGER_DAMAGE : strike ? profile.damage() : 1.0F,
+                    finger ? STAR_FINGER_REACH : profile.reach(), barrage);
             // Damage hooks from other mods may have interrupted the owner during a strike.
             if (session(owner).action() != state.action() || session(owner).startedAt() != state.startedAt()) return;
             owner.setData(ModAttachments.STAR_SESSION, new StarPlatinumSession(state.action(), state.startedAt(),
-                    state.pulses() + 1, state.barrageReadyAt(), state.guardReadyAt()));
+                    state.pulses() + 1, state.barrageReadyAt(), state.guardReadyAt(), state.fingerReadyAt()));
         }
-        if (elapsed >= (strike ? STRIKE_TICKS : BARRAGE_TICKS)) stop(owner);
+        if (elapsed >= (finger ? STAR_FINGER_TICKS : strike ? STRIKE_TICKS : BARRAGE_TICKS)) stop(owner);
     }
 
     public static void stop(ServerPlayer owner) {
@@ -170,19 +201,21 @@ public final class StarPlatinumActions {
         boolean physical = source.is(DamageTypeTags.IS_PROJECTILE) || source.is(DamageTypeTags.IS_PLAYER_ATTACK)
                 || source.is(DamageTypes.MOB_ATTACK) || source.is(DamageTypes.MOB_ATTACK_NO_AGGRO);
         var sourcePosition = source.getSourcePosition();
-        if (!physical || sourcePosition == null) return;
+        if (!physical || sourcePosition == null || event.getAmount() <= 0) return;
         var direction = sourcePosition.subtract(owner.position()).multiply(1, 0, 1);
         var look = owner.getLookAngle().multiply(1, 0, 1);
         if (direction.lengthSqr() < 0.0001 || look.lengthSqr() < 0.0001
                 || direction.normalize().dot(look.normalize()) < 0.5) return;
         event.setAmount(event.getAmount() * GUARD_DAMAGE_MULTIPLIER);
+        StarPlatinumProgress.onGuardBlock(owner, source);
         owner.level().playSound(null, owner.blockPosition(), ModSounds.STAR_GUARD_BLOCK.get(), SoundSource.PLAYERS, 0.6F, 1.05F);
         StarPlatinumEffects.guardBlock(owner);
     }
 
     public static void onDamage(LivingDamageEvent.Post event) {
         if (event.getEntity() instanceof ServerPlayer owner && event.getHealthDamage() > 0
-                && (session(owner).action() == Action.BARRAGE || session(owner).action() == Action.STRIKE)) {
+                && (session(owner).action() == Action.BARRAGE || session(owner).action() == Action.STRIKE
+                    || session(owner).action() == Action.STAR_FINGER)) {
             stop(owner);
         }
     }

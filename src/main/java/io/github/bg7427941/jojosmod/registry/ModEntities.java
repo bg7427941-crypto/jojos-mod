@@ -39,6 +39,14 @@ public final class ModEntities {
                     .build(ResourceKey.create(Registries.ENTITY_TYPE,
                             Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "disc_keeper"))));
 
+    public static final DeferredHolder<EntityType<?>, EntityType<TrainingStandEntity>> STAR_PLATINUM =
+            ENTITIES.register("star_platinum", () -> EntityType.Builder
+                    .of(TrainingStandEntity::new, MobCategory.MISC)
+                    .sized(0.8F, 2.1F).noSave().noSummon()
+                    .clientTrackingRange(TRACKING_RANGE).updateInterval(UPDATE_INTERVAL)
+                    .build(ResourceKey.create(Registries.ENTITY_TYPE,
+                            Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "star_platinum"))));
+
     private ModEntities() {}
 
     public static void register(IEventBus modEventBus) {

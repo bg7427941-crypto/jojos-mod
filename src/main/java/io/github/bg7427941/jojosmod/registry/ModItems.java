@@ -21,6 +21,9 @@ public final class ModItems {
 
     public static final DeferredItem<StandArrowItem> STAND_ARROW =
             ITEMS.registerItem("stand_arrow", StandArrowItem::new, properties -> properties.stacksTo(1));
+    public static final DeferredItem<StandArrowItem> STARDUST_ARROW =
+            ITEMS.registerItem("stardust_arrow", properties -> new StandArrowItem(properties, ModStands.STARDUST_POOL),
+                    properties -> properties.stacksTo(1));
     public static final DeferredItem<Item> STAND_DISC_FRAGMENT =
             ITEMS.registerSimpleItem("stand_disc_fragment");
     public static final DeferredItem<Item> EMPTY_STAND_DISC =
@@ -31,6 +34,8 @@ public final class ModItems {
             ITEMS.registerSimpleItem("echoes_act_1_core", properties -> properties.stacksTo(1));
     public static final DeferredItem<Item> LITTLE_FEET_CORE =
             ITEMS.registerSimpleItem("little_feet_core", properties -> properties.stacksTo(1));
+    public static final DeferredItem<Item> STAR_PLATINUM_CORE =
+            ITEMS.registerSimpleItem("star_platinum_core", properties -> properties.stacksTo(1));
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> JOJOS_TAB =
             TABS.register("jojos_mod", () -> CreativeModeTab.builder()
@@ -39,13 +44,16 @@ public final class ModItems {
                     .icon(() -> STAND_ARROW.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
                         output.accept(STAND_ARROW.get());
+                        output.accept(STARDUST_ARROW.get());
                         output.accept(STAND_DISC_FRAGMENT.get());
                         output.accept(EMPTY_STAND_DISC.get());
                         output.accept(STAND_DISC.get());
                         output.accept(ECHOES_ACT_1_CORE.get());
                         output.accept(LITTLE_FEET_CORE.get());
+                        output.accept(STAR_PLATINUM_CORE.get());
                         output.accept(StandDiscItem.containing(ModStands.ECHOES_ACT_1));
                         output.accept(StandDiscItem.containing(ModStands.LITTLE_FEET));
+                        output.accept(StandDiscItem.containing(ModStands.STAR_PLATINUM));
                     })
                     .build());
 

@@ -6,7 +6,7 @@ version="${mod_version}"
 displayName="${mod_name}"
 description='''
 An original Minecraft Stand system inspired by JoJo's Bizarre Adventure.
-Phase 4C prototype: voluntary Stand storage through a persistent Disc Keeper service NPC.
+Star Platinum playtest: original animated model, precise strike, timed barrage, frontal guard and a Stardust awakening route.
 '''
 
 [[dependencies.${mod_id}]]

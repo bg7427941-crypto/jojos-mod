@@ -1,9 +1,10 @@
 {
   "star_platinum.summon": {
+    "replace": true,
     "subtitle": "subtitles.jojosmod.star_platinum.summon",
     "sounds": [
       {
-        "name": "jojosmod:star_platinum/original/summon",
+        "name": "jojosmod:star_platinum/summon",
         "attenuation_distance": 16
       }
     ]
@@ -31,50 +32,55 @@
     ]
   },
   "star_platinum.impact": {
+    "replace": true,
     "subtitle": "subtitles.jojosmod.star_platinum.impact",
     "sounds": [
       {
-        "name": "jojosmod:star_platinum/original/impact_1",
+        "name": "jojosmod:star_platinum/impact_1",
         "attenuation_distance": 16
       },
       {
-        "name": "jojosmod:star_platinum/original/impact_2",
+        "name": "jojosmod:star_platinum/impact_2",
         "attenuation_distance": 16
       }
     ]
   },
   "star_platinum.guard": {
+    "replace": true,
     "subtitle": "subtitles.jojosmod.star_platinum.guard",
     "sounds": [
       {
-        "name": "jojosmod:star_platinum/original/guard",
-        "attenuation_distance": 12
+        "name": "jojosmod:star_platinum/guard",
+        "attenuation_distance": 16
       }
     ]
   },
   "star_platinum.barrage_start": {
+    "replace": true,
     "subtitle": "subtitles.jojosmod.star_platinum.barrage_start",
     "sounds": [
       {
-        "name": "jojosmod:star_platinum/original/barrage_start",
+        "name": "jojosmod:star_platinum/barrage_start",
         "attenuation_distance": 16
       }
     ]
   },
   "star_platinum.star_finger": {
+    "replace": true,
     "subtitle": "subtitles.jojosmod.star_platinum.star_finger",
     "sounds": [
       {
-        "name": "jojosmod:star_platinum/original/star_finger",
+        "name": "jojosmod:star_platinum/star_finger",
         "attenuation_distance": 16
       }
     ]
   },
   "star_platinum.guard_block": {
+    "replace": true,
     "subtitle": "subtitles.jojosmod.star_platinum.guard_block",
     "sounds": [
       {
-        "name": "jojosmod:star_platinum/original/guard_block",
+        "name": "jojosmod:star_platinum/guard_block",
         "attenuation_distance": 16
       }
     ]
@@ -116,7 +122,13 @@
     ]
   },
   "star_platinum.single_ora": {
+    "replace": true,
     "subtitle": "subtitles.jojosmod.star_platinum.single_ora",
-    "sounds": []
+    "sounds": [
+      {
+        "name": "jojosmod:star_platinum/ora",
+        "attenuation_distance": 16
+      }
+    ]
   }
 }

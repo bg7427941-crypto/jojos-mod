@@ -7,7 +7,7 @@ displayName="${mod_name}"
 description='''
 An original Minecraft Stand system inspired by JoJo's Bizarre Adventure.
 Star Platinum playtest: Star Finger, precise strike, timed barrage, frontal guard, persistent willpower mastery and progress HUD.
-Precise arrow interception and original Star Platinum geometry, pixel-art atlas, eleven animations and synthesized sound effects; see THIRD_PARTY_NOTICES.md.
+Stand leap, precise arrow interception and original Star Platinum geometry, pixel-art atlas, thirteen animations and synthesized sound effects; see THIRD_PARTY_NOTICES.md.
 '''
 
 [[dependencies.${mod_id}]]

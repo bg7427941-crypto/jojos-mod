@@ -76,6 +76,14 @@ CLIPS = {
         "duration": 0.18, "seed": 261112,
         "recipe": "Dry arrow-like noise snap, short shaft modes and a light high-metal/air afterimage; no heavy guard impact.",
     },
+    "leap": {
+        "duration": 0.28, "seed": 261113,
+        "recipe": "Immediate compact low pressure push under a rising air formant and short bright upward rush; smoothly tapered release.",
+    },
+    "leap_land": {
+        "duration": 0.20, "seed": 261114,
+        "recipe": "Controlled low landing thud with damped body modes, soft contact noise and a short warm resonant energy tail.",
+    },
 }
 
 
@@ -269,6 +277,28 @@ def make_intercept_catch(out, rng):
     air(out, rng, 0.008, 0.145, 0.15, lambda t: 4200.0 - 2700.0 * t / 0.145,
         0.003, 0.048, low=700.0, high=7200.0,
         shape=lambda t: math.exp(-t / 0.032))
+
+
+def make_leap(out, rng):
+    pressure(out, 0.0, 0.155, 0.85, 150.0, 48.0, 0.045, 0.001)
+    air(out, rng, 0.0, 0.075, 0.42, 720.0, 0.001, 0.025,
+        low=70.0, high=3200.0, shape=lambda t: math.exp(-t / 0.018))
+    air(out, rng, 0.006, 0.247, 0.43,
+        lambda t: 600.0 + 2900.0 * smoothstep(t / 0.247),
+        0.005, 0.065, low=180.0, high=6500.0,
+        shape=lambda t: math.exp(-t / 0.13) * (0.6 + 0.4 * smoothstep(t / 0.09)))
+    air(out, rng, 0.048, 0.19, 0.11, 4300.0, 0.020, 0.065,
+        low=1900.0, high=7600.0, shape=lambda t: math.exp(-t / 0.09))
+
+
+def make_leap_land(out, rng):
+    pressure(out, 0.0, 0.174, 0.88, 97.0, 46.0, 0.042, 0.002)
+    air(out, rng, 0.001, 0.09, 0.32, 180.0, 0.0018, 0.034,
+        low=48.0, high=1400.0, shape=lambda t: math.exp(-t / 0.020))
+    modes(out, 0.002, 0.135, 0.20, [137.0, 229.0, 361.0], 0.036)
+    modes(out, 0.012, 0.164, 0.095, [329.0, 493.0, 751.0], 0.045)
+    air(out, rng, 0.020, 0.153, 0.07, 850.0, 0.008, 0.065,
+        low=270.0, high=2800.0, shape=lambda t: math.exp(-t / 0.048))
 
 
 def make_barrage_start(out, rng):

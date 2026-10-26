@@ -1,6 +1,6 @@
 # Audio del anime y paquete de recursos local
 
-La versión 0.8.0 incluye doce [efectos originales sintetizados](../art/sounds/original-audio.md)
+La versión 0.9.0 incluye catorce [efectos originales sintetizados](../art/sounds/original-audio.md)
 para el proyecto, siguiendo la dirección de crear su presentación desde cero.
 No incluye grabaciones de voces del anime ni muestras extraídas de otros mods.
 La plantilla de
@@ -26,6 +26,8 @@ Puedes aportar solo uno; los demás eventos conservarán sus sonidos del mod.
 | `star_finger.ogg` | `star_platinum.star_finger` | Señal breve de Star Finger |
 | `intercept.ogg` | `star_platinum.intercept` | Preparación, aproximadamente 0,1 s |
 | `intercept_catch.ogg` | `star_platinum.intercept_catch` | Acierto, aproximadamente 0,18 s |
+| `leap.ogg` | `star_platinum.leap` | Impulso, aproximadamente 0,28 s |
+| `leap_land.ogg` | `star_platinum.leap_land` | Aterrizaje, aproximadamente 0,2 s |
 
 Para una frase o un grito continuo de ráfaga, usa `barrage_start.ogg`; ponerlo en
 `swing.ogg` repetiría el clip en cada pulso y superpondría las voces. Ningún evento

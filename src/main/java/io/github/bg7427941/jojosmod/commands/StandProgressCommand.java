@@ -48,6 +48,9 @@ public final class StandProgressCommand {
                         Component.keybind("key.jojosmod.star_intercept"))
                 : Component.translatable("command.jojosmod.stand.intercept_locked",
                         StarPlatinumProgress.INTERCEPT_REQUIREMENT), false);
+        source.sendSuccess(() -> StarPlatinumProgress.leapUnlocked(player)
+                ? Component.translatable("command.jojosmod.stand.leap_ready", Component.keybind("key.jojosmod.star_leap"))
+                : Component.translatable("command.jojosmod.stand.leap_locked", StarPlatinumProgress.LEAP_REQUIREMENT), false);
         return 1;
     }
 }

@@ -59,10 +59,14 @@ public final class StandHud {
                 ? Component.translatable("hud.jojosmod.intercept.unlocked", interceptKey)
                 : Component.translatable("hud.jojosmod.intercept.locked", interceptKey,
                         StarPlatinumProgress.INTERCEPT_REQUIREMENT);
+        boolean leapUnlocked = StarPlatinumProgress.leapUnlocked(player);
+        var leapKey = Component.keybind("key.jojosmod.star_leap");
+        var leap = leapUnlocked ? Component.translatable("hud.jojosmod.leap.unlocked", leapKey)
+                : Component.translatable("hud.jojosmod.leap.locked", leapKey, StarPlatinumProgress.LEAP_REQUIREMENT);
         int textWidth = Math.max(Math.max(font.width(title), font.width(mastery)),
                 Math.max(font.width(ability), font.width(interception)));
-        int width = textWidth + PADDING * 2;
-        int height = font.lineHeight * 4 + PADDING * 2;
+        int width = Math.max(textWidth, font.width(leap)) + PADDING * 2;
+        int height = font.lineHeight * 5 + PADDING * 2;
         float scale = Math.min(1.0F, Math.max(1, graphics.guiWidth() - X * 2) / (float) width);
 
         graphics.pose().pushMatrix();
@@ -77,6 +81,8 @@ public final class StandHud {
                 unlocked ? 0xFFF2D278 : 0xFFB8B4C4, false);
         graphics.text(font, interception, PADDING, PADDING + font.lineHeight * 3,
                 interceptUnlocked ? 0xFFF2D278 : 0xFFB8B4C4, false);
+        graphics.text(font, leap, PADDING, PADDING + font.lineHeight * 4,
+                leapUnlocked ? 0xFFF2D278 : 0xFFB8B4C4, false);
         graphics.pose().popMatrix();
     }
 }

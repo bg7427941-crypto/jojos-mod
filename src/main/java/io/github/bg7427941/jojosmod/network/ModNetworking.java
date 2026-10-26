@@ -2,13 +2,14 @@ package io.github.bg7427941.jojosmod.network;
 
 import io.github.bg7427941.jojosmod.stands.StandController;
 import io.github.bg7427941.jojosmod.abilities.StarPlatinumActions;
+import io.github.bg7427941.jojosmod.abilities.StarPlatinumLeap;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.HandlerThread;
 
 public final class ModNetworking {
-    private static final String PROTOCOL_VERSION = "5";
+    private static final String PROTOCOL_VERSION = "6";
 
     private ModNetworking() {}
 
@@ -40,6 +41,9 @@ public final class ModNetworking {
         });
         registrar.playToServer(InterceptPayload.TYPE, InterceptPayload.STREAM_CODEC, (payload, context) -> {
             if (context.player() instanceof ServerPlayer player) StarPlatinumActions.intercept(player);
+        });
+        registrar.playToServer(LeapPayload.TYPE, LeapPayload.STREAM_CODEC, (payload, context) -> {
+            if (context.player() instanceof ServerPlayer player) StarPlatinumLeap.leap(player);
         });
     }
 }

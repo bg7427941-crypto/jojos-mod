@@ -4,7 +4,7 @@
   "license": "MIT",
   "license_file": "LICENSE",
   "generator": "art/sounds/build_original.py",
-  "generator_sha256": "dd89e7150b4b3733727e70e50e111089160dd48d79b6d1c63bc175294603745a",
+  "generator_sha256": "b7947caf2577356e6a0bfc80dd38f9801ec18a27d32459e7ba78226f13303634",
   "recorded_inputs": [],
   "external_audio_inputs": [],
   "voice_inputs": [],
@@ -239,6 +239,42 @@
       "decoded_rms_dbfs": -26.125,
       "decoded_last_5ms_peak_dbfs": -112.402,
       "sha256": "54ed8e71964ff58ff64db10bef975ee777bae9eae52507b9b93ded36859a8f04"
+    },
+    {
+      "file": "star_platinum/original/leap.ogg",
+      "license": "MIT",
+      "seed": 261113,
+      "recipe": "Immediate compact low pressure push under a rising air formant and short bright upward rush; smoothly tapered release.",
+      "duration_seconds": 0.28,
+      "codec": "vorbis",
+      "channels": 1,
+      "sample_rate": 48000,
+      "vorbis_quality": 6,
+      "source_frames": 13440,
+      "decoded_frames": 13312,
+      "normalization_gain_db": 2.15625,
+      "decoded_peak_dbfs": -4.033,
+      "decoded_rms_dbfs": -18.255,
+      "decoded_last_5ms_peak_dbfs": -117.347,
+      "sha256": "652935fa6c0479fdf71e5f5faac9ceeb503bf033d5ad481689278323d37f3e07"
+    },
+    {
+      "file": "star_platinum/original/leap_land.ogg",
+      "license": "MIT",
+      "seed": 261114,
+      "recipe": "Controlled low landing thud with damped body modes, soft contact noise and a short warm resonant energy tail.",
+      "duration_seconds": 0.2,
+      "codec": "vorbis",
+      "channels": 1,
+      "sample_rate": 48000,
+      "vorbis_quality": 6,
+      "source_frames": 9600,
+      "decoded_frames": 9472,
+      "normalization_gain_db": 2.0,
+      "decoded_peak_dbfs": -3.927,
+      "decoded_rms_dbfs": -17.034,
+      "decoded_last_5ms_peak_dbfs": -102.558,
+      "sha256": "ecc19cd3c39cbb99f25c38692908cd5dab9816d75cd7520b0d77d4c3f1b312f1"
     }
   ]
 }

@@ -27,6 +27,7 @@ public record StarPlatinumProgress(boolean awakened, List<UUID> preciseTargets,
     public static final int TARGETS_REQUIRED = 3;
     public static final int STAR_FINGER_REQUIREMENT = 5;
     public static final int INTERCEPT_REQUIREMENT = 6;
+    public static final int LEAP_REQUIREMENT = 4;
     public static final StarPlatinumProgress EMPTY = new StarPlatinumProgress(false);
     private static final Codec<List<UUID>> TARGETS_CODEC = UUIDUtil.CODEC.listOf(0, TARGETS_REQUIRED).validate(targets ->
             validTargets(targets) ? DataResult.success(targets)
@@ -100,6 +101,10 @@ public record StarPlatinumProgress(boolean awakened, List<UUID> preciseTargets,
         return PlayerWillpower.get(player) >= INTERCEPT_REQUIREMENT;
     }
 
+    public static boolean leapUnlocked(Player player) {
+        return PlayerWillpower.get(player) >= LEAP_REQUIREMENT;
+    }
+
     public static void onAssigned(ServerPlayer player) {
         var current = get(player);
         if (!hasStarPlatinum(player) || current.awakened()) return;
@@ -161,6 +166,10 @@ public record StarPlatinumProgress(boolean awakened, List<UUID> preciseTargets,
         int after = Math.min(WillpowerData.MAX_VALUE, before + amount);
         player.setData(ModAttachments.STAR_PROGRESS, progress);
         PlayerWillpower.set(player, after);
+        if (before < LEAP_REQUIREMENT && after >= LEAP_REQUIREMENT) {
+            player.sendSystemMessage(Component.translatable("message.jojosmod.mastery.leap_unlocked",
+                    Component.keybind("key.jojosmod.star_leap")), false);
+        }
         if (before < STAR_FINGER_REQUIREMENT && after >= STAR_FINGER_REQUIREMENT) {
             player.sendSystemMessage(Component.translatable("message.jojosmod.mastery.star_finger_unlocked",
                     Component.keybind("key.jojosmod.star_finger")), false);

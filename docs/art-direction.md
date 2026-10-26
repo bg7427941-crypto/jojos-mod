@@ -5,14 +5,14 @@ el personaje; el modelado, la textura, las poses, los sonidos y la progresión s
 crean para este proyecto. Comparar varios mods ayuda a valorar legibilidad y
 presentación, sin convertir sus recursos en nuestra plantilla.
 
-## Star Platinum en 0.8.0
+## Star Platinum en 0.9.0
 
 | Elemento | Construcción actual |
 | --- | --- |
 | Modelo | 144 cubos nuevos y 29 huesos, con articulaciones de codo, muñeca, rodilla, tela y cabello |
 | Textura | Atlas de 256×256 creado desde una imagen vacía, con UV y pixel art propios |
-| Animaciones | Once secuencias nuevas, sincronizadas con los contactos del servidor |
-| Sonido | Doce clips sintetizados con osciladores, ruido y resonadores; sin grabaciones externas |
+| Animaciones | Trece secuencias nuevas, sincronizadas con los contactos del servidor |
+| Sonido | Catorce clips sintetizados con osciladores, ruido y resonadores; sin grabaciones externas |
 | Sprites | Ocho ítems originales de 32×32, con sus fuentes SVG y generador |
 | Partículas y HUD | Composición propia sobre las APIs de Minecraft |
 | Habilidades y voluntad | Implementación del proyecto sobre Minecraft, NeoForge y GeckoLib |

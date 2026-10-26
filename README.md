@@ -12,7 +12,9 @@ El [plan de Parte 3](docs/part-three-release.md) propone el catálogo y el recor
 empezando por Star Platinum; el desarrollo específico de Whitesnake queda para una expansión posterior.
 El estado descrito abajo corresponde al prototipo actual.
 
-La **prueba jugable 0.8.0** añade intercepción precisa con **B** y voluntad 6,
+La **prueba jugable 0.9.0** añade el **salto con Stand (J, voluntad 4)**,
+con impulso desde suelo firme, amortiguación limitada y presentación original.
+La 0.8.0 añadió intercepción precisa con **B** y voluntad 6,
 con una ventana de reacción, animaciones, sonido y destellos propios.
 La presentación introducida en 0.7.0 rehace Star Platinum con geometría, rig, UV, textura,
 nueve animaciones y diez efectos sonoros originales. Se construye desde proyectos
@@ -20,7 +22,8 @@ nuevos, usando la obra y varios modelos como referencias visuales. La
 [dirección artística](docs/art-direction.md) y las fuentes editables documentan
 esa separación. Conserva Star Finger, los desafíos de voluntad, el panel y los
 sprites propios de 0.6.0.
-Sigue la [guía de intercepción 0.8.0](docs/playtest-0.8.0.md), la
+Sigue la [guía de salto 0.9.0](docs/playtest-0.9.0.md), la
+[guía de intercepción 0.8.0](docs/playtest-0.8.0.md), la
 [guía de presentación 0.7.0](docs/playtest-0.7.0.md), la
 [guía de progresión](docs/playtest-0.6.0.md) y la [ficha de combate](docs/star-platinum-design.md).
 
@@ -45,13 +48,15 @@ fuerte por defecto para recuperar su disco. La flecha no sustituye otro Stand.
 | **C** | Activar/cancelar guardia frontal: 60 % de reducción, máximo 2 s, cooldown 4 s |
 | **V** | Star Finger: 4 puntos, alcance 6 bloques, preparación 0,4 s, cooldown 6 s; requiere 5 de voluntad |
 | **B** | Intercepción precisa: neutraliza una flecha frontal entre 0,1 y menos de 0,5 s; cooldown 3 s; requiere voluntad 6 |
+| **J** | Salto con Stand: impulso desde el suelo; cooldown 4 s; requiere voluntad 4 |
 
 El golpe preciso y la ráfaga alcanzan 3 bloques; Star Finger alcanza 6. Respetan
 paredes y reglas PvP/equipos. La guardia
 cubre 120 grados frente al usuario, reduce su velocidad un 45 % y no protege de
 fuego, caídas ni ataques desde atrás. El daño de salud interrumpe los ataques.
-No se pueden superponer acciones. Todos los tiempos suponen 20 TPS y los cooldowns
-se cuentan desde el inicio. Las seis teclas se pueden cambiar en Controles.
+No se pueden superponer acciones de combate. El salto es instantáneo y permite
+atacar después del impulso. Todos los tiempos suponen 20 TPS y los cooldowns
+se cuentan desde el inicio. Las siete teclas se pueden cambiar en Controles.
 
 Después del despertar, completa desafíos de **precisión**, **ráfaga** y **guardia**.
 Cada uno exige usar esa acción contra **3 enemigos hostiles distintos** y concede
@@ -59,6 +64,7 @@ Cada uno exige usar esa acción contra **3 enemigos hostiles distintos** y conce
 la guardia debe reducir daño físico frontal. Repetir el mismo enemigo no avanza
 ese desafío; animales, jugadores y enemigos aliados tampoco cuentan. El progreso
 se gana en supervivencia, se guarda al morir y no se reinicia al cambiar de Stand.
+Con un desafío y la voluntad inicial se alcanza 4 y se desbloquea el salto con Stand.
 Con dos desafíos y la voluntad inicial se alcanza 5 y se desbloquea Star Finger.
 Los tres permiten alcanzar 6 y desbloquear la intercepción precisa. Cada jugador obtiene su progreso por sus propias
 acciones, incluso contra enemigos compartidos. La voluntad no se consume.
@@ -75,9 +81,9 @@ combina con un disco vacío. El guardián puede guardar y recuperar este Stand.
 
 Las [fuentes editables](art/star_platinum/README.md) incluyen un proyecto nuevo de
 Blockbench, la definición de las piezas, los patrones de píxel y las curvas de las
-once animaciones. El atlas es propio de 256×256, con paleta de Stardust Crusaders:
+trece animaciones. El atlas es propio de 256×256, con paleta de Stardust Crusaders:
 cabello negro, ojos cian, joya plateada, pañuelo rojo y rodilleras claras.
-Los [doce efectos sintetizados](art/sounds/original-audio.md) son originales, mono
+Los [catorce efectos sintetizados](art/sounds/original-audio.md) son originales, mono
 y espaciales, con subtítulos en inglés/español y volumen bajo Jugadores. La ráfaga
 añade una capa de energía una vez al inicio, aire por pulso e impactos al acertar.
 Invocación, ráfaga y Star Finger tienen un canal por jugador: una acción nueva
@@ -571,6 +577,23 @@ En el cliente real, B mostró la pose, el aviso y los subtítulos. Con flechas q
 recorren la física del mundo, la intercepción frontal conservó 20/20 de salud;
 un disparo desde atrás y otro fuera de la ventana causaron daño. La sesión de
 dos clientes y la dificultad de reaccionar con latencia requieren valoración del jugador.
+
+En **0.9.0**, `build` y los **84 GameTests** pasan, incluidos diez casos de salto:
+elegibilidad, dirección, apoyo/techo, exclusión con combate, daño limitado de la
+primera caída, limpieza, expiración y cooldowns independientes. Una regresión
+reproduce el aterrizaje especulativo del servidor y comprueba que conserve la
+amortiguación hasta la caída real. El salto con J se desbloquea con voluntad 4;
+incluye dos animaciones y dos sonidos nuevos desde fuentes propias, conservando
+las once animaciones y doce sonidos anteriores. El JAR reúne trece animaciones
+y catorce muestras originales y excluye las herramientas y clases de prueba.
+
+En el cliente real, J con voluntad 4 produjo un salto de unos 4,4 bloques de altura
+y 5,4 de desplazamiento sobre suelo plano, conservando **20/20 de salud**. Al salir
+desde una plataforma diez bloques más alta que el suelo de llegada, el aterrizaje
+dejó **13/20**: la amortiguación no elimina el daño de caídas grandes. Se revisaron
+la tecla, el panel y la carga de los recursos. La sesión con dos clientes no se ha
+repetido para 0.9.0; la sensación de movimiento, la presentación y el audio con una
+salida real quedan en la [guía de prueba](docs/playtest-0.9.0.md).
 
 Dominios adicionales requeridos por la compilación y el cliente:
 `maven.neoforged.net`, `libraries.minecraft.net`, `piston-meta.mojang.com`,

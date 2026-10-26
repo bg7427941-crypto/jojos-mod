@@ -1,6 +1,6 @@
 # Audio original de Star Platinum
 
-Doce efectos creados para este proyecto mediante síntesis y DSP en
+Catorce efectos creados para este proyecto mediante síntesis y DSP en
 [build_original.py](build_original.py). Las fuentes son ruido con semillas fijas,
 osciladores matemáticos y resonadores amortiguados. No se emplean grabaciones,
 muestras descargadas, voces, material del anime ni audio de otros mods.
@@ -28,6 +28,8 @@ que el pico de los últimos 5 ms quede por debajo de −40 dBFS.
 | `star_finger.ogg` | 0,820 s | Extensión elástica, aire deslizante y retroceso suave |
 | `intercept.ogg` | 0,100 s | Tensión de precisión con aire brillante ascendente y resonancias mínimas |
 | `intercept_catch.ogg` | 0,180 s | Chasquido seco de flecha, metal agudo y una breve estela de aire |
+| `leap.ogg` | 0,280 s | Impulso de presión inmediato y compacto con aire ascendente |
+| `leap_land.ogg` | 0,200 s | Aterrizaje grave controlado y una breve cola cálida de energía |
 
 La ráfaga acentúa los instantes **0,20; 0,35; 0,50; 0,65; 0,80; 0,95; 1,10 y
 1,25 s**, correspondientes a ocho golpes separados por 0,15 s. Cada swing termina
@@ -39,6 +41,11 @@ la ventana de acción de 0,60 s, por lo que una cancelación no deja una cola
 prolongada. La captura usa un chasquido agudo y resonancias ligeras, diferenciadas
 del apoyo grave de `guard_block.ogg`. Ambos efectos usan nuevas semillas fijas y
 exclusivamente las fuentes matemáticas del generador.
+
+El salto comienza con un impulso grave de ataque inmediato; el filtro del aire
+asciende durante la salida y termina con un fundido breve. El aterrizaje combina
+contacto suave, cuerpo grave amortiguado y resonancias cálidas cortas. Ambos
+efectos usan semillas nuevas y no añaden grabaciones ni muestras externas.
 
 [original-provenance.json](original-provenance.json) conserva la receta y semilla
 de cada efecto, duración, formato, número de muestras, pico y RMS decodificados,
@@ -52,7 +59,7 @@ python3 art/sounds/build_original.py
 python3 art/sounds/build_original.py --check
 ```
 
-La primera orden regenera los doce OGG y el manifiesto sin acceso a la red. La
+La primera orden regenera los catorce OGG y el manifiesto sin acceso a la red. La
 segunda sintetiza todo de nuevo en un directorio temporal y compara cada archivo
 y el manifiesto byte a byte con los incluidos en el repositorio. Las semillas,
 longitudes y opciones del codificador son fijas; `-fflags +bitexact` se aplica a

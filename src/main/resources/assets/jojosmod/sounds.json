@@ -96,5 +96,23 @@
         "attenuation_distance": 16
       }
     ]
+  },
+  "star_platinum.leap": {
+    "subtitle": "subtitles.jojosmod.star_platinum.leap",
+    "sounds": [
+      {
+        "name": "jojosmod:star_platinum/original/leap",
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "star_platinum.leap_land": {
+    "subtitle": "subtitles.jojosmod.star_platinum.leap_land",
+    "sounds": [
+      {
+        "name": "jojosmod:star_platinum/original/leap_land",
+        "attenuation_distance": 16
+      }
+    ]
   }
 }

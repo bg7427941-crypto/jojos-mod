@@ -1,4 +1,4 @@
-# Star Platinum — prueba jugable 0.8.0
+# Star Platinum — prueba jugable 0.9.0
 
 Combate base y primeros desafíos de progresión de Parte 3. La [ficha oficial de Jotaro](https://jojo-portal.com/en/anime/sc/character/01/)
 sirve de referencia para la fuerza, precisión y ráfagas de puñetazos. La presentación
@@ -36,7 +36,7 @@ participante por sus propias acciones, sin exigir el golpe final.
 Estos tres desafíos se conservan al guardar, morir, retirar o recuperar el Stand.
 El formato anterior `{awakened: true}` carga con los nuevos contadores vacíos sin
 repetir su premio. El panel y `/stand progress` muestran el avance al propietario.
-Con voluntad 5 se desbloquea Star Finger: despertar desde 1 y completar dos desafíos
+Con voluntad 4 se desbloquea el salto con Stand, con 5 se desbloquea Star Finger: despertar desde 1 y completar dos desafíos
 permite alcanzarla; el tercero lleva a 6 y desbloquea la intercepción precisa. No se consume voluntad.
 
 ## Acciones a 20 TPS
@@ -49,6 +49,7 @@ permite alcanzarla; el tercero lleva a 6 y desbloquea la intercepción precisa. 
 | C | Activar/cancelar guardia | Reduce un 60 % el daño físico frontal | Máximo 40 ticks; cooldown 80 desde el inicio |
 | V | Star Finger (voluntad ≥5) | 4 puntos; alcance 6 bloques | Preparación 8 ticks; acción 18; cooldown 120 desde el inicio |
 | B | Intercepción precisa (voluntad ≥6) | Neutraliza una flecha frontal | Preparación 2 ticks; ventana [2,10); acción 12; cooldown 60 desde el inicio |
+| J | Salto con Stand (voluntad ≥4) | Impulso horizontal y vertical desde suelo firme | Instantáneo; cooldown 80 ticks; primer aterrizaje: hasta 4 bloques de amortiguación durante 60 ticks |
 
 Las teclas se pueden cambiar en Controles. La guardia cubre un arco horizontal de
 120 grados frente a la mirada del usuario. Afecta ataques de jugadores y criaturas
@@ -87,15 +88,30 @@ ni recompensas. Las flechas con Perforación la atraviesan. No afecta tridentes 
 aliados o protegidos por las reglas PvP. El acierto termina la acción; el fallo
 termina a los 12 ticks y ambos conservan el cooldown de 60 ticks.
 
+## Salto con Stand
+
+J aplica un impulso inmediato al estar sobre apoyo físico, con espacio sobre la
+cabeza y Star Platinum activo. La dirección horizontal sigue la mirada; su
+velocidad horizontal y vertical son 0,85 bloques/tick. Requiere voluntad 4 y una
+acción de combate libre al comenzar. Después se pueden usar ataques en el aire.
+
+El primer aterrizaje descuenta hasta cuatro bloques de distancia de caída durante
+un máximo de 60 ticks. No elimina el daño de un precipicio. Desinvocar mantiene
+esta protección limitada; perder el Stand, cambiar de dimensión, recibir daño o
+entrar en agua/lava, trepar, montar o volar la termina. El cooldown de 80 ticks
+permanece independiente. La [guía 0.9.0](playtest-0.9.0.md) detalla los límites
+y la prueba con amigos. Se inspira en impulsarse con la fuerza del Stand en Parte 3;
+sus valores son adaptaciones de balance.
+
 ## Presentación y alcance pendiente
 
 El modelo tiene cabello, cinta, gema, hombreras, guantes, puños articulados, botas,
-bufanda y faldón. El rig y el atlas 256×256 se construyen de nuevo. Sus once
+bufanda y faldón. El rig y el atlas 256×256 se construyen de nuevo. Sus trece
 animaciones originales cubren reposo, movimiento, invocación, desinvocación, golpe,
-ráfaga, guardia, recuperación, Star Finger, intercepción y su cierre de mano. Los dos dedos derechos extensibles
-solo son visibles durante esta última acción. Hay aura violeta/dorada,
+ráfaga, guardia, recuperación, Star Finger, intercepción, su gesto de captura, salto y aterrizaje. Los dos dedos derechos extensibles
+solo son visibles durante Star Finger. Hay aura violeta/dorada,
 trayectorias de puños, destellos de impacto y arco frontal de guardia, con partículas
-nativas. Los doce efectos de audio son síntesis original: ruido con semillas,
+nativas. Los catorce efectos de audio son síntesis original: ruido con semillas,
 resonadores y osciladores propios, en mono/48 kHz. Invocación, ráfaga y Star Finger
 usan un canal independiente por propietario y se cortan al cancelar. No incluyen
 grabaciones de voces. Las muestras de otras fuentes se pueden probar con un pack personal.

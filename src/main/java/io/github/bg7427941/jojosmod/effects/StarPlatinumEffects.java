@@ -86,6 +86,12 @@ public final class StarPlatinumEffects {
         dust(owner.level(), GOLD, point, 3, 0.08, 0.08, 0.08);
     }
 
+    public static void leap(ServerPlayer owner, boolean landing) {
+        var point = owner.position().add(0, 0.12, 0);
+        dust(owner.level(), VIOLET, point, landing ? 5 : 8, 0.3, 0.08, 0.3);
+        dust(owner.level(), GOLD, point, landing ? 4 : 6, 0.25, 0.06, 0.25);
+    }
+
     public static void interceptCatch(ServerPlayer owner, Vec3 point) {
         dust(owner.level(), GOLD, point, 6, 0.1, 0.12, 0.1);
         dust(owner.level(), VIOLET, point, 3, 0.08, 0.1, 0.08);

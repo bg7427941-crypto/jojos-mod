@@ -1,30 +1,38 @@
 # Autoría y dependencias
 
-## Recursos originales de la entrega 0.9.1
+## Star Platinum — adaptación de Roundabout en 0.9.2
 
-La geometría, el rig, las UV, el atlas, las animaciones y los catorce efectos sonoros
-actuales de Star Platinum se crean desde fuentes propias para este proyecto.
-Los ocho sprites de ítems y los efectos de partículas también son desarrollo propio.
-El código y estos recursos se distribuyen bajo la licencia MIT del proyecto.
+La geometría, las UV y el atlas del anime de Star Platinum se adaptan de
+[Roundabout](https://github.com/Hydraheads/RoundaboutMod), por **Hydraheads y
+colaboradores**, con los créditos históricos a GenericName/GenericName72.
+Se conserva la [licencia Roundabout v1.2](art/star_platinum/upstream/LICENSE-Roundabout.txt),
+también incluida en la raíz del JAR como `LICENSE-Roundabout.txt`.
 
-La base del modelo 0.9.1 utiliza las proporciones del jugador clásico de Minecraft,
-con detalles y textura propios para Star Platinum. Roundabout se consulta como
-referencia de adaptación visual; no se importa su malla ni su atlas. La base se
-construye localmente a partir de esas medidas, sin incorporar una skin de Minecraft.
+La licencia permite copiar, modificar y compartir, con crédito al autor, sin
+reclamar la propiedad del mod original y respetando sus solicitudes sobre
+distribución. Los recursos adaptados mantienen esas condiciones. No se presentan
+como geometría, UV o píxeles originales ni se relicencian bajo la MIT del proyecto.
+
+La revisión de origen es `f2390f1240e9b49444d6013e79bfda2038a542fb`.
+El [manifiesto](art/star_platinum/asset-provenance.json) conserva URLs, hashes y
+modificaciones: rotaciones de reposo aplanadas, mapeo al rig propio, divisiones en
+muñeca/tobillo y dos dedos extensibles. Se omiten los keyframes y duplicados de
+ráfaga de origen. El atlas anime 128×128 se copia byte por byte.
+
+La adaptación técnica y las trece animaciones son desarrollo de JoJo's Mod y
+tienen licencia MIT. Los catorce efectos sonoros sintetizados, ocho sprites de
+ítems, partículas, HUD, habilidades y progresión siguen siendo del proyecto.
+No se incorpora audio de Roundabout en esta entrega.
 
 Star Platinum y JoJo's Bizarre Adventure son creación de Hirohiko Araki. La
 representación se inspira en Stardust Crusaders; no se reclama la creación del
 personaje ni una afiliación oficial. La adaptación animada es de David Production.
 
-Las referencias de apariencia y las comparaciones con otros mods están en
-[docs/art-direction.md](docs/art-direction.md). No se incorporan sus imágenes,
-geometrías, texturas, keyframes ni grabaciones a los recursos actuales.
+Fuentes y manifiestos:
 
-Fuentes y manifiestos originales:
-
-- [Modelo y textura](art/star_platinum/README.md).
+- [Modelo adaptado, atlas y animaciones](art/star_platinum/README.md).
 - [Sonido sintetizado](art/sounds/original-audio.md).
-- `META-INF/jojosmod/star-platinum-original.json` y `sound-original.json` en el JAR.
+- `META-INF/jojosmod/star-platinum-provenance.json` y `sound-original.json` en el JAR.
 
 ## Dependencias técnicas
 
@@ -40,4 +48,4 @@ La rama local de pruebas 0.6.1 añadió grabaciones de JoJo recopiladas en Round
 Esos recursos no se presentan como originales ni se relicencian retroactivamente.
 Su procedencia y avisos históricos se conservan en
 [docs/history/asset-provenance.md](docs/history/asset-provenance.md) y en el historial Git.
-El JAR 0.9.1 utiliza el conjunto descrito arriba.
+Las entregas 0.7.0–0.9.1 emplearon geometría y atlas propios; 0.9.2 utiliza la adaptación acreditada descrita arriba.

@@ -94,9 +94,10 @@ tasks.named('jar', Jar) {
     from('LICENSE')
     from('LICENSE-MDK.txt')
     from('THIRD_PARTY_NOTICES.md')
-    from('art/star_platinum/original-provenance.json') {
+    from('art/star_platinum/upstream/LICENSE-Roundabout.txt')
+    from('art/star_platinum/asset-provenance.json') {
         into 'META-INF/jojosmod'
-        rename { 'star-platinum-original.json' }
+        rename { 'star-platinum-provenance.json' }
     }
     from('art/sounds/original-provenance.json') {
         into 'META-INF/jojosmod'

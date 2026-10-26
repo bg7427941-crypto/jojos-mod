@@ -5,7 +5,7 @@ reúne enlaces para escuchar invocación, ORA y Star Finger, escenas de Parte 3 
 la asignación por evento. Es un catálogo de investigación; no incluye grabaciones
 descargadas ni sustituye los sonidos de esta versión.
 
-La versión 0.9.0 incluye catorce [efectos originales sintetizados](../art/sounds/original-audio.md)
+La versión 0.9.3 incluye catorce [efectos originales sintetizados](../art/sounds/original-audio.md)
 para el proyecto, siguiendo la dirección de crear su presentación desde cero.
 No incluye grabaciones de voces del anime ni muestras extraídas de otros mods.
 La plantilla de
@@ -24,6 +24,7 @@ Puedes aportar solo uno; los demás eventos conservarán sus sonidos del mod.
 | `summon.ogg` | `star_platinum.summon` | Invocación breve, hasta aproximadamente 0,8 s |
 | `dismiss.ogg` | `star_platinum.dismiss` | Retirada breve, alrededor de 0,35 s |
 | `swing.ogg` | `star_platinum.swing` | Aire o puñetazo de hasta 0,15 s; se reproduce por pulso |
+| `ora.ogg` | `star_platinum.single_ora` | ORA exclusivo de Z; una vez al aceptar el ataque, alrededor de 0,3 s |
 | `impact_1.ogg`, `impact_2.ogg` | `star_platinum.impact` | Una o dos variantes, alrededor de 0,2 s |
 | `guard.ogg` | `star_platinum.guard` | Entrada en guardia, alrededor de 0,25 s |
 | `guard_block.ogg` | `star_platinum.guard_block` | Impacto defensivo, alrededor de 0,2 s |
@@ -37,6 +38,16 @@ Puedes aportar solo uno; los demás eventos conservarán sus sonidos del mod.
 Para una frase o un grito continuo de ráfaga, usa `barrage_start.ogg`; ponerlo en
 `swing.ogg` repetiría el clip en cada pulso y superpondría las voces. Ningún evento
 del pack es un bucle. Una cola breve reduce el solapamiento al interrumpir acciones.
+
+`ora.ogg` necesita la versión 0.9.3. Su evento está vacío en el mod base y solo
+suena si un pack proporciona un clip. No se reutiliza durante X ni V y no añade
+un golpe sonoro de sustitución cuando falta. R, Z, X y V comparten un canal por
+propietario: una nueva voz sustituye la anterior de ese jugador. Desinvocar,
+recibir daño que interrumpe la acción, morir o cambiar de dimensión la corta.
+Un intento rechazado por cooldown o por otra acción activa no inicia otra voz.
+
+La versión 0.9.3 usa **protocolo 7**: actualiza cliente y servidor para jugar juntos.
+El ZIP sigue siendo un recurso de cliente y cada oyente debe activarlo en su instancia.
 
 Minecraft necesita **OGG Vorbis** para estos archivos. Usa **mono** para que se sitúen
 en el mundo y se atenúen con la distancia. Renombrar un MP3 a `.ogg` no lo convierte.
@@ -76,6 +87,17 @@ Si aportas solo `impact_2.ogg`, el evento de impacto usará únicamente esa vari
 3. Prueba R, Z, X, C y Star Finger. Ajusta **Jugadores** en Música y sonidos y activa
    subtítulos si quieres comprobar los avisos sin depender del volumen.
 4. Para recuperar el audio incluido, desactiva el pack y aplica los cambios.
+
+Comprueba primero Z al aire: debe emitir un ORA, también cuando no haya un
+objetivo. Mantenerlo o pulsarlo durante el cooldown no debe superponer voces.
+X mantiene su frase de ráfaga y V su llamada propia. Para la prueba de cancelación,
+empieza una voz larga y desinvoca con R; después repítelo con dos jugadores y
+cancela solo la del primero. La voz del segundo debe continuar.
+
+La prueba local preparada durante 0.9.3 conserva la llamada completa de Star
+Finger, de unos 2,53 s. La habilidad mantiene su contacto a 0,4 s y duración de
+0,9 s; la voz puede continuar después de la pose y se corta si comienza otra voz
+del mismo propietario. No se acelera la grabación ni se retrasa el daño.
 
 Es un paquete de cliente: cada amigo elige instalarlo, y no cambia habilidades,
 daño ni voluntad. No se envía automáticamente a otros jugadores.

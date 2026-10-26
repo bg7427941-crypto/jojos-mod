@@ -90,5 +90,6 @@
   "command.jojosmod.stand.leap_ready": "Stand leap unlocked · %s",
   "command.jojosmod.stand.leap_locked": "Stand leap unlocks at %s willpower.",
   "subtitles.jojosmod.star_platinum.leap": "Star Platinum launches a leap",
-  "subtitles.jojosmod.star_platinum.leap_land": "Star Platinum cushions the landing"
+  "subtitles.jojosmod.star_platinum.leap_land": "Star Platinum cushions the landing",
+  "subtitles.jojosmod.star_platinum.single_ora": "Star Platinum: ORA"
 }

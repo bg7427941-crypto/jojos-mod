@@ -43,7 +43,11 @@ public final class StandVoicePlayer {
         }
         var level = minecraft.level;
         if (level == null || level.getPlayerByUUID(payload.owner()) == null) return;
-        var sound = new VoiceSound(level, payload);
+        var event = VoiceSound.soundFor(payload.cue());
+        var definition = minecraft.getSoundManager().getSoundEvent(event.location());
+        // Optional voices stay silent without a resource-pack clip, without warnings.
+        if (definition == null || definition.getWeight() == 0) return;
+        var sound = new VoiceSound(level, payload, event);
         VOICES.put(payload.owner(), new Playing(sound, ticks));
         minecraft.getSoundManager().play(sound);
         LOGGER.debug("Playing Stand voice {} for {}", payload.cue(), payload.owner());
@@ -81,8 +85,8 @@ public final class StandVoicePlayer {
         private final ClientLevel level;
         private final UUID owner;
 
-        private VoiceSound(ClientLevel level, StandVoicePayload payload) {
-            super(soundFor(payload.cue()), SoundSource.PLAYERS, RandomSource.create());
+        private VoiceSound(ClientLevel level, StandVoicePayload payload, SoundEvent event) {
+            super(event, SoundSource.PLAYERS, RandomSource.create());
             this.level = level;
             owner = payload.owner();
             volume = 0.65F;
@@ -100,6 +104,7 @@ public final class StandVoicePlayer {
                 case SUMMON -> ModSounds.STAR_SUMMON.get();
                 case BARRAGE -> ModSounds.STAR_BARRAGE_START.get();
                 case STAR_FINGER -> ModSounds.STAR_FINGER.get();
+                case STRIKE -> ModSounds.STAR_SINGLE_ORA.get();
                 case STOP -> throw new IllegalArgumentException("A stop cue cannot create a voice");
             };
         }

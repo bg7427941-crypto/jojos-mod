@@ -90,5 +90,6 @@
   "command.jojosmod.stand.leap_ready": "Salto con Stand desbloqueado · %s",
   "command.jojosmod.stand.leap_locked": "El salto con Stand se desbloquea con %s de voluntad.",
   "subtitles.jojosmod.star_platinum.leap": "Star Platinum impulsa el salto",
-  "subtitles.jojosmod.star_platinum.leap_land": "Star Platinum amortigua el aterrizaje"
+  "subtitles.jojosmod.star_platinum.leap_land": "Star Platinum amortigua el aterrizaje",
+  "subtitles.jojosmod.star_platinum.single_ora": "Star Platinum: ORA"
 }

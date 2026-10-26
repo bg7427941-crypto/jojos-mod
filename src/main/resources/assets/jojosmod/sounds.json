@@ -114,5 +114,9 @@
         "attenuation_distance": 16
       }
     ]
+  },
+  "star_platinum.single_ora": {
+    "subtitle": "subtitles.jojosmod.star_platinum.single_ora",
+    "sounds": []
   }
 }

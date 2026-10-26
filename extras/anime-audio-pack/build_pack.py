@@ -17,6 +17,7 @@ EVENTS = {
     "summon": ("summon",),
     "dismiss": ("dismiss",),
     "swing": ("swing",),
+    "single_ora": ("ora",),
     "impact": ("impact_1", "impact_2"),
     "guard": ("guard",),
     "guard_block": ("guard_block",),

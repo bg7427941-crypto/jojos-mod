@@ -10,7 +10,7 @@ import net.minecraft.world.phys.Vec3;
 
 /** Server-selected voice cues share one replaceable channel per owner on each listener. */
 public record StandVoicePayload(UUID owner, Cue cue, Vec3 position) implements CustomPacketPayload {
-    public enum Cue { STOP, SUMMON, BARRAGE, STAR_FINGER }
+    public enum Cue { STOP, SUMMON, BARRAGE, STAR_FINGER, STRIKE }
 
     public static final Type<StandVoicePayload> TYPE = new Type<>(
             Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "stand_voice"));

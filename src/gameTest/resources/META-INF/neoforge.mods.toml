@@ -2,7 +2,7 @@ license="MIT"
 
 [[mods]]
 modId="jojosmod_tests"
-version="0.9.2"
+version="0.9.3"
 displayName="JoJo's Mod Integration Tests"
 description='''Development-only GameTests; not distributed in the mod JAR.'''
 

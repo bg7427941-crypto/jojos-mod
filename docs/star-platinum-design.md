@@ -1,4 +1,4 @@
-# Star Platinum — prueba jugable 0.9.2
+# Star Platinum — prueba jugable 0.9.3
 
 Combate base y primeros desafíos de progresión de Parte 3. La [ficha oficial de Jotaro](https://jojo-portal.com/en/anime/sc/character/01/)
 sirve de referencia para la fuerza, precisión y ráfagas de puñetazos. La presentación
@@ -115,7 +115,7 @@ ráfaga, guardia, recuperación, Star Finger, intercepción, su gesto de captura
 solo son visibles durante Star Finger. Hay aura violeta/dorada,
 trayectorias de puños, destellos de impacto y arco frontal de guardia, con partículas
 nativas. Los catorce efectos de audio son síntesis original: ruido con semillas,
-resonadores y osciladores propios, en mono/48 kHz. Invocación, ráfaga y Star Finger
+resonadores y osciladores propios, en mono/48 kHz. Invocación, ORA individual opcional de Z, ráfaga y Star Finger
 usan un canal independiente por propietario y se cortan al cancelar. No incluyen
 grabaciones de voces. Las muestras de otras fuentes se pueden probar con un pack personal.
 Consulta los [créditos y licencias](../THIRD_PARTY_NOTICES.md).

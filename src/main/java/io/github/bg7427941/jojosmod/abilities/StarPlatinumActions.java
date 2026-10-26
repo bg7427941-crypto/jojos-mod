@@ -85,6 +85,7 @@ public final class StarPlatinumActions {
                 new StarPlatinumSession(Action.STRIKE, owner.level().getGameTime(), 0,
                         state.barrageReadyAt(), state.guardReadyAt(), state.fingerReadyAt(), state.interceptReadyAt()));
         stand.playAttackAnimation();
+        StandVoices.play(owner, Cue.STRIKE);
         return true;
     }
 

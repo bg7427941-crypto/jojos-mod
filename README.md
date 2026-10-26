@@ -12,6 +12,13 @@ El [plan de Parte 3](docs/part-three-release.md) propone el catálogo y el recor
 empezando por Star Platinum; el desarrollo específico de Whitesnake queda para una expansión posterior.
 El estado descrito abajo corresponde al prototipo actual.
 
+La **integración de audio 0.9.3** añade `single_ora`, exclusivo de Z, y admite
+`ora.ogg` en el [paquete de recursos local](docs/anime-audio.md). R, Z, X y V
+usan voces que se sustituyen y cancelan por jugador. La [guía 0.9.3](docs/playtest-0.9.3.md)
+propone la prueba de reproducción e interrupciones. El JAR mantiene los catorce
+efectos originales; los clips recopilados se prueban mediante un pack separado.
+Cliente y servidor deben actualizarse juntos al **protocolo 7**.
+
 La **revisión visual 0.9.2** adapta el modelo y el atlas del anime de Star Platinum
 de **Roundabout**, por Hydraheads y colaboradores, a nuestro rig de GeckoLib.
 Conserva las trece animaciones del proyecto y los tiempos del combate. Las
@@ -95,7 +102,7 @@ visual del proyecto y la exportación de modelo, textura y animaciones.
 Los [catorce efectos sintetizados](art/sounds/original-audio.md) son originales, mono
 y espaciales, con subtítulos en inglés/español y volumen bajo Jugadores. La ráfaga
 añade una capa de energía una vez al inicio, aire por pulso e impactos al acertar.
-Invocación, ráfaga y Star Finger tienen un canal por jugador: una acción nueva
+Invocación, ORA individual, ráfaga y Star Finger tienen un canal por jugador: una voz nueva
 sustituye su señal anterior y una cancelación la interrumpe, conservando los canales
 de los amigos. El [paquete de audio local](docs/anime-audio.md) permite personalizar
 los eventos. El conjunto incluido no contiene grabaciones del anime ni otros mods.
@@ -622,7 +629,14 @@ contenido del JAR. Las animaciones de ejecución y los catorce OGG son idéntico
 a 0.9.1. En Minecraft se invocó con R y se observó el modelo frontal junto al
 jugador. No se repitieron los GameTests para esta revisión de recursos. Las
 [vistas](art/star_platinum/preview.png) y la [guía 0.9.2](docs/playtest-0.9.2.md)
-permiten valorar el modelo antes de incorporar esta propuesta a la rama principal.
+conservan la revisión visual del modelo integrado en la rama principal.
+
+En **0.9.3**, `build` pasa. Se verificaron las 84 pruebas anteriores del servidor
+y el nuevo caso de voces por propietario en ejecución focalizada; también pasan
+dos pruebas del constructor del ZIP. El ORA opcional pertenece solo a Z, no se
+repite durante X/V y se cancela por propietario. Se comprobó que los catorce OGG
+del JAR no cambian. El pack local de escucha incluye ocho clips para siete eventos
+y conserva su procedencia fuera del repositorio público.
 
 Dominios adicionales requeridos por la compilación y el cliente:
 `maven.neoforged.net`, `libraries.minecraft.net`, `piston-meta.mojang.com`,

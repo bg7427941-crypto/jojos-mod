@@ -50,6 +50,7 @@ entrada que reconoce el constructor del paquete local.
 | --- | --- | --- | --- |
 | R, invocar | `summon` | `summon.ogg` | Una vez al invocar; unos 0,4–0,8 s |
 | R, retirar | `dismiss` | `dismiss.ogg` | Al desinvocar; unos 0,2–0,35 s |
+| Z, ORA individual | `single_ora` | `ora.ogg` | Una vez al aceptar Z, unos 0,3 s; vacío sin pack |
 | Z/X/V, aire | `swing` | `swing.ogg` | Por contacto previsto; hasta unos 0,15 s, sin frase larga |
 | Z/X/V, impacto | `impact` | `impact_1.ogg`, `impact_2.ogg` | Al acertar; variantes de unos 0,2 s |
 | X, voz de ráfaga | `barrage_start` | `barrage_start.ogg` | Una vez al iniciar; hasta 1,5 s para sus ocho golpes |
@@ -61,18 +62,19 @@ entrada que reconoce el constructor del paquete local.
 | J, impulso | `leap` | `leap.ogg` | Al despegar; unos 0,28 s |
 | J, apoyo | `leap_land` | `leap_land.ogg` | Al aterrizar; unos 0,2 s |
 
-El **ORA individual exclusivo de Z necesita un evento propio**. Hoy `swing` se
-comparte con X y V: colocar ahí la voz la repetiría durante la ráfaga y en Star
-Finger. El constructor no admite `ora.ogg` ni `time_stop.ogg`.
+Desde **0.9.3**, el ORA individual tiene el evento propio `single_ora` y el
+constructor admite `ora.ogg`. `swing` sigue compartido por Z, X y V y se reserva
+para aire breve. La parada temporal todavía no tiene evento ni `time_stop.ogg`.
 
 X hace contacto a 0,20; 0,35; 0,50; 0,65; 0,80; 0,95; 1,10 y 1,25 s. La frase va
-en `barrage_start`; los sonidos por pulso deben ser breves. R, X y V usan un canal
+en `barrage_start`; los sonidos por pulso deben ser breves. R, Z, X y V usan un canal
 por propietario: una señal nueva lo sustituye y la cancelación lo corta, sin
 interrumpir al otro jugador.
 
-Si la llamada completa de Star Finger no cabe en su acción de 0,9 s, primero hay
-que revisar la anticipación y el ritmo, manteniendo mientras tanto el efecto de
-extensión. No acelerar la voz ni cambiar el daño solo para acomodarla. Las acciones
+Una llamada completa de Star Finger puede durar más que su acción de 0,9 s. La
+prueba local conserva una frase de unos 2,53 s y permite su cola después de la
+pose; una nueva voz o cancelación del propietario la interrumpe. Su sincronización
+requiere valoración escuchándola en el juego. No se acelera ni cambia el daño para acomodarla. Las acciones
 de impulso, guardia y precisión pueden usar efectos breves sin una frase para cada una.
 
 ## Estado y preparación

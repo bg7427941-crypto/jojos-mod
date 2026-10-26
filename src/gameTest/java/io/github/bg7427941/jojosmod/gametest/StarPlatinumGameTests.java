@@ -8,6 +8,8 @@ import io.github.bg7427941.jojosmod.abilities.StarPlatinumActions;
 import io.github.bg7427941.jojosmod.entities.DiscKeeperEntity;
 import io.github.bg7427941.jojosmod.entities.TrainingStandEntity;
 import io.github.bg7427941.jojosmod.items.StandDiscItem;
+import io.github.bg7427941.jojosmod.network.StandVoicePayload;
+import io.github.bg7427941.jojosmod.network.StandVoicePayload.Cue;
 import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import io.github.bg7427941.jojosmod.registry.ModEntities;
 import io.github.bg7427941.jojosmod.registry.ModItems;
@@ -32,6 +34,8 @@ import net.minecraft.gametest.framework.TestEnvironmentDefinition;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.PacketListener;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.resources.Identifier;
@@ -79,7 +83,7 @@ public final class StarPlatinumGameTests {
     private static final List<String> CASES = List.of(
             "awakening_milestone", "precise_strike_timing", "barrage_and_cooldown", "damage_interrupts_barrage",
             "guard_direction_and_expiry", "pvp_and_teams", "walls_stop_barrage", "invalid_owners_and_range",
-            "desert_pyramid_loot", "disc_crafting_and_storage");
+            "desert_pyramid_loot", "disc_crafting_and_storage", "voice_cues_and_cancellation");
     private static final DeferredRegister<MapCodec<? extends GameTestInstance>> TYPES =
             DeferredRegister.create(Registries.TEST_INSTANCE_TYPE, MOD_ID);
 
@@ -397,6 +401,52 @@ public final class StarPlatinumGameTests {
         helper.assertTrue(condition, Component.literal(message));
     }
 
+    private static void voiceCuesAndCancellation(GameTestHelper helper) {
+        var first = fixture(helper, 1.5);
+        var second = fixture(helper, 5.5);
+        // Tracking/self payloads require owners registered in the real chunk map.
+        helper.getLevel().addNewPlayer(first.owner);
+        helper.getLevel().addNewPlayer(second.owner);
+        for (var cue : Cue.values()) {
+            var sent = new StandVoicePayload(first.owner.getUUID(), cue, new Vec3(1.25, 3.5, -2));
+            var buffer = new FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());
+            try {
+                StandVoicePayload.STREAM_CODEC.encode(buffer, sent);
+                check(helper, sent.equals(StandVoicePayload.STREAM_CODEC.decode(buffer))
+                        && buffer.readableBytes() == 0, "Voice payload lost owner, cue or position");
+            } finally { buffer.release(); }
+        }
+        first.owner.voices.clear();
+        second.owner.voices.clear();
+        check(helper, StandController.attack(first.owner), "Precise strike did not start");
+        check(helper, first.owner.ownVoices().size() == 1
+                && first.owner.ownVoices().getFirst().cue() == Cue.STRIKE,
+                "Z did not emit exactly one owner-specific ORA cue");
+        check(helper, !StandController.attack(first.owner) && !StarPlatinumActions.barrage(first.owner)
+                && first.owner.ownVoices().size() == 1, "Rejected actions emitted an extra voice");
+        check(helper, StarPlatinumActions.barrage(second.owner)
+                && second.owner.ownVoices().size() == 1 && second.owner.ownVoices().getFirst().cue() == Cue.BARRAGE,
+                "X reused the single ORA cue");
+        StarPlatinumActions.stop(first.owner);
+        check(helper, first.owner.ownVoices().getLast().cue() == Cue.STOP
+                && second.owner.ownVoices().size() == 1, "Canceling Z affected another owner's voice");
+        StarPlatinumActions.stop(second.owner);
+        PlayerWillpower.set(second.owner, 5);
+        check(helper, StarPlatinumActions.starFinger(second.owner)
+                && second.owner.ownVoices().getLast().cue() == Cue.STAR_FINGER
+                && second.owner.ownVoices().stream().noneMatch(p -> p.cue() == Cue.STRIKE),
+                "V reused the single ORA cue");
+        StarPlatinumActions.stop(second.owner);
+        helper.runAfterDelay(6, () -> {
+            tick(first); tick(second);
+            check(helper, first.target.getHealth() == 20 && second.target.getHealth() == 20,
+                    "An interrupted voice action still dealt damage");
+            check(helper, first.owner.ownVoices().stream().filter(p -> p.cue() == Cue.STRIKE).count() == 1,
+                    "A delayed action tick replayed the single ORA");
+            first.close(); second.close(); helper.succeed();
+        });
+    }
+
     private record Fixture(TestPlayer owner, TrainingStandEntity stand, Villager target) implements AutoCloseable {
         @Override public void close() {
             StandController.getActive(owner).ifPresent(TrainingStandEntity::discard);
@@ -406,6 +456,10 @@ public final class StarPlatinumGameTests {
     }
 
     private static final class TestPlayer extends ServerPlayer {
+        private final List<StandVoicePayload> voices = new ArrayList<>();
+        private List<StandVoicePayload> ownVoices() {
+            return voices.stream().filter(p -> p.owner().equals(getUUID())).toList();
+        }
         private TestPlayer(ServerLevel level) {
             super(level.getServer(), level, new GameProfile(UUID.randomUUID(),
                     "Star" + UUID.randomUUID().toString().substring(0, 8)), ClientInformation.createDefault());
@@ -416,7 +470,10 @@ public final class StarPlatinumGameTests {
             new EmbeddedChannel(transport);
             connection = new ServerGamePacketListenerImpl(level.getServer(), transport,
                     this, CommonListenerCookie.createInitial(getGameProfile(), false)) {
-                @Override public void send(Packet<?> packet) {}
+                @Override public void send(Packet<?> packet) {
+                    if (packet instanceof ClientboundCustomPayloadPacket custom
+                            && custom.payload() instanceof StandVoicePayload voice) voices.add(voice);
+                }
                 @Override public void tick() {}
             };
             connection.markClientLoaded();
@@ -444,6 +501,7 @@ public final class StarPlatinumGameTests {
                 case "invalid_owners_and_range" -> invalidOwnersAndRange(helper);
                 case "desert_pyramid_loot" -> desertPyramidLoot(helper);
                 case "disc_crafting_and_storage" -> discCraftingAndStorage(helper);
+                case "voice_cues_and_cancellation" -> voiceCuesAndCancellation(helper);
                 default -> throw new IllegalArgumentException(name);
             }
         }

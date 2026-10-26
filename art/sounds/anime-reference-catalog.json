@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "reviewed_on": "2026-10-26",
-  "mod_version": "0.9.0",
+  "mod_version": "0.9.3",
   "target": "Star Platinum — Stardust Crusaders, Japanese TV anime",
   "status": "reference_catalog_only",
   "audio_files_downloaded": false,
@@ -11,7 +11,8 @@
     "Source pages or indexed metadata were checked; recording edition and cut points are not verified.",
     "Target durations describe the current mod, not measured source recordings or builder-enforced limits.",
     "No consulted source established permission to redistribute the candidate recordings in the mod.",
-    "A compilation's Part 3 title is not proof that every clip comes from Stardust Crusaders."
+    "A compilation's Part 3 title is not proof that every clip comes from Stardust Crusaders.",
+    "Version 0.9.3 implements the optional single_ora slot; the public catalog still does not bundle recordings. A separate local preview uses previously collected candidates, not downloads from these linked pages."
   ],
   "sources": [
     {
@@ -156,17 +157,19 @@
       "controls": [
         "Z"
       ],
-      "event": null,
-      "pack_inputs": [],
-      "trigger": null,
-      "target_max_seconds": null,
-      "owner_voice_channel": false,
+      "event": "jojosmod:star_platinum.single_ora",
+      "pack_inputs": [
+        "ora"
+      ],
+      "trigger": "once_at_accepted_action_start",
+      "target_max_seconds": 0.3,
+      "owner_voice_channel": true,
       "source_ids": [
         "single_ora_button"
       ],
       "selected_recording": null,
-      "implementation_status": "needs_dedicated_event",
-      "note": "Do not bind the Z-only voice to swing: Z, X and V share that event."
+      "implementation_status": "implemented_optional_resource_pack_event",
+      "note": "Empty without a pack. Not shared with X/V swing; canceled or replaced per owner."
     },
     {
       "id": "punch_air",
@@ -375,5 +378,7 @@
       "selected_recording": null,
       "implementation_status": "future_ability_not_implemented"
     }
-  ]
+  ],
+  "network_protocol": 7,
+  "runtime_cues_changed": true
 }

@@ -1,6 +1,6 @@
 # Autoría y dependencias
 
-## Star Platinum — adaptación de Roundabout en 0.9.2
+## Star Platinum — adaptación de Roundabout desde 0.9.2
 
 La geometría, las UV y el atlas del anime de Star Platinum se adaptan de
 [Roundabout](https://github.com/Hydraheads/RoundaboutMod), por **Hydraheads y

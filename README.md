@@ -83,6 +83,8 @@ Las [fuentes editables](art/star_platinum/README.md) incluyen un proyecto nuevo 
 Blockbench, la definición de las piezas, los patrones de píxel y las curvas de las
 trece animaciones. El atlas es propio de 256×256, con paleta de Stardust Crusaders:
 cabello negro, ojos cian, joya plateada, pañuelo rojo y rodilleras claras.
+La [guía de Blockbench y GeckoLib](docs/blockbench-geckolib.md) describe la edición
+visual del proyecto y la exportación de modelo, textura y animaciones.
 Los [catorce efectos sintetizados](art/sounds/original-audio.md) son originales, mono
 y espaciales, con subtítulos en inglés/español y volumen bajo Jugadores. La ráfaga
 añade una capa de energía una vez al inicio, aire por pulso e impactos al acertar.
@@ -90,6 +92,8 @@ Invocación, ráfaga y Star Finger tienen un canal por jugador: una acción nuev
 sustituye su señal anterior y una cancelación la interrumpe, conservando los canales
 de los amigos. El [paquete de audio local](docs/anime-audio.md) permite personalizar
 los eventos. El conjunto incluido no contiene grabaciones del anime ni otros mods.
+La [recopilación de referencias del anime](docs/star-platinum-anime-audio-catalog.md)
+organiza los candidatos para escuchar y los puntos de integración por ataque.
 Los efectos usan partículas nativas y respetan los
 ajustes del cliente; el aura está limitada a ocho partículas por segundo y Stand.
 

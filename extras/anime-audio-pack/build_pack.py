@@ -24,6 +24,8 @@ EVENTS = {
     "star_finger": ("star_finger",),
     "intercept": ("intercept",),
     "intercept_catch": ("intercept_catch",),
+    "leap": ("leap",),
+    "leap_land": ("leap_land",),
 }
 CLIPS = {name for variants in EVENTS.values() for name in variants}
 AUDIO_EXTENSIONS = {".ogg", ".oga", ".opus", ".mp3", ".wav", ".flac", ".m4a", ".aac", ".aiff"}

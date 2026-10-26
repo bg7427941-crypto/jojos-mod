@@ -6,6 +6,7 @@ import io.github.bg7427941.jojosmod.stands.StandSession;
 import io.github.bg7427941.jojosmod.stands.WillpowerData;
 import io.github.bg7427941.jojosmod.stands.StarPlatinumSession;
 import io.github.bg7427941.jojosmod.stands.StarPlatinumProgress;
+import io.github.bg7427941.jojosmod.stands.StarLeapSession;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -44,6 +45,9 @@ public final class ModAttachments {
                     .build());
 
     private ModAttachments() {}
+
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<StarLeapSession>> STAR_LEAP =
+            ATTACHMENTS.register("star_leap", () -> AttachmentType.builder(() -> StarLeapSession.EMPTY).build());
 
     public static void register(IEventBus modEventBus) {
         ATTACHMENTS.register(modEventBus);

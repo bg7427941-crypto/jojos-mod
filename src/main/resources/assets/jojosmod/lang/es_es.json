@@ -79,5 +79,16 @@
   "command.jojosmod.stand.intercept_ready": "Intercepción precisa desbloqueada · %s",
   "command.jojosmod.stand.intercept_locked": "La intercepción precisa se desbloquea con %s de voluntad.",
   "subtitles.jojosmod.star_platinum.intercept": "Star Platinum prepara la intercepción",
-  "subtitles.jojosmod.star_platinum.intercept_catch": "Star Platinum neutraliza una flecha"
+  "subtitles.jojosmod.star_platinum.intercept_catch": "Star Platinum neutraliza una flecha",
+  "key.jojosmod.star_leap": "Star Platinum: salto con Stand",
+  "message.jojosmod.star.leap": "Star Platinum · ¡Salto con Stand!",
+  "message.jojosmod.star.leap_ground": "Necesitas suelo firme y espacio sobre la cabeza para saltar con tu Stand.",
+  "message.jojosmod.star.leap_locked": "El salto con Stand requiere %s de voluntad. Completa un desafío de Star Platinum.",
+  "message.jojosmod.mastery.leap_unlocked": "¡Salto con Stand desbloqueado! Pulsa %s desde el suelo para impulsarte.",
+  "hud.jojosmod.leap.unlocked": "%s · Salto con Stand desbloqueado",
+  "hud.jojosmod.leap.locked": "%s · Salto con Stand: requiere %s de voluntad",
+  "command.jojosmod.stand.leap_ready": "Salto con Stand desbloqueado · %s",
+  "command.jojosmod.stand.leap_locked": "El salto con Stand se desbloquea con %s de voluntad.",
+  "subtitles.jojosmod.star_platinum.leap": "Star Platinum impulsa el salto",
+  "subtitles.jojosmod.star_platinum.leap_land": "Star Platinum amortigua el aterrizaje"
 }

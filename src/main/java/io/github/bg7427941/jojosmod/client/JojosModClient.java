@@ -8,6 +8,7 @@ import io.github.bg7427941.jojosmod.network.BarragePayload;
 import io.github.bg7427941.jojosmod.network.GuardPayload;
 import io.github.bg7427941.jojosmod.network.StarFingerPayload;
 import io.github.bg7427941.jojosmod.network.InterceptPayload;
+import io.github.bg7427941.jojosmod.network.LeapPayload;
 import io.github.bg7427941.jojosmod.registry.ModEntities;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -38,6 +39,8 @@ public final class JojosModClient {
             new KeyMapping("key.jojosmod.star_finger", InputConstants.KEY_V, STAND_CATEGORY);
     private static final KeyMapping STAR_INTERCEPT =
             new KeyMapping("key.jojosmod.star_intercept", InputConstants.KEY_B, STAND_CATEGORY);
+    private static final KeyMapping STAR_LEAP =
+            new KeyMapping("key.jojosmod.star_leap", InputConstants.KEY_J, STAND_CATEGORY);
 
     public JojosModClient(IEventBus modEventBus) {
         modEventBus.addListener(JojosModClient::registerKeys);
@@ -56,6 +59,7 @@ public final class JojosModClient {
         event.register(STAR_GUARD);
         event.register(STAR_FINGER);
         event.register(STAR_INTERCEPT);
+        event.register(STAR_LEAP);
     }
 
     private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
@@ -95,6 +99,9 @@ public final class JojosModClient {
         }
         while (STAR_INTERCEPT.consumeClick()) {
             if (canSend) ClientPacketDistributor.sendToServer(InterceptPayload.INSTANCE);
+        }
+        while (STAR_LEAP.consumeClick()) {
+            if (canSend) ClientPacketDistributor.sendToServer(LeapPayload.INSTANCE);
         }
     }
 }

@@ -180,6 +180,8 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
     public void playInterceptAnimation() { triggerAnim("main", "intercept"); }
 
     public void playInterceptCatchAnimation() { triggerAnim("main", "intercept_catch"); }
+    public void playLeapAnimation() { triggerAnim("main", "leap"); }
+    public void playLeapLandAnimation() { triggerAnim("main", "leap_land"); }
 
     public void setGuarding(boolean guarding) {
         if (guarding) {
@@ -228,6 +230,8 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
                 .triggerableAnim("star_finger", starAnimation("star_finger", false))
                 .triggerableAnim("intercept", starAnimation("intercept", false))
                 .triggerableAnim("intercept_catch", starAnimation("intercept_catch", false))
+                .triggerableAnim("leap", starAnimation("leap", false))
+                .triggerableAnim("leap_land", starAnimation("leap_land", false))
                 .triggerableAnim("summon", starAnimation("summon", false))
                 .triggerableAnim("dismiss", starAnimation("dismiss", false))
                 .triggerableAnim("recover", starAnimation("recover", false)));

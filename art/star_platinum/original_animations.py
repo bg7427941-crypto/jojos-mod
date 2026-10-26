@@ -30,6 +30,7 @@ CLIP_LENGTHS = {
     "idle": 2.4, "move": 1.2, "summon": 0.4, "dismiss": 0.2,
     "strike": 0.6, "barrage": 1.5, "guard": 0.8, "recover": 0.22,
     "star_finger": 0.9, "intercept": 0.6, "intercept_catch": 0.22,
+    "leap": 0.55, "leap_land": 0.25,
 }
 
 
@@ -460,6 +461,135 @@ def _intercept_catch():
                                      (0.22, _ready())])
 
 
+def _leap():
+    ready = _ready()
+    # Server movement launches immediately; drive the arms down alongside it.
+    # Small hover offsets let entity movement supply the leap's height.
+    drive = _pose(rotation={
+        "pelvis": [-3, -2, 2], "waist": [2, -3, -2], "chest": [6, 5, 0],
+        "neck": [-5, -2, 0], "head": [-2, -1, 0],
+        "left_upper_arm": [12, -8, 12], "left_forearm": [-4, 0, -2],
+        "left_hand": [12, -6, -4],
+        "right_upper_arm": [16, 10, -13], "right_forearm": [-6, 0, 2],
+        "right_hand": [10, 6, 4],
+        "left_thigh": [-18, -5, 7], "left_shin": [30, 0, 0],
+        "right_thigh": [-8, 7, -7], "right_shin": [36, 0, 0],
+        "loin_front": [-20, 0, 0], "loin_back": [22, 0, 0],
+        "hair": [2, 0, -1], "scarf_tail_left": [12, -7, 4],
+        "scarf_tail_right": [15, 7, -5],
+    }, position={"hover": [0, 1.1, 0]})
+    tuck = _pose(rotation={
+        "pelvis": [-2, 0, 2], "waist": [2, -4, -2], "chest": [2, 5, 0],
+        "neck": [-3, -2, 0], "head": [-1, -2, 0],
+        "left_upper_arm": [-6, -12, 34], "left_forearm": [-48, -4, -5],
+        "left_hand": [8, -8, -6],
+        "right_upper_arm": [-2, 14, -35], "right_forearm": [-56, 5, 5],
+        "right_hand": [8, 8, 6],
+        "left_thigh": [-61, -6, 9], "left_shin": [96, 0, 0],
+        "left_foot": [-30, 0, -4],
+        "right_thigh": [-54, 7, -9], "right_shin": [102, 0, 0],
+        "right_foot": [-34, 0, 4],
+        "loin_front": [-52, 0, 0], "loin_back": [34, 0, 0],
+        "loin_left": [15, -4, 16], "loin_right": [18, 4, -18],
+        "hair": [11, -2, -1], "scarf": [4, 0, 0],
+        "scarf_tail_left": [32, -9, 7], "scarf_tail_right": [38, 10, -8],
+    }, position={"hover": [0, 1.3, -0.12]})
+    compact = _pose(tuck, rotation={
+        "pelvis": [-3, 0, 2], "chest": [5, 5, 0], "neck": [-5, -2, 0],
+        "left_upper_arm": [-14, -12, 30], "left_forearm": [-60, -4, -5],
+        "right_upper_arm": [-9, 14, -32], "right_forearm": [-64, 5, 5],
+        "left_thigh": [-67, -6, 9], "left_shin": [103, 0, 0],
+        "left_foot": [-34, 0, -4],
+        "right_thigh": [-60, 7, -9], "right_shin": [108, 0, 0],
+        "right_foot": [-38, 0, 4],
+        "loin_front": [-57, 0, 0], "loin_back": [38, 0, 0],
+        "hair": [13, -1, -1], "scarf_tail_left": [40, -8, 8],
+        "scarf_tail_right": [46, 9, -9],
+    }, position={"hover": [0, 1.4, -0.15]})
+    float_pose = _pose(tuck, rotation={
+        "chest": [3, 5, 0], "neck": [-4, -2, 0],
+        "left_upper_arm": [-24, -11, 24], "left_forearm": [-55, -3, -4],
+        "right_upper_arm": [-17, 12, -26], "right_forearm": [-58, 4, 4],
+        "left_thigh": [-59, -6, 9], "left_shin": [92, 0, 0],
+        "left_foot": [-28, 0, -4],
+        "right_thigh": [-56, 7, -9], "right_shin": [99, 0, 0],
+        "right_foot": [-33, 0, 4],
+        "loin_front": [-49, 0, 0], "loin_back": [36, 0, 0],
+        "hair": [14, 1, -1], "scarf_tail_left": [43, -6, 8],
+        "scarf_tail_right": [48, 11, -9],
+    }, position={"hover": [0, 1.35, -0.1]})
+    balance = _pose(rotation={
+        "pelvis": [-1, 0, 2], "waist": [1, -5, -2], "chest": [1, 6, 0],
+        "neck": [-1, -2, 0], "head": [0, -3, 0],
+        "left_upper_arm": [-30, -10, 19], "left_forearm": [-44, 0, -3],
+        "right_upper_arm": [-20, 10, -22], "right_forearm": [-52, 0, 3],
+        "left_thigh": [-26, -5, 8], "left_shin": [45, 0, 0],
+        "left_foot": [-15, 0, -3],
+        "right_thigh": [-10, 7, -9], "right_shin": [40, 0, 0],
+        "right_foot": [-21, 0, 3],
+        "loin_front": [-29, 0, 0], "loin_back": [27, 0, 0],
+        "loin_left": [8, -4, 12], "loin_right": [10, 4, -13],
+        "hair": [8, 1, -1], "scarf_tail_left": [30, -6, 6],
+        "scarf_tail_right": [35, 9, -7],
+    }, position={"hover": [0, 1.3, -0.04]})
+    return _clip("leap", [(0, ready), (0.045, drive), (0.1, tuck),
+                          (0.2, compact), (0.3, float_pose),
+                          (0.42, balance), (0.55, ready)])
+
+
+def _leap_land():
+    approach = _pose(rotation={
+        "pelvis": [-2, 0, 1], "waist": [3, -3, -1], "chest": [4, 4, 0],
+        "neck": [-5, -1, 0], "head": [-2, -2, 0],
+        "left_upper_arm": [-32, -12, 19], "left_forearm": [-44, 0, -4],
+        "right_upper_arm": [-27, 13, -21], "right_forearm": [-49, 0, 4],
+        "left_thigh": [-17, -4, 7], "left_shin": [32, 0, 0],
+        "left_foot": [-14, 0, -3],
+        "right_thigh": [-12, 5, -7], "right_shin": [34, 0, 0],
+        "right_foot": [-18, 0, 3],
+        "loin_front": [-22, 0, 0], "loin_back": [25, 0, 0],
+        "hair": [8, 0, -1], "scarf_tail_left": [28, -6, 6],
+        "scarf_tail_right": [33, 8, -7],
+    }, position={"hover": [0, 0.85, 0]})
+    absorb = _pose(approach, rotation={
+        "pelvis": [-4, 0, 1], "waist": [6, -3, -1], "chest": [8, 4, 0],
+        "neck": [-10, -1, 0], "head": [-4, -2, 0],
+        "left_upper_arm": [-42, -18, 24], "left_forearm": [-38, 0, -5],
+        "right_upper_arm": [-36, 18, -25], "right_forearm": [-44, 0, 5],
+        "left_thigh": [-30, -5, 8], "left_shin": [57, 0, 0],
+        "left_foot": [-25, 0, -3],
+        "right_thigh": [-27, 6, -8], "right_shin": [59, 0, 0],
+        "right_foot": [-29, 0, 3],
+        "loin_front": [-34, 0, 0], "loin_back": [30, 0, 0],
+        "loin_left": [5, -3, 12], "loin_right": [7, 3, -13],
+    }, position={"hover": [0, -0.65, 0.12]})
+    cloth_lag = _pose(absorb, rotation={
+        "pelvis": [-3, 0, 1], "waist": [4, -3, -1], "chest": [6, 4, 0],
+        "neck": [-7, -1, 0], "head": [-3, -2, 0],
+        "left_thigh": [-25, -5, 8], "left_shin": [48, 0, 0],
+        "right_thigh": [-22, 6, -8], "right_shin": [51, 0, 0],
+        "hair": [-4, -1, -1], "scarf": [-4, 0, 0],
+        "scarf_tail_left": [10, -9, 5], "scarf_tail_right": [14, 10, -6],
+        "loin_front": [-29, 0, 0], "loin_back": [17, 0, 0],
+    }, position={"hover": [0, -0.2, 0.08]})
+    release = _pose(rotation={
+        "pelvis": [-1, 0, 2], "waist": [1, -4, -2], "chest": [0, 5, -1],
+        "neck": [0, -2, 1], "head": [0, -3, 0],
+        "left_upper_arm": [-31, -10, 12], "left_forearm": [-45, 0, -3],
+        "right_upper_arm": [-22, 11, -14], "right_forearm": [-53, 0, 3],
+        "left_thigh": [-18, -4, 6], "left_shin": [31, 0, 0],
+        "left_foot": [-11, 0, -2],
+        "right_thigh": [3, 6, -7], "right_shin": [31, 0, 0],
+        "right_foot": [-20, 0, 2],
+        "loin_front": [-20, 0, 0], "loin_back": [19, 0, 0],
+        "hair": [1, 0, -1], "scarf_tail_left": [12, -7, 4],
+        "scarf_tail_right": [16, 8, -5],
+    }, position={"hover": [0, 0.6, 0.02]})
+    return _clip("leap_land", [(0, approach), (0.045, absorb),
+                               (0.085, cloth_lag), (0.15, release),
+                               (0.25, _ready())])
+
+
 def build_animations():
     """Return the complete numeric GeckoLib Bedrock animation document."""
     clips = {
@@ -467,6 +597,7 @@ def build_animations():
         "dismiss": _dismiss(), "strike": _strike(), "barrage": _barrage(),
         "guard": _guard(), "recover": _recover(), "star_finger": _star_finger(),
         "intercept": _intercept(), "intercept_catch": _intercept_catch(),
+        "leap": _leap(), "leap_land": _leap_land(),
     }
     return {"format_version": "1.8.0", "animations": {
         f"animation.star_platinum.{name}": clip for name, clip in clips.items()
@@ -597,6 +728,45 @@ def audit_animations(document=None):
                 clearance = min(point[2] for point in head) - max(point[2] for point in glove)
                 assert clearance > 0, (name, time, "glove/head clearance")
                 clearances.append(clearance)
+    leap = clips["animation.star_platinum.leap"]["bones"]
+    land = clips["animation.star_platinum.leap_land"]["bones"]
+    for name, bones in (("leap", leap), ("leap_land", land)):
+        for bone in BONES:
+            for channel, track in bones[bone].items():
+                assert _at(track, CLIP_LENGTHS[name]) == _at(idle[bone][channel], 0), (name, bone, "ready")
+    arm_drop = {}
+    tucked_ankles = {}
+    for side, sign in (("left", 1), ("right", -1)):
+        arm_chain = right_chain[:-3] + (
+            (f"{side}_upper_arm", [5.8 * sign, 23.4, 0]),
+            (f"{side}_forearm", [6.2 * sign, 18.6, 0]),
+            (f"{side}_hand", [6.2 * sign, 14.7, 0]),
+        )
+        hand_pivot = [6.2 * sign, 14.7, 0]
+        ready_wrist = _runtime_point(leap, 0, arm_chain, hand_pivot)
+        drive_wrist = _runtime_point(leap, 0.045, arm_chain, hand_pivot)
+        arm_drop[side] = round(ready_wrist[1] - drive_wrist[1], 6)
+        assert arm_drop[side] > 2.5, (side, "immediate downward arm drive")
+        x = 2.2 * sign
+        thigh_chain = right_chain[:3] + ((f"{side}_thigh", [x, 13.3, 0]),)
+        shin_chain = thigh_chain + ((f"{side}_shin", [x, 7.1, 0]),)
+        for name, bones in (("leap", leap), ("leap_land", land)):
+            for key in bones[f"{side}_thigh"]["rotation"]:
+                time = float(key)
+                hip = _runtime_point(bones, time, thigh_chain, [x, 13.3, 0])
+                knee = _runtime_point(bones, time, thigh_chain, [x, 7.1, 0])
+                ankle = _runtime_point(bones, time, shin_chain, [x, 1.55, -0.5])
+                assert hip[1] - knee[1] > 1.5 and knee[1] - ankle[1] > 2.5, (name, side, time)
+                assert ankle[1] > 1.5, (name, side, time, "ankle floor clearance")
+                assert 5 <= _at(bones[f"{side}_shin"]["rotation"], time)[0] <= 115
+                if name == "leap" and 0.1 <= time <= 0.3:
+                    assert -75 <= _at(bones[f"{side}_thigh"]["rotation"], time)[0] <= -40
+                    assert ankle[1] > 5.5 and knee[2] < -3.5, (side, time, "airborne tuck")
+        tucked_ankles[side] = [round(value, 6) for value in
+                                _runtime_point(leap, 0.2, shin_chain, [x, 1.55, -0.5])]
+    landing_absorption = (_runtime_point(land, 0.25, right_chain[:3], [0, 13, 0])[1]
+                          - _runtime_point(land, 0.045, right_chain[:3], [0, 13, 0])[1])
+    assert landing_absorption > 1.5
     return {"clips": len(clips), "bone_tracks": track_count, "numeric_keys": key_count,
             "barrage_contacts": len(BARRAGE_CONTACTS), "star_finger_peak_seconds": 0.4,
             "star_finger_retracted_seconds": 0.7,
@@ -604,7 +774,10 @@ def audit_animations(document=None):
                                               for value in direction],
             "intercept_window_seconds": [0.1, 0.5],
             "intercept_wrist": [round(value, 6) for value in wrist],
-            "intercept_min_head_clearance": round(min(clearances), 6)}
+            "intercept_min_head_clearance": round(min(clearances), 6),
+            "leap_arm_drop_pixels": arm_drop,
+            "leap_tucked_ankles": tucked_ankles,
+            "landing_absorption_pixels": round(landing_absorption, 6)}
 
 
 if __name__ == "__main__":

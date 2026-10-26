@@ -10,6 +10,7 @@ import io.github.bg7427941.jojosmod.commands.StandProgressCommand;
 import io.github.bg7427941.jojosmod.network.ModNetworking;
 import io.github.bg7427941.jojosmod.stands.StandProgressionConfig;
 import io.github.bg7427941.jojosmod.abilities.StarPlatinumActions;
+import io.github.bg7427941.jojosmod.abilities.StarPlatinumLeap;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.ModContainer;
@@ -34,5 +35,8 @@ public final class JojosMod {
         NeoForge.EVENT_BUS.addListener(StarPlatinumActions::onIncomingDamage);
         NeoForge.EVENT_BUS.addListener(StarPlatinumActions::onDamage);
         NeoForge.EVENT_BUS.addListener(StarPlatinumActions::onProjectileImpact);
+        NeoForge.EVENT_BUS.addListener(StarPlatinumLeap::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener(StarPlatinumLeap::onFall);
+        NeoForge.EVENT_BUS.addListener(StarPlatinumLeap::onDamage);
     }
 }

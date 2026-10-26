@@ -1,6 +1,6 @@
-# Sonido original — 0.8.0
+# Sonido original — 0.9.0
 
-Los doce efectos actuales de Star Platinum se crean desde cero por síntesis y DSP.
+Los catorce efectos actuales de Star Platinum se crean desde cero por síntesis y DSP.
 No se utilizan grabaciones de otros mods, voces de actores ni fragmentos del anime.
 La [ficha de audio original](original-audio.md) describe cada efecto, sus fuentes
 matemáticas, duraciones y verificación. El código y los sonidos están bajo MIT.

@@ -1,6 +1,6 @@
-# Star Platinum original — 0.8.0
+# Star Platinum original — 0.9.0
 
-La geometría, el rig, las UV, el atlas y las once animaciones se crean para este
+La geometría, el rig, las UV, el atlas y las trece animaciones se crean para este
 proyecto desde archivos fuente nuevos. No se cargan ni modifican modelos, atlas,
 poses o keyframes de otro mod. Star Platinum es un personaje de Hirohiko Araki;
 la autoría de estos recursos corresponde a su representación y ejecución técnica.
@@ -12,7 +12,7 @@ la autoría de estos recursos corresponde a su representación y ejecución téc
 - `original_animations.py`: poses y curvas numéricas originales, con auditoría de
   tiempos de contacto y visibilidad de los dos dedos extensibles.
 - `star_platinum.bbmodel`: proyecto editable de Blockbench/GeckoLib, con atlas
-  incrustado, jerarquía, pivotes y las once animaciones.
+  incrustado, jerarquía, pivotes y las trece animaciones.
 - `uv-layout.json`: rectángulo de cada cara en el atlas; se comparten superficies
   del mismo material de manera deliberada y se añade un píxel de margen.
 - `original-provenance.json`: método, dimensiones, recuentos y hashes del recurso.
@@ -68,6 +68,8 @@ de tela articuladas. Los próximos ajustes de calidad se valoran en el juego.
 | `star_finger` | 0,9 s | Dos dedos derechos; extensión máxima a 0,4 s y retracción a 0,7 s |
 | `intercept` | 0,6 s | Mano preparada de 0,1 a 0,5 s; ventana de servidor [0,1;0,5) |
 | `intercept_catch` | 0,22 s | Cierre de mano y retroceso tras neutralizar una flecha |
+| `leap` | 0,55 s | Impulso de brazos, piernas recogidas y equilibrio en el aire |
+| `leap_land` | 0,25 s | Flexión de rodillas y cuerpo al aterrizar |
 
 Todos los clips ocultan los dedos extensibles salvo Star Finger. Los sonidos,
 partículas, objetivos y daño siguen bajo la autoridad del servidor. Los recursos

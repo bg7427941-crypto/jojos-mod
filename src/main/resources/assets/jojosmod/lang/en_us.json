@@ -79,5 +79,16 @@
   "command.jojosmod.stand.intercept_ready": "Precise interception unlocked · %s",
   "command.jojosmod.stand.intercept_locked": "Precise interception unlocks at %s willpower.",
   "subtitles.jojosmod.star_platinum.intercept": "Star Platinum readies interception",
-  "subtitles.jojosmod.star_platinum.intercept_catch": "Star Platinum neutralizes an arrow"
+  "subtitles.jojosmod.star_platinum.intercept_catch": "Star Platinum neutralizes an arrow",
+  "key.jojosmod.star_leap": "Star Platinum: Stand leap",
+  "message.jojosmod.star.leap": "Star Platinum · Stand leap!",
+  "message.jojosmod.star.leap_ground": "Stand on solid ground with headroom to leap with your Stand.",
+  "message.jojosmod.star.leap_locked": "Stand leap requires %s willpower. Complete one Star Platinum challenge.",
+  "message.jojosmod.mastery.leap_unlocked": "Stand leap unlocked! Press %s on the ground to launch forward.",
+  "hud.jojosmod.leap.unlocked": "%s · Stand leap unlocked",
+  "hud.jojosmod.leap.locked": "%s · Stand leap: %s willpower required",
+  "command.jojosmod.stand.leap_ready": "Stand leap unlocked · %s",
+  "command.jojosmod.stand.leap_locked": "Stand leap unlocks at %s willpower.",
+  "subtitles.jojosmod.star_platinum.leap": "Star Platinum launches a leap",
+  "subtitles.jojosmod.star_platinum.leap_land": "Star Platinum cushions the landing"
 }

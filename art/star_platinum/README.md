@@ -1,64 +1,72 @@
-# Modelo y animaciones de Star Platinum — 0.6.0
+# Star Platinum original — 0.7.0
 
-El modelo, el atlas anime y la pose base de guardia proceden de **Roundabout**, por
-**Hydraheads y su equipo**, con contribuciones de modelado de **GenericName / GenericName72**.
-Estos recursos mantienen la **Roundabout License v1.2**; no se reclaman como arte
-original de este proyecto ni se relicencian MIT. Los [créditos y fuentes exactas](../../THIRD_PARTY_NOTICES.md)
-y la [licencia completa](../../third_party/roundabout/LICENSE.txt) acompañan al código y al JAR.
+La geometría, el rig, las UV, el atlas y las nueve animaciones se crean para este
+proyecto desde archivos fuente nuevos. No se cargan ni modifican modelos, atlas,
+poses o keyframes de otro mod. Star Platinum es un personaje de Hirohiko Araki;
+la autoría de estos recursos corresponde a su representación y ejecución técnica.
 
-Se adaptó el proyecto `star_platinum.bbmodel` y el atlas `anime.png` de la revisión
-`cdd6dc35aead479aef4cebce873c1e532c0eccf3`. Se retiraron brazos/piernas auxiliares de
-ráfagas. En 0.6.0 se adapta el dedo extensible a dos dedos para Star Finger.
-El rig exportado tiene **58 huesos y 71 cubos**, con atlas **128×128**; el cuerpo
-aprobado de 57 huesos y 69 cubos permanece igual.
-La textura detallada sustituye la paleta de casillas de la prueba 0.5.0.
+## Fuentes editables
 
-## Editar y exportar
+- `build_original.py`: definición de todas las piezas, materiales, patrones de
+  píxel, distribución UV y exportación del proyecto editable.
+- `original_animations.py`: poses y curvas numéricas originales, con auditoría de
+  tiempos de contacto y visibilidad de los dos dedos extensibles.
+- `star_platinum.bbmodel`: proyecto editable de Blockbench/GeckoLib, con atlas
+  incrustado, jerarquía, pivotes y las nueve animaciones.
+- `uv-layout.json`: rectángulo de cada cara en el atlas; se comparten superficies
+  del mismo material de manera deliberada y se añade un píxel de margen.
+- `original-provenance.json`: método, dimensiones, recuentos y hashes del recurso.
+- `preview_original.py`: vista de desarrollo con las geometrías y texturas de
+  ejecución. Requiere NumPy y Pillow; no sustituye la revisión dentro de Minecraft.
 
-`star_platinum.bbmodel` es el proyecto editable para Blockbench con el complemento
-GeckoLib: incluye jerarquía, pivotes, cubos, UV por cara, atlas incrustado y nueve
-animaciones. Conserva nombres de huesos y animaciones al editar.
-
-Con Python 3, desde la raíz del repositorio:
-
-```sh
-python art/star_platinum/export_roundabout.py
-```
-
-El script exporta el proyecto editable actual, sin descargar archivos ni requerir
-el mod Roundabout. Conserva UV orientadas, pivotes, rotaciones e inflación. Para
-repetir la adaptación inicial desde los dos originales fijados en los créditos:
+Con Python 3 y Pillow, desde la raíz:
 
 ```sh
-python art/star_platinum/export_roundabout.py --import-upstream /ruta/star_platinum.bbmodel --texture /ruta/anime.png
+python art/star_platinum/build_original.py
+python art/star_platinum/preview_original.py
+python art/star_platinum/preview_original.py --pose star_finger --time .4
 ```
 
-Esa operación sustituye el proyecto editable por la adaptación inicial. Comprueba
-los hashes de los originales antes de hacerlo. El código del exportador es propio;
-sus convenciones de coordenadas/UV se contrastaron con el exportador oficial de
-Blockbench, cuya revisión está indicada en el script.
+El generador escribe el atlas en `textures/entity/star_platinum.png`, geometría en
+`geckolib/models/entity/star_platinum.geo.json` y animaciones en
+`geckolib/animations/entity/star_platinum.animation.json`, bajo los recursos del mod.
+Las definiciones se editan en Python; el proyecto `.bbmodel` también permite
+experimentar en Blockbench. Regenerar sustituye las exportaciones por las fuentes
+Python actuales, por lo que los cambios hechos solo en Blockbench deben conservarse
+en otra copia o trasladarse a las definiciones antes de regenerar.
 
-| Recurso | Ruta desde `src/main/resources/assets/jojosmod/` |
-| --- | --- |
-| Geometría | `geckolib/models/entity/star_platinum.geo.json` |
-| Animaciones | `geckolib/animations/entity/star_platinum.animation.json` |
-| Atlas PNG | `textures/entity/star_platinum.png` |
+## Diseño y referencias
 
-## Movimiento y tiempos
+![Vista del modelo original en guardia, de frente, tres cuartos y espalda](preview.png)
 
-Las curvas de reposo, movimiento, invocación, retirada, golpe, ráfaga y recuperación
-se ajustaron para este mod, sobre el rig adaptado. La guardia adapta la pose `Block`
-del proyecto original. Las curvas suaves se exportan como muestras lineales para
-mantener los instantes de contacto y evitar diferencias entre interpoladores.
+Esta vista se genera desde los recursos del mod con el mismo convenio de ejes
+verificado dentro de Minecraft; no es una captura del juego.
 
-Los nombres usan el prefijo `animation.star_platinum.` y los sufijos `idle`,
-`move`, `summon`, `dismiss`, `strike`, `barrage`, `guard`, `recover` y `star_finger`. El contacto del
-golpe sigue a los **0,2 s**; los ocho pulsos de ráfaga caen en **0,2 / 0,35 / 0,5 /
-0,65 / 0,8 / 0,95 / 1,1 / 1,25 s**. La pose de recuperación evita levantar de nuevo
-los brazos al finalizar una acción. Los sonidos y partículas se disparan desde el
-servidor, fuera del archivo de animaciones, también para los observadores.
-Star Finger dura **0,9 s**, extiende los dos dedos en **0,4 s** y los retrae antes
-de finalizar. Los otros ocho clips ocultan explícitamente el hueso `finger`.
+La [dirección artística](../../docs/art-direction.md) registra la comparación
+visual de la obra, Roundabout, Ripples y JoJo's Bizarre Survival. Las referencias
+sirven para estudiar proporciones y legibilidad; ninguna imagen, malla o textura
+se usa como entrada del generador.
 
-Revisa el resultado en el juego desde primera y tercera persona. La validez del
-formato y de las UV no sustituye la valoración visual del jugador.
+La paleta de Stardust Crusaders usa cuerpo violeta y mejillas oscuras, cabello
+negro, ojos cian, joya plateada, corona y hombreras doradas, pañuelo rojo, guantes
+y botas oscuras con ribetes amarillos, faldón y rodilleras claras. La figura usa
+pectoral y abdomen esculpidos, mechones escalonados, guantes con nudillos y capas
+de tela articuladas. Los próximos ajustes de calidad se valoran en el juego.
+
+## Animaciones y tiempos a 20 TPS
+
+| Clip | Duración | Revisión |
+| --- | --- | --- |
+| `idle` | 2,4 s en bucle | Flotación, respiración y postura de combate |
+| `move` | 1,2 s en bucle | Deslizamiento y movimiento de piernas/tela |
+| `summon` | 0,4 s | Aparición y adopción de la postura |
+| `dismiss` | 0,2 s | Retirada |
+| `strike` | 0,6 s | Preparación, contacto a 0,2 s y recuperación |
+| `barrage` | 1,5 s | Ocho contactos de 0,2 a 1,25 s, separados por 0,15 s |
+| `guard` | 0,8 s en bucle | Antebrazos protegiendo el frente |
+| `recover` | 0,22 s | Regreso a la postura de combate |
+| `star_finger` | 0,9 s | Dos dedos derechos; extensión máxima a 0,4 s y retracción a 0,7 s |
+
+Todos los clips ocultan los dedos extensibles salvo Star Finger. Los sonidos,
+partículas, objetivos y daño siguen bajo la autoridad del servidor. Los recursos
+originales y sus fuentes tienen la licencia MIT del proyecto.

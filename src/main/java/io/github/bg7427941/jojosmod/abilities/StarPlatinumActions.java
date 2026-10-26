@@ -6,6 +6,8 @@ import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import io.github.bg7427941.jojosmod.registry.ModStands;
 import io.github.bg7427941.jojosmod.registry.ModSounds;
 import io.github.bg7427941.jojosmod.effects.StarPlatinumEffects;
+import io.github.bg7427941.jojosmod.effects.StandVoices;
+import io.github.bg7427941.jojosmod.network.StandVoicePayload.Cue;
 import io.github.bg7427941.jojosmod.stands.PlayerStands;
 import io.github.bg7427941.jojosmod.stands.StandController;
 import io.github.bg7427941.jojosmod.stands.StarPlatinumSession;
@@ -86,8 +88,7 @@ public final class StarPlatinumActions {
         owner.setData(ModAttachments.STAR_SESSION,
                 new StarPlatinumSession(Action.BARRAGE, now, 0, now + BARRAGE_COOLDOWN, state.guardReadyAt(), state.fingerReadyAt()));
         stand.get().playBarrageAnimation();
-        owner.level().playSound(null, stand.get().blockPosition(), ModSounds.STAR_BARRAGE_START.get(),
-                SoundSource.PLAYERS, 0.28F, 1.15F);
+        StandVoices.play(owner, Cue.BARRAGE);
         owner.sendSystemMessage(Component.translatable("message.jojosmod.star.barrage"), true);
         return true;
     }
@@ -106,6 +107,7 @@ public final class StarPlatinumActions {
         owner.setData(ModAttachments.STAR_SESSION, new StarPlatinumSession(Action.STAR_FINGER, now, 0,
                 state.barrageReadyAt(), state.guardReadyAt(), now + STAR_FINGER_COOLDOWN));
         stand.get().playStarFingerAnimation();
+        StandVoices.play(owner, Cue.STAR_FINGER);
         owner.sendSystemMessage(Component.translatable("message.jojosmod.star.finger"), true);
         return true;
     }
@@ -169,7 +171,7 @@ public final class StarPlatinumActions {
         if (state.pulses() < total && elapsed >= next) {
             var profile = ModStands.STAR_PLATINUM.combat();
             owner.level().playSound(null, stand.get().blockPosition(),
-                    finger ? ModSounds.STAR_FINGER.get() : ModSounds.STAR_SWING.get(),
+                    ModSounds.STAR_SWING.get(),
                     SoundSource.PLAYERS, barrage ? 0.27F : 0.55F, barrage ? 1.14F : 0.94F);
             if (finger) StarPlatinumEffects.starFinger(owner, stand.get(), STAR_FINGER_REACH);
             else StarPlatinumEffects.swing(owner, stand.get(), barrage);
@@ -180,10 +182,17 @@ public final class StarPlatinumActions {
             owner.setData(ModAttachments.STAR_SESSION, new StarPlatinumSession(state.action(), state.startedAt(),
                     state.pulses() + 1, state.barrageReadyAt(), state.guardReadyAt(), state.fingerReadyAt()));
         }
-        if (elapsed >= (finger ? STAR_FINGER_TICKS : strike ? STRIKE_TICKS : BARRAGE_TICKS)) stop(owner);
+        if (elapsed >= (finger ? STAR_FINGER_TICKS : strike ? STRIKE_TICKS : BARRAGE_TICKS)) stop(owner, false);
     }
 
     public static void stop(ServerPlayer owner) {
+        stop(owner, true);
+    }
+
+    private static void stop(ServerPlayer owner, boolean cancelVoice) {
+        if (cancelVoice && StandController.getActive(owner).filter(TrainingStandEntity::isStarPlatinum).isPresent()) {
+            StandVoices.stop(owner);
+        }
         var state = session(owner);
         var speed = owner.getAttribute(Attributes.MOVEMENT_SPEED);
         if (speed != null) speed.removeModifier(GUARD_SLOW);

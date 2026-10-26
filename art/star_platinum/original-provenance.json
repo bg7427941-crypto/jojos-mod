@@ -1,0 +1,17 @@
+{
+  "author": "JoJo's Mod",
+  "license": "MIT for original asset data and source; JoJo character rights retained by their holders",
+  "method": "New cuboids, rig, UV allocation, procedural pixel art and authored numeric animation tracks. No imported model/texture/animation inputs.",
+  "bones": 29,
+  "cubes": 144,
+  "atlas": [
+    256,
+    256
+  ],
+  "animations": 9,
+  "texture_sha256": "e45a47482cc4f2f69c05157350cbe391c141b077cac9168b5ba9bee6644cff13",
+  "geometry_sha256": "aafb8945107ab250bd2c233ff91ca23157c44a17feaaed5f8e251dea6e1866d1",
+  "animation_sha256": "f9d5c0c10ebfe62450d49d2f668c6ef1b7ab6c7f7e650d05c8c264535ef1a0d0",
+  "model_source_sha256": "402c3a6788ec90b2122d39831a881d971e6a5cbaf473b0a021821104243e401c",
+  "animation_source_sha256": "ac1112208dc9da906e61ab46508233c1538d452984d8de3c49355e2087d15b52"
+}

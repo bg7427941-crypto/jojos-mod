@@ -5,13 +5,13 @@ el personaje; el modelado, la textura, las poses, los sonidos y la progresión s
 crean para este proyecto. Comparar varios mods ayuda a valorar legibilidad y
 presentación, sin convertir sus recursos en nuestra plantilla.
 
-## Star Platinum en 0.9.0
+## Star Platinum en 0.9.1
 
 | Elemento | Construcción actual |
 | --- | --- |
-| Modelo | 144 cubos nuevos y 29 huesos, con articulaciones de codo, muñeca, rodilla, tela y cabello |
+| Modelo | Base de jugador clásico, 80 cubos y 29 huesos, con articulaciones de codo, muñeca, rodilla, tela y cabello |
 | Textura | Atlas de 256×256 creado desde una imagen vacía, con UV y pixel art propios |
-| Animaciones | Trece secuencias nuevas, sincronizadas con los contactos del servidor |
+| Animaciones | Trece secuencias propias; guardia, Star Finger e intercepción adaptadas al cuerpo de jugador |
 | Sonido | Catorce clips sintetizados con osciladores, ruido y resonadores; sin grabaciones externas |
 | Sprites | Ocho ítems originales de 32×32, con sus fuentes SVG y generador |
 | Partículas y HUD | Composición propia sobre las APIs de Minecraft |
@@ -21,6 +21,15 @@ Las fuentes editables y las recetas están en [arte de Star Platinum](../art/sta
 y [síntesis de audio](../art/sounds/original-audio.md). La geometría, las UV, los
 píxeles y los keyframes se generan sin leer modelos, texturas ni animaciones ajenos.
 El proyecto Blockbench incluye el atlas y todas las secuencias.
+
+En 0.9.1 la base cambia a las medidas del jugador clásico: cabeza 8×8×8, torso
+8×12×4, brazos y piernas 4×12×4. El torso es continuo y su musculatura se pinta
+sobre la textura. Cabello, diadema, hombreras, guantes, botas y faldón aportan
+la identidad de Star Platinum. Se toma como referencia la adaptación a Minecraft
+de [Roundabout](https://github.com/Hydraheads/RoundaboutMod) y su
+[modelo publicado](https://github.com/Hydraheads/RoundaboutMod/blob/master/bbmodels/Stands/Star%20Platinum/star_platinum.java),
+manteniendo las fuentes y recursos propios. La [guía 0.9.1](playtest-0.9.1.md)
+propone comparar la silueta junto a un jugador.
 
 Se mantienen los [créditos históricos](history/asset-provenance.md) de los recursos
 usados en versiones anteriores. Sus modelos y muestras ya no forman parte de la

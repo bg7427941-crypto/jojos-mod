@@ -1,11 +1,16 @@
 # Autoría y dependencias
 
-## Recursos originales de la entrega 0.9.0
+## Recursos originales de la entrega 0.9.1
 
 La geometría, el rig, las UV, el atlas, las animaciones y los catorce efectos sonoros
 actuales de Star Platinum se crean desde fuentes propias para este proyecto.
 Los ocho sprites de ítems y los efectos de partículas también son desarrollo propio.
 El código y estos recursos se distribuyen bajo la licencia MIT del proyecto.
+
+La base del modelo 0.9.1 utiliza las proporciones del jugador clásico de Minecraft,
+con detalles y textura propios para Star Platinum. Roundabout se consulta como
+referencia de adaptación visual; no se importa su malla ni su atlas. La base se
+construye localmente a partir de esas medidas, sin incorporar una skin de Minecraft.
 
 Star Platinum y JoJo's Bizarre Adventure son creación de Hirohiko Araki. La
 representación se inspira en Stardust Crusaders; no se reclama la creación del
@@ -35,4 +40,4 @@ La rama local de pruebas 0.6.1 añadió grabaciones de JoJo recopiladas en Round
 Esos recursos no se presentan como originales ni se relicencian retroactivamente.
 Su procedencia y avisos históricos se conservan en
 [docs/history/asset-provenance.md](docs/history/asset-provenance.md) y en el historial Git.
-El JAR 0.9.0 utiliza el conjunto original descrito arriba.
+El JAR 0.9.1 utiliza el conjunto descrito arriba.

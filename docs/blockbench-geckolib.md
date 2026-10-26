@@ -1,13 +1,13 @@
 # Modelado con Blockbench y GeckoLib
 
 El mod ya utiliza **GeckoLib 5.5.7**. Su [proyecto de Blockbench](../art/star_platinum/star_platinum.bbmodel)
-tiene formato `geckolib_model`, 144 cubos, 29 huesos, atlas incrustado de 256×256
+tiene formato `geckolib_model`, 80 cubos, 29 huesos, atlas incrustado de 256×256
 y trece animaciones. El renderer utiliza `DefaultedEntityGeoModel` para cargarlos.
 
 Blockbench sirve para editar forma, UV, pintura, pivotes y curvas; GeckoLib
 reproduce el resultado en Minecraft. La calidad depende del trabajo artístico,
-no solo de elegir la herramienta. Esta guía prepara la edición visual del modelo
-existente; no introduce una revisión nueva de su geometría.
+no solo de elegir la herramienta. El modelo 0.9.1 parte del cuerpo del jugador
+clásico: cabeza 8×8×8, torso 8×12×4 y extremidades 4×12×4, con detalles de Star Platinum.
 
 ## Abrir y editar
 

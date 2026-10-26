@@ -1,8 +1,10 @@
-# Star Platinum original — 0.9.0
+# Star Platinum sobre base de jugador — 0.9.1
 
-La geometría, el rig, las UV, el atlas y las trece animaciones se crean para este
-proyecto desde archivos fuente nuevos. No se cargan ni modifican modelos, atlas,
-poses o keyframes de otro mod. Star Platinum es un personaje de Hirohiko Araki;
+La geometría utiliza las proporciones del jugador clásico: cabeza 8×8×8, torso
+continuo 8×12×4 y extremidades 4×12×4. Sobre esa base se construyen los detalles
+de Star Platinum, con textura, UV y animaciones del proyecto. Roundabout sirve de
+referencia para la adaptación al estilo de Minecraft. No se cargan sus modelos,
+atlas, poses o keyframes en el generador. Star Platinum es un personaje de Hirohiko Araki;
 la autoría de estos recursos corresponde a su representación y ejecución técnica.
 
 ## Fuentes editables
@@ -41,7 +43,7 @@ en otra copia o trasladarse a las definiciones antes de regenerar.
 
 ## Diseño y referencias
 
-![Vista del modelo original en guardia, de frente, tres cuartos y espalda](preview.png)
+![Modelo con base de jugador en reposo, de frente, tres cuartos y espalda](preview.png)
 
 Esta vista se genera desde los recursos del mod con el mismo convenio de ejes
 verificado dentro de Minecraft; no es una captura del juego.
@@ -51,10 +53,17 @@ visual de la obra, Roundabout, Ripples y JoJo's Bizarre Survival. Las referencia
 sirven para estudiar proporciones y legibilidad; ninguna imagen, malla o textura
 se usa como entrada del generador.
 
+El modelo contiene 80 cubos y mantiene 29 huesos. Los brazos de cuatro píxeles y
+las piernas del jugador se dividen en codo, muñeca, rodilla y tobillo para conservar
+las acciones. La musculatura se apoya principalmente en pintura, con un relieve
+frontal discreto; el torso continuo evita una abertura entre pecho y abdomen.
+La guardia, Star Finger y la intercepción se adaptan a la cabeza y los guantes mayores.
+La auditoría utiliza los pivotes y envolventes del rig exportado.
+
 La paleta de Stardust Crusaders usa cuerpo violeta y mejillas oscuras, cabello
 negro, ojos cian, joya plateada, corona y hombreras doradas, pañuelo rojo, guantes
 y botas oscuras con ribetes amarillos, faldón y rodilleras claras. La figura usa
-pectoral y abdomen esculpidos, mechones escalonados, guantes con nudillos y capas
+torso de jugador con anatomía pintada, mechones escalonados, guantes con nudillos y capas
 de tela articuladas. Los próximos ajustes de calidad se valoran en el juego.
 
 ## Animaciones y tiempos a 20 TPS

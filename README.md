@@ -12,7 +12,11 @@ El [plan de Parte 3](docs/part-three-release.md) propone el catálogo y el recor
 empezando por Star Platinum; el desarrollo específico de Whitesnake queda para una expansión posterior.
 El estado descrito abajo corresponde al prototipo actual.
 
-La **prueba jugable 0.9.0** añade el **salto con Stand (J, voluntad 4)**,
+La **revisión visual 0.9.1** adapta Star Platinum al cuerpo del jugador clásico:
+cabeza cúbica, torso continuo y extremidades de cuatro píxeles, con los detalles
+del personaje y las poses adaptadas. La [guía 0.9.1](docs/playtest-0.9.1.md) propone
+comparar la silueta y las acciones dentro de Minecraft.
+La **prueba jugable 0.9.0** añadió el **salto con Stand (J, voluntad 4)**,
 con impulso desde suelo firme, amortiguación limitada y presentación original.
 La 0.8.0 añadió intercepción precisa con **B** y voluntad 6,
 con una ventana de reacción, animaciones, sonido y destellos propios.
@@ -598,6 +602,15 @@ dejó **13/20**: la amortiguación no elimina el daño de caídas grandes. Se re
 la tecla, el panel y la carga de los recursos. La sesión con dos clientes no se ha
 repetido para 0.9.0; la sensación de movimiento, la presentación y el audio con una
 salida real quedan en la [guía de prueba](docs/playtest-0.9.0.md).
+
+En **0.9.1**, `build` pasa y Star Platinum usa el cuerpo del jugador clásico:
+cabeza 8×8×8, torso continuo 8×12×4 y extremidades 4×12×4, con 80 cubos, 29 huesos
+y trece animaciones. Se ajustaron guardia, intercepción y la defensa de Star Finger
+a los guantes y la cabeza mayores. Se comprobaron medidas, contactos, UV,
+procedencia y regeneración idéntica; los catorce sonidos anteriores se conservan.
+En el cliente se cargó el conjunto y se observó el modelo frontal junto al jugador.
+La [guía 0.9.1](docs/playtest-0.9.1.md) propone la valoración visual y con un amigo;
+la batería de GameTests no se repitió para esta revisión de recursos.
 
 Dominios adicionales requeridos por la compilación y el cliente:
 `maven.neoforged.net`, `libraries.minecraft.net`, `piston-meta.mojang.com`,

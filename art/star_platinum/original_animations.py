@@ -318,9 +318,9 @@ def _guard():
     guard = _pose(rotation={
         "pelvis": [0, 0, 0], "waist": [2, 0, 0], "chest": [4, 0, 0],
         "neck": [-5, 0, 0], "head": [-3, 0, 0],
-        "left_upper_arm": [-84, -5, 15], "left_forearm": [-60, -20, -4],
+        "left_upper_arm": [-90, -5, 15], "left_forearm": [-40, -20, -4],
         "left_hand": [4, -4, -2],
-        "right_upper_arm": [-84, 5, -15], "right_forearm": [-60, 20, 4],
+        "right_upper_arm": [-90, 5, -15], "right_forearm": [-40, 20, 4],
         "right_hand": [4, 4, 2],
         "left_thigh": [-18, -4, 7], "left_shin": [30, 0, 0],
         "right_thigh": [7, 6, -7], "right_shin": [31, 0, 0],
@@ -329,7 +329,7 @@ def _guard():
     }, position={"hover": [0, 0.85, 0.1]})
     brace = _pose(guard, rotation={
         "waist": [2.5, 0, 0], "chest": [5, 0, 0], "neck": [-6, 0, 0],
-        "left_upper_arm": [-85, -5, 15], "right_upper_arm": [-85, 5, -15],
+        "left_upper_arm": [-91, -5, 15], "right_upper_arm": [-91, 5, -15],
         "left_shin": [32, 0, 0], "hair": [5, 0, -1],
         "scarf_tail_left": [20, -6, 5], "scarf_tail_right": [24, 6, -6],
     }, position={"hover": [0, 1.05, 0.2]})
@@ -363,7 +363,7 @@ def _star_finger():
         "neck": [-2, 6, 1], "head": [0, 5, 0],
         "right_upper_arm": [-90, 0, 0], "right_forearm": [0, 0, 0],
         "right_hand": [0, 0, 0],
-        "left_upper_arm": [-84, -5, 15], "left_forearm": [-60, -20, -4],
+        "left_upper_arm": [-90, -5, 15], "left_forearm": [-40, -20, -4],
         "left_hand": [4, -4, -2],
         "left_thigh": [-16, -4, 6], "left_shin": [25, 0, 0],
         "loin_front": [-18, 0, 0], "loin_back": [21, 0, 0],
@@ -392,8 +392,8 @@ def _intercept_pose():
     return _pose(rotation={
         "pelvis": [0, 0, 0], "waist": [1, -3, -1], "chest": [0, 3, 1],
         "neck": [-1, 6, 0], "head": [0, -6, 0],
-        "right_upper_arm": [-78, 5, -8], "right_forearm": [-48, 12, 8],
-        "right_hand": [-8, -10, 26],
+        "right_upper_arm": [-90, 5, -8], "right_forearm": [-36, 12, 8],
+        "right_hand": [4, 0, 0],
         "left_upper_arm": [-23, -13, 11], "left_forearm": [-69, 0, -5],
         "left_hand": [5, -6, -4],
         "left_thigh": [-9, -6, 6], "left_shin": [18, 0, 0],
@@ -411,7 +411,7 @@ def _intercept():
     lift = _pose(rotation={
         "pelvis": [0, 1, 1], "waist": [1, -5, -1], "chest": [-1, 6, 0],
         "neck": [0, 1, 0], "head": [0, -4, 0],
-        "right_upper_arm": [-45, 8, -10], "right_forearm": [-52, 8, 5],
+        "right_upper_arm": [-60, 8, -10], "right_forearm": [-30, 8, 5],
         "right_hand": [-10, -6, 18],
         "left_upper_arm": [-27, -11, 10], "left_forearm": [-64, 0, -4],
         "hair": [5, 1, -1], "scarf_tail_right": [24, 5, -6],
@@ -420,7 +420,7 @@ def _intercept():
     lower = _pose(rotation={
         "pelvis": [0, 0, 1], "waist": [0, -4, -1], "chest": [-1, 5, 0],
         "neck": [1, -1, 0], "head": [0, -3, 0],
-        "right_upper_arm": [-48, 8, -9], "right_forearm": [-50, 7, 5],
+        "right_upper_arm": [-58, 8, -9], "right_forearm": [-35, 7, 5],
         "right_hand": [2, 6, 8],
         "left_upper_arm": [-24, -10, 9], "left_forearm": [-60, 0, -3],
         "hair": [5, -1, -1], "scarf_tail_left": [20, -6, 5],
@@ -436,14 +436,14 @@ def _intercept_catch():
     presented = _intercept_pose()
     grip = _pose(presented, rotation={
         "waist": [2, -5, -1], "chest": [-1, 5, 1],
-        "right_upper_arm": [-75, 6, -9], "right_forearm": [-54, 18, 4],
-        "right_hand": [8, 18, -12],
+        "right_upper_arm": [-88, 6, -9], "right_forearm": [-40, 18, 4],
+        "right_hand": [8, 8, -6],
         "neck": [-1, 4, 0], "head": [0, -4, 0],
     }, position={"hover": [0, 1.2, -0.22]})
     recoil = _pose(grip, rotation={
         "waist": [2, -7, -1], "chest": [-1, 7, 1],
-        "right_upper_arm": [-68, 9, -10], "right_forearm": [-61, 15, 6],
-        "right_hand": [10, 20, -16],
+        "right_upper_arm": [-80, 9, -10], "right_forearm": [-44, 15, 6],
+        "right_hand": [8, 10, -8],
         "left_upper_arm": [-27, -12, 10], "left_forearm": [-65, 0, -4],
         "hair": [7, 2, -1], "scarf_tail_left": [23, -5, 6],
         "scarf_tail_right": [27, 9, -7],
@@ -632,9 +632,21 @@ def _runtime_point(bones, time, chain, point):
     return point
 
 
-def audit_animations(document=None):
-    """Raise on rig, channel, timing, loop, contact or extension regressions."""
-    document = build_animations() if document is None else document
+def audit_animations(document, rig):
+    """Check timing and clearance against the actual rig being exported."""
+    by_name = {bone["name"]: bone for bone in rig}
+    assert set(by_name) == set(BONES)
+
+    def chain(name):
+        bone = by_name[name]
+        return (chain(bone["parent"]) if bone.get("parent") else ()) + ((name, bone["pivot"]),)
+
+    def envelope(name, padding=.15):
+        cubes = by_name[name]["cubes"]
+        assert all(not cube.get("rotation") for cube in cubes), (name, "unrotated envelope")
+        low = [min(cube["origin"][i] for cube in cubes) - padding for i in range(3)]
+        high = [max(cube["origin"][i] + cube["size"][i] for cube in cubes) + padding for i in range(3)]
+        return [[x, y, z] for x in (low[0], high[0]) for y in (low[1], high[1]) for z in (low[2], high[2])]
     assert document["format_version"] == "1.8.0"
     clips = document["animations"]
     assert set(clips) == {f"animation.star_platinum.{name}" for name in CLIP_LENGTHS}
@@ -682,9 +694,9 @@ def audit_animations(document=None):
         assert all(vector[1] <= 80 for vector in scales.values())
         assert all(vector == [0, 0, 0] for time, vector in scales.items() if float(time) >= 0.7)
         assert finger[bone]["rotation"] == [0, 0, 0]
-        chain = ("root", "hover", "pelvis", "waist", "chest",
+        finger_chain = ("root", "hover", "pelvis", "waist", "chest",
                  "right_upper_arm", "right_forearm", "right_hand", bone)
-        direction = _runtime_direction(finger, 0.4, chain, [0, -1, 0])
+        direction = _runtime_direction(finger, 0.4, finger_chain, [0, -1, 0])
         assert all(abs(actual - expected) < 1e-8
                    for actual, expected in zip(direction, [0, 0, -1])), (bone, direction)
     assert _at(finger["right_upper_arm"]["rotation"], 0.4) == [-90, 0, 0]
@@ -693,19 +705,15 @@ def audit_animations(document=None):
     intercept = clips["animation.star_platinum.intercept"]["bones"]
     caught = clips["animation.star_platinum.intercept_catch"]["bones"]
     idle = clips["animation.star_platinum.idle"]["bones"]
-    right_chain = (
-        ("root", [0, 0, 0]), ("hover", [0, 0, 0]),
-        ("pelvis", [0, 13, 0]), ("waist", [0, 14, 0]), ("chest", [0, 19, 0]),
-        ("right_upper_arm", [-5.8, 23.4, 0]),
-        ("right_forearm", [-6.2, 18.6, 0]), ("right_hand", [-6.2, 14.7, 0]),
-    )
+    right_chain = chain("right_hand")
+    hand_pivot = by_name["right_hand"]["pivot"]
     for index in range(4, 21):
         time = index / 40
         for bone, channels in intercept.items():
             for channel, track in channels.items():
                 assert _at(track, time) == _at(track, 0.1), (bone, channel, "catch window")
-        wrist = _runtime_point(intercept, time, right_chain, [-6.2, 14.7, 0])
-        assert -5 <= wrist[0] <= -3 and 24 <= wrist[1] <= 27 and wrist[2] < -5, wrist
+        wrist = _runtime_point(intercept, time, right_chain, hand_pivot)
+        assert -5 <= wrist[0] <= -2.5 and 24 <= wrist[1] <= 27 and wrist[2] < -5, wrist
     for bone in BONES:
         for channel, track in intercept[bone].items():
             assert _at(track, 0.1) == _at(caught[bone][channel], 0), (bone, "catch transition")
@@ -713,11 +721,9 @@ def audit_animations(document=None):
             assert _at(caught[bone][channel], 0.22) == _at(idle[bone][channel], 0), (bone, "caught ready")
     # Check padded glove/head envelopes at raised keyframes, including the
     # catch twist and the lowering motion.
-    head_chain = right_chain[:-3] + (("neck", [0, 25, 0]), ("head", [0, 25.1, 0]))
-    glove_envelope = [[-6.2 + x, 14.7 + y, z]
-                      for x in (-1.9, 1.9) for y in (-3.4, 0.1) for z in (-2.5, 1.8)]
-    head_envelope = [[x, y, z]
-                     for x in (-4.3, 4.3) for y in (25.4, 32.6) for z in (-4.5, 3.5)]
+    head_chain = chain("head")
+    glove_envelope = envelope("right_hand")
+    head_envelope = envelope("head")
     clearances = []
     for name, bones in (("intercept", intercept), ("intercept_catch", caught)):
         for key in bones["right_upper_arm"]["rotation"]:
@@ -737,25 +743,23 @@ def audit_animations(document=None):
     arm_drop = {}
     tucked_ankles = {}
     for side, sign in (("left", 1), ("right", -1)):
-        arm_chain = right_chain[:-3] + (
-            (f"{side}_upper_arm", [5.8 * sign, 23.4, 0]),
-            (f"{side}_forearm", [6.2 * sign, 18.6, 0]),
-            (f"{side}_hand", [6.2 * sign, 14.7, 0]),
-        )
-        hand_pivot = [6.2 * sign, 14.7, 0]
+        arm_chain = chain(f"{side}_hand")
+        hand_pivot = by_name[f"{side}_hand"]["pivot"]
         ready_wrist = _runtime_point(leap, 0, arm_chain, hand_pivot)
         drive_wrist = _runtime_point(leap, 0.045, arm_chain, hand_pivot)
         arm_drop[side] = round(ready_wrist[1] - drive_wrist[1], 6)
         assert arm_drop[side] > 2.5, (side, "immediate downward arm drive")
-        x = 2.2 * sign
-        thigh_chain = right_chain[:3] + ((f"{side}_thigh", [x, 13.3, 0]),)
-        shin_chain = thigh_chain + ((f"{side}_shin", [x, 7.1, 0]),)
+        thigh_chain = chain(f"{side}_thigh")
+        shin_chain = chain(f"{side}_shin")
+        hip_pivot = by_name[f"{side}_thigh"]["pivot"]
+        knee_pivot = by_name[f"{side}_shin"]["pivot"]
+        ankle_pivot = by_name[f"{side}_foot"]["pivot"]
         for name, bones in (("leap", leap), ("leap_land", land)):
             for key in bones[f"{side}_thigh"]["rotation"]:
                 time = float(key)
-                hip = _runtime_point(bones, time, thigh_chain, [x, 13.3, 0])
-                knee = _runtime_point(bones, time, thigh_chain, [x, 7.1, 0])
-                ankle = _runtime_point(bones, time, shin_chain, [x, 1.55, -0.5])
+                hip = _runtime_point(bones, time, thigh_chain, hip_pivot)
+                knee = _runtime_point(bones, time, thigh_chain, knee_pivot)
+                ankle = _runtime_point(bones, time, shin_chain, ankle_pivot)
                 assert hip[1] - knee[1] > 1.5 and knee[1] - ankle[1] > 2.5, (name, side, time)
                 assert ankle[1] > 1.5, (name, side, time, "ankle floor clearance")
                 assert 5 <= _at(bones[f"{side}_shin"]["rotation"], time)[0] <= 115
@@ -763,9 +767,11 @@ def audit_animations(document=None):
                     assert -75 <= _at(bones[f"{side}_thigh"]["rotation"], time)[0] <= -40
                     assert ankle[1] > 5.5 and knee[2] < -3.5, (side, time, "airborne tuck")
         tucked_ankles[side] = [round(value, 6) for value in
-                                _runtime_point(leap, 0.2, shin_chain, [x, 1.55, -0.5])]
-    landing_absorption = (_runtime_point(land, 0.25, right_chain[:3], [0, 13, 0])[1]
-                          - _runtime_point(land, 0.045, right_chain[:3], [0, 13, 0])[1])
+                                _runtime_point(leap, 0.2, shin_chain, ankle_pivot)]
+    pelvis_chain = chain("pelvis")
+    pelvis_pivot = by_name["pelvis"]["pivot"]
+    landing_absorption = (_runtime_point(land, 0.25, pelvis_chain, pelvis_pivot)[1]
+                          - _runtime_point(land, 0.045, pelvis_chain, pelvis_pivot)[1])
     assert landing_absorption > 1.5
     return {"clips": len(clips), "bone_tracks": track_count, "numeric_keys": key_count,
             "barrage_contacts": len(BARRAGE_CONTACTS), "star_finger_peak_seconds": 0.4,
@@ -781,4 +787,5 @@ def audit_animations(document=None):
 
 
 if __name__ == "__main__":
-    print(audit_animations())
+    from build_original import sculpt
+    print(audit_animations(build_animations(), sculpt().bones))

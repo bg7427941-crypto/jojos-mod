@@ -1,4 +1,4 @@
-# Star Platinum — prueba jugable 0.9.0
+# Star Platinum — prueba jugable 0.9.1
 
 Combate base y primeros desafíos de progresión de Parte 3. La [ficha oficial de Jotaro](https://jojo-portal.com/en/anime/sc/character/01/)
 sirve de referencia para la fuerza, precisión y ráfagas de puñetazos. La presentación
@@ -105,8 +105,10 @@ sus valores son adaptaciones de balance.
 
 ## Presentación y alcance pendiente
 
-El modelo tiene cabello, cinta, gema, hombreras, guantes, puños articulados, botas,
-bufanda y faldón. El rig y el atlas 256×256 se construyen de nuevo. Sus trece
+El modelo 0.9.1 usa el cuerpo del jugador clásico: cabeza 8×8×8, torso 8×12×4
+y extremidades 4×12×4, con 80 cubos y 29 huesos. Sobre él se añaden cabello, cinta,
+gema, hombreras, guantes, puños articulados, botas, bufanda y faldón. El atlas
+256×256 y los detalles son propios. Sus trece
 animaciones originales cubren reposo, movimiento, invocación, desinvocación, golpe,
 ráfaga, guardia, recuperación, Star Finger, intercepción, su gesto de captura, salto y aterrizaje. Los dos dedos derechos extensibles
 solo son visibles durante Star Finger. Hay aura violeta/dorada,

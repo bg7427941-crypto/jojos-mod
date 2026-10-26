@@ -1,17 +1,47 @@
 {
   "author": "JoJo's Mod",
   "license": "MIT for original asset data and source; JoJo character rights retained by their holders",
-  "method": "New cuboids, rig, UV allocation, procedural pixel art and authored numeric animation tracks. No imported model/texture/animation inputs.",
+  "method": "Locally constructed classic player body proportions with original Star Platinum overlays, UVs, pixel art and animation. No imported model/texture/animation inputs.",
+  "body_base": {
+    "type": "minecraft_classic_player",
+    "head": [
+      8,
+      8,
+      8
+    ],
+    "torso": [
+      8,
+      12,
+      4
+    ],
+    "arm": [
+      4,
+      12,
+      4
+    ],
+    "leg": [
+      4,
+      12,
+      4
+    ],
+    "units": "model pixels in bind pose",
+    "split_joints": [
+      "elbow",
+      "wrist",
+      "knee",
+      "ankle"
+    ]
+  },
   "bones": 29,
-  "cubes": 144,
+  "cubes": 80,
   "atlas": [
     256,
     256
   ],
   "animations": 13,
-  "texture_sha256": "e45a47482cc4f2f69c05157350cbe391c141b077cac9168b5ba9bee6644cff13",
-  "geometry_sha256": "aafb8945107ab250bd2c233ff91ca23157c44a17feaaed5f8e251dea6e1866d1",
-  "animation_sha256": "8326c66bc511325452a4615a707087c3cf8b3c88ac1ecefd9c4053a4a3ddbe4c",
-  "model_source_sha256": "2f11a980eafa85939fe9b3df343d02d75c13d8ba950230c72837b2c188ec5559",
-  "animation_source_sha256": "6f01aab50f0b3d43174183f60e6d4027f9ecb1448ca3bfca2fe4e5a3300c88e3"
+  "texture_sha256": "37e400b4aec04666ea6caf95342ef1d3c71d9e80c3edb8faf719484d0b43ccb1",
+  "geometry_sha256": "d0a46199ba1fca7e95c6fceff3fd3988c41971ac7e2afd8d200fa9e1382246b4",
+  "animation_sha256": "2c43972ec175e88428afee63cc965257d3def70640fea5932a301a61d156f917",
+  "model_source_sha256": "a9b172d64181e1d208646a198dc0c38f7cddaf25d16be5bd9192e4be77894f91",
+  "animation_source_sha256": "854142552c9c1bdeb64b9b3611b0f67869afa942b5d0feac31b8e8293aad63ca"
 }

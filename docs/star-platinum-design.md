@@ -1,8 +1,9 @@
-# Star Platinum — prueba jugable 0.6.0
+# Star Platinum — prueba jugable 0.7.0
 
 Combate base y primeros desafíos de progresión de Parte 3. La [ficha oficial de Jotaro](https://jojo-portal.com/en/anime/sc/character/01/)
-sirve de referencia para la fuerza, precisión y ráfagas de puñetazos. La presentación 0.5.1 adapta un modelo y poses de Roundabout, con
-créditos y licencia propios, y ajusta sus animaciones a Minecraft/GeckoLib. Los valores siguientes son
+sirve de referencia para la fuerza, precisión y ráfagas de puñetazos. La presentación
+0.7.0 construye modelo, UV, atlas, animaciones y sonido desde fuentes propias;
+la [dirección artística](art-direction.md) documenta sus referencias. Los valores siguientes son
 decisiones de balance del mod, independientes de los parámetros del manga.
 
 ## Obtención y progreso
@@ -77,13 +78,15 @@ No atraviesa paredes y usa las mismas reglas de PvP/equipos que los otros golpes
 ## Presentación y alcance pendiente
 
 El modelo tiene cabello, cinta, gema, hombreras, guantes, puños articulados, botas,
-bufanda y faldón. Sus nueve animaciones cubren reposo, movimiento, invocación,
-desinvocación, golpe, ráfaga, guardia, recuperación y Star Finger. Los dedos
-extensibles solo son visibles durante esta última acción; el rig corporal y el
-atlas aprobados se conservan. Hay aura violeta/dorada,
+bufanda y faldón. El rig y el atlas 256×256 se construyen de nuevo. Sus nueve
+animaciones originales cubren reposo, movimiento, invocación, desinvocación, golpe,
+ráfaga, guardia, recuperación y Star Finger. Los dos dedos derechos extensibles
+solo son visibles durante esta última acción. Hay aura violeta/dorada,
 trayectorias de puños, destellos de impacto y arco frontal de guardia, con partículas
-nativas. Los efectos de audio proceden de Kenney (CC0), recortados en clips breves
-mono; incluyen invocación, retirada, swing, impacto y guardia, sin voces del anime.
+nativas. Los diez efectos de audio son síntesis original: ruido con semillas,
+resonadores y osciladores propios, en mono/48 kHz. Invocación, ráfaga y Star Finger
+usan un canal independiente por propietario y se cortan al cancelar. No incluyen
+grabaciones de voces. Las muestras de otras fuentes se pueden probar con un pack personal.
 Consulta los [créditos y licencias](../THIRD_PARTY_NOTICES.md).
 Las fuentes editables están en [art/star_platinum](../art/star_platinum/README.md).
 

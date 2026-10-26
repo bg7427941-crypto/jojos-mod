@@ -10,6 +10,8 @@ import io.github.bg7427941.jojosmod.registry.ModStands;
 import io.github.bg7427941.jojosmod.registry.ModEntities;
 import io.github.bg7427941.jojosmod.registry.ModSounds;
 import io.github.bg7427941.jojosmod.effects.StarPlatinumEffects;
+import io.github.bg7427941.jojosmod.effects.StandVoices;
+import io.github.bg7427941.jojosmod.network.StandVoicePayload.Cue;
 import io.github.bg7427941.jojosmod.abilities.StarPlatinumActions;
 import io.github.bg7427941.jojosmod.stands.StandController;
 import io.github.bg7427941.jojosmod.stands.StandDefinition;
@@ -161,7 +163,7 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         if (isStarPlatinum()) {
             triggerAnim("main", "summon");
             if (level() instanceof ServerLevel server) {
-                server.playSound(null, blockPosition(), ModSounds.STAR_SUMMON.get(), SoundSource.PLAYERS, 0.65F, 1.0F);
+                if (owner != null) StandVoices.play(owner, Cue.SUMMON);
                 StarPlatinumEffects.summon(this);
             }
         }

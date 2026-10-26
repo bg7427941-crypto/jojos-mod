@@ -81,6 +81,11 @@ su silueta, proporciones y detalles, también a distancia y con la cámara de Mi
 Los modelos, texturas, efectos y sonidos se crearán para el proyecto o usarán recursos
 con licencia compatible, conservando las fuentes editables y su procedencia.
 
+En 0.7.0, Star Platinum sustituye la adaptación anterior por un proyecto propio de
+geometría, UV, textura, animaciones y sonido. La [dirección artística](art-direction.md)
+registra los rasgos de la obra y las comparaciones con varios mods. Cada nuevo Stand
+partirá también de un proyecto editable propio.
+
 La entrega visual de un Stand incluye:
 
 - Modelo editable y geometría de juego con UV y textura revisadas.

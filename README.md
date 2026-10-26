@@ -12,11 +12,14 @@ El [plan de Parte 3](docs/part-three-release.md) propone el catálogo y el recor
 empezando por Star Platinum; el desarrollo específico de Whitesnake queda para una expansión posterior.
 El estado descrito abajo corresponde al prototipo actual.
 
-La **prueba jugable 0.6.0** añade **Star Finger**, tres desafíos persistentes de
-voluntad, un panel de progreso y ocho sprites originales de ítems. Conserva el
-modelo adaptado de Roundabout con su atlas anime y añade una novena animación.
-Sigue la [guía de prueba](docs/playtest-0.6.0.md) y la
-[ficha de combate](docs/star-platinum-design.md).
+La **prueba jugable 0.7.0** rehace Star Platinum con geometría, rig, UV, textura,
+nueve animaciones y diez efectos sonoros originales. Se construye desde proyectos
+nuevos, usando la obra y varios modelos como referencias visuales. La
+[dirección artística](docs/art-direction.md) y las fuentes editables documentan
+esa separación. Conserva Star Finger, los desafíos de voluntad, el panel y los
+sprites propios de 0.6.0.
+Sigue la [guía de presentación 0.7.0](docs/playtest-0.7.0.md), la
+[guía de progresión](docs/playtest-0.6.0.md) y la [ficha de combate](docs/star-platinum-design.md).
 
 Conserva Echoes ACT 1, Little Feet, sus flechas, los discos, el guardián y las recetas
 anteriores. La parada temporal, los otros Crusaders y DIO siguen pendientes; esta
@@ -66,13 +69,17 @@ que por ahora contiene solo Star Platinum; la flecha antigua mantiene Echoes/Lit
 El núcleo `jojosmod:star_platinum_core` está disponible en creativo/comandos y se
 combina con un disco vacío. El guardián puede guardar y recuperar este Stand.
 
-Las [fuentes editables de Blockbench](art/star_platinum/README.md) acompañan a la
-geometría, textura y nueve animaciones. El modelo adaptado conserva la licencia de
-Roundabout; los [sonidos de Kenney](art/sounds/README.md) son CC0, mono y espaciales,
-con subtítulos en inglés/español y volumen bajo la categoría Jugadores. La ráfaga
-reproduce una señal al inicio, un sonido breve por pulso y otro al impactar.
-El [constructor de un paquete de audio local](docs/anime-audio.md) permite sustituir
-eventos con clips autorizados; no incluye ni descarga grabaciones del anime.
+Las [fuentes editables](art/star_platinum/README.md) incluyen un proyecto nuevo de
+Blockbench, la definición de las piezas, los patrones de píxel y las curvas de las
+nueve animaciones. El atlas es propio de 256×256, con paleta de Stardust Crusaders:
+cabello negro, ojos cian, joya plateada, pañuelo rojo y rodilleras claras.
+Los [diez efectos sintetizados](art/sounds/original-audio.md) son originales, mono
+y espaciales, con subtítulos en inglés/español y volumen bajo Jugadores. La ráfaga
+añade una capa de energía una vez al inicio, aire por pulso e impactos al acertar.
+Invocación, ráfaga y Star Finger tienen un canal por jugador: una acción nueva
+sustituye su señal anterior y una cancelación la interrumpe, conservando los canales
+de los amigos. El [paquete de audio local](docs/anime-audio.md) permite personalizar
+los eventos. El conjunto incluido no contiene grabaciones del anime ni otros mods.
 Los efectos usan partículas nativas y respetan los
 ajustes del cliente; el aura está limitada a ocho partículas por segundo y Stand.
 
@@ -533,6 +540,20 @@ desbloqueo de V. Star Finger dejó a un objetivo situado a cinco bloques en 16 d
 sus 20 puntos de salud. La revisión con dos clientes no se ha repetido para 0.6.0;
 el balance de progresión y la claridad visual requieren valoración del jugador.
 La [guía 0.6.0](docs/playtest-0.6.0.md) detalla esa prueba y el recorrido con un amigo.
+
+En **0.7.0**, los **65 GameTests** vuelven a pasar con el canal de sonido por
+propietario y el protocolo 4. La presentación se ha reconstruido desde cero:
+144 cubos, 29 huesos, atlas de 256×256, nueve animaciones y diez sonidos sintetizados.
+Se comprobaron UV y pivotes del proyecto Blockbench, atlas incrustado, hashes de
+procedencia, regeneración idéntica y referencias de los ocho eventos sonoros.
+
+La revisión nativa mostró una diferencia entre la guardia y su vista de desarrollo;
+se corrigió la reflexión del eje X en la exportación y se comprobó de nuevo en
+Minecraft. Se observaron guardia, ráfaga y extensión de dos dedos, con sus
+subtítulos; Star Finger dejó al objetivo situado a cinco bloques en 16/20 de salud.
+No se ha repetido la sesión de dos clientes con estos recursos. El aspecto, la
+fluidez y el timbre final requieren la [valoración del jugador](docs/playtest-0.7.0.md)
+con salida de audio real.
 
 Dominios adicionales requeridos por la compilación y el cliente:
 `maven.neoforged.net`, `libraries.minecraft.net`, `piston-meta.mojang.com`,

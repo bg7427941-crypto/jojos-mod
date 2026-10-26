@@ -1,21 +1,9 @@
 # Audio del anime y paquete de recursos local
 
-Los sonidos reconocibles del anime pueden ayudar a la ambientación. Revisé la
-procedencia publicada por otros mods, pero no encontré una autorización verificable
-del titular para incorporar y redistribuir sus grabaciones en este proyecto.
-Que otro mod incluya un clip no demuestra por sí solo ese permiso.
-
-[Roundabout](https://www.curseforge.com/minecraft/mc-mods/roundabout-the-jojo-mod)
-acredita sus SFX a JoJo y otras fuentes, recopilados por colaboradores; su
-[README](https://github.com/Hydraheads/RoundaboutMod/blob/master/README.md) declara
-que no posee los derechos de JoJo. [Ripples of the Past](https://github.com/StandoByte/Ripples-of-the-Past/blob/1.16.5/LICENSE)
-publica una licencia GPLv3 general, sin una autorización específica del titular de
-las grabaciones en los avisos revisados. El [aviso de VIZ](https://cpg.viz.com/copyrights)
-identifica al comité del anime de Stardust Crusaders y limita la redistribución de
-materiales de sus sitios. Esto describe las fuentes revisadas; no es una conclusión
-general sobre todos los mods ni sobre todos los posibles usos privados.
-
-El JAR conserva efectos con procedencia y permisos documentados. La plantilla de
+La versión 0.7.0 incluye diez [efectos originales sintetizados](../art/sounds/original-audio.md)
+para el proyecto, siguiendo la dirección de crear su presentación desde cero.
+No incluye grabaciones de voces del anime ni muestras extraídas de otros mods.
+La plantilla de
 `extras/anime-audio-pack/` permite sustituirlos en tu cliente con archivos que tengas
 permiso para usar, sin incorporarlos al código ni al JAR. No incluye ni descarga
 audio. Usar un pack local no concede derechos adicionales sobre sus grabaciones;

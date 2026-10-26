@@ -13,6 +13,8 @@ ajustadas, audio CC0 y efectos visuales; sus [créditos](../THIRD_PARTY_NOTICES.
 acompañan a los recursos. La [ficha de habilidades](star-platinum-design.md)
 registra sus reglas. La 0.6.0 añade Star Finger, desafíos persistentes de voluntad,
 panel de progreso y sprites de ítems; su [guía de prueba](playtest-0.6.0.md) permite evaluarlo.
+La 0.7.0 rehace la presentación de Star Platinum con recursos originales y una
+[guía específica](playtest-0.7.0.md), siguiendo la [dirección artística](art-direction.md).
 Este plan sigue describiendo el lanzamiento completo, que aún está en desarrollo.
 
 La propuesta de catálogo principal sigue a los Crusaders, con DIO como encuentro de
@@ -70,6 +72,9 @@ La revisión incluye silueta, UV, escala, manos y puños, articulaciones y visib
 en primera y tercera persona. La ráfaga necesita movimiento y transiciones propios;
 se comprobarán preparación, contacto, recuperación y su coincidencia con el daño del servidor.
 El estado de reposo, la invocación y la desinvocación también forman parte de la entrega.
+El proyecto nuevo de Star Platinum será la referencia de proceso para los siguientes
+Stands: observar la obra y varias interpretaciones, definir el diseño y construir
+geometría, UV, textura y keyframes propios.
 
 ## Progresión de la primera versión
 

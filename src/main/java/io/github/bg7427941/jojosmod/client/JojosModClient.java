@@ -40,7 +40,9 @@ public final class JojosModClient {
         modEventBus.addListener(JojosModClient::registerKeys);
         modEventBus.addListener(JojosModClient::registerRenderers);
         modEventBus.addListener(StandHud::register);
+        modEventBus.addListener(StandVoicePlayer::register);
         NeoForge.EVENT_BUS.addListener(JojosModClient::onClientTick);
+        NeoForge.EVENT_BUS.addListener(StandVoicePlayer::onClientTick);
     }
 
     private static void registerKeys(RegisterKeyMappingsEvent event) {

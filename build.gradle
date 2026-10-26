@@ -94,7 +94,14 @@ tasks.named('jar', Jar) {
     from('LICENSE')
     from('LICENSE-MDK.txt')
     from('THIRD_PARTY_NOTICES.md')
-    from('third_party') { into 'META-INF/licenses' }
+    from('art/star_platinum/original-provenance.json') {
+        into 'META-INF/jojosmod'
+        rename { 'star-platinum-original.json' }
+    }
+    from('art/sounds/original-provenance.json') {
+        into 'META-INF/jojosmod'
+        rename { 'sound-original.json' }
+    }
 }
 
 // Compile the integration suite during a normal build; execute it with runGameTestServer.

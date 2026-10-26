@@ -1,48 +1,38 @@
-# Créditos y licencias de recursos
+# Autoría y dependencias
 
-El código del proyecto y los recursos originales mantienen su licencia MIT. Los
-recursos siguientes conservan sus condiciones propias; no se presentan como
-creaciones originales de este proyecto ni se relicencian como MIT.
+## Recursos originales de la entrega 0.7.0
 
-## Star Platinum — Roundabout
+La geometría, el rig, las UV, el atlas, las animaciones y los diez efectos sonoros
+actuales de Star Platinum se crean desde fuentes propias para este proyecto.
+Los ocho sprites de ítems y los efectos de partículas también son desarrollo propio.
+El código y estos recursos se distribuyen bajo la licencia MIT del proyecto.
 
-La geometría, el atlas anime y poses de animación proceden de
-[Roundabout: The JoJo Mod](https://github.com/Hydraheads/RoundaboutMod), por
-**Hydraheads y el equipo de Roundabout**, con contribuciones de modelado de
-**GenericName / GenericName72**. Se usó la revisión
-`cdd6dc35aead479aef4cebce873c1e532c0eccf3`.
+Star Platinum y JoJo's Bizarre Adventure son creación de Hirohiko Araki. La
+representación se inspira en Stardust Crusaders; no se reclama la creación del
+personaje ni una afiliación oficial. La adaptación animada es de David Production.
 
-Fuentes:
+Las referencias de apariencia y las comparaciones con otros mods están en
+[docs/art-direction.md](docs/art-direction.md). No se incorporan sus imágenes,
+geometrías, texturas, keyframes ni grabaciones a los recursos actuales.
 
-- [Proyecto Blockbench de Star Platinum](https://github.com/Hydraheads/RoundaboutMod/blob/cdd6dc35aead479aef4cebce873c1e532c0eccf3/bbmodels/Stands/Star%20Platinum/star_platinum.bbmodel).
-- [Atlas anime](https://github.com/Hydraheads/RoundaboutMod/blob/cdd6dc35aead479aef4cebce873c1e532c0eccf3/common/src/main/resources/assets/roundabout/textures/stand/star_platinum/anime.png).
-- [Licencia original](https://github.com/Hydraheads/RoundaboutMod/blob/cdd6dc35aead479aef4cebce873c1e532c0eccf3/LICENSE).
+Fuentes y manifiestos originales:
 
-La **Roundabout License v1.2** permite copiar, modificar y compartir con crédito,
-sin atribuirse la propiedad del mod y atendiendo las peticiones del autor sobre
-distribución. Su texto completo y la procedencia están en `third_party/roundabout/`;
-el JAR los incluye en `META-INF/licenses/roundabout/`.
+- [Modelo y textura](art/star_platinum/README.md).
+- [Sonido sintetizado](art/sounds/original-audio.md).
+- `META-INF/jojosmod/star-platinum-original.json` y `sound-original.json` en el JAR.
 
-Adaptación realizada aquí: conversión a GeckoLib y a un proyecto editable de
-Blockbench, selección del rig corporal, retirada de geometría de habilidades no
-implementadas y nueve animaciones ajustadas a los tiempos del combate de este mod.
-Star Finger adapta la pieza extensible original a dos dedos; el cuerpo y el atlas
-permanecen iguales respecto a la presentación 0.5.1.
-No se incorpora código Java ni audio de Roundabout. JoJo y sus personajes son
-creación de Hirohiko Araki; estos créditos no implican afiliación oficial.
+## Dependencias técnicas
 
-## Sonidos — Kenney
+La base adapta el MDK oficial de NeoForge; su aviso MIT se conserva en
+[LICENSE-MDK.txt](LICENSE-MDK.txt). NeoForge mantiene su licencia LGPL-2.1 y
+Minecraft sus condiciones propias. GeckoLib, con licencia MIT, se utiliza para
+cargar y animar los modelos. Las dependencias mantienen sus licencias originales.
 
-Los efectos parten de **Kenney (Kenney Vleugels)**, publicados bajo **CC0 1.0**:
+## Recursos de versiones anteriores
 
-- [Impact Sounds](https://kenney.nl/assets/impact-sounds).
-- [RPG Audio](https://kenney.nl/assets/rpg-audio).
-- [Sci-fi Sounds](https://kenney.nl/assets/sci-fi-sounds).
-
-Se recortaron, filtraron, fundieron y ajustaron de volumen para siete archivos
-OGG Vorbis mono. La licencia permite reutilizar y modificar sin coste. No se usan
-voces, música ni audio extraídos de JoJo.
-
-Las licencias originales, nombres exactos de archivos, copias de descarga fijadas
-a una revisión y hashes están en `art/sounds/` y `third_party/kenney/`. El JAR incluye
-las licencias y la procedencia en `META-INF/licenses/kenney/`.
+0.5.1–0.6.0 usaron un modelo/atlas adaptados de Roundabout y muestras de Kenney.
+La rama local de pruebas 0.6.1 añadió grabaciones de JoJo recopiladas en Roundabout.
+Esos recursos no se presentan como originales ni se relicencian retroactivamente.
+Su procedencia y avisos históricos se conservan en
+[docs/history/asset-provenance.md](docs/history/asset-provenance.md) y en el historial Git.
+El JAR 0.7.0 utiliza el conjunto original descrito arriba.

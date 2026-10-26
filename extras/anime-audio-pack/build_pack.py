@@ -22,6 +22,8 @@ EVENTS = {
     "guard_block": ("guard_block",),
     "barrage_start": ("barrage_start",),
     "star_finger": ("star_finger",),
+    "intercept": ("intercept",),
+    "intercept_catch": ("intercept_catch",),
 }
 CLIPS = {name for variants in EVENTS.values() for name in variants}
 AUDIO_EXTENSIONS = {".ogg", ".oga", ".opus", ".mp3", ".wav", ".flac", ".m4a", ".aac", ".aiff"}

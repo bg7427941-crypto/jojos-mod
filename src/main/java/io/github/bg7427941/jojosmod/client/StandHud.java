@@ -53,9 +53,16 @@ public final class StandHud {
                         StarPlatinumProgress.STAR_FINGER_REQUIREMENT);
 
         var font = minecraft.font;
-        int textWidth = Math.max(font.width(title), Math.max(font.width(mastery), font.width(ability)));
+        boolean interceptUnlocked = StarPlatinumProgress.interceptUnlocked(player);
+        var interceptKey = Component.keybind("key.jojosmod.star_intercept");
+        var interception = interceptUnlocked
+                ? Component.translatable("hud.jojosmod.intercept.unlocked", interceptKey)
+                : Component.translatable("hud.jojosmod.intercept.locked", interceptKey,
+                        StarPlatinumProgress.INTERCEPT_REQUIREMENT);
+        int textWidth = Math.max(Math.max(font.width(title), font.width(mastery)),
+                Math.max(font.width(ability), font.width(interception)));
         int width = textWidth + PADDING * 2;
-        int height = font.lineHeight * 3 + PADDING * 2;
+        int height = font.lineHeight * 4 + PADDING * 2;
         float scale = Math.min(1.0F, Math.max(1, graphics.guiWidth() - X * 2) / (float) width);
 
         graphics.pose().pushMatrix();
@@ -68,6 +75,8 @@ public final class StandHud {
         graphics.text(font, mastery, PADDING, PADDING + font.lineHeight, 0xFFD3C0EC, false);
         graphics.text(font, ability, PADDING, PADDING + font.lineHeight * 2,
                 unlocked ? 0xFFF2D278 : 0xFFB8B4C4, false);
+        graphics.text(font, interception, PADDING, PADDING + font.lineHeight * 3,
+                interceptUnlocked ? 0xFFF2D278 : 0xFFB8B4C4, false);
         graphics.pose().popMatrix();
     }
 }

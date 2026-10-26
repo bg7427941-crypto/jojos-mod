@@ -1,8 +1,8 @@
 # Autoría y dependencias
 
-## Recursos originales de la entrega 0.7.0
+## Recursos originales de la entrega 0.8.0
 
-La geometría, el rig, las UV, el atlas, las animaciones y los diez efectos sonoros
+La geometría, el rig, las UV, el atlas, las animaciones y los doce efectos sonoros
 actuales de Star Platinum se crean desde fuentes propias para este proyecto.
 Los ocho sprites de ítems y los efectos de partículas también son desarrollo propio.
 El código y estos recursos se distribuyen bajo la licencia MIT del proyecto.
@@ -35,4 +35,4 @@ La rama local de pruebas 0.6.1 añadió grabaciones de JoJo recopiladas en Round
 Esos recursos no se presentan como originales ni se relicencian retroactivamente.
 Su procedencia y avisos históricos se conservan en
 [docs/history/asset-provenance.md](docs/history/asset-provenance.md) y en el historial Git.
-El JAR 0.7.0 utiliza el conjunto original descrito arriba.
+El JAR 0.8.0 utiliza el conjunto original descrito arriba.

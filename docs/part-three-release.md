@@ -15,6 +15,7 @@ registra sus reglas. La 0.6.0 añade Star Finger, desafíos persistentes de volu
 panel de progreso y sprites de ítems; su [guía de prueba](playtest-0.6.0.md) permite evaluarlo.
 La 0.7.0 rehace la presentación de Star Platinum con recursos originales y una
 [guía específica](playtest-0.7.0.md), siguiendo la [dirección artística](art-direction.md).
+La 0.8.0 añade [intercepción precisa](playtest-0.8.0.md), desbloqueada con voluntad 6.
 Este plan sigue describiendo el lanzamiento completo, que aún está en desarrollo.
 
 La propuesta de catálogo principal sigue a los Crusaders, con DIO como encuentro de

@@ -68,5 +68,16 @@
   "subtitles.jojosmod.star_platinum.guard": "Star Platinum se pone en guardia",
   "subtitles.jojosmod.star_platinum.guard_block": "Star Platinum amortigua un golpe",
   "subtitles.jojosmod.star_platinum.barrage_start": "Star Platinum desata una ráfaga",
-  "subtitles.jojosmod.star_platinum.star_finger": "Star Finger se extiende"
+  "subtitles.jojosmod.star_platinum.star_finger": "Star Finger se extiende",
+  "key.jojosmod.star_intercept": "Star Platinum: intercepción precisa",
+  "message.jojosmod.star.intercept": "Star Platinum · Intercepción preparada (0,1–0,5 s)",
+  "message.jojosmod.star.intercept_catch": "¡Flecha interceptada!",
+  "message.jojosmod.star.intercept_locked": "La intercepción requiere %s de voluntad. Completa los tres desafíos de Star Platinum.",
+  "message.jojosmod.mastery.intercept_unlocked": "¡Intercepción precisa desbloqueada! Pulsa %s ante una flecha frontal.",
+  "hud.jojosmod.intercept.unlocked": "%s · Intercepción desbloqueada",
+  "hud.jojosmod.intercept.locked": "%s · Intercepción: requiere %s de voluntad",
+  "command.jojosmod.stand.intercept_ready": "Intercepción precisa desbloqueada · %s",
+  "command.jojosmod.stand.intercept_locked": "La intercepción precisa se desbloquea con %s de voluntad.",
+  "subtitles.jojosmod.star_platinum.intercept": "Star Platinum prepara la intercepción",
+  "subtitles.jojosmod.star_platinum.intercept_catch": "Star Platinum neutraliza una flecha"
 }

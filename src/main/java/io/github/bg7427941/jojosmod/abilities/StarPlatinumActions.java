@@ -22,6 +22,10 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.phys.EntityHitResult;
+import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
@@ -42,6 +46,10 @@ public final class StarPlatinumActions {
     public static final int STAR_FINGER_COOLDOWN = 120;
     public static final float STAR_FINGER_DAMAGE = 4;
     public static final double STAR_FINGER_REACH = 6;
+    public static final int INTERCEPT_WINDUP = 2;
+    public static final int INTERCEPT_WINDOW_END = 10;
+    public static final int INTERCEPT_TICKS = 12;
+    public static final int INTERCEPT_COOLDOWN = 60;
     private static final Identifier GUARD_SLOW = Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "star_guard");
 
     private StarPlatinumActions() {}
@@ -75,7 +83,7 @@ public final class StarPlatinumActions {
         if (active(owner).filter(s -> s == stand).isEmpty() || busy(owner, state)) return false;
         owner.setData(ModAttachments.STAR_SESSION,
                 new StarPlatinumSession(Action.STRIKE, owner.level().getGameTime(), 0,
-                        state.barrageReadyAt(), state.guardReadyAt(), state.fingerReadyAt()));
+                        state.barrageReadyAt(), state.guardReadyAt(), state.fingerReadyAt(), state.interceptReadyAt()));
         stand.playAttackAnimation();
         return true;
     }
@@ -86,7 +94,8 @@ public final class StarPlatinumActions {
         long now = owner.level().getGameTime();
         if (stand.isEmpty() || busy(owner, state) || coolingDown(owner, state.barrageReadyAt() - now)) return false;
         owner.setData(ModAttachments.STAR_SESSION,
-                new StarPlatinumSession(Action.BARRAGE, now, 0, now + BARRAGE_COOLDOWN, state.guardReadyAt(), state.fingerReadyAt()));
+                new StarPlatinumSession(Action.BARRAGE, now, 0, now + BARRAGE_COOLDOWN, state.guardReadyAt(),
+                        state.fingerReadyAt(), state.interceptReadyAt()));
         stand.get().playBarrageAnimation();
         StandVoices.play(owner, Cue.BARRAGE);
         owner.sendSystemMessage(Component.translatable("message.jojosmod.star.barrage"), true);
@@ -105,7 +114,7 @@ public final class StarPlatinumActions {
         long now = owner.level().getGameTime();
         if (busy(owner, state) || coolingDown(owner, state.fingerReadyAt() - now)) return false;
         owner.setData(ModAttachments.STAR_SESSION, new StarPlatinumSession(Action.STAR_FINGER, now, 0,
-                state.barrageReadyAt(), state.guardReadyAt(), now + STAR_FINGER_COOLDOWN));
+                state.barrageReadyAt(), state.guardReadyAt(), now + STAR_FINGER_COOLDOWN, state.interceptReadyAt()));
         stand.get().playStarFingerAnimation();
         StandVoices.play(owner, Cue.STAR_FINGER);
         owner.sendSystemMessage(Component.translatable("message.jojosmod.star.finger"), true);
@@ -122,7 +131,8 @@ public final class StarPlatinumActions {
         long now = owner.level().getGameTime();
         if (stand.isEmpty() || busy(owner, state) || coolingDown(owner, state.guardReadyAt() - now)) return false;
         owner.setData(ModAttachments.STAR_SESSION,
-                new StarPlatinumSession(Action.GUARD, now, 0, state.barrageReadyAt(), now + GUARD_COOLDOWN, state.fingerReadyAt()));
+                new StarPlatinumSession(Action.GUARD, now, 0, state.barrageReadyAt(), now + GUARD_COOLDOWN,
+                        state.fingerReadyAt(), state.interceptReadyAt()));
         var speed = owner.getAttribute(Attributes.MOVEMENT_SPEED);
         if (speed != null && !speed.hasModifier(GUARD_SLOW)) {
             speed.addTransientModifier(new AttributeModifier(GUARD_SLOW, -0.45, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
@@ -132,6 +142,59 @@ public final class StarPlatinumActions {
         StarPlatinumEffects.guardStart(owner, stand.get());
         owner.sendSystemMessage(Component.translatable("message.jojosmod.star.guard"), true);
         return true;
+    }
+
+    public static boolean intercept(ServerPlayer owner) {
+        var stand = requireActive(owner);
+        if (stand.isEmpty()) return false;
+        if (!StarPlatinumProgress.interceptUnlocked(owner)) {
+            owner.sendSystemMessage(Component.translatable("message.jojosmod.star.intercept_locked",
+                    StarPlatinumProgress.INTERCEPT_REQUIREMENT), true);
+            return false;
+        }
+        var state = session(owner);
+        long now = owner.level().getGameTime();
+        if (busy(owner, state) || coolingDown(owner, state.interceptReadyAt() - now)) return false;
+        owner.setData(ModAttachments.STAR_SESSION, new StarPlatinumSession(Action.INTERCEPT, now, 0,
+                state.barrageReadyAt(), state.guardReadyAt(), state.fingerReadyAt(), now + INTERCEPT_COOLDOWN));
+        stand.get().playInterceptAnimation();
+        owner.level().playSound(null, owner.blockPosition(), ModSounds.STAR_INTERCEPT.get(),
+                SoundSource.PLAYERS, 0.45F, 1.0F);
+        StarPlatinumEffects.interceptReady(owner);
+        owner.sendSystemMessage(Component.translatable("message.jojosmod.star.intercept"), true);
+        return true;
+    }
+
+    /** Cancel the real collision before damage, effects or piercing can run. Never grants ammunition. */
+    public static void onProjectileImpact(ProjectileImpactEvent event) {
+        if (event.isCanceled() || !(event.getRayTraceResult() instanceof EntityHitResult hit)
+                || !(hit.getEntity() instanceof ServerPlayer owner)) return;
+        var arrow = event.getProjectile();
+        if ((arrow.getType() != EntityTypes.ARROW && arrow.getType() != EntityTypes.SPECTRAL_ARROW)
+                || arrow.isRemoved() || arrow.level() != owner.level()) return;
+        // Piercing is an explicit counter: one flight step can hit several entities,
+        // whereas the impact event is emitted only for the first collision.
+        if (!(arrow instanceof AbstractArrow physicalArrow) || physicalArrow.getPierceLevel() > 0) return;
+        var state = session(owner);
+        long elapsed = owner.level().getGameTime() - state.startedAt();
+        if (state.action() != Action.INTERCEPT || elapsed < INTERCEPT_WINDUP
+                || elapsed >= INTERCEPT_WINDOW_END) return;
+        var stand = active(owner);
+        if (stand.isEmpty()) return;
+        var shooter = arrow.getOwner();
+        if (shooter == owner || shooter != null && owner.isAlliedTo(shooter)) return;
+        if (shooter instanceof ServerPlayer player
+                && (!owner.level().isPvpAllowed() || !player.canHarmPlayer(owner))) return;
+        var velocity = arrow.getDeltaMovement();
+        if (velocity.lengthSqr() < 0.000001 || owner.getLookAngle().dot(velocity.normalize()) > -0.5) return;
+        event.setCanceled(true);
+        arrow.discard();
+        stop(owner, false);
+        stand.get().playInterceptCatchAnimation();
+        owner.level().playSound(null, owner.blockPosition(), ModSounds.STAR_INTERCEPT_CATCH.get(),
+                SoundSource.PLAYERS, 0.6F, 1.0F);
+        StarPlatinumEffects.interceptCatch(owner, hit.getLocation());
+        owner.sendSystemMessage(Component.translatable("message.jojosmod.star.intercept_catch"), true);
     }
 
     private static boolean busy(ServerPlayer owner, StarPlatinumSession state) {
@@ -163,6 +226,10 @@ public final class StarPlatinumActions {
             if (elapsed >= GUARD_TICKS) stop(owner);
             return;
         }
+        if (state.action() == Action.INTERCEPT) {
+            if (elapsed >= INTERCEPT_TICKS) stop(owner, false);
+            return;
+        }
         boolean strike = state.action() == Action.STRIKE;
         boolean finger = state.action() == Action.STAR_FINGER;
         boolean barrage = state.action() == Action.BARRAGE;
@@ -180,7 +247,7 @@ public final class StarPlatinumActions {
             // Damage hooks from other mods may have interrupted the owner during a strike.
             if (session(owner).action() != state.action() || session(owner).startedAt() != state.startedAt()) return;
             owner.setData(ModAttachments.STAR_SESSION, new StarPlatinumSession(state.action(), state.startedAt(),
-                    state.pulses() + 1, state.barrageReadyAt(), state.guardReadyAt(), state.fingerReadyAt()));
+                    state.pulses() + 1, state.barrageReadyAt(), state.guardReadyAt(), state.fingerReadyAt(), state.interceptReadyAt()));
         }
         if (elapsed >= (finger ? STAR_FINGER_TICKS : strike ? STRIKE_TICKS : BARRAGE_TICKS)) stop(owner, false);
     }
@@ -224,7 +291,7 @@ public final class StarPlatinumActions {
     public static void onDamage(LivingDamageEvent.Post event) {
         if (event.getEntity() instanceof ServerPlayer owner && event.getHealthDamage() > 0
                 && (session(owner).action() == Action.BARRAGE || session(owner).action() == Action.STRIKE
-                    || session(owner).action() == Action.STAR_FINGER)) {
+                    || session(owner).action() == Action.STAR_FINGER || session(owner).action() == Action.INTERCEPT)) {
             stop(owner);
         }
     }

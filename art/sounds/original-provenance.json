@@ -4,7 +4,7 @@
   "license": "MIT",
   "license_file": "LICENSE",
   "generator": "art/sounds/build_original.py",
-  "generator_sha256": "778aeabc0d9941e4d677c433ce9e97fa7235c2540f1cf9c2120b4517e6e96004",
+  "generator_sha256": "dd89e7150b4b3733727e70e50e111089160dd48d79b6d1c63bc175294603745a",
   "recorded_inputs": [],
   "external_audio_inputs": [],
   "voice_inputs": [],
@@ -203,6 +203,42 @@
       "decoded_rms_dbfs": -17.051,
       "decoded_last_5ms_peak_dbfs": -98.656,
       "sha256": "abdfbae0fc2e090f5de5c960ddbd6a11440740f8be183b129fb24b73279bd44d"
+    },
+    {
+      "file": "star_platinum/original/intercept.ogg",
+      "license": "MIT",
+      "seed": 261111,
+      "recipe": "Brief rising bright air tension, three tiny precision resonances and a rapid smooth release; no sustained tail.",
+      "duration_seconds": 0.1,
+      "codec": "vorbis",
+      "channels": 1,
+      "sample_rate": 48000,
+      "vorbis_quality": 6,
+      "source_frames": 4800,
+      "decoded_frames": 4672,
+      "normalization_gain_db": 2.03125,
+      "decoded_peak_dbfs": -4.075,
+      "decoded_rms_dbfs": -19.71,
+      "decoded_last_5ms_peak_dbfs": -96.93,
+      "sha256": "3d7d4a24ae18ed85ef956997efefa995c41110b1ca88a4defea22b068d989ce8"
+    },
+    {
+      "file": "star_platinum/original/intercept_catch.ogg",
+      "license": "MIT",
+      "seed": 261112,
+      "recipe": "Dry arrow-like noise snap, short shaft modes and a light high-metal/air afterimage; no heavy guard impact.",
+      "duration_seconds": 0.18,
+      "codec": "vorbis",
+      "channels": 1,
+      "sample_rate": 48000,
+      "vorbis_quality": 6,
+      "source_frames": 8640,
+      "decoded_frames": 8512,
+      "normalization_gain_db": 2.25,
+      "decoded_peak_dbfs": -4.06,
+      "decoded_rms_dbfs": -26.125,
+      "decoded_last_5ms_peak_dbfs": -112.402,
+      "sha256": "54ed8e71964ff58ff64db10bef975ee777bae9eae52507b9b93ded36859a8f04"
     }
   ]
 }

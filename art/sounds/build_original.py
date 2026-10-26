@@ -68,6 +68,14 @@ CLIPS = {
         "duration": 0.82, "seed": 261110,
         "recipe": "Elastic three-mode extension under a gliding air formant, initial tension snap and a soft recoil at 0.56 s.",
     },
+    "intercept": {
+        "duration": 0.10, "seed": 261111,
+        "recipe": "Brief rising bright air tension, three tiny precision resonances and a rapid smooth release; no sustained tail.",
+    },
+    "intercept_catch": {
+        "duration": 0.18, "seed": 261112,
+        "recipe": "Dry arrow-like noise snap, short shaft modes and a light high-metal/air afterimage; no heavy guard impact.",
+    },
 }
 
 
@@ -241,6 +249,26 @@ def make_guard_block(out, rng):
     pressure(out, 0.002, 0.15, 0.62, 150.0, 81.0, 0.032)
     air(out, rng, 0.019, 0.025, 0.13, 1700.0, 0.001, 0.014,
         shape=lambda t: math.exp(-t / 0.007))
+
+
+def make_intercept(out, rng):
+    air(out, rng, 0.0, 0.082, 0.36, lambda t: 2100.0 + 2500.0 * t / 0.082,
+        0.003, 0.032, low=850.0, high=7600.0,
+        shape=lambda t: math.exp(-t / 0.038))
+    air(out, rng, 0.010, 0.072, 0.12, 5100.0, 0.008, 0.030,
+        low=1900.0, high=7800.0, shape=lambda t: math.exp(-t / 0.028))
+    modes(out, 0.006, 0.067, 0.075, [1511.0, 2381.0, 3643.0], 0.016)
+
+
+def make_intercept_catch(out, rng):
+    air(out, rng, 0.0, 0.028, 0.65, 3800.0, 0.0008, 0.012,
+        low=1050.0, high=7800.0, shape=lambda t: math.exp(-t / 0.0045))
+    modes(out, 0.0015, 0.075, 0.21, [783.0, 1969.0, 3527.0, 5113.0], 0.014)
+    # Thin bright metal and displaced air leave a short golden afterimage.
+    modes(out, 0.014, 0.136, 0.055, [1423.0, 2897.0, 4591.0], 0.036)
+    air(out, rng, 0.008, 0.145, 0.15, lambda t: 4200.0 - 2700.0 * t / 0.145,
+        0.003, 0.048, low=700.0, high=7200.0,
+        shape=lambda t: math.exp(-t / 0.032))
 
 
 def make_barrage_start(out, rng):
@@ -421,7 +449,7 @@ def main():
                     raise SystemExit(f"Reproducibility mismatch: {name}.ogg")
             if (temporary / "manifest.json").read_bytes() != MANIFEST.read_bytes():
                 raise SystemExit("Reproducibility mismatch: original-provenance.json")
-            print("Reproducibility OK: all ten OGG files and manifest are byte-identical.")
+            print(f"Reproducibility OK: all {len(CLIPS)} OGG files and manifest are byte-identical.")
     else:
         build(DESTINATION, MANIFEST)
 

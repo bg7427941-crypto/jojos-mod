@@ -68,5 +68,16 @@
   "subtitles.jojosmod.star_platinum.guard": "Star Platinum raises its guard",
   "subtitles.jojosmod.star_platinum.guard_block": "Star Platinum absorbs a blow",
   "subtitles.jojosmod.star_platinum.barrage_start": "Star Platinum unleashes a barrage",
-  "subtitles.jojosmod.star_platinum.star_finger": "Star Finger extends"
+  "subtitles.jojosmod.star_platinum.star_finger": "Star Finger extends",
+  "key.jojosmod.star_intercept": "Star Platinum: precise interception",
+  "message.jojosmod.star.intercept": "Star Platinum · Interception ready (0.1–0.5 s)",
+  "message.jojosmod.star.intercept_catch": "Arrow intercepted!",
+  "message.jojosmod.star.intercept_locked": "Interception requires %s willpower. Complete all three Star Platinum challenges.",
+  "message.jojosmod.mastery.intercept_unlocked": "Precise interception unlocked! Press %s against an incoming frontal arrow.",
+  "hud.jojosmod.intercept.unlocked": "%s · Interception unlocked",
+  "hud.jojosmod.intercept.locked": "%s · Interception: %s willpower required",
+  "command.jojosmod.stand.intercept_ready": "Precise interception unlocked · %s",
+  "command.jojosmod.stand.intercept_locked": "Precise interception unlocks at %s willpower.",
+  "subtitles.jojosmod.star_platinum.intercept": "Star Platinum readies interception",
+  "subtitles.jojosmod.star_platinum.intercept_catch": "Star Platinum neutralizes an arrow"
 }

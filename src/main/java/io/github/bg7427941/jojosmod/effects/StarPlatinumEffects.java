@@ -81,6 +81,18 @@ public final class StarPlatinumEffects {
                 3, 0.14, 0.18, 0.14, 0.015);
     }
 
+    public static void interceptReady(ServerPlayer owner) {
+        var point = owner.getEyePosition().add(owner.getLookAngle().scale(0.7));
+        dust(owner.level(), GOLD, point, 3, 0.08, 0.08, 0.08);
+    }
+
+    public static void interceptCatch(ServerPlayer owner, Vec3 point) {
+        dust(owner.level(), GOLD, point, 6, 0.1, 0.12, 0.1);
+        dust(owner.level(), VIOLET, point, 3, 0.08, 0.1, 0.08);
+        owner.level().sendParticles(ParticleTypes.CRIT, point.x, point.y, point.z,
+                4, 0.1, 0.1, 0.1, 0.025);
+    }
+
     /** Four small particles every ten ticks: eight particles per second at 20 TPS. */
     public static void aura(TrainingStandEntity stand, long gameTime) {
         var level = server(stand);

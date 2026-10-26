@@ -8,10 +8,10 @@
     256,
     256
   ],
-  "animations": 9,
+  "animations": 11,
   "texture_sha256": "e45a47482cc4f2f69c05157350cbe391c141b077cac9168b5ba9bee6644cff13",
   "geometry_sha256": "aafb8945107ab250bd2c233ff91ca23157c44a17feaaed5f8e251dea6e1866d1",
-  "animation_sha256": "f9d5c0c10ebfe62450d49d2f668c6ef1b7ab6c7f7e650d05c8c264535ef1a0d0",
-  "model_source_sha256": "402c3a6788ec90b2122d39831a881d971e6a5cbaf473b0a021821104243e401c",
-  "animation_source_sha256": "ac1112208dc9da906e61ab46508233c1538d452984d8de3c49355e2087d15b52"
+  "animation_sha256": "46d697650fbb9ee274c2b51f0c712d19c118b2515e20f22155c218b3641d4dfd",
+  "model_source_sha256": "2f11a980eafa85939fe9b3df343d02d75c13d8ba950230c72837b2c188ec5559",
+  "animation_source_sha256": "31eccf3c2bbe87e5876a3fd81b087766a5cc926f839aa8ef3b72d9dbb41f9123"
 }

@@ -177,6 +177,10 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         triggerAnim("main", "star_finger");
     }
 
+    public void playInterceptAnimation() { triggerAnim("main", "intercept"); }
+
+    public void playInterceptCatchAnimation() { triggerAnim("main", "intercept_catch"); }
+
     public void setGuarding(boolean guarding) {
         if (guarding) {
             stopTriggeredAnim("main", "summon");
@@ -190,6 +194,8 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         stopTriggeredAnim("main", "attack");
         stopTriggeredAnim("main", "barrage");
         stopTriggeredAnim("main", "star_finger");
+        stopTriggeredAnim("main", "intercept");
+        stopTriggeredAnim("main", "intercept_catch");
         if (isStarPlatinum()) triggerAnim("main", "recover");
     }
 
@@ -220,6 +226,8 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
                 .triggerableAnim("attack", starAnimation("strike", false))
                 .triggerableAnim("barrage", starAnimation("barrage", false))
                 .triggerableAnim("star_finger", starAnimation("star_finger", false))
+                .triggerableAnim("intercept", starAnimation("intercept", false))
+                .triggerableAnim("intercept_catch", starAnimation("intercept_catch", false))
                 .triggerableAnim("summon", starAnimation("summon", false))
                 .triggerableAnim("dismiss", starAnimation("dismiss", false))
                 .triggerableAnim("recover", starAnimation("recover", false)));

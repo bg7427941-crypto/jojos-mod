@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Author the original 0.7 Star Platinum cuboid rig, atlas and Blockbench project.
+"""Author the original Star Platinum cuboid rig, atlas and Blockbench project.
 
 All shapes, UVs and pixels originate here. This script reads no model, texture,
 animation or audio from another project. Python 3 + Pillow are sufficient.

@@ -21,6 +21,8 @@ public final class ModSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> STAR_IMPACT = sound("star_platinum.impact");
     public static final DeferredHolder<SoundEvent, SoundEvent> STAR_GUARD = sound("star_platinum.guard");
     public static final DeferredHolder<SoundEvent, SoundEvent> STAR_GUARD_BLOCK = sound("star_platinum.guard_block");
+    public static final DeferredHolder<SoundEvent, SoundEvent> STAR_INTERCEPT = sound("star_platinum.intercept");
+    public static final DeferredHolder<SoundEvent, SoundEvent> STAR_INTERCEPT_CATCH = sound("star_platinum.intercept_catch");
 
     private ModSounds() {}
 

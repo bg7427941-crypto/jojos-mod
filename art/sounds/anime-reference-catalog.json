@@ -1,0 +1,379 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-10-26",
+  "mod_version": "0.9.0",
+  "target": "Star Platinum — Stardust Crusaders, Japanese TV anime",
+  "status": "reference_catalog_only",
+  "audio_files_downloaded": false,
+  "runtime_audio_changed": false,
+  "recordings_auditioned": false,
+  "notes": [
+    "Source pages or indexed metadata were checked; recording edition and cut points are not verified.",
+    "Target durations describe the current mod, not measured source recordings or builder-enforced limits.",
+    "No consulted source established permission to redistribute the candidate recordings in the mod.",
+    "A compilation's Part 3 title is not proof that every clip comes from Stardust Crusaders."
+  ],
+  "sources": [
+    {
+      "id": "summon_button",
+      "title": "Star Platinum Summon Sound Effect",
+      "publisher": "Shortdragonfire / Voicemod Tuna",
+      "url": "https://tuna.voicemod.net/sound/92279f39-0b9a-4982-ad65-05609880cc9c",
+      "kind": "community_listening_candidate",
+      "verification": "page_metadata",
+      "recording_edition_verified": false,
+      "redistribution_permission": "not_established"
+    },
+    {
+      "id": "single_ora_button",
+      "title": "Star Platinum Single ORA",
+      "publisher": "wantcookies / Myinstants",
+      "url": "https://www.myinstants.com/en/instant/star-platinum-single-ora-14465/",
+      "kind": "community_listening_candidate",
+      "verification": "page_metadata",
+      "recording_edition_verified": false,
+      "redistribution_permission": "not_established"
+    },
+    {
+      "id": "barrage_button",
+      "title": "Star Platinum Ora Ora Ora",
+      "publisher": "YourNormalApexx / Myinstants",
+      "url": "https://www.myinstants.com/en/instant/star-platinum-ora-ora-ora-1587/",
+      "kind": "community_listening_candidate",
+      "verification": "page_metadata",
+      "recording_edition_verified": false,
+      "redistribution_permission": "not_established"
+    },
+    {
+      "id": "ora_wiki",
+      "title": "File:StarPlatinumOra.wav",
+      "publisher": "JoJo Wiki",
+      "url": "https://jojowiki.com/File:StarPlatinumOra.wav",
+      "kind": "community_listening_candidate",
+      "verification": "page_metadata_and_license_notice",
+      "recording_edition_verified": false,
+      "redistribution_permission": "page_labels_work_unlicensed_and_claims_illustrative_fair_use"
+    },
+    {
+      "id": "finger_button",
+      "title": "Jojo_star finger",
+      "publisher": "InstantsButton",
+      "url": "https://instantsbutton.com/id/sound/jojo-star-finger",
+      "kind": "community_listening_candidate",
+      "verification": "page_metadata",
+      "recording_edition_verified": false,
+      "redistribution_permission": "not_established"
+    },
+    {
+      "id": "sound_profiles",
+      "title": "Star Platinum: Part 3 — Stand Sound Profiles",
+      "publisher": "Jojo's Bizarre Sound Design",
+      "url": "https://www.youtube.com/watch?v=1QQsrGRpgpY",
+      "kind": "community_compilation_reference",
+      "verification": "indexed_metadata_only_page_fetch_unavailable",
+      "recording_edition_verified": false,
+      "redistribution_permission": "not_established"
+    },
+    {
+      "id": "sc01",
+      "title": "Stardust Crusaders episode 1",
+      "url": "https://jojo-animation.com/sc/contents/story/01.html",
+      "kind": "official_episode_context",
+      "verification": "official_episode_page",
+      "isolated_audio": false
+    },
+    {
+      "id": "sc06",
+      "title": "Stardust Crusaders episode 6 — Dark Blue Moon",
+      "url": "https://jojo-animation.com/sc/contents/story/06.html",
+      "kind": "official_episode_context",
+      "verification": "official_episode_page",
+      "isolated_audio": false
+    },
+    {
+      "id": "sc17",
+      "title": "Stardust Crusaders episode 17 — Lovers, Part 2",
+      "url": "https://jojo-animation.com/sc/contents/story/17.html",
+      "kind": "official_episode_context",
+      "verification": "official_episode_page",
+      "isolated_audio": false
+    },
+    {
+      "id": "sc47",
+      "title": "Stardust Crusaders episode 47 — DIO's World, Part 3",
+      "url": "https://jojo-animation.com/sc/contents/story/47.html",
+      "kind": "official_episode_context",
+      "verification": "official_episode_page",
+      "isolated_audio": false
+    },
+    {
+      "id": "sc48",
+      "title": "Stardust Crusaders episode 48 — Long Journey Farewell, My Friends",
+      "url": "https://jojo-animation.com/sc/contents/story/48.html",
+      "kind": "official_episode_context",
+      "verification": "official_episode_page",
+      "isolated_audio": false
+    }
+  ],
+  "cues": [
+    {
+      "id": "summon",
+      "controls": [
+        "R"
+      ],
+      "event": "jojosmod:star_platinum.summon",
+      "pack_inputs": [
+        "summon"
+      ],
+      "trigger": "once_on_successful_summon",
+      "target_max_seconds": 0.8,
+      "owner_voice_channel": true,
+      "source_ids": [
+        "summon_button",
+        "sc01"
+      ],
+      "selected_recording": null
+    },
+    {
+      "id": "dismiss",
+      "controls": [
+        "R"
+      ],
+      "event": "jojosmod:star_platinum.dismiss",
+      "pack_inputs": [
+        "dismiss"
+      ],
+      "trigger": "on_dismissal",
+      "target_max_seconds": 0.35,
+      "owner_voice_channel": false,
+      "source_ids": [
+        "sound_profiles"
+      ],
+      "selected_recording": null
+    },
+    {
+      "id": "single_ora",
+      "controls": [
+        "Z"
+      ],
+      "event": null,
+      "pack_inputs": [],
+      "trigger": null,
+      "target_max_seconds": null,
+      "owner_voice_channel": false,
+      "source_ids": [
+        "single_ora_button"
+      ],
+      "selected_recording": null,
+      "implementation_status": "needs_dedicated_event",
+      "note": "Do not bind the Z-only voice to swing: Z, X and V share that event."
+    },
+    {
+      "id": "punch_air",
+      "controls": [
+        "Z",
+        "X",
+        "V"
+      ],
+      "event": "jojosmod:star_platinum.swing",
+      "pack_inputs": [
+        "swing"
+      ],
+      "trigger": "per_scheduled_contact_including_misses",
+      "target_max_seconds": 0.15,
+      "owner_voice_channel": false,
+      "source_ids": [
+        "sound_profiles",
+        "sc47"
+      ],
+      "selected_recording": null
+    },
+    {
+      "id": "impact",
+      "controls": [
+        "Z",
+        "X",
+        "V"
+      ],
+      "event": "jojosmod:star_platinum.impact",
+      "pack_inputs": [
+        "impact_1",
+        "impact_2"
+      ],
+      "trigger": "on_successful_hit",
+      "target_max_seconds": 0.2,
+      "owner_voice_channel": false,
+      "source_ids": [
+        "sound_profiles",
+        "sc47"
+      ],
+      "selected_recording": null
+    },
+    {
+      "id": "barrage_ora",
+      "controls": [
+        "X"
+      ],
+      "event": "jojosmod:star_platinum.barrage_start",
+      "pack_inputs": [
+        "barrage_start"
+      ],
+      "trigger": "once_at_action_start",
+      "target_max_seconds": 1.5,
+      "owner_voice_channel": true,
+      "source_ids": [
+        "barrage_button",
+        "ora_wiki",
+        "sc17"
+      ],
+      "selected_recording": null,
+      "contacts_seconds": [
+        0.2,
+        0.35,
+        0.5,
+        0.65,
+        0.8,
+        0.95,
+        1.1,
+        1.25
+      ]
+    },
+    {
+      "id": "guard",
+      "controls": [
+        "C"
+      ],
+      "event": "jojosmod:star_platinum.guard",
+      "pack_inputs": [
+        "guard"
+      ],
+      "trigger": "on_guard_start",
+      "target_max_seconds": 0.32,
+      "owner_voice_channel": false,
+      "source_ids": [
+        "sound_profiles"
+      ],
+      "selected_recording": null
+    },
+    {
+      "id": "guard_block",
+      "controls": [
+        "C"
+      ],
+      "event": "jojosmod:star_platinum.guard_block",
+      "pack_inputs": [
+        "guard_block"
+      ],
+      "trigger": "on_valid_block",
+      "target_max_seconds": 0.2,
+      "owner_voice_channel": false,
+      "source_ids": [
+        "sound_profiles",
+        "sc47"
+      ],
+      "selected_recording": null
+    },
+    {
+      "id": "star_finger",
+      "controls": [
+        "V"
+      ],
+      "event": "jojosmod:star_platinum.star_finger",
+      "pack_inputs": [
+        "star_finger"
+      ],
+      "trigger": "once_at_action_start",
+      "target_max_seconds": 0.9,
+      "owner_voice_channel": true,
+      "source_ids": [
+        "finger_button",
+        "sc06"
+      ],
+      "selected_recording": null,
+      "contact_seconds": 0.4
+    },
+    {
+      "id": "intercept",
+      "controls": [
+        "B"
+      ],
+      "event": "jojosmod:star_platinum.intercept",
+      "pack_inputs": [
+        "intercept"
+      ],
+      "trigger": "on_interception_start",
+      "target_max_seconds": 0.1,
+      "owner_voice_channel": false,
+      "source_ids": [
+        "sc01"
+      ],
+      "selected_recording": null
+    },
+    {
+      "id": "intercept_catch",
+      "controls": [
+        "B"
+      ],
+      "event": "jojosmod:star_platinum.intercept_catch",
+      "pack_inputs": [
+        "intercept_catch"
+      ],
+      "trigger": "on_successful_arrow_interception",
+      "target_max_seconds": 0.18,
+      "owner_voice_channel": false,
+      "source_ids": [
+        "sc01"
+      ],
+      "selected_recording": null
+    },
+    {
+      "id": "leap",
+      "controls": [
+        "J"
+      ],
+      "event": "jojosmod:star_platinum.leap",
+      "pack_inputs": [
+        "leap"
+      ],
+      "trigger": "on_successful_launch",
+      "target_max_seconds": 0.28,
+      "owner_voice_channel": false,
+      "source_ids": [
+        "sound_profiles",
+        "sc47"
+      ],
+      "selected_recording": null
+    },
+    {
+      "id": "leap_land",
+      "controls": [
+        "J"
+      ],
+      "event": "jojosmod:star_platinum.leap_land",
+      "pack_inputs": [
+        "leap_land"
+      ],
+      "trigger": "on_first_valid_landing",
+      "target_max_seconds": 0.2,
+      "owner_voice_channel": false,
+      "source_ids": [
+        "sound_profiles"
+      ],
+      "selected_recording": null
+    },
+    {
+      "id": "time_stop",
+      "controls": [],
+      "event": null,
+      "pack_inputs": [],
+      "trigger": null,
+      "target_max_seconds": null,
+      "owner_voice_channel": false,
+      "source_ids": [
+        "sc48"
+      ],
+      "selected_recording": null,
+      "implementation_status": "future_ability_not_implemented"
+    }
+  ]
+}

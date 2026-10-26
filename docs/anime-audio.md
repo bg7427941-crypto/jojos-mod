@@ -1,5 +1,10 @@
 # Audio del anime y paquete de recursos local
 
+La [recopilación de referencias de Star Platinum](star-platinum-anime-audio-catalog.md)
+reúne enlaces para escuchar invocación, ORA y Star Finger, escenas de Parte 3 y
+la asignación por evento. Es un catálogo de investigación; no incluye grabaciones
+descargadas ni sustituye los sonidos de esta versión.
+
 La versión 0.9.0 incluye catorce [efectos originales sintetizados](../art/sounds/original-audio.md)
 para el proyecto, siguiendo la dirección de crear su presentación desde cero.
 No incluye grabaciones de voces del anime ni muestras extraídas de otros mods.

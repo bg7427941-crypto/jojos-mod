@@ -7,6 +7,10 @@ la autoría de estos recursos corresponde a su representación y ejecución téc
 
 ## Fuentes editables
 
+La [guía de Blockbench y GeckoLib](../../docs/blockbench-geckolib.md) explica cómo
+editar este proyecto visualmente y exportarlo conservando nombres y contactos.
+El formato actual ya es GeckoLib; no hace falta convertirlo.
+
 - `build_original.py`: definición de todas las piezas, materiales, patrones de
   píxel, distribución UV y exportación del proyecto editable.
 - `original_animations.py`: poses y curvas numéricas originales, con auditoría de

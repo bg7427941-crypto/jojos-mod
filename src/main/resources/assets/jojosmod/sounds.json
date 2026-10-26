@@ -1,40 +1,100 @@
 {
   "star_platinum.summon": {
     "subtitle": "subtitles.jojosmod.star_platinum.summon",
-    "sounds": [{"name": "jojosmod:star_platinum/original/summon", "attenuation_distance": 16}]
+    "sounds": [
+      {
+        "name": "jojosmod:star_platinum/original/summon",
+        "attenuation_distance": 16
+      }
+    ]
   },
   "star_platinum.dismiss": {
     "subtitle": "subtitles.jojosmod.star_platinum.dismiss",
-    "sounds": [{"name": "jojosmod:star_platinum/original/dismiss", "attenuation_distance": 16}]
+    "sounds": [
+      {
+        "name": "jojosmod:star_platinum/original/dismiss",
+        "attenuation_distance": 16
+      }
+    ]
   },
   "star_platinum.swing": {
     "subtitle": "subtitles.jojosmod.star_platinum.swing",
     "sounds": [
-      {"name": "jojosmod:star_platinum/original/swing_1", "attenuation_distance": 12},
-      {"name": "jojosmod:star_platinum/original/swing_2", "attenuation_distance": 12}
+      {
+        "name": "jojosmod:star_platinum/original/swing_1",
+        "attenuation_distance": 12
+      },
+      {
+        "name": "jojosmod:star_platinum/original/swing_2",
+        "attenuation_distance": 12
+      }
     ]
   },
   "star_platinum.impact": {
     "subtitle": "subtitles.jojosmod.star_platinum.impact",
     "sounds": [
-      {"name": "jojosmod:star_platinum/original/impact_1", "attenuation_distance": 16},
-      {"name": "jojosmod:star_platinum/original/impact_2", "attenuation_distance": 16}
+      {
+        "name": "jojosmod:star_platinum/original/impact_1",
+        "attenuation_distance": 16
+      },
+      {
+        "name": "jojosmod:star_platinum/original/impact_2",
+        "attenuation_distance": 16
+      }
     ]
   },
   "star_platinum.guard": {
     "subtitle": "subtitles.jojosmod.star_platinum.guard",
-    "sounds": [{"name": "jojosmod:star_platinum/original/guard", "attenuation_distance": 12}]
+    "sounds": [
+      {
+        "name": "jojosmod:star_platinum/original/guard",
+        "attenuation_distance": 12
+      }
+    ]
   },
   "star_platinum.barrage_start": {
     "subtitle": "subtitles.jojosmod.star_platinum.barrage_start",
-    "sounds": [{"name": "jojosmod:star_platinum/original/barrage_start", "attenuation_distance": 16}]
+    "sounds": [
+      {
+        "name": "jojosmod:star_platinum/original/barrage_start",
+        "attenuation_distance": 16
+      }
+    ]
   },
   "star_platinum.star_finger": {
     "subtitle": "subtitles.jojosmod.star_platinum.star_finger",
-    "sounds": [{"name": "jojosmod:star_platinum/original/star_finger", "attenuation_distance": 16}]
+    "sounds": [
+      {
+        "name": "jojosmod:star_platinum/original/star_finger",
+        "attenuation_distance": 16
+      }
+    ]
   },
   "star_platinum.guard_block": {
     "subtitle": "subtitles.jojosmod.star_platinum.guard_block",
-    "sounds": [{"name": "jojosmod:star_platinum/original/guard_block", "attenuation_distance": 16}]
+    "sounds": [
+      {
+        "name": "jojosmod:star_platinum/original/guard_block",
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "star_platinum.intercept": {
+    "subtitle": "subtitles.jojosmod.star_platinum.intercept",
+    "sounds": [
+      {
+        "name": "jojosmod:star_platinum/original/intercept",
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "star_platinum.intercept_catch": {
+    "subtitle": "subtitles.jojosmod.star_platinum.intercept_catch",
+    "sounds": [
+      {
+        "name": "jojosmod:star_platinum/original/intercept_catch",
+        "attenuation_distance": 16
+      }
+    ]
   }
 }

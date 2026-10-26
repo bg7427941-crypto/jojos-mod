@@ -33,5 +33,6 @@ public final class JojosMod {
         NeoForge.EVENT_BUS.addListener(StarPlatinumActions::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(StarPlatinumActions::onIncomingDamage);
         NeoForge.EVENT_BUS.addListener(StarPlatinumActions::onDamage);
+        NeoForge.EVENT_BUS.addListener(StarPlatinumActions::onProjectileImpact);
     }
 }

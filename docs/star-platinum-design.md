@@ -1,4 +1,4 @@
-# Star Platinum — prueba jugable 0.7.0
+# Star Platinum — prueba jugable 0.8.0
 
 Combate base y primeros desafíos de progresión de Parte 3. La [ficha oficial de Jotaro](https://jojo-portal.com/en/anime/sc/character/01/)
 sirve de referencia para la fuerza, precisión y ráfagas de puñetazos. La presentación
@@ -37,7 +37,7 @@ Estos tres desafíos se conservan al guardar, morir, retirar o recuperar el Stan
 El formato anterior `{awakened: true}` carga con los nuevos contadores vacíos sin
 repetir su premio. El panel y `/stand progress` muestran el avance al propietario.
 Con voluntad 5 se desbloquea Star Finger: despertar desde 1 y completar dos desafíos
-permite alcanzarla; el tercero lleva a 6. No se consume voluntad.
+permite alcanzarla; el tercero lleva a 6 y desbloquea la intercepción precisa. No se consume voluntad.
 
 ## Acciones a 20 TPS
 
@@ -48,6 +48,7 @@ permite alcanzarla; el tercero lleva a 6. No se consume voluntad.
 | X | Ráfaga | 8 golpes de 1 punto; alcance 3 bloques | Golpes en ticks 4, 7, 10, 13, 16, 19, 22 y 25; acción 30; cooldown 100 desde el inicio |
 | C | Activar/cancelar guardia | Reduce un 60 % el daño físico frontal | Máximo 40 ticks; cooldown 80 desde el inicio |
 | V | Star Finger (voluntad ≥5) | 4 puntos; alcance 6 bloques | Preparación 8 ticks; acción 18; cooldown 120 desde el inicio |
+| B | Intercepción precisa (voluntad ≥6) | Neutraliza una flecha frontal | Preparación 2 ticks; ventana [2,10); acción 12; cooldown 60 desde el inicio |
 
 Las teclas se pueden cambiar en Controles. La guardia cubre un arco horizontal de
 120 grados frente a la mirada del usuario. Afecta ataques de jugadores y criaturas
@@ -56,7 +57,7 @@ la velocidad de movimiento un 45 % mientras está activa. Cancelarla antes manti
 su cooldown. Su duración y alcance son límites de jugabilidad.
 
 No se pueden superponer acciones. Recibir daño real de salud interrumpe el golpe
-preciso, la ráfaga o Star Finger y conserva sus cooldowns. Cada impacto vuelve a comprobar la mirada,
+preciso, la ráfaga, Star Finger o intercepción y conserva sus cooldowns. Cada impacto vuelve a comprobar la mirada,
 el alcance, paredes, estado del objetivo, PvP y fuego amigo. La ráfaga usa un tipo
 de daño específico para resolver sus pulsos sin que la inmunidad normal entre
 golpes los descarte; respeta armadura e invulnerabilidad y no reinicia globalmente
@@ -75,15 +76,26 @@ y la [referencia de ese arco](https://jojowiki.com/Dark_Blue_Moon_(story_arc)).
 El daño, alcance de 6 bloques y requisito de voluntad son adaptaciones de balance.
 No atraviesa paredes y usa las mismas reglas de PvP/equipos que los otros golpes.
 
+## Intercepción precisa
+
+B prepara una respuesta basada en la precisión de Star Platinum al interceptar
+una bala al inicio de Parte 3. Usar flechas de Minecraft y exigir voluntad 6
+son adaptaciones de balance. La [guía 0.8.0](playtest-0.8.0.md) detalla su ventana.
+Acepta una flecha normal, con efectos o espectral en el cono de 120° de la mirada
+entre los ticks 2 y 9. Cancela la colisión y elimina esa flecha, sin munición
+ni recompensas. Las flechas con Perforación la atraviesan. No afecta tridentes ni otros proyectiles; descarta tiros propios,
+aliados o protegidos por las reglas PvP. El acierto termina la acción; el fallo
+termina a los 12 ticks y ambos conservan el cooldown de 60 ticks.
+
 ## Presentación y alcance pendiente
 
 El modelo tiene cabello, cinta, gema, hombreras, guantes, puños articulados, botas,
-bufanda y faldón. El rig y el atlas 256×256 se construyen de nuevo. Sus nueve
+bufanda y faldón. El rig y el atlas 256×256 se construyen de nuevo. Sus once
 animaciones originales cubren reposo, movimiento, invocación, desinvocación, golpe,
-ráfaga, guardia, recuperación y Star Finger. Los dos dedos derechos extensibles
+ráfaga, guardia, recuperación, Star Finger, intercepción y su cierre de mano. Los dos dedos derechos extensibles
 solo son visibles durante esta última acción. Hay aura violeta/dorada,
 trayectorias de puños, destellos de impacto y arco frontal de guardia, con partículas
-nativas. Los diez efectos de audio son síntesis original: ruido con semillas,
+nativas. Los doce efectos de audio son síntesis original: ruido con semillas,
 resonadores y osciladores propios, en mono/48 kHz. Invocación, ráfaga y Star Finger
 usan un canal independiente por propietario y se cortan al cancelar. No incluyen
 grabaciones de voces. Las muestras de otras fuentes se pueden probar con un pack personal.

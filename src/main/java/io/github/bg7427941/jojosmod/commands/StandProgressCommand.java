@@ -43,6 +43,11 @@ public final class StandProgressCommand {
                         Component.keybind("key.jojosmod.star_finger"))
                 : Component.translatable("command.jojosmod.stand.star_finger_locked",
                         StarPlatinumProgress.STAR_FINGER_REQUIREMENT), false);
+        source.sendSuccess(() -> StarPlatinumProgress.interceptUnlocked(player)
+                ? Component.translatable("command.jojosmod.stand.intercept_ready",
+                        Component.keybind("key.jojosmod.star_intercept"))
+                : Component.translatable("command.jojosmod.stand.intercept_locked",
+                        StarPlatinumProgress.INTERCEPT_REQUIREMENT), false);
         return 1;
     }
 }

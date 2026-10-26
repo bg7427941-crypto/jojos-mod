@@ -26,6 +26,7 @@ public record StarPlatinumProgress(boolean awakened, List<UUID> preciseTargets,
         List<UUID> barrageTargets, List<UUID> guardTargets) {
     public static final int TARGETS_REQUIRED = 3;
     public static final int STAR_FINGER_REQUIREMENT = 5;
+    public static final int INTERCEPT_REQUIREMENT = 6;
     public static final StarPlatinumProgress EMPTY = new StarPlatinumProgress(false);
     private static final Codec<List<UUID>> TARGETS_CODEC = UUIDUtil.CODEC.listOf(0, TARGETS_REQUIRED).validate(targets ->
             validTargets(targets) ? DataResult.success(targets)
@@ -95,6 +96,10 @@ public record StarPlatinumProgress(boolean awakened, List<UUID> preciseTargets,
         return PlayerWillpower.get(player) >= STAR_FINGER_REQUIREMENT;
     }
 
+    public static boolean interceptUnlocked(Player player) {
+        return PlayerWillpower.get(player) >= INTERCEPT_REQUIREMENT;
+    }
+
     public static void onAssigned(ServerPlayer player) {
         var current = get(player);
         if (!hasStarPlatinum(player) || current.awakened()) return;
@@ -159,6 +164,10 @@ public record StarPlatinumProgress(boolean awakened, List<UUID> preciseTargets,
         if (before < STAR_FINGER_REQUIREMENT && after >= STAR_FINGER_REQUIREMENT) {
             player.sendSystemMessage(Component.translatable("message.jojosmod.mastery.star_finger_unlocked",
                     Component.keybind("key.jojosmod.star_finger")), false);
+        }
+        if (before < INTERCEPT_REQUIREMENT && after >= INTERCEPT_REQUIREMENT) {
+            player.sendSystemMessage(Component.translatable("message.jojosmod.mastery.intercept_unlocked",
+                    Component.keybind("key.jojosmod.star_intercept")), false);
         }
         return after - before;
     }

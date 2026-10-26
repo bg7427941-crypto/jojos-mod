@@ -1,8 +1,9 @@
 # Procedencia de las presentaciones anteriores
 
-Este archivo conserva los créditos de recursos sustituidos. Los recursos activos
-0.7.0 se generan desde fuentes propias; estos avisos no indican que las muestras
-anteriores continúen incluidas en el JAR actual.
+Este archivo conserva los créditos de recursos de versiones anteriores. La
+entrega 0.9.2 vuelve a adaptar el modelo y atlas de Roundabout; su procedencia
+actual está en [los créditos generales](../../THIRD_PARTY_NOTICES.md).
+Las grabaciones y muestras sonoras históricas no se incluyen en el JAR actual.
 
 ## Roundabout — versiones 0.5.1 y 0.6.0
 
@@ -17,7 +18,8 @@ con contribuciones de GenericName/GenericName72. Revisión utilizada:
 - [Manifiesto histórico](third_party/roundabout/SOURCE.json).
 
 Los proyectos editables y las exportaciones de esas versiones se pueden consultar
-por sus commits. El proyecto editable actual se ha construido de nuevo.
+por sus commits. La adaptación 0.9.2 parte de una revisión posterior documentada
+en su manifiesto actual y conserva las animaciones originales del proyecto.
 
 ## Kenney — versiones 0.5.1 y 0.6.0
 

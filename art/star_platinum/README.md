@@ -1,70 +1,67 @@
-# Star Platinum sobre base de jugador — 0.9.1
+# Star Platinum — adaptación de Roundabout 0.9.2
 
-La geometría utiliza las proporciones del jugador clásico: cabeza 8×8×8, torso
-continuo 8×12×4 y extremidades 4×12×4. Sobre esa base se construyen los detalles
-de Star Platinum, con textura, UV y animaciones del proyecto. Roundabout sirve de
-referencia para la adaptación al estilo de Minecraft. No se cargan sus modelos,
-atlas, poses o keyframes en el generador. Star Platinum es un personaje de Hirohiko Araki;
-la autoría de estos recursos corresponde a su representación y ejecución técnica.
+La geometría, las UV y el atlas del anime proceden de **Roundabout**, por
+**Hydraheads y colaboradores**. Se conservan los créditos históricos a
+GenericName/GenericName72. La adaptación al rig y las trece animaciones son del
+proyecto JoJo's Mod. Star Platinum es un personaje de Hirohiko Araki.
+
+La [licencia de Roundabout v1.2](upstream/LICENSE-Roundabout.txt) permite copiar,
+modificar y compartir, exige crédito y respeto a las solicitudes de distribución
+del autor. Los recursos adaptados conservan esa licencia; no se presentan como
+geometría o píxeles originales ni se relicencian bajo MIT. Las fuentes de nuestra
+adaptación y nuestras animaciones sí tienen la licencia MIT del proyecto.
 
 ## Fuentes editables
 
-La [guía de Blockbench y GeckoLib](../../docs/blockbench-geckolib.md) explica cómo
-editar este proyecto visualmente y exportarlo conservando nombres y contactos.
-El formato actual ya es GeckoLib; no hace falta convertirlo.
+- [star_platinum.bbmodel](star_platinum.bbmodel): proyecto **GeckoLib** con el rig,
+  el atlas incrustado y las trece animaciones utilizadas en Minecraft.
+- [upstream/star_platinum.bbmodel](upstream/star_platinum.bbmodel): proyecto de
+  Roundabout sin modificar, formato Java Entity, fijado a un commit concreto.
+- [upstream/anime.png](upstream/anime.png): atlas 128×128 de la variante del anime,
+  conservado byte por byte. No son fotogramas ni grabaciones del anime.
+- `build_roundabout.py`: convierte la geometría y UV del proyecto de origen.
+- `model_export.py`: exportación común a JSON de GeckoLib y proyecto Blockbench.
+- `original_animations.py`: poses propias y auditoría de contactos y separación.
+- [asset-provenance.json](asset-provenance.json): URLs, commit, hashes, créditos y
+  modificaciones. El JAR lo incluye como `META-INF/jojosmod/star-platinum-provenance.json`.
+- `uv-layout.json`: caras exportadas y su UUID de procedencia.
+- `preview_model.py`: vistas de desarrollo desde el JSON y atlas de ejecución.
 
-- `build_original.py`: definición de todas las piezas, materiales, patrones de
-  píxel, distribución UV y exportación del proyecto editable.
-- `original_animations.py`: poses y curvas numéricas originales, con auditoría de
-  tiempos de contacto y visibilidad de los dos dedos extensibles.
-- `star_platinum.bbmodel`: proyecto editable de Blockbench/GeckoLib, con atlas
-  incrustado, jerarquía, pivotes y las trece animaciones.
-- `uv-layout.json`: rectángulo de cada cara en el atlas; se comparten superficies
-  del mismo material de manera deliberada y se añade un píxel de margen.
-- `original-provenance.json`: método, dimensiones, recuentos y hashes del recurso.
-- `preview_original.py`: vista de desarrollo con las geometrías y texturas de
-  ejecución. Requiere NumPy y Pillow; no sustituye la revisión dentro de Minecraft.
-
-Con Python 3 y Pillow, desde la raíz:
+Se usa la revisión `f2390f1240e9b49444d6013e79bfda2038a542fb` de
+[Hydraheads/RoundaboutMod](https://github.com/Hydraheads/RoundaboutMod).
+El generador comprueba los hashes Git del modelo, el atlas y la licencia antes de
+escribir las exportaciones. Se ejecuta sin red, con Python 3, Pillow y NumPy:
 
 ```sh
-python art/star_platinum/build_original.py
-python art/star_platinum/preview_original.py
-python art/star_platinum/preview_original.py --pose star_finger --time .4
+python art/star_platinum/build_roundabout.py
+python art/star_platinum/original_animations.py
+python art/star_platinum/preview_model.py
+python art/star_platinum/preview_model.py --pose guard --time .3 --output /tmp/guard.png
 ```
 
-El generador escribe el atlas en `textures/entity/star_platinum.png`, geometría en
-`geckolib/models/entity/star_platinum.geo.json` y animaciones en
-`geckolib/animations/entity/star_platinum.animation.json`, bajo los recursos del mod.
-Las definiciones se editan en Python; el proyecto `.bbmodel` también permite
-experimentar en Blockbench. Regenerar sustituye las exportaciones por las fuentes
-Python actuales, por lo que los cambios hechos solo en Blockbench deben conservarse
-en otra copia o trasladarse a las definiciones antes de regenerar.
+## Adaptación
 
-## Diseño y referencias
+Se conserva la silueta de Roundabout y se aplanan sus rotaciones de reposo del
+cabello en transformaciones de cubos. Se mantienen las UV por cara, los reflejos,
+las dilataciones y las piezas planas de tela. Los guantes se cortan en Y=14 y las
+botas en Y=2, recortando proporcionalmente sus UV para articular muñecas y tobillos.
+Las hombreras y la musculatura pertenecen a la geometría de origen.
 
-![Modelo con base de jugador en reposo, de frente, tres cuartos y espalda](preview.png)
+Se excluyen las extremidades duplicadas para las ráfagas del proyecto de origen,
+su dedo extensible único y sus keyframes. Se añaden nuestros dos dedos derechos
+para Star Finger. Los 29 huesos conservan el contrato de las acciones: 79 cubos
+y trece clips con sus tiempos de contacto originales. Los tres huesos de pañuelo
+y dos laterales de faldón se reservan sin cubos; el collar rojo está pintado en el
+atlas y las piezas frontal y trasera de faldón sí se articulan.
 
-Esta vista se genera desde los recursos del mod con el mismo convenio de ejes
-verificado dentro de Minecraft; no es una captura del juego.
+![Frente, tres cuartos, perfil y espalda del modelo adaptado](preview.png)
 
-La [dirección artística](../../docs/art-direction.md) registra la comparación
-visual de la obra, Roundabout, Ripples y JoJo's Bizarre Survival. Las referencias
-sirven para estudiar proporciones y legibilidad; ninguna imagen, malla o textura
-se usa como entrada del generador.
-
-El modelo contiene 80 cubos y mantiene 29 huesos. Los brazos de cuatro píxeles y
-las piernas del jugador se dividen en codo, muñeca, rodilla y tobillo para conservar
-las acciones. La musculatura se apoya principalmente en pintura, con un relieve
-frontal discreto; el torso continuo evita una abertura entre pecho y abdomen.
-La guardia, Star Finger y la intercepción se adaptan a la cabeza y los guantes mayores.
-La auditoría utiliza los pivotes y envolventes del rig exportado.
-
-La paleta de Stardust Crusaders usa cuerpo violeta y mejillas oscuras, cabello
-negro, ojos cian, joya plateada, corona y hombreras doradas, pañuelo rojo, guantes
-y botas oscuras con ribetes amarillos, faldón y rodilleras claras. La figura usa
-torso de jugador con anatomía pintada, mechones escalonados, guantes con nudillos y capas
-de tela articuladas. Los próximos ajustes de calidad se valoran en el juego.
+Esta imagen es un render de desarrollo, no una captura de Minecraft. Las vistas
+utilizan el mismo modelo, UV y atlas que carga el juego. La
+[guía de Blockbench](../../docs/blockbench-geckolib.md) explica cómo editar y exportar.
+Regenerar sustituye los cambios hechos solo en el proyecto exportado: conserva
+una copia antes de editar en Blockbench y traslada los cambios al conversor o a
+una nueva fuente documentada antes de volver a ejecutar la generación.
 
 ## Animaciones y tiempos a 20 TPS
 
@@ -84,6 +81,6 @@ de tela articuladas. Los próximos ajustes de calidad se valoran en el juego.
 | `leap` | 0,55 s | Impulso de brazos, piernas recogidas y equilibrio en el aire |
 | `leap_land` | 0,25 s | Flexión de rodillas y cuerpo al aterrizar |
 
-Todos los clips ocultan los dedos extensibles salvo Star Finger. Los sonidos,
-partículas, objetivos y daño siguen bajo la autoridad del servidor. Los recursos
-originales y sus fuentes tienen la licencia MIT del proyecto.
+Todos los clips ocultan los dedos extensibles salvo Star Finger. Se mantienen
+los catorce sonidos sintetizados del proyecto, sin importar audio de Roundabout.
+Daño, proyectiles, progresión y sonidos siguen bajo autoridad del servidor.

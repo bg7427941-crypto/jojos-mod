@@ -1,13 +1,14 @@
 # Modelado con Blockbench y GeckoLib
 
 El mod ya utiliza **GeckoLib 5.5.7**. Su [proyecto de Blockbench](../art/star_platinum/star_platinum.bbmodel)
-tiene formato `geckolib_model`, 80 cubos, 29 huesos, atlas incrustado de 256×256
+tiene formato `geckolib_model`, 79 cubos, 29 huesos, atlas incrustado de 128×128
 y trece animaciones. El renderer utiliza `DefaultedEntityGeoModel` para cargarlos.
 
 Blockbench sirve para editar forma, UV, pintura, pivotes y curvas; GeckoLib
 reproduce el resultado en Minecraft. La calidad depende del trabajo artístico,
-no solo de elegir la herramienta. El modelo 0.9.1 parte del cuerpo del jugador
-clásico: cabeza 8×8×8, torso 8×12×4 y extremidades 4×12×4, con detalles de Star Platinum.
+no solo de elegir la herramienta. El modelo 0.9.2 adapta la geometría, UV y atlas
+de Star Platinum de Roundabout, con sus créditos y licencia. Sus animaciones
+son las trece del proyecto, retargeteadas al modelo adaptado.
 
 ## Abrir y editar
 
@@ -34,7 +35,7 @@ clásico: cabeza 8×8×8, torso 8×12×4 y extremidades 4×12×4, con detalles d
 | Movimiento | Anticipación, contacto, recuperación y transición hacia reposo |
 
 La [dirección artística](art-direction.md) conserva las referencias de Parte 3 y
-de varios modelos. El diseño, la textura y las curvas del proyecto siguen siendo propios.
+de varios modelos. El modelo y atlas proceden de Roundabout; las curvas de acción son del proyecto.
 
 ## Sincronización con el combate
 
@@ -70,7 +71,7 @@ La textura se guarda con **Save As** desde su panel. Los destinos son:
 | Fuente editable | `art/star_platinum/star_platinum.bbmodel` |
 
 Estas rutas siguen la [organización de GeckoLib 5](https://wiki.geckolib.com/docs/geckolib5/making-models/placing-the-files/).
-El generador `build_original.py` reconstruye esos archivos desde Python:
+El generador `art/star_platinum/build_roundabout.py` reconstruye esos archivos desde Python:
 **regenerar sobrescribe las ediciones hechas solo en Blockbench**. Conserva la
 copia editada y sus exportaciones, y traslada los cambios a las fuentes antes de
 volver a generar. Actualiza la procedencia y los hashes tras aprobar la revisión.

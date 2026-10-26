@@ -1,4 +1,4 @@
-"""Original Star Platinum motion for the hand-built rig.
+"""Original Star Platinum motion for the JoJo's Mod action rig.
 
 Authored poses use X=-90 for a forward arm, with Y/Z in the unreflected
 sculpting coordinates. Export compensates Y/Z for GeckoLib's X reflection.
@@ -787,5 +787,5 @@ def audit_animations(document, rig):
 
 
 if __name__ == "__main__":
-    from build_original import sculpt
+    from build_roundabout import sculpt
     print(audit_animations(build_animations(), sculpt().bones))

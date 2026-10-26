@@ -12,10 +12,13 @@ El [plan de Parte 3](docs/part-three-release.md) propone el catálogo y el recor
 empezando por Star Platinum; el desarrollo específico de Whitesnake queda para una expansión posterior.
 El estado descrito abajo corresponde al prototipo actual.
 
-La **revisión visual 0.9.1** adapta Star Platinum al cuerpo del jugador clásico:
-cabeza cúbica, torso continuo y extremidades de cuatro píxeles, con los detalles
-del personaje y las poses adaptadas. La [guía 0.9.1](docs/playtest-0.9.1.md) propone
-comparar la silueta y las acciones dentro de Minecraft.
+La **revisión visual 0.9.2** adapta el modelo y el atlas del anime de Star Platinum
+de **Roundabout**, por Hydraheads y colaboradores, a nuestro rig de GeckoLib.
+Conserva las trece animaciones del proyecto y los tiempos del combate. Las
+[vistas frontal, tres cuartos, lateral y trasera](art/star_platinum/preview.png)
+permiten valorar su apariencia; la [guía 0.9.2](docs/playtest-0.9.2.md) propone
+compararla dentro de Minecraft. Es una adaptación acreditada bajo la licencia
+de Roundabout, conservada también en el JAR.
 La **prueba jugable 0.9.0** añadió el **salto con Stand (J, voluntad 4)**,
 con impulso desde suelo firme, amortiguación limitada y presentación original.
 La 0.8.0 añadió intercepción precisa con **B** y voluntad 6,
@@ -83,10 +86,10 @@ que por ahora contiene solo Star Platinum; la flecha antigua mantiene Echoes/Lit
 El núcleo `jojosmod:star_platinum_core` está disponible en creativo/comandos y se
 combina con un disco vacío. El guardián puede guardar y recuperar este Stand.
 
-Las [fuentes editables](art/star_platinum/README.md) incluyen un proyecto nuevo de
-Blockbench, la definición de las piezas, los patrones de píxel y las curvas de las
-trece animaciones. El atlas es propio de 256×256, con paleta de Stardust Crusaders:
-cabello negro, ojos cian, joya plateada, pañuelo rojo y rodilleras claras.
+Las [fuentes editables](art/star_platinum/README.md) incluyen el proyecto adaptado
+de Blockbench/GeckoLib, sus entradas de Roundabout fijadas a una revisión concreta,
+el conversor reproducible y las curvas de las trece animaciones propias. El atlas
+128×128 es el de la variante del anime de Roundabout, conservado sin repintar.
 La [guía de Blockbench y GeckoLib](docs/blockbench-geckolib.md) describe la edición
 visual del proyecto y la exportación de modelo, textura y animaciones.
 Los [catorce efectos sintetizados](art/sounds/original-audio.md) son originales, mono
@@ -611,6 +614,15 @@ procedencia y regeneración idéntica; los catorce sonidos anteriores se conserv
 En el cliente se cargó el conjunto y se observó el modelo frontal junto al jugador.
 La [guía 0.9.1](docs/playtest-0.9.1.md) propone la valoración visual y con un amigo;
 la batería de GameTests no se repitió para esta revisión de recursos.
+
+En **0.9.2**, `build` pasa con la adaptación acreditada del modelo y atlas de
+Roundabout: 79 cubos, 29 huesos, atlas anime 128×128 y trece clips propios. Se
+comprobaron la procedencia fijada, la regeneración idéntica, UV, contactos y
+contenido del JAR. Las animaciones de ejecución y los catorce OGG son idénticos
+a 0.9.1. En Minecraft se invocó con R y se observó el modelo frontal junto al
+jugador. No se repitieron los GameTests para esta revisión de recursos. Las
+[vistas](art/star_platinum/preview.png) y la [guía 0.9.2](docs/playtest-0.9.2.md)
+permiten valorar el modelo antes de incorporar esta propuesta a la rama principal.
 
 Dominios adicionales requeridos por la compilación y el cliente:
 `maven.neoforged.net`, `libraries.minecraft.net`, `piston-meta.mojang.com`,

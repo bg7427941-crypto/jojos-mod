@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render the actual original asset JSON/atlas with a small orthographic rasterizer.
+"""Render the actual runtime model JSON/atlas with a small orthographic rasterizer.
 
 This is a development preview, not a replacement for Minecraft/GeckoLib validation.
 Requires Pillow and NumPy. Output is outside runtime resources by default.
@@ -139,15 +139,15 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--pose", default="idle")
     parser.add_argument("--time", type=float, default=.35)
-    parser.add_argument("--output", type=Path, default=Path("/workspace/work/star-platinum-original/model-preview.png"))
+    parser.add_argument("--output", type=Path, default=ROOT / "art/star_platinum/preview.png")
     options = parser.parse_args()
     geometry = json.loads((ASSETS / "geckolib/models/entity/star_platinum.geo.json").read_text())
     animations = json.loads((ASSETS / "geckolib/animations/entity/star_platinum.animation.json").read_text())["animations"]
     clip = animations["animation.star_platinum." + options.pose]
     atlas = np.array(Image.open(ASSETS / "textures/entity/star_platinum.png").convert("RGBA"))
-    sheet = Image.new("RGBA", (1260, 650), (224, 223, 218, 255))
+    sheet = Image.new("RGBA", (1680, 650), (224, 223, 218, 255))
     draw = ImageDraw.Draw(sheet)
-    for i, (yaw, label) in enumerate([(0, "FRONT"), (28, "THREE QUARTER"), (180, "BACK")]):
+    for i, (yaw, label) in enumerate([(0, "FRONT"), (28, "THREE QUARTER"), (90, "SIDE"), (180, "BACK")]):
         sheet.paste(render(geometry["minecraft:geometry"][0]["bones"], atlas, clip, options.time, yaw), (i * 420, 25))
         draw.text((i * 420 + 18, 8), label + " / " + options.pose, fill=(38, 35, 47, 255))
     options.output.parent.mkdir(parents=True, exist_ok=True)

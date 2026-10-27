@@ -1,40 +1,148 @@
 package io.github.bg7427941.jojosmod.entities;
 
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import com.geckolib.animatable.GeoEntity;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import com.geckolib.animatable.manager.AnimatableManager;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import com.geckolib.animation.AnimationController;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import com.geckolib.animation.RawAnimation;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import com.geckolib.util.GeckoLibUtil;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.registry.ModStands;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.registry.ModEntities;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.registry.ModSounds;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.effects.StarPlatinumEffects;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.effects.StandVoices;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.network.StandVoicePayload.Cue;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.abilities.StarPlatinumActions;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.abilities.HierophantSplash;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.effects.HierophantEffects;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.stands.StandController;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.stands.StandDefinition;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import java.util.Objects;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.minecraft.network.chat.Component;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.minecraft.network.syncher.EntityDataSerializers;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.minecraft.network.syncher.SynchedEntityData;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.minecraft.resources.Identifier;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.minecraft.server.level.ServerLevel;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.minecraft.server.level.ServerPlayer;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.minecraft.sounds.SoundSource;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.minecraft.world.damagesource.DamageSource;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.minecraft.world.entity.Entity;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.minecraft.world.entity.EntityType;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.minecraft.world.entity.InterpolationHandler;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.minecraft.world.entity.LinearInterpolationHandler;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.minecraft.world.level.Level;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.minecraft.world.level.storage.ValueInput;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.minecraft.world.level.storage.ValueOutput;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.minecraft.world.phys.Vec3;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import org.jspecify.annotations.Nullable;
 
 /** Temporary Stand manifestation; the player's attachment owns the persistent assignment. */
@@ -49,6 +157,7 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
             SynchedEntityData.defineId(TrainingStandEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DISMISSING =
             SynchedEntityData.defineId(TrainingStandEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> ARMOR_RELEASED = SynchedEntityData.defineId(TrainingStandEntity.class, EntityDataSerializers.BOOLEAN);
     private static final double FOLLOW_BEHIND = 1.25;
     private static final double FOLLOW_SIDE = 0.9;
     private static final double FOLLOW_HEIGHT = 0.15;
@@ -103,6 +212,7 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         builder.define(GUARDING, false);
         builder.define(MOVING, false);
         builder.define(DISMISSING, false);
+        builder.define(ARMOR_RELEASED, false);
     }
 
     @Override
@@ -132,11 +242,13 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         var forward = new Vec3(-Math.sin(yaw), 0, Math.cos(yaw));
         var side = new Vec3(Math.cos(yaw), 0, Math.sin(yaw));
         boolean acting = isStarPlatinum() && StarPlatinumActions.isBusy(player)
-                || isHierophantGreen() && HierophantSplash.session(player).casting();
+                || isHierophantGreen() && HierophantSplash.session(player).casting()
+                || isCrusader() && CrusaderActions.session(player).action != io.github.bg7427941.jojosmod.stands.CrusaderSession.Action.NONE;
         var target = player.position()
                 .add(forward.scale(acting ? 0.45 : -FOLLOW_BEHIND))
                 .add(side.scale(FOLLOW_SIDE))
                 .add(0, FOLLOW_HEIGHT, 0);
+        if (getStandDefinition().id().equals(PartThreeStand.HERMIT_PURPLE.id())) target = player.position();
         double maxDistance = getStandDefinition().combat().tetherDistance();
 
         // Snap after teleports so this temporary entity cannot remain separated from its owner.
@@ -145,10 +257,11 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         setYRot(player.getYRot());
         setXRot(0);
         setDeltaMovement(Vec3.ZERO);
-        if (isStarPlatinum() || isHierophantGreen()) {
+        if (isStarPlatinum() || isHierophantGreen() || isCrusader()) {
             entityData.set(MOVING, player.getDeltaMovement().horizontalDistanceSqr() > 0.001);
             if (isStarPlatinum()) StarPlatinumEffects.aura(this, level().getGameTime());
-            else HierophantEffects.aura(this, level().getGameTime());
+            else if (isHierophantGreen()) HierophantEffects.aura(this, level().getGameTime());
+            else if (level().getGameTime() % 8 == 0 && level() instanceof ServerLevel server) io.github.bg7427941.jojosmod.effects.CrusaderEffects.burst(server, PartThreeStand.of(getStandDefinition().id()).orElseThrow(), position().add(0, 1, 0), 1);
         }
     }
 
@@ -161,6 +274,9 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         return getType() == ModEntities.STAR_PLATINUM.get();
     }
 
+    public boolean isCrusader() { return PartThreeStand.of(getStandDefinition().id()).isPresent(); }
+    public void setArmorReleased(boolean released) { entityData.set(ARMOR_RELEASED, released); }
+    public void playCrusaderAnimation(String action) { triggerAnim("main", action); }
     public boolean isHierophantGreen() { return getType() == ModEntities.HIEROPHANT_GREEN.get(); }
 
     public boolean isDismissing() {
@@ -168,6 +284,15 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
     }
 
     public void playSummonAnimation() {
+        if (isCrusader()) {
+            playCrusaderAnimation("summon");
+            if (level() instanceof ServerLevel server) {
+                var kind = PartThreeStand.of(getStandDefinition().id()).orElseThrow();
+                io.github.bg7427941.jojosmod.effects.CrusaderEffects.sound(server, kind, "summon", position());
+                io.github.bg7427941.jojosmod.effects.CrusaderEffects.burst(server, kind, position().add(0, 1, 0), 10);
+            }
+            return;
+        }
         if (isHierophantGreen()) {
             triggerAnim("main", "summon");
             if (level() instanceof ServerLevel server) {
@@ -214,12 +339,13 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         stopTriggeredAnim("main", "star_finger");
         stopTriggeredAnim("main", "intercept");
         stopTriggeredAnim("main", "intercept_catch");
-        if (isStarPlatinum() || isHierophantGreen()) triggerAnim("main", "recover");
+        stopTriggeredAnim("main", "secondary"); stopTriggeredAnim("main", "utility");
+        if (isStarPlatinum() || isHierophantGreen() || isCrusader()) triggerAnim("main", "recover");
     }
 
     /** Clears gameplay immediately while giving animated Stands four ticks to disappear visually. */
     public void dismiss() {
-        if (!isStarPlatinum() && !isHierophantGreen()) {
+        if (!isStarPlatinum() && !isHierophantGreen() && !isCrusader()) {
             discard();
             return;
         }
@@ -227,6 +353,10 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         dismissAt = level().getGameTime() + 4;
         triggerAnim("main", "dismiss");
         if (level() instanceof ServerLevel server) {
+            if (isCrusader()) {
+                io.github.bg7427941.jojosmod.effects.CrusaderEffects.sound(server, PartThreeStand.of(getStandDefinition().id()).orElseThrow(), "dismiss", position());
+                return;
+            }
             server.playSound(null, blockPosition(), isHierophantGreen() ? ModSounds.HIEROPHANT_DISMISS.get()
                     : ModSounds.STAR_DISMISS.get(), SoundSource.PLAYERS, 0.45F, 1.1F);
             if (isHierophantGreen()) HierophantEffects.manifestation(this);
@@ -236,6 +366,21 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        var kind = PartThreeStand.of(getStandDefinition().id());
+        // Entity data can arrive after controller registration: the registered type is authoritative for choosing assets.
+        if (kind.isEmpty()) for (var candidate : PartThreeStand.values()) if (getType() == ModEntities.crusader(candidate)) kind = java.util.Optional.of(candidate);
+        if (kind.isPresent()) {
+            String prefix = "animation." + kind.get().path() + ".";
+            var main = new AnimationController<TrainingStandEntity>("main", state -> state.setAndContinue(
+                    RawAnimation.begin().thenLoop(prefix + (entityData.get(MOVING) ? "move" : "idle"))));
+            for (var clip : java.util.List.of("attack", "secondary", "utility", "summon", "dismiss", "recover", "time_stop"))
+                main.triggerableAnim(clip, RawAnimation.begin().thenPlay(prefix + clip));
+            controllers.add(main);
+            if (kind.get() == PartThreeStand.SILVER_CHARIOT)
+                controllers.add(new AnimationController<TrainingStandEntity>("armor", state -> state.setAndContinue(
+                        RawAnimation.begin().thenLoop(prefix + (entityData.get(ARMOR_RELEASED) ? "armor_off" : "armor_on")))));
+            return;
+        }
         if (isHierophantGreen()) {
             controllers.add(new AnimationController<TrainingStandEntity>("main", state -> state.setAndContinue(
                     entityData.get(MOVING) ? HIEROPHANT_MOVE : HIEROPHANT_IDLE))

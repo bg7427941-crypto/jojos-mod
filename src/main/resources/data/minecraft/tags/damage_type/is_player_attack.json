@@ -1,4 +1,7 @@
 {
   "replace": false,
-  "values": ["jojosmod:stand_barrage"]
+  "values": [
+    "jojosmod:stand_barrage",
+    "jojosmod:crusader_strike"
+  ]
 }

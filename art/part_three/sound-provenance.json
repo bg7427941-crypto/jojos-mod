@@ -1,0 +1,206 @@
+{
+  "license": "MIT",
+  "authorship": "Original mathematical synthesis; no recording inputs. Metallic rapier, fire/air, violet vine, sand and golden time cues.",
+  "generator": "build_sounds.py",
+  "ffmpeg": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+  "clips": [
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/silver_chariot/summon.ogg",
+      "seed": 12000,
+      "duration_seconds": 0.42,
+      "sha256": "47247d81a5b70790deeb084067f550f51aba09cc151780db8fd098eb2937a1e5",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/silver_chariot/dismiss.ogg",
+      "seed": 12001,
+      "duration_seconds": 0.2,
+      "sha256": "c17e302b377715c27dff72f01c88f9349caa29d3fe6099f68a4f757d59a6fe86",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/silver_chariot/cast.ogg",
+      "seed": 12002,
+      "duration_seconds": 0.3,
+      "sha256": "f4269093e6868b0ef8899ae5f2ff3f782ab4482b64b448e17f4465b78967b5ef",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/silver_chariot/impact.ogg",
+      "seed": 12003,
+      "duration_seconds": 0.15,
+      "sha256": "dbc720f082823c0ef333ede3ef2d1162ba24d8237ff5b0b9e5f8d15fa0fac3f1",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/magicians_red/summon.ogg",
+      "seed": 12100,
+      "duration_seconds": 0.42,
+      "sha256": "93f3de9351dbbb08d32cea2d9edee4e16e80e150c7fe399b45d337638bc1c8e4",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/magicians_red/dismiss.ogg",
+      "seed": 12101,
+      "duration_seconds": 0.2,
+      "sha256": "77780fceb14dbae6e7dcfb24dbfcede68ab34de9a7e105d815857879aa41b8f4",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/magicians_red/cast.ogg",
+      "seed": 12102,
+      "duration_seconds": 0.3,
+      "sha256": "d5feb45a9e084ad9fcc06a2a5ae0ee012bb92f94d29d14201c36def0ace33003",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/magicians_red/impact.ogg",
+      "seed": 12103,
+      "duration_seconds": 0.15,
+      "sha256": "b9c4310ea6bb5073392707e301d2b1156619a7bb5d3766949c33f0b6d8b0c0ea",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/hermit_purple/summon.ogg",
+      "seed": 12200,
+      "duration_seconds": 0.42,
+      "sha256": "00a51bbfd8e556df7353072769f558ab29ddc0e70ec891ff9e7ba76b4987b24e",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/hermit_purple/dismiss.ogg",
+      "seed": 12201,
+      "duration_seconds": 0.2,
+      "sha256": "4809f692368f323f774e19f9777d4d8cae789eadd717677a35c0fb8746b8eaff",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/hermit_purple/cast.ogg",
+      "seed": 12202,
+      "duration_seconds": 0.3,
+      "sha256": "93626d39f56368ab40700f38a24e90507c0acd07315d2fa24322c35c6e8c57e6",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/hermit_purple/impact.ogg",
+      "seed": 12203,
+      "duration_seconds": 0.15,
+      "sha256": "b2e331a610a0ff33f2d48673dfc8ad15060489fc046301db802b58996feef98d",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/the_fool/summon.ogg",
+      "seed": 12300,
+      "duration_seconds": 0.42,
+      "sha256": "0afee68d8d432d07ddac77c0ee43a8f07980a65294c5eee33a2c8fef0e1dd640",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/the_fool/dismiss.ogg",
+      "seed": 12301,
+      "duration_seconds": 0.2,
+      "sha256": "8d09063e24b955e7af818a5115f651b8ea2a5da172bace306afa2cdf13fb3c54",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/the_fool/cast.ogg",
+      "seed": 12302,
+      "duration_seconds": 0.3,
+      "sha256": "348df8d19ca50b8f3ae574c630786b55ff6e5b6c6898fac64df36da8cfd2a010",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/the_fool/impact.ogg",
+      "seed": 12303,
+      "duration_seconds": 0.15,
+      "sha256": "f0d72e8e84a45861f42b70d74827645a262c48a39a35a4047591c1e072055957",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/the_world/summon.ogg",
+      "seed": 12400,
+      "duration_seconds": 0.42,
+      "sha256": "4c89fdfa459641f8e53365833052fd81f12de103a8ec910ede258c1d0076fae5",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/the_world/dismiss.ogg",
+      "seed": 12401,
+      "duration_seconds": 0.2,
+      "sha256": "553d7a7283b8ee495cee1c499d2eb38ff07bb8ccc236fcd8dd110e0622c029fd",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/the_world/cast.ogg",
+      "seed": 12402,
+      "duration_seconds": 0.3,
+      "sha256": "aa3fe5a53e8ad2b90900c5c00eceaba7e60a15062f5ffe26949f37c34523067a",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/the_world/impact.ogg",
+      "seed": 12403,
+      "duration_seconds": 0.15,
+      "sha256": "7bc638ef758bde9cec2745fa401eadc1858be0ed9fd511d599d47e73d99c74be",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/the_world/time_stop.ogg",
+      "seed": 12404,
+      "duration_seconds": 0.9,
+      "sha256": "709944621c020d21b8fdafa58661a7a1b4edbba628c92dfaf0d74a1bd21cb907",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/the_world/resume.ogg",
+      "seed": 12405,
+      "duration_seconds": 0.65,
+      "sha256": "e27b1d298d4a8f9ac634bbb944e0ec493880d21e6b41be85fd4299f8a6d1500a",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    }
+  ]
+}

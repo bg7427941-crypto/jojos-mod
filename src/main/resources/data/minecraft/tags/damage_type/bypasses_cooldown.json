@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "jojosmod:stand_barrage",
-    "jojosmod:emerald_splash"
+    "jojosmod:emerald_splash",
+    "jojosmod:crusader_strike",
+    "jojosmod:crusader_fire"
   ]
 }

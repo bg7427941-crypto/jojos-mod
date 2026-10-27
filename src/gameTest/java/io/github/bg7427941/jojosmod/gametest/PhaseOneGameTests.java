@@ -65,6 +65,7 @@ public final class PhaseOneGameTests {
         InterceptionGameTests.register(modBus);
         LeapGameTests.register(modBus);
         HierophantGameTests.register(modBus);
+        CrusaderGameTests.register(modBus);
     }
 
     private static void registerTests(RegisterGameTestsEvent event) {

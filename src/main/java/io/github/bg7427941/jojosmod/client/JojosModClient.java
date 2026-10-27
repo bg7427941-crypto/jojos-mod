@@ -1,26 +1,92 @@
 package io.github.bg7427941.jojosmod.client;
 
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import com.mojang.blaze3d.platform.InputConstants;
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import io.github.bg7427941.jojosmod.JojosMod;
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import io.github.bg7427941.jojosmod.network.BasicAttackPayload;
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import io.github.bg7427941.jojosmod.network.ToggleStandPayload;
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import io.github.bg7427941.jojosmod.network.BarragePayload;
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import io.github.bg7427941.jojosmod.network.GuardPayload;
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import io.github.bg7427941.jojosmod.network.StarFingerPayload;
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import io.github.bg7427941.jojosmod.network.InterceptPayload;
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import io.github.bg7427941.jojosmod.network.LeapPayload;
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import io.github.bg7427941.jojosmod.registry.ModEntities;
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import net.minecraft.client.KeyMapping;
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import net.minecraft.client.Minecraft;
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import net.minecraft.resources.Identifier;
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import net.neoforged.api.distmarker.Dist;
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import net.neoforged.bus.api.IEventBus;
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import net.neoforged.fml.common.Mod;
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
+import io.github.bg7427941.jojosmod.network.TimeStopPayload;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import net.neoforged.neoforge.common.NeoForge;
 
 /** Kept in a client-only entrypoint so dedicated servers never load renderer or input classes. */
@@ -43,6 +109,8 @@ public final class JojosModClient {
     private static final KeyMapping STAR_LEAP =
             new KeyMapping("key.jojosmod.star_leap", InputConstants.KEY_J, STAND_CATEGORY);
 
+    private static final KeyMapping TIME_STOP = new KeyMapping("key.jojosmod.time_stop", InputConstants.KEY_G, STAND_CATEGORY);
+
     public JojosModClient(IEventBus modEventBus) {
         modEventBus.addListener(JojosModClient::registerKeys);
         modEventBus.addListener(JojosModClient::registerRenderers);
@@ -50,6 +118,7 @@ public final class JojosModClient {
         modEventBus.addListener(StandVoicePlayer::register);
         NeoForge.EVENT_BUS.addListener(JojosModClient::onClientTick);
         NeoForge.EVENT_BUS.addListener(StandVoicePlayer::onClientTick);
+        NeoForge.EVENT_BUS.addListener(JojosModClient::onMovement);
     }
 
     private static void registerKeys(RegisterKeyMappingsEvent event) {
@@ -61,6 +130,7 @@ public final class JojosModClient {
         event.register(STAR_FINGER);
         event.register(STAR_INTERCEPT);
         event.register(STAR_LEAP);
+        event.register(TIME_STOP);
     }
 
     private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
@@ -68,7 +138,17 @@ public final class JojosModClient {
         event.registerEntityRenderer(ModEntities.DISC_KEEPER.get(), DiscKeeperRenderer::new);
         event.registerEntityRenderer(ModEntities.STAR_PLATINUM.get(), context -> new TrainingStandRenderer(context, "star_platinum"));
         event.registerEntityRenderer(ModEntities.HIEROPHANT_GREEN.get(), context -> new TrainingStandRenderer(context, "hierophant_green"));
+        for (var kind : PartThreeStand.values()) event.registerEntityRenderer(ModEntities.crusader(kind), context -> new TrainingStandRenderer(context, kind.path()));
+        event.registerEntityRenderer(ModEntities.CRUSADER_FLAME.get(), context -> new ThrownItemRenderer<>(context, .8F, true));
         event.registerEntityRenderer(ModEntities.EMERALD_SHARD.get(), context -> new ThrownItemRenderer<>(context, .45F, true));
+    }
+
+    private static void onMovement(net.neoforged.neoforge.client.event.MovementInputUpdateEvent event) {
+        if (event.getEntity().getExistingData(ModAttachments.TIME_FROZEN).orElse(false)) {
+            event.getInput().keyPresses = net.minecraft.world.entity.player.Input.EMPTY;
+            ((io.github.bg7427941.jojosmod.mixin.FrozenClientInput) event.getInput()).jojosmod$setMoveVector(net.minecraft.world.phys.Vec2.ZERO);
+            event.getEntity().setDeltaMovement(net.minecraft.world.phys.Vec3.ZERO);
+        }
     }
 
     private static void onClientTick(ClientTickEvent.Post event) {
@@ -78,7 +158,8 @@ public final class JojosModClient {
                 && minecraft.getConnection() != null
                 && minecraft.gui.screen() == null
                 && minecraft.gui.overlay() == null
-                && !minecraft.isPaused();
+                && !minecraft.isPaused()
+                && !minecraft.player.getExistingData(ModAttachments.TIME_FROZEN).orElse(false);
 
         // Always drain queued clicks so keys pressed in menus cannot trigger on returning to the world.
         while (TOGGLE_STAND.consumeClick()) {
@@ -103,6 +184,7 @@ public final class JojosModClient {
         while (STAR_INTERCEPT.consumeClick()) {
             if (canSend) ClientPacketDistributor.sendToServer(InterceptPayload.INSTANCE);
         }
+        while (TIME_STOP.consumeClick()) { if (canSend) ClientPacketDistributor.sendToServer(TimeStopPayload.INSTANCE); }
         while (STAR_LEAP.consumeClick()) {
             if (canSend) ClientPacketDistributor.sendToServer(LeapPayload.INSTANCE);
         }

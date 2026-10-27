@@ -148,10 +148,10 @@ public final class HierophantGameTests {
     private static void step(EmeraldShardEntity shard) { shard.commonTick(); shard.tick(); }
 
     private static void arrowPoolAndAwakening(GameTestHelper helper) {
-        for (int index = 0; index < 2; index++) {
+        for (int index = 0; index < ModStands.STARDUST_POOL.size(); index++) {
             var owner = new TestPlayer(helper.getLevel());
             try {
-                owner.getRandom().setSeed(index == 0 ? 4096 : 0);
+                owner.getRandom().setSeed(new long[] {0, 6, 3, 1, 2, 5}[index]);
                 owner.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.STARDUST_ARROW.get()));
                 check(helper, ModItems.STARDUST_ARROW.get().use(owner.level(), owner, InteractionHand.MAIN_HAND).consumesAction(),
                         "The Part 3 arrow did not accept its controlled roll");

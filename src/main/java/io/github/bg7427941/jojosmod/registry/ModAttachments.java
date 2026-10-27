@@ -54,6 +54,16 @@ public final class ModAttachments {
                     .serialize(HierophantProgress.CODEC).copyOnDeath()
                     .sync((holder, recipient) -> holder == recipient, HierophantProgress.STREAM_CODEC).build());
 
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<io.github.bg7427941.jojosmod.stands.CrusaderSession>> CRUSADER_SESSION =
+            ATTACHMENTS.register("crusader_session", () -> AttachmentType.builder(io.github.bg7427941.jojosmod.stands.CrusaderSession::new).build());
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<io.github.bg7427941.jojosmod.stands.CrusaderProgress>> CRUSADER_PROGRESS =
+            ATTACHMENTS.register("crusader_progress", () -> AttachmentType.builder(() -> io.github.bg7427941.jojosmod.stands.CrusaderProgress.EMPTY)
+                    .serialize(io.github.bg7427941.jojosmod.stands.CrusaderProgress.CODEC).copyOnDeath()
+                    .sync((holder, recipient) -> holder == recipient, io.github.bg7427941.jojosmod.stands.CrusaderProgress.STREAM).build());
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> TIME_FROZEN =
+            ATTACHMENTS.register("time_frozen", () -> AttachmentType.builder(() -> false)
+                    .sync((holder, recipient) -> true, net.minecraft.network.codec.ByteBufCodecs.BOOL).build());
+
     private ModAttachments() {}
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<StarLeapSession>> STAR_LEAP =

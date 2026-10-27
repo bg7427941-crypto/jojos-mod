@@ -21,10 +21,16 @@ la historia de Parte 3. El primer recorrido de lanzamiento se centrará en Parte
 
 ## Estado real de la base
 
-La 0.11.0 añade una primera versión jugable de Hierophant Green con Emerald
+La 0.12.0 amplía los siete Stands propuestos de Parte 3 con conjuntos jugables,
+modelos/animaciones/audio y progreso propios para los cinco que faltaban; añade
+parada temporal local para The World y Star Platinum avanzado. El
+[diseño](part-three-stands-design.md) separa esos conjuntos del repertorio completo,
+los límites de la parada y el encuentro de DIO, todavía pendiente.
+
+La 0.11.0 añadió una primera versión jugable de Hierophant Green con Emerald
 Splash, recursos propios y dominio persistente, junto a Star Platinum y sus cinco
 desafíos. La [ficha de Hierophant Green](hierophant-green-design.md) mantiene
-pendientes sus otras técnicas. El catálogo de Parte 3, DIO y la parada temporal
+pendientes sus otras técnicas. El catálogo completo y el encuentro de DIO
 siguen en desarrollo. El siguiente párrafo describe la base histórica de sistemas.
 
 

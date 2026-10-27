@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "jojosmod:empty_stand_disc",
+    "jojosmod:hermit_purple_core"
+  ],
+  "result": {
+    "id": "jojosmod:stand_disc",
+    "count": 1,
+    "components": {
+      "jojosmod:stand_id": "jojosmod:hermit_purple"
+    }
+  }
+}

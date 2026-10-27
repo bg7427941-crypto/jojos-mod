@@ -1,4 +1,4 @@
-license="MIT (code and original assets); Roundabout License v1.2 (adapted Star Platinum model and atlas); collected recordings retain their owners' rights"
+license="MIT (code and original assets); Roundabout License v1.2 (adapted Star Platinum, Silver Chariot, Magician's Red and The World models/atlases); collected recordings retain their owners' rights"
 
 [[mods]]
 modId="${mod_id}"
@@ -9,7 +9,8 @@ An original Minecraft Stand system inspired by JoJo's Bizarre Adventure.
 Star Platinum playtest: Star Finger, precise strike, timed barrage, frontal guard, persistent basic and advanced willpower mastery, earned cooldown bonuses and progress HUD.
 Stand leap, precise arrow interception and a Star Platinum model and anime atlas adapted from Roundabout by Hydraheads and contributors, with thirteen original animations, synthesized sound effects and eight manually added listening-preview clips; see THIRD_PARTY_NOTICES.md.
 Hierophant Green joins the Part 3 arrow pool with Emerald Splash, nine real emerald projectiles, an original model, six animations, five synthesized effects and persistent mastery.
-Owner-specific Star Platinum voice channels include a Z-only ORA event. Network protocol 9.
+Five more Part 3 Stands join with distinct combat, credited models, original animations/audio and persistent learning. The World and advanced Star Platinum can stop local time.
+Owner-specific Star Platinum voice channels include a Z-only ORA event. Network protocol 10.
 '''
 
 [[dependencies.${mod_id}]]
@@ -32,3 +33,6 @@ type="required"
 versionRange="[${minecraft_version}]"
 ordering="NONE"
 side="BOTH"
+
+[[mixins]]
+config="jojosmod.mixins.json"

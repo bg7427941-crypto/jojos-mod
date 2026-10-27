@@ -1,0 +1,121 @@
+{
+  "version": "0.12.0",
+  "license": "Roundabout License v1.2 for the three adapted models/atlases; MIT for original assets, animations and generators; character rights retained by their owners",
+  "authorship": "Three pinned Roundabout geometries/UVs/anime atlases adapted through the Star Platinum conversion workflow; original Hermit Purple/The Fool sculptures, original action keyframes and core sprites. No upstream animation keyframes imported.",
+  "models": {
+    "silver_chariot": {
+      "cubes": 52,
+      "bones": 26,
+      "clips": 11,
+      "source": "silver_chariot/silver_chariot.bbmodel",
+      "atlas": [
+        128,
+        128
+      ],
+      "credit": "Geometry, UVs and Part 3 anime atlas adapted from Roundabout by Hydraheads and contributors; JoJo's Mod rig adaptation and original action keyframes. Character by Hirohiko Araki."
+    },
+    "magicians_red": {
+      "cubes": 62,
+      "bones": 14,
+      "clips": 9,
+      "source": "magicians_red/magicians_red.bbmodel",
+      "atlas": [
+        128,
+        128
+      ],
+      "credit": "Geometry, UVs and Part 3 anime atlas adapted from Roundabout by Hydraheads and contributors; JoJo's Mod rig adaptation and original action keyframes. Character by Hirohiko Araki."
+    },
+    "hermit_purple": {
+      "cubes": 62,
+      "bones": 14,
+      "clips": 9,
+      "source": "hermit_purple/hermit_purple.bbmodel",
+      "atlas": [
+        512,
+        512
+      ],
+      "credit": "Original JoJo's Mod geometry/atlas/animation"
+    },
+    "the_fool": {
+      "cubes": 33,
+      "bones": 14,
+      "clips": 9,
+      "source": "the_fool/the_fool.bbmodel",
+      "atlas": [
+        512,
+        512
+      ],
+      "credit": "Original JoJo's Mod geometry/atlas/animation"
+    },
+    "the_world": {
+      "cubes": 41,
+      "bones": 14,
+      "clips": 9,
+      "source": "the_world/the_world.bbmodel",
+      "atlas": [
+        128,
+        128
+      ],
+      "credit": "Geometry, UVs and Part 3 anime atlas adapted from Roundabout by Hydraheads and contributors; JoJo's Mod rig adaptation and original action keyframes. Character by Hirohiko Araki."
+    }
+  },
+  "files": {
+    "src/main/resources/assets/jojosmod/geckolib/models/entity/silver_chariot.geo.json": "a5fe27ac1087358e80d58db850b6032a360f55f5ad1c80d46f7dfc1ba09a906f",
+    "src/main/resources/assets/jojosmod/geckolib/animations/entity/silver_chariot.animation.json": "198958c9a8de3a320f1b00b6fd4ea35266d8b1c0641ebb5ab4788d81b09cc39b",
+    "src/main/resources/assets/jojosmod/textures/entity/silver_chariot.png": "7edd50751224320d1e4cc92f2ecb58ccf6ec39355aad29119191f5369b1c3727",
+    "src/main/resources/assets/jojosmod/textures/item/silver_chariot_core.png": "4440c15419864c085ab99a50d1aff4192e42db38c7d8c65266bda21315df1ab7",
+    "src/main/resources/assets/jojosmod/geckolib/models/entity/magicians_red.geo.json": "6f67b669293e8874bcccd569ddfa70ff97d20a96e1e314b23d4f88a8b35a67c0",
+    "src/main/resources/assets/jojosmod/geckolib/animations/entity/magicians_red.animation.json": "e6996dd2d985d70a0370dd54275155e527af21d306b3a894f78c9850e7eea085",
+    "src/main/resources/assets/jojosmod/textures/entity/magicians_red.png": "356e16e9ac6898afc842ece1df608c434e3b3cd9c59c5989484a18e4ce29c233",
+    "src/main/resources/assets/jojosmod/textures/item/magicians_red_core.png": "fd6d15bfe24dcbfc30a20c139749e263375c134fc80e61872945b62272219a1d",
+    "src/main/resources/assets/jojosmod/geckolib/models/entity/hermit_purple.geo.json": "e95830900027d123c79ba8bed4d28d86398e92e544da2fa7689753b8fcd3150b",
+    "src/main/resources/assets/jojosmod/geckolib/animations/entity/hermit_purple.animation.json": "55e8a48e22a84a575647aab294720e6909de92c12342d1882dbf33d8571e2578",
+    "src/main/resources/assets/jojosmod/textures/entity/hermit_purple.png": "52a5c95d81db1dcb141ebb24838c0ea75d36a96bc89a42a9ae047b5486eb2f9d",
+    "src/main/resources/assets/jojosmod/textures/item/hermit_purple_core.png": "94b0109f0040ffefafb200b745026f8c0c0bd9dae30c6c9f6da05519227bb5b7",
+    "src/main/resources/assets/jojosmod/geckolib/models/entity/the_fool.geo.json": "4f20aac6ac278c4a92e05099c3b75ce317122c3a3e929a350d2f637825e15170",
+    "src/main/resources/assets/jojosmod/geckolib/animations/entity/the_fool.animation.json": "b3d0a5e5c763a1f98deb4290c5d02654b70d36288b1df1b49f3b6d227327a456",
+    "src/main/resources/assets/jojosmod/textures/entity/the_fool.png": "cf63b08f12ed7d15c733e718fc20e703dd0bfa0736d01338cc578034e134b66d",
+    "src/main/resources/assets/jojosmod/textures/item/the_fool_core.png": "d7b5642c3926fd0a6985691dbb797481b5cdcce9b6f67f4621bf9d5728dfb681",
+    "src/main/resources/assets/jojosmod/geckolib/models/entity/the_world.geo.json": "024b2cccc3c76fe57f5a2f9b3a2d25c8be15948d6eb42ee08653535ab94aa70b",
+    "src/main/resources/assets/jojosmod/geckolib/animations/entity/the_world.animation.json": "1469a2addb7117a5feae31a34ab83ce84a0b09c79c09bee323759c6a19e6a21d",
+    "src/main/resources/assets/jojosmod/textures/entity/the_world.png": "b0cf8556ba7b6903104d5db39e6f4ce53ce290833afaf2e5b5e55446fe140fe3",
+    "src/main/resources/assets/jojosmod/textures/item/the_world_core.png": "7bf8dc789a8b3be0d1cca6e85f3409fc12e72f319b11174ec7cab149c4a6f30b"
+  },
+  "upstream": {
+    "repository": "https://github.com/Hydraheads/RoundaboutMod",
+    "commit": "f2390f1240e9b49444d6013e79bfda2038a542fb",
+    "license": "Roundabout License v1.2",
+    "files": [
+      {
+        "path": "bbmodels/Stands/Magician's Red/magicians_red.bbmodel",
+        "local": "art/part_three/upstream/magicians_red.bbmodel",
+        "sha": "be27b2fda2849a4e39e07259e89aba6c56e802c6"
+      },
+      {
+        "path": "bbmodels/Stands/The World/the_world.bbmodel",
+        "local": "art/part_three/upstream/the_world.bbmodel",
+        "sha": "151a139f6e604f47b3d6db0e3e33f4a0401942d9"
+      },
+      {
+        "path": "common/src/main/resources/assets/roundabout/textures/stand/magicians_red/anime.png",
+        "local": "art/part_three/upstream/magicians_red.png",
+        "sha": "ce4fb0f540ce495d6f35dfdee89084849f6d00fd"
+      },
+      {
+        "path": "common/src/main/resources/assets/roundabout/textures/stand/silver_chariot/anime_silver_chariot.png",
+        "local": "art/part_three/upstream/silver_chariot.png",
+        "sha": "c15e3484c0bdfed1bd932fa8bd433ed3b83f911e"
+      },
+      {
+        "local": "art/part_three/upstream/the_world.png",
+        "path": "common/src/main/resources/assets/roundabout/textures/stand/the_world/anime.png",
+        "sha": "c8e49f8a477f63bd6fd0647cebb44ed299cc8cf9"
+      },
+      {
+        "path": "bbmodels/Stands/Silver Chariot/SilverChariotModel.java",
+        "local": "art/part_three/upstream/SilverChariotModel.java",
+        "sha": "b2d7f00be14a310a8393a9fcae431c4957081897"
+      }
+    ]
+  }
+}

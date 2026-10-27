@@ -33,6 +33,16 @@ public final class ModSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> HIEROPHANT_SPLASH = sound("hierophant_green.splash");
     public static final DeferredHolder<SoundEvent, SoundEvent> HIEROPHANT_IMPACT = sound("hierophant_green.impact");
 
+    private static final java.util.Map<String, DeferredHolder<SoundEvent, SoundEvent>> CRUSADER = new java.util.HashMap<>();
+    static {
+        for (var kind : io.github.bg7427941.jojosmod.stands.PartThreeStand.values())
+            for (var cue : java.util.List.of("summon", "dismiss", "cast", "impact"))
+                CRUSADER.put(kind.path() + "." + cue, sound(kind.path() + "." + cue));
+        for (var cue : java.util.List.of("time_stop", "resume")) CRUSADER.put("the_world." + cue, sound("the_world." + cue));
+    }
+    public static SoundEvent crusader(io.github.bg7427941.jojosmod.stands.PartThreeStand kind, String cue) {
+        return CRUSADER.get(kind.path() + "." + cue).get();
+    }
     private ModSounds() {}
 
     private static DeferredHolder<SoundEvent, SoundEvent> sound(String path) {

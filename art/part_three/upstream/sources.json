@@ -1,0 +1,37 @@
+{
+  "repository": "https://github.com/Hydraheads/RoundaboutMod",
+  "commit": "f2390f1240e9b49444d6013e79bfda2038a542fb",
+  "license": "Roundabout License v1.2",
+  "files": [
+    {
+      "path": "bbmodels/Stands/Magician's Red/magicians_red.bbmodel",
+      "local": "art/part_three/upstream/magicians_red.bbmodel",
+      "sha": "be27b2fda2849a4e39e07259e89aba6c56e802c6"
+    },
+    {
+      "path": "bbmodels/Stands/The World/the_world.bbmodel",
+      "local": "art/part_three/upstream/the_world.bbmodel",
+      "sha": "151a139f6e604f47b3d6db0e3e33f4a0401942d9"
+    },
+    {
+      "path": "common/src/main/resources/assets/roundabout/textures/stand/magicians_red/anime.png",
+      "local": "art/part_three/upstream/magicians_red.png",
+      "sha": "ce4fb0f540ce495d6f35dfdee89084849f6d00fd"
+    },
+    {
+      "path": "common/src/main/resources/assets/roundabout/textures/stand/silver_chariot/anime_silver_chariot.png",
+      "local": "art/part_three/upstream/silver_chariot.png",
+      "sha": "c15e3484c0bdfed1bd932fa8bd433ed3b83f911e"
+    },
+    {
+      "local": "art/part_three/upstream/the_world.png",
+      "path": "common/src/main/resources/assets/roundabout/textures/stand/the_world/anime.png",
+      "sha": "c8e49f8a477f63bd6fd0647cebb44ed299cc8cf9"
+    },
+    {
+      "path": "bbmodels/Stands/Silver Chariot/SilverChariotModel.java",
+      "local": "art/part_three/upstream/SilverChariotModel.java",
+      "sha": "b2d7f00be14a310a8393a9fcae431c4957081897"
+    }
+  ]
+}

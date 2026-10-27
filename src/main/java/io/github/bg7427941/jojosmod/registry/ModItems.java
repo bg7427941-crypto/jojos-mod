@@ -39,6 +39,12 @@ public final class ModItems {
     public static final DeferredItem<Item> HIEROPHANT_GREEN_CORE =
             ITEMS.registerSimpleItem("hierophant_green_core", properties -> properties.stacksTo(1));
 
+    public static final DeferredItem<Item> SILVER_CHARIOT_CORE = ITEMS.registerSimpleItem("silver_chariot_core", properties -> properties.stacksTo(1));
+    public static final DeferredItem<Item> MAGICIANS_RED_CORE = ITEMS.registerSimpleItem("magicians_red_core", properties -> properties.stacksTo(1));
+    public static final DeferredItem<Item> HERMIT_PURPLE_CORE = ITEMS.registerSimpleItem("hermit_purple_core", properties -> properties.stacksTo(1));
+    public static final DeferredItem<Item> THE_FOOL_CORE = ITEMS.registerSimpleItem("the_fool_core", properties -> properties.stacksTo(1));
+    public static final DeferredItem<Item> THE_WORLD_CORE = ITEMS.registerSimpleItem("the_world_core", properties -> properties.stacksTo(1));
+
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> JOJOS_TAB =
             TABS.register("jojos_mod", () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.jojosmod"))
@@ -54,6 +60,16 @@ public final class ModItems {
                         output.accept(LITTLE_FEET_CORE.get());
                         output.accept(STAR_PLATINUM_CORE.get());
                         output.accept(HIEROPHANT_GREEN_CORE.get());
+                        output.accept(SILVER_CHARIOT_CORE.get());
+                        output.accept(StandDiscItem.containing(ModStands.SILVER_CHARIOT));
+                        output.accept(MAGICIANS_RED_CORE.get());
+                        output.accept(StandDiscItem.containing(ModStands.MAGICIANS_RED));
+                        output.accept(HERMIT_PURPLE_CORE.get());
+                        output.accept(StandDiscItem.containing(ModStands.HERMIT_PURPLE));
+                        output.accept(THE_FOOL_CORE.get());
+                        output.accept(StandDiscItem.containing(ModStands.THE_FOOL));
+                        output.accept(THE_WORLD_CORE.get());
+                        output.accept(StandDiscItem.containing(ModStands.THE_WORLD));
                         output.accept(StandDiscItem.containing(ModStands.ECHOES_ACT_1));
                         output.accept(StandDiscItem.containing(ModStands.LITTLE_FEET));
                         output.accept(StandDiscItem.containing(ModStands.STAR_PLATINUM));

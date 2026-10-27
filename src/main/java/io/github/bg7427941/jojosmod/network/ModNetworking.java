@@ -1,15 +1,36 @@
 package io.github.bg7427941.jojosmod.network;
 
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.stands.StandController;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.abilities.StarPlatinumActions;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.abilities.StarPlatinumLeap;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.minecraft.server.level.ServerPlayer;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.neoforged.bus.api.IEventBus;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.neoforged.neoforge.network.registration.HandlerThread;
 
 public final class ModNetworking {
-    private static final String PROTOCOL_VERSION = "9";
+    private static final String PROTOCOL_VERSION = "10";
 
     private ModNetworking() {}
 
@@ -31,16 +52,19 @@ public final class ModNetworking {
             }
         });
         registrar.playToServer(BarragePayload.TYPE, BarragePayload.STREAM_CODEC, (payload, context) -> {
-            if (context.player() instanceof ServerPlayer player) StarPlatinumActions.barrage(player);
+            if (context.player() instanceof ServerPlayer player) { if (PartThreeStand.of(player).isPresent()) CrusaderActions.secondary(player); else StarPlatinumActions.barrage(player); }
         });
         registrar.playToServer(GuardPayload.TYPE, GuardPayload.STREAM_CODEC, (payload, context) -> {
-            if (context.player() instanceof ServerPlayer player) StarPlatinumActions.toggleGuard(player);
+            if (context.player() instanceof ServerPlayer player) { if (PartThreeStand.of(player).isPresent()) CrusaderActions.utility(player); else StarPlatinumActions.toggleGuard(player); }
         });
         registrar.playToServer(StarFingerPayload.TYPE, StarFingerPayload.STREAM_CODEC, (payload, context) -> {
             if (context.player() instanceof ServerPlayer player) StarPlatinumActions.starFinger(player);
         });
         registrar.playToServer(InterceptPayload.TYPE, InterceptPayload.STREAM_CODEC, (payload, context) -> {
             if (context.player() instanceof ServerPlayer player) StarPlatinumActions.intercept(player);
+        });
+        registrar.playToServer(TimeStopPayload.TYPE, TimeStopPayload.STREAM_CODEC, (payload, context) -> {
+            if (context.player() instanceof ServerPlayer player) TimeStop.start(player);
         });
         registrar.playToServer(LeapPayload.TYPE, LeapPayload.STREAM_CODEC, (payload, context) -> {
             if (context.player() instanceof ServerPlayer player) StarPlatinumLeap.leap(player);

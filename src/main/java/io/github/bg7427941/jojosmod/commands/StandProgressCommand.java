@@ -1,13 +1,31 @@
 package io.github.bg7427941.jojosmod.commands;
 
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.stands.CrusaderProgress;
 import io.github.bg7427941.jojosmod.registry.ModStands;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.stands.CrusaderProgress;
 import io.github.bg7427941.jojosmod.stands.PlayerStands;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.stands.CrusaderProgress;
 import io.github.bg7427941.jojosmod.stands.PlayerWillpower;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.stands.CrusaderProgress;
 import io.github.bg7427941.jojosmod.stands.StarPlatinumProgress;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.stands.CrusaderProgress;
 import io.github.bg7427941.jojosmod.stands.HierophantProgress;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.stands.CrusaderProgress;
 import net.minecraft.commands.CommandSourceStack;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.stands.CrusaderProgress;
 import net.minecraft.commands.Commands;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.stands.CrusaderProgress;
 import net.minecraft.network.chat.Component;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
+import io.github.bg7427941.jojosmod.stands.CrusaderProgress;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
 /** Player-facing, read-only progression lookup; available without operator privileges. */
@@ -29,6 +47,16 @@ public final class StandProgressCommand {
                 .orElseGet(() -> Component.translatable("command.jojosmod.stand.none"));
         source.sendSuccess(() -> Component.translatable("command.jojosmod.stand.status",
                 standName, PlayerWillpower.get(player)), false);
+        var kind = PartThreeStand.of(player);
+        if (kind.isPresent()) {
+            var k = kind.get();
+            source.sendSuccess(() -> Component.translatable("hud.jojosmod.crusader.mastery", CrusaderProgress.get(player).training(k).targets().size(), CrusaderProgress.GOAL), false);
+            source.sendSuccess(() -> Component.translatable("hud.jojosmod." + k.path() + ".primary", Component.keybind("key.jojosmod.basic_attack")), false);
+            source.sendSuccess(() -> Component.translatable("hud.jojosmod." + k.path() + ".secondary", Component.keybind("key.jojosmod.star_barrage")), false);
+            source.sendSuccess(() -> Component.translatable("hud.jojosmod." + k.path() + ".utility", Component.keybind("key.jojosmod.star_guard")), false);
+            if (k == PartThreeStand.THE_WORLD) source.sendSuccess(() -> Component.translatable("hud.jojosmod.time", Component.keybind("key.jojosmod.time_stop"), 4), false);
+            return 1;
+        }
         var hierophant = HierophantProgress.get(player);
         boolean hasHierophant = assignment.filter(ModStands.HIEROPHANT_GREEN.id()::equals).isPresent();
         if (hasHierophant || hierophant.awakened()) {

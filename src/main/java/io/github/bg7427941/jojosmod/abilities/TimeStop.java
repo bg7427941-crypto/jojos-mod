@@ -1,6 +1,9 @@
 package io.github.bg7427941.jojosmod.abilities;
 
-import io.github.bg7427941.jojosmod.effects.CrusaderEffects;
+import io.github.bg7427941.jojosmod.network.TimeScenePayload;
+import io.github.bg7427941.jojosmod.registry.ModSounds;
+import net.neoforged.neoforge.network.PacketDistributor;
+import net.minecraft.sounds.SoundSource;
 import io.github.bg7427941.jojosmod.entities.TrainingStandEntity;
 import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import io.github.bg7427941.jojosmod.registry.ModStands;
@@ -31,10 +34,13 @@ public final class TimeStop {
         final ServerPlayer owner;
         final TrainingStandEntity stand;
         final Vec3 center;
+        final long started;
         final long until;
+        final boolean world;
         final Map<Entity, Snapshot> targets = new LinkedHashMap<>();
         Bubble(ServerPlayer p, TrainingStandEntity s, int duration) {
-            owner = p; stand = s; center = p.position(); until = p.level().getGameTime() + duration;
+            owner = p; stand = s; center = p.position(); started = p.level().getGameTime(); until = started + duration;
+            world = PlayerStands.get(p).standId().filter(ModStands.THE_WORLD.id()::equals).isPresent();
         }
     }
     private TimeStop() {}
@@ -55,8 +61,8 @@ public final class TimeStop {
         boolean world = PlayerStands.get(p).standId().filter(ModStands.THE_WORLD.id()::equals).isPresent();
         var bubble = new Bubble(p, stand.get(), world ? 60 : 40);
         BUBBLES.put(p.level(), bubble); tick(p.level());
-        if (world) stand.get().playCrusaderAnimation("time_stop");
-        CrusaderEffects.sound(p.level(), PartThreeStand.THE_WORLD, "time_stop", p.position());
+        stand.get().playCrusaderAnimation("time_stop");
+        sound(p.level(), bubble, false);
         for (var player : p.level().players()) if (player.distanceToSqr(p) <= 1024)
             player.sendSystemMessage(Component.translatable("message.jojosmod.time.start", p.getName()), true);
         return true;
@@ -106,10 +112,13 @@ public final class TimeStop {
             if (e instanceof ServerPlayer p && level.getGameTime() % 10 == 0)
                 p.connection.teleport(p.getX(), p.getY(), p.getZ(), snapshot.yaw, snapshot.pitch);
         }
+        if ((level.getGameTime() - b.started) % 10 == 0) scene(level, b, false);
+        if (level.getGameTime() - b.started < 10) shockwave(level, b);
         if (level.getGameTime() % 5 == 0) {
             for (int i = 0; i < 24; i++) {
                 double a = Math.PI * 2 * i / 24;
-                CrusaderEffects.burst(level, PartThreeStand.THE_WORLD, b.center.add(Math.cos(a) * RADIUS, 1, Math.sin(a) * RADIUS), 1);
+                level.sendParticles(new net.minecraft.core.particles.DustParticleOptions(b.world ? 0xE8D385 : 0xB6A4DD, .55F),
+                        b.center.x + Math.cos(a) * RADIUS, b.center.y + 1, b.center.z + Math.sin(a) * RADIUS, 1, 0, 0, 0, 0);
             }
         }
     }
@@ -130,7 +139,32 @@ public final class TimeStop {
     public static void end(ServerLevel level) {
         var b = BUBBLES.remove(level); if (b == null) return;
         b.targets.forEach(TimeStop::release);
-        CrusaderEffects.sound(level, PartThreeStand.THE_WORLD, "resume", b.center);
+        scene(level, b, true);
+        sound(level, b, true);
+    }
+    private static void scene(ServerLevel level, Bubble b, boolean end) {
+        var payload = new TimeScenePayload(b.owner.getUUID(), b.center, b.world,
+                (int)(level.getGameTime() - b.started), end ? 0 : (int)(b.until - level.getGameTime()));
+        for (var listener : level.players()) if (listener.distanceToSqr(b.center) <= 32 * 32)
+            PacketDistributor.sendToPlayer(listener, payload);
+    }
+    private static void sound(ServerLevel level, Bubble b, boolean resume) {
+        level.playSound(null, b.center.x, b.center.y + 1, b.center.z,
+                b.world ? ModSounds.crusader(PartThreeStand.THE_WORLD, resume ? "resume" : "time_stop")
+                        : (resume ? ModSounds.STAR_TIME_RESUME.get() : ModSounds.STAR_TIME_STOP.get()),
+                SoundSource.PLAYERS, .95F, 1);
+    }
+    private static void shockwave(ServerLevel level, Bubble b) {
+        double radius = RADIUS * (level.getGameTime() - b.started + 1) / 10.0;
+        var dust = new net.minecraft.core.particles.DustParticleOptions(b.world ? 0xE8D385 : 0xB6A4DD, .9F);
+        // Three expanding great circles make a readable volume for nearby friends.
+        for (int i = 0; i < 32; i++) {
+            double a = Math.PI * 2 * i / 32, x = Math.cos(a) * radius, y = Math.sin(a) * radius;
+            for (var offset : java.util.List.of(new Vec3(x, 0, y), new Vec3(x, y, 0), new Vec3(0, x, y))) {
+                var at = b.center.add(0, 1, 0).add(offset);
+                level.sendParticles(dust, at.x, at.y, at.z, 1, 0, 0, 0, 0);
+            }
+        }
     }
     public static void cancel(ServerPlayer owner) {
         for (var level : java.util.List.copyOf(BUBBLES.keySet())) if (BUBBLES.get(level).owner == owner) end(level);

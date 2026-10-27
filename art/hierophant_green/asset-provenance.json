@@ -1,5 +1,5 @@
 {
-  "version": "0.11.0",
+  "version": "0.12.1",
   "license": "MIT for original resources and generator; character rights remain with their owners",
   "authorship": "Original player-proportioned geometry, hand-painted procedural jade lattice atlas, six keyframed clips and core sprite. No imported model, texture, animation or recording inputs.",
   "export_utilities": "../star_platinum/model_export.py (project MIT conversion helpers only)",
@@ -17,7 +17,7 @@
   ],
   "files": {
     "src/main/resources/assets/jojosmod/geckolib/models/entity/hierophant_green.geo.json": "5592a736249b6336f8ffddba6db5742d184b7a0082c67e93d7ee2a1388b87769",
-    "src/main/resources/assets/jojosmod/geckolib/animations/entity/hierophant_green.animation.json": "97b1496d6c5c8e54c38797cfc0af7b9acacb975f426cdc06604b4f2ea69bc343",
+    "src/main/resources/assets/jojosmod/geckolib/animations/entity/hierophant_green.animation.json": "83f8a7db00a1214929ffa186382e6c749f3ec07cb9d9cf7c6193f42785954e19",
     "src/main/resources/assets/jojosmod/textures/entity/hierophant_green.png": "88a583393ec22669746374ecedfeed9c2c0d058a2ac24e2e634711ebc7c0553b",
     "src/main/resources/assets/jojosmod/textures/item/hierophant_green_core.png": "1b4febfede791e35df5e86b9ae2c57fb29378813feead643843e739e6f184670"
   }

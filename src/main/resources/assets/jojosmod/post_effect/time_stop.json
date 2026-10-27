@@ -1,0 +1,19 @@
+{
+  "targets": {"jojosmod:time_swap": {}},
+  "passes": [
+    {
+      "vertex_shader": "minecraft:core/screenquad",
+      "fragment_shader": "jojosmod:post/time_stop",
+      "inputs": [{"sampler_name": "In", "target": "minecraft:main", "bilinear": true}],
+      "output": "jojosmod:time_swap",
+      "uniforms": {"JojoTimeConfig": [{"name": "Time", "type": "vec4", "value": [0.0, 0.0, 0.0, 0.0]}]}
+    },
+    {
+      "vertex_shader": "minecraft:core/screenquad",
+      "fragment_shader": "minecraft:post/blit",
+      "inputs": [{"sampler_name": "In", "target": "jojosmod:time_swap"}],
+      "output": "minecraft:main",
+      "uniforms": {"BlitConfig": [{"name": "ColorModulate", "type": "vec4", "value": [1.0, 1.0, 1.0, 1.0]}]}
+    }
+  ]
+}

@@ -183,24 +183,6 @@
       "codec_name": "vorbis",
       "sample_rate": "48000",
       "channels": 1
-    },
-    {
-      "file": "src/main/resources/assets/jojosmod/sounds/the_world/time_stop.ogg",
-      "seed": 12404,
-      "duration_seconds": 0.9,
-      "sha256": "709944621c020d21b8fdafa58661a7a1b4edbba628c92dfaf0d74a1bd21cb907",
-      "codec_name": "vorbis",
-      "sample_rate": "48000",
-      "channels": 1
-    },
-    {
-      "file": "src/main/resources/assets/jojosmod/sounds/the_world/resume.ogg",
-      "seed": 12405,
-      "duration_seconds": 0.65,
-      "sha256": "e27b1d298d4a8f9ac634bbb944e0ec493880d21e6b41be85fd4299f8a6d1500a",
-      "codec_name": "vorbis",
-      "sample_rate": "48000",
-      "channels": 1
     }
   ]
 }

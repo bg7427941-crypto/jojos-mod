@@ -29,7 +29,7 @@ def pcm(kind,cue,duration,seed):
 def main():
     clips=[]
     for index,kind in enumerate(KINDS):
-        for number,(cue,duration) in enumerate([('summon',.42),('dismiss',.2),('cast',.3),('impact',.15)]+([('time_stop',.9),('resume',.65)] if kind=='the_world' else [])):
+        for number,(cue,duration) in enumerate([('summon',.42),('dismiss',.2),('cast',.3),('impact',.15)]):
             seed=12000+index*100+number;path=ROOT/f'src/main/resources/assets/jojosmod/sounds/{kind}/{cue}.ogg';path.parent.mkdir(parents=True,exist_ok=True)
             subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-f','s16le','-ar',str(RATE),'-ac','1','-i','pipe:0','-c:a','libvorbis','-q:a','4','-fflags','+bitexact','-flags:a','+bitexact','-y',str(path)],input=pcm(kind,cue,duration,seed),check=True)
             probe=json.loads(subprocess.check_output(['ffprobe','-v','error','-select_streams','a:0','-show_entries','stream=codec_name,channels,sample_rate','-of','json',str(path)]))['streams'][0]

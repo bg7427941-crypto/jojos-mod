@@ -382,7 +382,7 @@
       {
         "name": "jojosmod:the_world/time_stop",
         "stream": false,
-        "attenuation_distance": 24
+        "attenuation_distance": 32
       }
     ]
   },
@@ -392,7 +392,25 @@
       {
         "name": "jojosmod:the_world/resume",
         "stream": false,
-        "attenuation_distance": 24
+        "attenuation_distance": 32
+      }
+    ]
+  },
+  "star_platinum.time_stop": {
+    "subtitle": "subtitles.jojosmod.star_platinum.time_stop",
+    "sounds": [
+      {
+        "name": "jojosmod:star_platinum/time_stop",
+        "attenuation_distance": 32
+      }
+    ]
+  },
+  "star_platinum.resume": {
+    "subtitle": "subtitles.jojosmod.star_platinum.resume",
+    "sounds": [
+      {
+        "name": "jojosmod:star_platinum/resume",
+        "attenuation_distance": 32
       }
     ]
   }

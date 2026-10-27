@@ -112,6 +112,7 @@ tasks.named('jar', Jar) {
         rename { 'hierophant-green-provenance.json' }
     }
     from('art/part_three/asset-provenance.json') { into 'META-INF/jojosmod'; rename { 'part-three-provenance.json' } }
+    from('art/part_three/time-effects-provenance.json') { into 'META-INF/jojosmod'; rename { 'time-effects-provenance.json' } }
     from('art/part_three/sound-provenance.json') { into 'META-INF/jojosmod'; rename { 'sound-part-three.json' } }
     from('art/hierophant_green/sound-provenance.json') {
         into 'META-INF/jojosmod'

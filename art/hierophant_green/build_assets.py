@@ -160,7 +160,10 @@ def write_json(path, value):
 
 def main():
     model = geometry()
-    animations = animation_data()
+    import sys
+    sys.path.insert(0, str(ROOT / 'art/part_three'))
+    import motion
+    animations = motion.hierophant(animation_data(), model.sculpture.bones)
     runtime = {"format_version": "1.12.0", "minecraft:geometry": [{"description": {
         "identifier": "geometry.hierophant_green", "texture_width": SIZE, "texture_height": SIZE,
         "visible_bounds_width": 2.4, "visible_bounds_height": 2.8, "visible_bounds_offset": [0, 1, 0]},
@@ -189,7 +192,7 @@ def main():
     write_json(ASSETS / "items/hierophant_green_core.json", {"model": {"type": "minecraft:model", "model": "jojosmod:item/hierophant_green_core"}})
     write_json(ASSETS / "models/item/hierophant_green_core.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "jojosmod:item/hierophant_green_core"}})
     files = [geo, anim, texture, core_path]
-    manifest = {"version": "0.11.0", "license": "MIT for original resources and generator; character rights remain with their owners",
+    manifest = {"version": "0.12.1", "license": "MIT for original resources and generator; character rights remain with their owners",
         "authorship": "Original player-proportioned geometry, hand-painted procedural jade lattice atlas, six keyframed clips and core sprite. No imported model, texture, animation or recording inputs.",
         "export_utilities": "../star_platinum/model_export.py (project MIT conversion helpers only)",
         "source": "hierophant_green.bbmodel", "cubes": len(model.sculpture.sources), "bones": len(model.sculpture.bones),

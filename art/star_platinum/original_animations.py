@@ -30,7 +30,7 @@ CLIP_LENGTHS = {
     "idle": 2.4, "move": 1.2, "summon": 0.4, "dismiss": 0.2,
     "strike": 0.6, "barrage": 1.5, "guard": 0.8, "recover": 0.22,
     "star_finger": 0.9, "intercept": 0.6, "intercept_catch": 0.22,
-    "leap": 0.55, "leap_land": 0.25,
+    "leap": 0.55, "leap_land": 0.25, "time_stop": 0.7,
 }
 
 
@@ -590,6 +590,22 @@ def _leap_land():
                                (0.25, _ready())])
 
 
+def _time_stop():
+    ready = _ready()
+    charge = _pose(rotation={
+        "pelvis": [-2, 0, 2], "waist": [-5, 0, -2], "chest": [-10, 0, 0],
+        "neck": [6, 0, 0], "head": [4, 0, 0],
+        "right_upper_arm": [-42, -12, -67], "left_upper_arm": [-42, 12, 67],
+        "right_forearm": [-24, 0, 0], "left_forearm": [-24, 0, 0],
+        "right_hand": [-8, 6, 0], "left_hand": [-8, -6, 0],
+        "scarf_tail_left": [30, -8, 6], "scarf_tail_right": [34, 8, -6],
+        "loin_front": [-17, 0, 0], "loin_back": [24, 0, 0],
+    }, position={"hover": [0, 2, 0]})
+    follow = _pose(charge, rotation={"hair": [8, 0, 0], "scarf_tail_left": [36, -10, 7],
+                                   "scarf_tail_right": [39, 10, -7], "head": [2, 0, 0]})
+    return _clip("time_stop", [(0, ready), (.13, charge), (.3, follow), (.7, ready)])
+
+
 def build_animations():
     """Return the complete numeric GeckoLib Bedrock animation document."""
     clips = {
@@ -597,7 +613,7 @@ def build_animations():
         "dismiss": _dismiss(), "strike": _strike(), "barrage": _barrage(),
         "guard": _guard(), "recover": _recover(), "star_finger": _star_finger(),
         "intercept": _intercept(), "intercept_catch": _intercept_catch(),
-        "leap": _leap(), "leap_land": _leap_land(),
+        "leap": _leap(), "leap_land": _leap_land(), "time_stop": _time_stop(),
     }
     return {"format_version": "1.8.0", "animations": {
         f"animation.star_platinum.{name}": clip for name, clip in clips.items()

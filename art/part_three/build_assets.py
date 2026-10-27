@@ -6,6 +6,7 @@ Requires Pillow; preview.py additionally requires NumPy.
 from pathlib import Path
 import importlib.util,json,math,uuid,hashlib
 import adapt_models
+import motion
 from PIL import Image,ImageDraw
 ROOT=Path(__file__).resolve().parents[2]; HERE=Path(__file__).resolve().parent
 ASSETS=ROOT/'src/main/resources/assets/jojosmod'
@@ -124,7 +125,7 @@ def sprite(kind,palette):
     return img
 
 def main():
-    manifest={'version':'0.12.0','license':'Roundabout License v1.2 for the three adapted models/atlases; MIT for original assets, animations and generators; character rights retained by their owners','authorship':'Three pinned Roundabout geometries/UVs/anime atlases adapted through the Star Platinum conversion workflow; original Hermit Purple/The Fool sculptures, original action keyframes and core sprites. No upstream animation keyframes imported.','models':{},'files':{},'upstream':adapt_models.pinned_sources()}
+    manifest={'version':'0.12.1','license':'Roundabout License v1.2 for the three adapted models/atlases; MIT for original assets, animations and generators; character rights retained by their owners','authorship':'Three pinned Roundabout geometries/UVs/anime atlases adapted through the Star Platinum conversion workflow; original Hermit Purple/The Fool sculptures, original action keyframes and core sprites. No upstream animation keyframes imported.','models':{},'files':{},'upstream':adapt_models.pinned_sources()}
     for kind in KINDS:
         TOOLS.stable_id=lambda name,k=kind:str(uuid.uuid5(uuid.NAMESPACE_URL,'jojosmod/part-three/v1/'+k+'/'+name))
         palette=PALETTES[kind];tools.PALETTE=dict(zip(['plate','ivory','dark','gem','gold'],palette));tools.SIZE=512
@@ -138,6 +139,7 @@ def main():
         if kind in adapt_models.ADAPTED: model=adapt_models.sculpt(kind,model)
         else: GEOMETRY[kind](model)
         animation=clips(kind,model)
+        if kind != 'hermit_purple': animation=motion.clips(kind,model.sculpture.bones,animation)
         folder=HERE/kind;folder.mkdir(exist_ok=True)
         tex=ASSETS/f'textures/entity/{kind}.png'
         if kind in adapt_models.ADAPTED:

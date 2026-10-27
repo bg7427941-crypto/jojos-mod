@@ -40,3 +40,27 @@ y atribución de Roundabout descritas arriba.
 Las vistas del rasterizador son ayuda de desarrollo: la entrega requiere revisar
 GeckoLib y las transiciones dentro de Minecraft. Las técnicas y sus adaptaciones
 se explican en [el diseño](../../docs/part-three-stands-design.md).
+
+
+## Presentación 0.12.1
+
+`motion.py` crea poses originales de cuerpo completo con muestras suavizadas a
+40 Hz. Conserva los contactos del servidor: Chariot a 0,15 s, The World a 0,20 s,
+Magician's Red a 0,30 s, y los seis/diez contactos de sus ráfagas cada 0,10 s.
+Hierophant Green comparte este autor de movimiento y mantiene sus pulsos a
+0,30 / 0,40 / 0,50 s. Los proyectos Blockbench se regeneran con los mismos clips.
+Star Platinum mantiene su autor independiente y suma una pose temporal de 0,70 s.
+
+Las lianas visibles de Hermit Purple ahora se construyen como una capa del
+modelo de jugador: `HermitPurpleLayer.java` contiene la malla local original,
+con variantes para brazos normales y delgados, y reutiliza exactamente las
+transformaciones de los brazos en primera y tercera persona. El proyecto
+`hermit_purple.bbmodel` conserva el modelo independiente como fuente de arte;
+ese modelo ya no se dibuja como entidad separada en el juego.
+
+`python art/part_three/build_time_effects.py` genera cuatro efectos temporales
+originales y `hermit_purple_arms.png`; su procedencia está en
+`time-effects-provenance.json`. `build_sounds.py` conserva los veinte sonidos
+base, y el generador temporal se ejecuta después para los cuatro sonidos nuevos.
+El shader `time_stop.fsh` también es original. No se han importado animaciones,
+sonidos ni shaders de Roundabout para estos cambios.

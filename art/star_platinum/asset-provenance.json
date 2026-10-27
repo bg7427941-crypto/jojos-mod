@@ -1,7 +1,7 @@
 {
   "credit": "Star Platinum geometry, UVs and anime atlas adapted from Roundabout by Hydraheads and contributors; JoJo's Mod rig adaptation and original animation; character by Hirohiko Araki.",
   "license": "Roundabout License v1.2 for adapted geometry/UVs/atlas; MIT for our adaptation source and original animation; character rights retained by their holders",
-  "method": "Pinned Roundabout geometry and Part 3 anime atlas, bind transforms baked, wrists and ankles split with cropped UVs, mapped to our 29-bone rig and 13 original action clips.",
+  "method": "Pinned Roundabout geometry and Part 3 anime atlas, bind transforms baked, wrists and ankles split with cropped UVs, mapped to our 29-bone rig and 14 original action clips.",
   "upstream": {
     "repository": "https://github.com/Hydraheads/RoundaboutMod",
     "commit": "f2390f1240e9b49444d6013e79bfda2038a542fb",
@@ -27,7 +27,7 @@
     "Split gloves at Y=14 and boots at Y=2 with cropped UVs",
     "Omitted source barrage/kick duplicates and single finger",
     "Added two right-hand finger extensions",
-    "Retained our 13 action clips; no upstream keyframes imported",
+    "Retained our 14 action clips; no upstream keyframes imported",
     "Anime atlas copied byte-for-byte"
   ],
   "bones": 29,
@@ -36,11 +36,11 @@
     128,
     128
   ],
-  "animations": 13,
+  "animations": 14,
   "animation_audit": {
-    "clips": 13,
-    "bone_tracks": 416,
-    "numeric_keys": 7745,
+    "clips": 14,
+    "bone_tracks": 448,
+    "numeric_keys": 8270,
     "barrage_contacts": 8,
     "star_finger_peak_seconds": 0.4,
     "star_finger_retracted_seconds": 0.7,
@@ -79,9 +79,9 @@
   },
   "texture_sha256": "855f5a9bb9bf96a16ed2a09902d72deba88d1593e7a6ee1ecd6034e8ae55e8ca",
   "geometry_sha256": "b13fe6c37cf0cb5700c2e992a1c17e02214534021acd26ad90284f3aa0d921da",
-  "animation_sha256": "2c43972ec175e88428afee63cc965257d3def70640fea5932a301a61d156f917",
-  "model_source_sha256": "1f64a78683e9b342f69c3e988c221693c733450f2e48eef3f768bdfba7478393",
-  "animation_source_sha256": "c11c2c76eef05d697b09d56b3e933a0b140a2bf283c66153c2ee27118cafd13e",
+  "animation_sha256": "9f529540f44ea9d926a5ddb86644bfcf8e4e6647d801e8772cfc913ac3089d05",
+  "model_source_sha256": "41fda34ed72a75ccc8e1bf5c0edee5fd2b0b7a199867b0b7a06bbaff28f3a1ea",
+  "animation_source_sha256": "dc9022c294b05d6c53f219f9974b978f10a172a57d1e7d66633dc633614a9321",
   "export_source_sha256": "78f07f1e0f52c5424d11a84392693a73c5145c277f50a03c2caecec4ee82092e",
   "transform_source_sha256": "a3c13165e0b75dada74ed23be69871657df3e84857adcb89e50f8768859192da"
 }

@@ -220,12 +220,12 @@ def main():
                   for item in sculpture.sources for face, uv in item["cube"]["uv"].items()]
     (ART / "uv-layout.json").write_text(json.dumps(tidy(uv_records), indent=2) + "\n", encoding="utf-8")
     manifest = {"credit": CREDIT, "license": "Roundabout License v1.2 for adapted geometry/UVs/atlas; MIT for our adaptation source and original animation; character rights retained by their holders",
-        "method": "Pinned Roundabout geometry and Part 3 anime atlas, bind transforms baked, wrists and ankles split with cropped UVs, mapped to our 29-bone rig and 13 original action clips.",
+        "method": "Pinned Roundabout geometry and Part 3 anime atlas, bind transforms baked, wrists and ankles split with cropped UVs, mapped to our 29-bone rig and 14 original action clips.",
         "upstream": {"repository": "https://github.com/Hydraheads/RoundaboutMod", "commit": COMMIT,
             "model": {"url": BASE_URL + "bbmodels/Stands/Star%20Platinum/star_platinum.bbmodel", "blob": MODEL_BLOB, "sha256": sha256(UPSTREAM / "star_platinum.bbmodel")},
             "texture": {"url": BASE_URL + "common/src/main/resources/assets/roundabout/textures/stand/star_platinum/anime.png", "blob": TEXTURE_BLOB, "sha256": sha256(UPSTREAM / "anime.png")},
             "license": {"url": BASE_URL + "LICENSE", "blob": LICENSE_BLOB, "local": "upstream/LICENSE-Roundabout.txt"}},
-        "modifications": ["Flattened static bind rotations into cube transforms", "Mapped body and cloth to the existing action rig", "Split gloves at Y=14 and boots at Y=2 with cropped UVs", "Omitted source barrage/kick duplicates and single finger", "Added two right-hand finger extensions", "Retained our 13 action clips; no upstream keyframes imported", "Anime atlas copied byte-for-byte"],
+        "modifications": ["Flattened static bind rotations into cube transforms", "Mapped body and cloth to the existing action rig", "Split gloves at Y=14 and boots at Y=2 with cropped UVs", "Omitted source barrage/kick duplicates and single finger", "Added two right-hand finger extensions", "Retained our 14 action clips; no upstream keyframes imported", "Anime atlas copied byte-for-byte"],
         "bones": len(sculpture.bones), "cubes": len(sculpture.sources), "atlas": [128, 128],
         "animations": len(animation_data["animations"]), "animation_audit": audit,
         "texture_sha256": sha256(texture_path), "geometry_sha256": sha256(geometry_path),

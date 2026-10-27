@@ -191,5 +191,7 @@
   "subtitles.jojosmod.the_world.cast": "The World · uses a technique",
   "subtitles.jojosmod.the_world.impact": "The World · impact",
   "subtitles.jojosmod.the_world.time_stop": "Time stops",
-  "subtitles.jojosmod.the_world.resume": "Time resumes"
+  "subtitles.jojosmod.the_world.resume": "Time resumes",
+  "subtitles.jojosmod.star_platinum.time_stop": "Star Platinum stops time",
+  "subtitles.jojosmod.star_platinum.resume": "Star Platinum: time resumes"
 }

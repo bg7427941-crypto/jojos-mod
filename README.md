@@ -1,3 +1,7 @@
+> **0.12.1 — presentación:** sonidos distintos y efecto temporal para The World y
+> Star Platinum, Hermit Purple unido a los brazos y animaciones más fluidas.
+> Cliente y servidor: **protocolo 11**. [Guía de prueba](docs/playtest-0.12.1.md).
+
 # JoJo's Mod
 
 Mod de Minecraft inspirado en los Stands de JoJo's Bizarre Adventure. Código MIT;

@@ -2,7 +2,16 @@
   "required": true,
   "package": "io.github.bg7427941.jojosmod.mixin",
   "compatibilityLevel": "JAVA_25",
-  "mixins": ["FrozenPlayerPackets"],
-  "client": ["FrozenClientInput"],
-  "injectors": {"defaultRequire": 1}
+  "mixins": [
+    "FrozenPlayerPackets"
+  ],
+  "client": [
+    "FrozenClientInput",
+    "TimeSceneRenderer",
+    "TimeSceneUniform",
+    "HermitFirstPersonArm"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }

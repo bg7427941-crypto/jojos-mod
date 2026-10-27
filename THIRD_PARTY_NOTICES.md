@@ -99,3 +99,13 @@ entrega son originales MIT. No se usan entradas de grabación ni keyframes de
 Roundabout. Los manifiestos se incluyen en el JAR bajo `META-INF/jojosmod`.
 Los personajes son de Hirohiko Araki y sus titulares; estas licencias no transfieren
 los derechos sobre los personajes. Los recursos anteriores conservan su procedencia.
+
+
+### Presentación temporal y movimiento (0.12.1)
+
+Los cuatro efectos de detención/reanudación, la textura de lianas para brazos,
+el shader temporal y las nuevas poses de movimiento son originales del proyecto,
+bajo MIT. No contienen grabaciones del anime ni keyframes de terceros. La
+procedencia reproducible está en `art/part_three/time-effects-provenance.json`.
+Las geometrías y atlas adaptados de Roundabout conservan sus créditos y licencia.
+Los ocho clips añadidos manualmente anteriormente no se han modificado.

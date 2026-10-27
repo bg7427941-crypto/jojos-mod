@@ -1,5 +1,5 @@
 {
-  "version": "0.12.0",
+  "version": "0.12.1",
   "license": "Roundabout License v1.2 for the three adapted models/atlases; MIT for original assets, animations and generators; character rights retained by their owners",
   "authorship": "Three pinned Roundabout geometries/UVs/anime atlases adapted through the Star Platinum conversion workflow; original Hermit Purple/The Fool sculptures, original action keyframes and core sprites. No upstream animation keyframes imported.",
   "models": {
@@ -61,11 +61,11 @@
   },
   "files": {
     "src/main/resources/assets/jojosmod/geckolib/models/entity/silver_chariot.geo.json": "a5fe27ac1087358e80d58db850b6032a360f55f5ad1c80d46f7dfc1ba09a906f",
-    "src/main/resources/assets/jojosmod/geckolib/animations/entity/silver_chariot.animation.json": "198958c9a8de3a320f1b00b6fd4ea35266d8b1c0641ebb5ab4788d81b09cc39b",
+    "src/main/resources/assets/jojosmod/geckolib/animations/entity/silver_chariot.animation.json": "19ff09aec3a0f6dc17f3715d7ab32058a657e95eaa5b33e4f679ca0e70f74ad0",
     "src/main/resources/assets/jojosmod/textures/entity/silver_chariot.png": "7edd50751224320d1e4cc92f2ecb58ccf6ec39355aad29119191f5369b1c3727",
     "src/main/resources/assets/jojosmod/textures/item/silver_chariot_core.png": "4440c15419864c085ab99a50d1aff4192e42db38c7d8c65266bda21315df1ab7",
     "src/main/resources/assets/jojosmod/geckolib/models/entity/magicians_red.geo.json": "6f67b669293e8874bcccd569ddfa70ff97d20a96e1e314b23d4f88a8b35a67c0",
-    "src/main/resources/assets/jojosmod/geckolib/animations/entity/magicians_red.animation.json": "e6996dd2d985d70a0370dd54275155e527af21d306b3a894f78c9850e7eea085",
+    "src/main/resources/assets/jojosmod/geckolib/animations/entity/magicians_red.animation.json": "7abce523c3853ff3e048ddc020471a9878f74fdc219bfdf2f99abf3dfccd2d31",
     "src/main/resources/assets/jojosmod/textures/entity/magicians_red.png": "356e16e9ac6898afc842ece1df608c434e3b3cd9c59c5989484a18e4ce29c233",
     "src/main/resources/assets/jojosmod/textures/item/magicians_red_core.png": "fd6d15bfe24dcbfc30a20c139749e263375c134fc80e61872945b62272219a1d",
     "src/main/resources/assets/jojosmod/geckolib/models/entity/hermit_purple.geo.json": "e95830900027d123c79ba8bed4d28d86398e92e544da2fa7689753b8fcd3150b",
@@ -73,11 +73,11 @@
     "src/main/resources/assets/jojosmod/textures/entity/hermit_purple.png": "52a5c95d81db1dcb141ebb24838c0ea75d36a96bc89a42a9ae047b5486eb2f9d",
     "src/main/resources/assets/jojosmod/textures/item/hermit_purple_core.png": "94b0109f0040ffefafb200b745026f8c0c0bd9dae30c6c9f6da05519227bb5b7",
     "src/main/resources/assets/jojosmod/geckolib/models/entity/the_fool.geo.json": "4f20aac6ac278c4a92e05099c3b75ce317122c3a3e929a350d2f637825e15170",
-    "src/main/resources/assets/jojosmod/geckolib/animations/entity/the_fool.animation.json": "b3d0a5e5c763a1f98deb4290c5d02654b70d36288b1df1b49f3b6d227327a456",
+    "src/main/resources/assets/jojosmod/geckolib/animations/entity/the_fool.animation.json": "dccb03a5a12ea053b4ae3e03adabb31a7c4153c4fe91dfc76275241b068006e0",
     "src/main/resources/assets/jojosmod/textures/entity/the_fool.png": "cf63b08f12ed7d15c733e718fc20e703dd0bfa0736d01338cc578034e134b66d",
     "src/main/resources/assets/jojosmod/textures/item/the_fool_core.png": "d7b5642c3926fd0a6985691dbb797481b5cdcce9b6f67f4621bf9d5728dfb681",
     "src/main/resources/assets/jojosmod/geckolib/models/entity/the_world.geo.json": "024b2cccc3c76fe57f5a2f9b3a2d25c8be15948d6eb42ee08653535ab94aa70b",
-    "src/main/resources/assets/jojosmod/geckolib/animations/entity/the_world.animation.json": "1469a2addb7117a5feae31a34ab83ce84a0b09c79c09bee323759c6a19e6a21d",
+    "src/main/resources/assets/jojosmod/geckolib/animations/entity/the_world.animation.json": "a5046869099ebd89c41b30e32e04ea8ed0cdc561078a9fa3f76628fe564c096f",
     "src/main/resources/assets/jojosmod/textures/entity/the_world.png": "b0cf8556ba7b6903104d5db39e6f4ce53ce290833afaf2e5b5e55446fe140fe3",
     "src/main/resources/assets/jojosmod/textures/item/the_world_core.png": "7bf8dc789a8b3be0d1cca6e85f3409fc12e72f319b11174ec7cab149c4a6f30b"
   },

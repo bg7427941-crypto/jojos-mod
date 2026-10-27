@@ -47,7 +47,7 @@ public final class CrusaderGameTests {
             "rapier_flurry", "red_bind_cleanup", "vine_anchor_and_collision", "sand_shell_and_glide", "muda_and_guard",
             "armor_tradeoff", "divination_cooldown", "flame_lifetime_and_cancel", "interruption_and_switch",
             "mastery_coop_and_absorption", "persistence_network_legacy", "five_recipes_and_storage", "allies_and_pvp",
-            "time_stop_lifecycle_and_packets", "muda_barrage", "flame_guard", "red_bind_expiry");
+            "time_stop_lifecycle_and_packets", "muda_barrage", "flame_guard", "red_bind_expiry", "time_scene_codec", "hermit_arm_follow");
     private static final DeferredRegister<MapCodec<? extends GameTestInstance>> TYPES = DeferredRegister.create(Registries.TEST_INSTANCE_TYPE, MOD_ID);
     static { TYPES.register("crusader", () -> Test.CODEC); }
     public static void register(IEventBus bus) { TYPES.register(bus); bus.addListener(CrusaderGameTests::registerTests); }
@@ -308,8 +308,44 @@ public final class CrusaderGameTests {
         }
         h.succeed();
     }
+    private static void sceneCodec(GameTestHelper h) {
+        var center = new Vec3(17.5, 80.25, -31.75);
+        var owner = UUID.randomUUID();
+        for (boolean world : new boolean[]{false, true}) for (int remaining : new int[]{0, 1, 40, 60}) {
+            var payload = new io.github.bg7427941.jojosmod.network.TimeScenePayload(owner, center, world, 13, remaining);
+            var buffer = new FriendlyByteBuf(Unpooled.buffer());
+            try {
+                io.github.bg7427941.jojosmod.network.TimeScenePayload.STREAM_CODEC.encode(buffer, payload);
+                var decoded = io.github.bg7427941.jojosmod.network.TimeScenePayload.STREAM_CODEC.decode(buffer);
+                check(h, decoded.equals(payload) && !buffer.isReadable(), "Time scene lost caster, palette, center or lifetime");
+            } finally { buffer.release(); }
+        }
+        h.succeed();
+    }
+    private static void hermitFollow(GameTestHelper h) {
+        try (var f = fixture(h, PartThreeStand.HERMIT_PURPLE)) {
+            for (int i = 0; i < 6; i++) {
+                f.owner.setPos(f.owner.position().add(.8, 0, .5)); f.owner.setYRot(i * 67);
+                f.stand.tick();
+                check(h, f.stand.distanceToSqr(f.owner) < 1E-8, "Arm vines trailed their owner's server anchor");
+                check(h, f.stand.getOwnerEntityId() == f.owner.getId(), "Observers lost the vine owner identity");
+            }
+        }
+        h.succeed();
+    }
     private static void time(GameTestHelper h) {
         // A separate test environment runs this local bubble after the other combat cases.
+        var sounds = new ArrayList<Identifier>();
+        java.util.function.Consumer<net.neoforged.neoforge.event.PlayLevelSoundEvent.AtPosition> soundListener = event -> {
+            if (event.getLevel() == h.getLevel() && event.getSound() != null) sounds.add(event.getSound().value().location());
+        };
+        NeoForge.EVENT_BUS.addListener(net.neoforged.neoforge.event.PlayLevelSoundEvent.AtPosition.class, soundListener);
+        h.testInfo.addListener(new GameTestListener() {
+            public void testStructureLoaded(GameTestInfo info) {}
+            public void testPassed(GameTestInfo info, GameTestRunner runner) { NeoForge.EVENT_BUS.unregister(soundListener); }
+            public void testFailed(GameTestInfo info, GameTestRunner runner) { NeoForge.EVENT_BUS.unregister(soundListener); }
+            public void testAddedForRerun(GameTestInfo original, GameTestInfo copy, GameTestRunner runner) {}
+        });
         var f = fixture(h, PartThreeStand.THE_WORLD);
         h.getLevel().getChunkAt(f.owner.blockPosition());
         var target = enemy(h, f.owner.position().add(0, 0, 4)); target.setDeltaMovement(.2, .1, .3);
@@ -318,6 +354,7 @@ public final class CrusaderGameTests {
         f.owner.protectedPlayers.add(friend.getUUID()); PlayerStands.assign(star, ModStands.STAR_PLATINUM.id()); PlayerWillpower.set(star, 6);
         check(h, !TimeStop.start(f.owner), "Time stop ignored learning requirement"); PlayerWillpower.set(f.owner, 4);
         check(h, TimeStop.start(f.owner), "Time stop did not start");
+        check(h, sounds.contains(Identifier.fromNamespaceAndPath("jojosmod", "the_world.time_stop")), "The World did not emit its time sound");
         check(h, TimeStop.isFrozen(target) && TimeStop.isFrozen(victim) && !TimeStop.isFrozen(friend) && !TimeStop.isFrozen(star), "Time bubble target/PvP/compatible rules failed");
         var pre = new EntityTickEvent.Pre(target); NeoForge.EVENT_BUS.post(pre); check(h, pre.isCanceled(), "A frozen mob still ticked");
         victim.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIAMOND));
@@ -329,6 +366,7 @@ public final class CrusaderGameTests {
         h.runAfterDelay(63, () -> {
             TimeStop.tick(h.getLevel());
             check(h, !TimeStop.isFrozen(victim) && !victim.getData(ModAttachments.TIME_FROZEN) && !TimeStop.isFrozen(arrow), "Time did not resume");
+            check(h, sounds.contains(Identifier.fromNamespaceAndPath("jojosmod", "the_world.resume")), "The World did not emit its resume sound");
             check(h, !TimeStop.start(f.owner), "Resuming reset the 30-second cooldown");
             // A fresh owner can start a bubble; dismissal must restore all movement immediately.
             var other = fixture(h, PartThreeStand.THE_WORLD, new Vec3(6.5, 1, 2.5)); PlayerWillpower.set(other.owner, 4);
@@ -352,9 +390,11 @@ public final class CrusaderGameTests {
             var advanced = new TestPlayer(h.getLevel()); advanced.snapTo(f.owner.position(), 0, 0);
             PlayerStands.assign(advanced, ModStands.STAR_PLATINUM.id()); PlayerWillpower.set(advanced, 6);
             check(h, StandController.toggle(advanced) && TimeStop.start(advanced), "Advanced Star Platinum could not stop time");
+            check(h, sounds.getLast().equals(ModSounds.STAR_TIME_STOP.get().location()), "Star Platinum reused The World audio");
             h.runAfterDelay(43, () -> {
                 TimeStop.tick(h.getLevel());
                 check(h, !TimeStop.isFrozen(victim) && !victim.getData(ModAttachments.TIME_FROZEN), "Star Platinum time did not resume after two seconds");
+                check(h, sounds.getLast().equals(ModSounds.STAR_TIME_RESUME.get().location()), "Star Platinum resume used the wrong sound");
                 victim.connection.handlePlayerAction(new ServerboundPlayerActionPacket(ServerboundPlayerActionPacket.Action.DROP_ITEM, BlockPos.ZERO, Direction.DOWN, 0));
                 check(h, victim.getMainHandItem().isEmpty(), "Player actions remained blocked after time resumed");
                 StandController.dismiss(advanced); advanced.discard(); f.close(); target.discard(); arrow.discard(); friend.discard(); victim.discard(); star.discard(); h.succeed();
@@ -383,6 +423,7 @@ public final class CrusaderGameTests {
         Test(TestData<Holder<TestEnvironmentDefinition<?>>> data, String name) { super(data); this.name = name; }
         @Override public void run(GameTestHelper h) {
             switch (name) {
+                case "time_scene_codec" -> sceneCodec(h); case "hermit_arm_follow" -> hermitFollow(h);
                 case "rapier_flurry" -> barrage(h, PartThreeStand.SILVER_CHARIOT); case "muda_and_guard" -> { guard(h); }
                 case "muda_barrage" -> barrage(h, PartThreeStand.THE_WORLD);
                 case "flame_guard" -> flameGuard(h); case "red_bind_expiry" -> bindExpiry(h);

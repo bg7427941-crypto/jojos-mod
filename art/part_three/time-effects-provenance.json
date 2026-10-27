@@ -1,0 +1,40 @@
+{
+  "version": "0.12.1",
+  "license": "MIT",
+  "authorship": "Original mathematical time audio and arm-vine atlas. No imported recording or image inputs.",
+  "generator": "art/part_three/build_time_effects.py",
+  "clips": [
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/the_world/time_stop.ogg",
+      "duration_seconds": 1.25,
+      "channels": 1,
+      "sample_rate": 48000,
+      "sha256": "921d51d979e1cd081da51e590547a9acfb96b7ca4d04566be4ddb2f7d585ae04"
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/the_world/resume.ogg",
+      "duration_seconds": 0.65,
+      "channels": 1,
+      "sample_rate": 48000,
+      "sha256": "9aab5402ef6e0a2cd0d8db6d499a07d75cdde3e5f4dc44f1f599620bebbb6a04"
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/star_platinum/time_stop.ogg",
+      "duration_seconds": 0.95,
+      "channels": 1,
+      "sample_rate": 48000,
+      "sha256": "551de1d5c8268b3b34092dee7d98dcfff5acb3c5bdcdcf0d249e7eb4b25e9d4e"
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/star_platinum/resume.ogg",
+      "duration_seconds": 0.65,
+      "channels": 1,
+      "sample_rate": 48000,
+      "sha256": "7f8f7456a5fd9bdfbec70ed806f71bb33be68d1121568edb9d609389c1295257"
+    }
+  ],
+  "texture": {
+    "file": "src/main/resources/assets/jojosmod/textures/entity/hermit_purple_arms.png",
+    "sha256": "b0e4a24a5732827cb422bdc9f95399738393f576d0fa3e1add98229e86db7b75"
+  }
+}

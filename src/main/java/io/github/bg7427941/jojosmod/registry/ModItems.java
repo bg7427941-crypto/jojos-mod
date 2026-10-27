@@ -36,6 +36,8 @@ public final class ModItems {
             ITEMS.registerSimpleItem("little_feet_core", properties -> properties.stacksTo(1));
     public static final DeferredItem<Item> STAR_PLATINUM_CORE =
             ITEMS.registerSimpleItem("star_platinum_core", properties -> properties.stacksTo(1));
+    public static final DeferredItem<Item> HIEROPHANT_GREEN_CORE =
+            ITEMS.registerSimpleItem("hierophant_green_core", properties -> properties.stacksTo(1));
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> JOJOS_TAB =
             TABS.register("jojos_mod", () -> CreativeModeTab.builder()
@@ -51,9 +53,11 @@ public final class ModItems {
                         output.accept(ECHOES_ACT_1_CORE.get());
                         output.accept(LITTLE_FEET_CORE.get());
                         output.accept(STAR_PLATINUM_CORE.get());
+                        output.accept(HIEROPHANT_GREEN_CORE.get());
                         output.accept(StandDiscItem.containing(ModStands.ECHOES_ACT_1));
                         output.accept(StandDiscItem.containing(ModStands.LITTLE_FEET));
                         output.accept(StandDiscItem.containing(ModStands.STAR_PLATINUM));
+                        output.accept(StandDiscItem.containing(ModStands.HIEROPHANT_GREEN));
                     })
                     .build());
 

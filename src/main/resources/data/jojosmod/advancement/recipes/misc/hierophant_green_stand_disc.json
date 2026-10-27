@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_core": {"trigger": "minecraft:inventory_changed", "conditions": {"items": [{"items": "jojosmod:hierophant_green_core"}]}},
+    "has_the_recipe": {"trigger": "minecraft:recipe_unlocked", "conditions": {"recipes": "jojosmod:hierophant_green_stand_disc"}}
+  },
+  "requirements": [["has_core", "has_the_recipe"]],
+  "rewards": {"recipes": ["jojosmod:hierophant_green_stand_disc"]}
+}

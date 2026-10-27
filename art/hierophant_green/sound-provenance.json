@@ -1,0 +1,53 @@
+{
+  "license": "MIT",
+  "authorship": "Original mathematical synthesis by JoJo's Mod; no recording inputs.",
+  "generator": "build_sounds.py",
+  "ffmpeg": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+  "clips": [
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/hierophant_green/summon.ogg",
+      "seed": 11001,
+      "duration_seconds": 0.55,
+      "sha256": "5b37e1288c13e0c36936c4838d9f1e75d22db98c25426102e45f352839158335",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/hierophant_green/dismiss.ogg",
+      "seed": 11002,
+      "duration_seconds": 0.2,
+      "sha256": "f6a4c32cfd6e70af25ea957358e62c455ae6295875e3591f9da83be39dff03f7",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/hierophant_green/charge.ogg",
+      "seed": 11003,
+      "duration_seconds": 0.3,
+      "sha256": "30f0d79bbe0cdd52efac6075d02421e8bbffdccb81632129a39767b25ceea01f",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/hierophant_green/splash.ogg",
+      "seed": 11004,
+      "duration_seconds": 0.14,
+      "sha256": "8b9ca0d6f324000836c7ea63421cc5e4b5dfccf71614f5abbb6e56c8d74ae6d1",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    },
+    {
+      "file": "src/main/resources/assets/jojosmod/sounds/hierophant_green/impact.ogg",
+      "seed": 11005,
+      "duration_seconds": 0.12,
+      "sha256": "6f6eb5e6c001794319cb09019687c9c0b3a6a9b52da43e4abe1c2f117d620d08",
+      "codec_name": "vorbis",
+      "sample_rate": "48000",
+      "channels": 1
+    }
+  ]
+}

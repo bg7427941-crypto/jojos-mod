@@ -6,8 +6,10 @@ import io.github.bg7427941.jojosmod.stands.PlayerStands;
 import io.github.bg7427941.jojosmod.stands.PlayerWillpower;
 import io.github.bg7427941.jojosmod.stands.StarPlatinumProgress;
 import io.github.bg7427941.jojosmod.stands.StarPlatinumProgress.Milestone;
+import io.github.bg7427941.jojosmod.stands.HierophantProgress;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
+import java.util.List;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -32,10 +34,21 @@ public final class StandHud {
         var player = minecraft.player;
         if (player == null || minecraft.level == null || minecraft.gui.hud.isHidden()
                 || minecraft.gui.screen() != null || minecraft.gui.overlay() != null
-                || minecraft.getDebugOverlay().showDebugScreen() || !player.isAlive() || player.isSpectator()
-                || PlayerStands.get(player).standId().filter(ModStands.STAR_PLATINUM.id()::equals).isEmpty()) {
+                || minecraft.getDebugOverlay().showDebugScreen() || !player.isAlive() || player.isSpectator()) {
             return;
         }
+        var assignment = PlayerStands.get(player).standId();
+        if (assignment.filter(ModStands.HIEROPHANT_GREEN.id()::equals).isPresent()) {
+            var progress = HierophantProgress.get(player);
+            draw(graphics, minecraft, List.of(
+                    Component.translatable("hud.jojosmod.willpower", Component.translatable(ModStands.HIEROPHANT_GREEN.translationKey()), PlayerWillpower.get(player)),
+                    Component.translatable("hud.jojosmod.hierophant.mastery", progress.splashTargets().size(), HierophantProgress.TARGETS_REQUIRED),
+                    Component.translatable(progress.completed() ? "hud.jojosmod.hierophant.mastered" : "hud.jojosmod.hierophant.splash",
+                            Component.keybind("key.jojosmod.basic_attack"))),
+                    List.of(0xFFE9FFF0, 0xFFC1E6CC, 0xFFF2D278), 0xFF45C88D);
+            return;
+        }
+        if (assignment.filter(ModStands.STAR_PLATINUM.id()::equals).isEmpty()) return;
 
         var progress = StarPlatinumProgress.get(player);
         int goal = StarPlatinumProgress.TARGETS_REQUIRED;
@@ -55,7 +68,6 @@ public final class StandHud {
                 : Component.translatable("hud.jojosmod.star_finger.locked", fingerKey,
                         StarPlatinumProgress.STAR_FINGER_REQUIREMENT);
 
-        var font = minecraft.font;
         boolean interceptUnlocked = StarPlatinumProgress.interceptUnlocked(player);
         var interceptKey = Component.keybind("key.jojosmod.star_intercept");
         var interception = interceptUnlocked
@@ -67,27 +79,28 @@ public final class StandHud {
         var leapKey = Component.keybind("key.jojosmod.star_leap");
         var leap = leapUnlocked ? Component.translatable("hud.jojosmod.leap.unlocked", leapKey)
                 : Component.translatable("hud.jojosmod.leap.locked", leapKey, StarPlatinumProgress.LEAP_REQUIREMENT);
-        int textWidth = Math.max(Math.max(font.width(title), font.width(mastery)),
-                Math.max(font.width(ability), font.width(interception)));
-        int width = Math.max(Math.max(textWidth, font.width(leap)), font.width(advanced)) + PADDING * 2;
-        int height = font.lineHeight * 6 + PADDING * 2;
+        draw(graphics, minecraft, List.of(title, mastery, advanced, ability, interception, leap),
+                List.of(0xFFF2E9FF, 0xFFD3C0EC, 0xFFD3C0EC, unlocked ? 0xFFF2D278 : 0xFFB8B4C4,
+                        interceptUnlocked ? 0xFFF2D278 : 0xFFB8B4C4, leapUnlocked ? 0xFFF2D278 : 0xFFB8B4C4), 0xFF9470C9);
+    }
+
+    private static void draw(GuiGraphicsExtractor graphics, Minecraft minecraft, List<Component> lines,
+            List<Integer> colors, int accent) {
+        var font = minecraft.font;
+        int textWidth = lines.stream().mapToInt(font::width).max().orElse(0);
+        int width = textWidth + PADDING * 2;
+        int height = font.lineHeight * lines.size() + PADDING * 2;
         float scale = Math.min(1.0F, Math.max(1, graphics.guiWidth() - X * 2) / (float) width);
 
         graphics.pose().pushMatrix();
         graphics.pose().translate(X, Y);
         graphics.pose().scale(scale, scale);
         graphics.fill(0, 0, width, height, 0xBE11101C);
-        graphics.fill(0, 0, 2, height, 0xFF9470C9);
+        graphics.fill(0, 0, 2, height, accent);
         graphics.fill(2, 0, width, 1, 0xFFD8B85C);
-        graphics.text(font, title, PADDING, PADDING, 0xFFF2E9FF, false);
-        graphics.text(font, mastery, PADDING, PADDING + font.lineHeight, 0xFFD3C0EC, false);
-        graphics.text(font, advanced, PADDING, PADDING + font.lineHeight * 2, 0xFFD3C0EC, false);
-        graphics.text(font, ability, PADDING, PADDING + font.lineHeight * 3,
-                unlocked ? 0xFFF2D278 : 0xFFB8B4C4, false);
-        graphics.text(font, interception, PADDING, PADDING + font.lineHeight * 4,
-                interceptUnlocked ? 0xFFF2D278 : 0xFFB8B4C4, false);
-        graphics.text(font, leap, PADDING, PADDING + font.lineHeight * 5,
-                leapUnlocked ? 0xFFF2D278 : 0xFFB8B4C4, false);
+        for (int row = 0; row < lines.size(); row++) {
+            graphics.text(font, lines.get(row), PADDING, PADDING + font.lineHeight * row, colors.get(row), false);
+        }
         graphics.pose().popMatrix();
     }
 }

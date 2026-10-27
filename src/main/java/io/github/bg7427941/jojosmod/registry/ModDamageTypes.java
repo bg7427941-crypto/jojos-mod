@@ -12,11 +12,18 @@ import net.minecraft.world.damagesource.DamageType;
 public final class ModDamageTypes {
     public static final ResourceKey<DamageType> STAND_BARRAGE = ResourceKey.create(Registries.DAMAGE_TYPE,
             Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "stand_barrage"));
+    public static final ResourceKey<DamageType> EMERALD_SPLASH = ResourceKey.create(Registries.DAMAGE_TYPE,
+            Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "emerald_splash"));
 
     private ModDamageTypes() {}
 
     public static DamageSource barrage(ServerPlayer owner, TrainingStandEntity stand) {
         return new DamageSource(owner.level().registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE)
                 .getOrThrow(STAND_BARRAGE), stand, owner);
+    }
+
+    public static DamageSource emerald(ServerPlayer owner, net.minecraft.world.entity.Entity shard) {
+        return new DamageSource(owner.level().registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE)
+                .getOrThrow(EMERALD_SPLASH), shard, owner);
     }
 }

@@ -7,6 +7,8 @@ import io.github.bg7427941.jojosmod.stands.WillpowerData;
 import io.github.bg7427941.jojosmod.stands.StarPlatinumSession;
 import io.github.bg7427941.jojosmod.stands.StarPlatinumProgress;
 import io.github.bg7427941.jojosmod.stands.StarLeapSession;
+import io.github.bg7427941.jojosmod.stands.HierophantProgress;
+import io.github.bg7427941.jojosmod.stands.HierophantSession;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -43,6 +45,14 @@ public final class ModAttachments {
                     .serialize(StarPlatinumProgress.CODEC).copyOnDeath()
                     .sync((holder, recipient) -> holder == recipient, StarPlatinumProgress.STREAM_CODEC)
                     .build());
+
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<HierophantSession>> HIEROPHANT_SESSION =
+            ATTACHMENTS.register("hierophant_session", () -> AttachmentType.builder(() -> HierophantSession.EMPTY).build());
+
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<HierophantProgress>> HIEROPHANT_PROGRESS =
+            ATTACHMENTS.register("hierophant_progress", () -> AttachmentType.builder(() -> HierophantProgress.EMPTY)
+                    .serialize(HierophantProgress.CODEC).copyOnDeath()
+                    .sync((holder, recipient) -> holder == recipient, HierophantProgress.STREAM_CODEC).build());
 
     private ModAttachments() {}
 

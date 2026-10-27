@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "jojosmod:item/hierophant_green_core"
+  }
+}

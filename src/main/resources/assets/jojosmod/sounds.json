@@ -130,5 +130,50 @@
         "attenuation_distance": 16
       }
     ]
+  },
+  "hierophant_green.summon": {
+    "subtitle": "subtitles.jojosmod.hierophant_green.summon",
+    "sounds": [
+      {
+        "name": "jojosmod:hierophant_green/summon",
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "hierophant_green.dismiss": {
+    "subtitle": "subtitles.jojosmod.hierophant_green.dismiss",
+    "sounds": [
+      {
+        "name": "jojosmod:hierophant_green/dismiss",
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "hierophant_green.charge": {
+    "subtitle": "subtitles.jojosmod.hierophant_green.charge",
+    "sounds": [
+      {
+        "name": "jojosmod:hierophant_green/charge",
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "hierophant_green.splash": {
+    "subtitle": "subtitles.jojosmod.hierophant_green.splash",
+    "sounds": [
+      {
+        "name": "jojosmod:hierophant_green/splash",
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "hierophant_green.impact": {
+    "subtitle": "subtitles.jojosmod.hierophant_green.impact",
+    "sounds": [
+      {
+        "name": "jojosmod:hierophant_green/impact",
+        "attenuation_distance": 16
+      }
+    ]
   }
 }

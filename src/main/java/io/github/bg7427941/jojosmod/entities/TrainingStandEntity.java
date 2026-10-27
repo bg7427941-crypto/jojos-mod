@@ -13,6 +13,8 @@ import io.github.bg7427941.jojosmod.effects.StarPlatinumEffects;
 import io.github.bg7427941.jojosmod.effects.StandVoices;
 import io.github.bg7427941.jojosmod.network.StandVoicePayload.Cue;
 import io.github.bg7427941.jojosmod.abilities.StarPlatinumActions;
+import io.github.bg7427941.jojosmod.abilities.HierophantSplash;
+import io.github.bg7427941.jojosmod.effects.HierophantEffects;
 import io.github.bg7427941.jojosmod.stands.StandController;
 import io.github.bg7427941.jojosmod.stands.StandDefinition;
 import java.util.Objects;
@@ -53,6 +55,8 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
     private static final double FOLLOW_SMOOTHING = 0.35;
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.training_stand.idle");
     private static final RawAnimation ATTACK = RawAnimation.begin().thenPlay("animation.training_stand.attack");
+    private static final RawAnimation HIEROPHANT_IDLE = RawAnimation.begin().thenLoop("animation.hierophant_green.idle");
+    private static final RawAnimation HIEROPHANT_MOVE = RawAnimation.begin().thenLoop("animation.hierophant_green.move");
     private static final RawAnimation STAR_IDLE = RawAnimation.begin().thenLoop("animation.star_platinum.idle");
     private static final RawAnimation STAR_MOVE = RawAnimation.begin().thenLoop("animation.star_platinum.move");
     private static final RawAnimation STAR_GUARD = RawAnimation.begin().thenLoop("animation.star_platinum.guard");
@@ -127,7 +131,8 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         double yaw = Math.toRadians(player.getYRot());
         var forward = new Vec3(-Math.sin(yaw), 0, Math.cos(yaw));
         var side = new Vec3(Math.cos(yaw), 0, Math.sin(yaw));
-        boolean acting = isStarPlatinum() && StarPlatinumActions.isBusy(player);
+        boolean acting = isStarPlatinum() && StarPlatinumActions.isBusy(player)
+                || isHierophantGreen() && HierophantSplash.session(player).casting();
         var target = player.position()
                 .add(forward.scale(acting ? 0.45 : -FOLLOW_BEHIND))
                 .add(side.scale(FOLLOW_SIDE))
@@ -140,9 +145,10 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         setYRot(player.getYRot());
         setXRot(0);
         setDeltaMovement(Vec3.ZERO);
-        if (isStarPlatinum()) {
+        if (isStarPlatinum() || isHierophantGreen()) {
             entityData.set(MOVING, player.getDeltaMovement().horizontalDistanceSqr() > 0.001);
-            StarPlatinumEffects.aura(this, level().getGameTime());
+            if (isStarPlatinum()) StarPlatinumEffects.aura(this, level().getGameTime());
+            else HierophantEffects.aura(this, level().getGameTime());
         }
     }
 
@@ -155,11 +161,21 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         return getType() == ModEntities.STAR_PLATINUM.get();
     }
 
+    public boolean isHierophantGreen() { return getType() == ModEntities.HIEROPHANT_GREEN.get(); }
+
     public boolean isDismissing() {
         return entityData.get(DISMISSING);
     }
 
     public void playSummonAnimation() {
+        if (isHierophantGreen()) {
+            triggerAnim("main", "summon");
+            if (level() instanceof ServerLevel server) {
+                server.playSound(null, blockPosition(), ModSounds.HIEROPHANT_SUMMON.get(), SoundSource.PLAYERS, .6F, 1);
+                HierophantEffects.manifestation(this);
+            }
+            return;
+        }
         if (isStarPlatinum()) {
             triggerAnim("main", "summon");
             if (level() instanceof ServerLevel server) {
@@ -198,12 +214,12 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         stopTriggeredAnim("main", "star_finger");
         stopTriggeredAnim("main", "intercept");
         stopTriggeredAnim("main", "intercept_catch");
-        if (isStarPlatinum()) triggerAnim("main", "recover");
+        if (isStarPlatinum() || isHierophantGreen()) triggerAnim("main", "recover");
     }
 
-    /** Clears gameplay immediately while giving Star Platinum four ticks to disappear visually. */
+    /** Clears gameplay immediately while giving animated Stands four ticks to disappear visually. */
     public void dismiss() {
-        if (!isStarPlatinum()) {
+        if (!isStarPlatinum() && !isHierophantGreen()) {
             discard();
             return;
         }
@@ -211,13 +227,24 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         dismissAt = level().getGameTime() + 4;
         triggerAnim("main", "dismiss");
         if (level() instanceof ServerLevel server) {
-            server.playSound(null, blockPosition(), ModSounds.STAR_DISMISS.get(), SoundSource.PLAYERS, 0.45F, 1.1F);
-            StarPlatinumEffects.dismiss(this);
+            server.playSound(null, blockPosition(), isHierophantGreen() ? ModSounds.HIEROPHANT_DISMISS.get()
+                    : ModSounds.STAR_DISMISS.get(), SoundSource.PLAYERS, 0.45F, 1.1F);
+            if (isHierophantGreen()) HierophantEffects.manifestation(this);
+            else StarPlatinumEffects.dismiss(this);
         }
     }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        if (isHierophantGreen()) {
+            controllers.add(new AnimationController<TrainingStandEntity>("main", state -> state.setAndContinue(
+                    entityData.get(MOVING) ? HIEROPHANT_MOVE : HIEROPHANT_IDLE))
+                    .triggerableAnim("attack", RawAnimation.begin().thenPlay("animation.hierophant_green.splash"))
+                    .triggerableAnim("summon", RawAnimation.begin().thenPlay("animation.hierophant_green.summon"))
+                    .triggerableAnim("dismiss", RawAnimation.begin().thenPlay("animation.hierophant_green.dismiss"))
+                    .triggerableAnim("recover", RawAnimation.begin().thenPlay("animation.hierophant_green.recover")));
+            return;
+        }
         if (!isStarPlatinum()) {
             controllers.add(new AnimationController<TrainingStandEntity>("main", state -> state.setAndContinue(IDLE))
                     .triggerableAnim("attack", ATTACK));

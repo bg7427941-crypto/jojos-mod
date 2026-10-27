@@ -12,13 +12,28 @@ El [plan de Parte 3](docs/part-three-release.md) propone el catálogo y el recor
 empezando por Star Platinum; el desarrollo específico de Whitesnake queda para una expansión posterior.
 El estado descrito abajo corresponde al prototipo actual.
 
+La **primera prueba de Hierophant Green, 0.11.0**, añade una segunda identidad
+jugable de Parte 3. **R** lo invoca y **Z** lanza Emerald Splash: nueve esmeraldas
+reales en tres pulsos, preparación de 0,3 s, alcance máximo de 14 bloques y
+enfriamiento de 5 s. Su modelo y atlas nuevos, seis animaciones y cinco sonidos
+originales acompañan la descarga. La [guía 0.11.0](docs/playtest-0.11.0.md) permite
+probar puntería, paredes, progreso y juego con amigos. Cliente y servidor deben
+usar **0.11.0, protocolo 9**.
+
+La flecha Stardust sortea ahora **Star Platinum o Hierophant Green al 50 %**.
+Las asignaciones existentes se conservan. El primer despertar de Hierophant Green
+da +2 de voluntad una vez; causar daño de salud a tres hostiles distintos con
+Emerald Splash da +1 y reduce su enfriamiento a 4 s desde la siguiente activación.
+Los tentáculos, posesión y barrera de Hierophant Green siguen pendientes; consulta
+su [ficha de diseño](docs/hierophant-green-design.md) para el alcance exacto.
+
 La **progresión avanzada 0.10.0** añade dos desafíos de Star Platinum:
 Star Finger con contacto a más de tres bloques e intercepción de flechas de
 hostiles distintos. Cada desafío completo concede **+1 de voluntad una sola vez**
 y mejora el enfriamiento de su habilidad: Star Finger de **6 a 5 s** e intercepción
 de **3 a 2,5 s**. El panel y `/stand progress` muestran el avance y las reglas.
 La [guía 0.10.0](docs/playtest-0.10.0.md) detalla la prueba de progresión y guardado.
-Cliente y servidor deben usar **0.10.0, protocolo 8**.
+La entrega 0.10.0 usaba el protocolo 8; la actual usa el 9.
 
 La **integración de audio 0.9.3** añade `single_ora`, exclusivo de Z, y admite
 `ora.ogg` en el [paquete de recursos local](docs/anime-audio.md). R, Z, X y V
@@ -27,7 +42,7 @@ propone la prueba de reproducción e interrupciones. Los ocho clips de prueba
 añadidos manualmente en `main` se conservan e incluyen
 en el JAR actual; los otros eventos mantienen los efectos sintetizados. Su
 [procedencia y condiciones](THIRD_PARTY_NOTICES.md) se distinguen de los recursos
-originales. La primera entrega 0.9.3 usaba el protocolo 7; la actual usa el 8.
+originales. La primera entrega 0.9.3 usaba el protocolo 7; la actual usa el 9.
 
 La **revisión visual 0.9.2** adapta el modelo y el atlas del anime de Star Platinum
 de **Roundabout**, por Hydraheads y colaboradores, a nuestro rig de GeckoLib.
@@ -109,7 +124,7 @@ son decisiones de balance del mod.
 
 Cada cofre nuevo de templo del desierto tiene un **20 %** de probabilidad de añadir
 una flecha Stardust, conservando el loot vanilla. Esa flecha tiene su propio sorteo,
-que por ahora contiene solo Star Platinum; la flecha antigua mantiene Echoes/Little Feet.
+que contiene Star Platinum y Hierophant Green al 50 % cada uno; la flecha antigua mantiene Echoes/Little Feet.
 El núcleo `jojosmod:star_platinum_core` está disponible en creativo/comandos y se
 combina con un disco vacío. El guardián puede guardar y recuperar este Stand.
 
@@ -131,6 +146,35 @@ La [recopilación de referencias del anime](docs/star-platinum-anime-audio-catal
 organiza los candidatos para escuchar y los puntos de integración por ataque.
 Los efectos usan partículas nativas y respetan los
 ajustes del cliente; el aura está limitada a ocho partículas por segundo y Stand.
+
+## Hierophant Green — Emerald Splash
+
+La [ficha](docs/hierophant-green-design.md) distingue la referencia de Kakyoin y
+el balance de esta primera entrega. La descarga sale tras seis ticks y emite tres
+esmeraldas en cada uno de los ticks 6, 8 y 10. Cada esmeralda causa un punto antes
+de armadura y respeta paredes, guardia frontal, PvP y equipos. El máximo teórico
+es nueve puntos por descarga; el abanico y la puntería determinan cuántas aciertan.
+No consume ni genera esmeraldas de inventario.
+
+Desinvocar, perder el Stand, recibir daño de salud, morir, desconectar o cambiar de
+dimensión cancela pulsos pendientes y vuelo de esa descarga. El enfriamiento se
+conserva al interrumpir. La recuperación normal deja terminar las esmeraldas ya
+lanzadas. Se usan proyectiles nativos, con recorrido limitado a 14 bloques y vida
+máxima de 25 ticks. Los aliados y jugadores protegidos no reciben daño ni bloquean
+la trayectoria hacia otros enemigos válidos.
+
+El desafío personal registra tres hostiles distintos que hayan perdido salud.
+Cada enemigo cuenta una vez; pasivos, jugadores, aliados, creativo/espectador y
+daño totalmente absorbido no dan progreso. Dos amigos pueden progresar contra
+los mismos enemigos por sus propias acciones. El panel y `/stand progress`
+muestran sus contadores y la bonificación de enfriamiento de 5 a 4 s.
+Despertar, voluntad y dominio persisten al guardar, morir y recuperar un disco.
+
+El núcleo de Hierophant Green permite fabricar su disco con un disco vacío, y el
+guardián puede guardarlo y recuperarlo. El núcleo está en creativo/comandos; la
+obtención de supervivencia en esta entrega usa la flecha Stardust. Las fuentes
+[Blockbench/GeckoLib](art/hierophant_green/README.md) incluyen modelo, atlas,
+animaciones, icono, sonidos y generadores nuevos del proyecto.
 
 ## Requisitos
 
@@ -242,7 +286,7 @@ La receta no tiene forma y funciona tanto en el inventario 2×2 como en la mesa 
 Consume ambos ingredientes y se descubre al obtener el núcleo correspondiente.
 Los núcleos no se apilan y tienen iconos propios.
 
-Esta entrega incluye núcleos de Echoes ACT 1, Little Feet y Star Platinum. Se obtienen en la pestaña
+Esta entrega incluye núcleos de Echoes ACT 1, Little Feet, Star Platinum y Hierophant Green. Se obtienen en la pestaña
 creativa o mediante comandos de operador; **todavía no tienen loot ni receta propia**,
 porque su obtención mediante encuentros sigue pendiente:
 
@@ -254,7 +298,7 @@ porque su obtención mediante encuentros sigue pendiente:
 
 El resultado usa el ID existente `jojosmod:stand_disc` y el componente nativo
 `jojosmod:stand_id`. El nombre muestra el Stand contenido y su identidad se conserva
-al guardar y sincronizar el inventario. Los tres discos identificados también aparecen
+al guardar y sincronizar el inventario. Los cuatro discos identificados también aparecen
 en creativo. Para obtener uno directamente con comandos:
 
 ```mcfunction

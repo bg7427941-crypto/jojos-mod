@@ -27,6 +27,12 @@ public final class ModSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> STAR_LEAP = sound("star_platinum.leap");
     public static final DeferredHolder<SoundEvent, SoundEvent> STAR_LEAP_LAND = sound("star_platinum.leap_land");
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> HIEROPHANT_SUMMON = sound("hierophant_green.summon");
+    public static final DeferredHolder<SoundEvent, SoundEvent> HIEROPHANT_DISMISS = sound("hierophant_green.dismiss");
+    public static final DeferredHolder<SoundEvent, SoundEvent> HIEROPHANT_CHARGE = sound("hierophant_green.charge");
+    public static final DeferredHolder<SoundEvent, SoundEvent> HIEROPHANT_SPLASH = sound("hierophant_green.splash");
+    public static final DeferredHolder<SoundEvent, SoundEvent> HIEROPHANT_IMPACT = sound("hierophant_green.impact");
+
     private ModSounds() {}
 
     private static DeferredHolder<SoundEvent, SoundEvent> sound(String path) {

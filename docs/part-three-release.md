@@ -19,6 +19,10 @@ La 0.8.0 añade [intercepción precisa](playtest-0.8.0.md), desbloqueada con vol
 La 0.9.0 añade [salto con Stand](playtest-0.9.0.md), desbloqueado con voluntad 4.
 La 0.10.0 añade [dominio avanzado](playtest-0.10.0.md) de Star Finger e intercepción,
 con desafíos personales y mejoras de enfriamiento persistentes.
+La 0.11.0 añade la [primera prueba de Hierophant Green](playtest-0.11.0.md):
+Emerald Splash, modelo/atlas originales, seis animaciones, audio sintetizado y
+progreso personal. La flecha Stardust sortea ambos Stands al 50 %; su
+[ficha](hierophant-green-design.md) deja explícito el repertorio todavía pendiente.
 Este plan sigue describiendo el lanzamiento completo, que aún está en desarrollo.
 
 La propuesta de catálogo principal sigue a los Crusaders, con DIO como encuentro de
@@ -92,7 +96,7 @@ la forma idéntica en que despertó cada personaje de Stardust Crusaders. La tab
 obtención de los futuros Stands de Parte 3 se definirá expresamente, conservando los
 IDs y los datos de Echoes ACT 1 y Little Feet que ya existan en partidas anteriores.
 
-La voluntad tiene tres desafíos de entrenamiento de Star Platinum con recompensa
+La voluntad tiene cinco desafíos de Star Platinum y uno de Emerald Splash con recompensa
 única y progreso persistente, explicados en la ficha y en el panel. Se completan
 con acciones propias, también contra enemigos compartidos. La propuesta posterior
 es combinar este aprendizaje con exploración y superación de encuentros; esos

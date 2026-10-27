@@ -2,6 +2,7 @@ package io.github.bg7427941.jojosmod.stands;
 
 import io.github.bg7427941.jojosmod.abilities.BasicAttack;
 import io.github.bg7427941.jojosmod.abilities.StarPlatinumActions;
+import io.github.bg7427941.jojosmod.abilities.HierophantSplash;
 import io.github.bg7427941.jojosmod.entities.TrainingStandEntity;
 import io.github.bg7427941.jojosmod.registry.ModAttachments;
 import io.github.bg7427941.jojosmod.registry.ModEntities;
@@ -49,6 +50,7 @@ public final class StandController {
         var active = getActive(owner);
         if (active.isPresent()) {
             StarPlatinumActions.stop(owner);
+            HierophantSplash.cancel(owner);
             active.get().dismiss();
             owner.setData(ModAttachments.STAND_SESSION,
                     new StandSession(Optional.empty(), now + TOGGLE_COOLDOWN_TICKS, state.nextAttackTick()));
@@ -60,7 +62,8 @@ public final class StandController {
         }
 
         var type = definition.get().id().equals(ModStands.STAR_PLATINUM.id())
-                ? ModEntities.STAR_PLATINUM.get() : ModEntities.TRAINING_STAND.get();
+                ? ModEntities.STAR_PLATINUM.get() : definition.get().id().equals(ModStands.HIEROPHANT_GREEN.id())
+                    ? ModEntities.HIEROPHANT_GREEN.get() : ModEntities.TRAINING_STAND.get();
         var stand = new TrainingStandEntity(type, owner.level());
         stand.setOwner(owner);
         stand.setStandDefinition(definition.get());
@@ -88,15 +91,20 @@ public final class StandController {
                 || active.get().distanceToSqr(owner) > Math.pow(definition.get().combat().tetherDistance(), 2)) {
             return false;
         }
-        if (active.get().isStarPlatinum() && !StarPlatinumActions.preciseStrike(owner, active.get())) return false;
+        int cooldown = definition.get().combat().cooldownTicks();
+        if (active.get().isHierophantGreen()) {
+            if (!HierophantSplash.start(owner, active.get())) return false;
+            cooldown = HierophantSplash.cooldown(owner);
+        } else if (active.get().isStarPlatinum() && !StarPlatinumActions.preciseStrike(owner, active.get())) return false;
         owner.setData(ModAttachments.STAND_SESSION, new StandSession(state.activeEntity(),
-                state.nextToggleTick(), now + definition.get().combat().cooldownTicks()));
-        if (!active.get().isStarPlatinum()) BasicAttack.perform(owner, active.get(), definition.get());
+                state.nextToggleTick(), now + cooldown));
+        if (!active.get().isStarPlatinum() && !active.get().isHierophantGreen()) BasicAttack.perform(owner, active.get(), definition.get());
         return true;
     }
 
     public static void dismiss(ServerPlayer owner) {
         StarPlatinumActions.stop(owner);
+        HierophantSplash.cancel(owner);
         getActive(owner).ifPresent(TrainingStandEntity::dismiss);
         var state = session(owner);
         owner.setData(ModAttachments.STAND_SESSION,

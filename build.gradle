@@ -107,6 +107,14 @@ tasks.named('jar', Jar) {
         into 'META-INF/jojosmod'
         rename { 'sound-collected-preview.json' }
     }
+    from('art/hierophant_green/asset-provenance.json') {
+        into 'META-INF/jojosmod'
+        rename { 'hierophant-green-provenance.json' }
+    }
+    from('art/hierophant_green/sound-provenance.json') {
+        into 'META-INF/jojosmod'
+        rename { 'sound-hierophant-green.json' }
+    }
 }
 
 // Compile the integration suite during a normal build; execute it with runGameTestServer.

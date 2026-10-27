@@ -65,7 +65,7 @@ public final class StarPlatinumActions {
     }
 
     static Optional<TrainingStandEntity> active(ServerPlayer owner) {
-        if (!owner.isAlive() || owner.isRemoved() || owner.isSpectator()
+        if (!owner.isAlive() || owner.isRemoved() || owner.isSpectator() || TimeStop.isFrozen(owner)
                 || PlayerStands.get(owner).standId().filter(ModStands.STAR_PLATINUM.id()::equals).isEmpty()) {
             return Optional.empty();
         }

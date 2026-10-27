@@ -175,5 +175,225 @@
         "attenuation_distance": 16
       }
     ]
+  },
+  "silver_chariot.summon": {
+    "subtitle": "subtitles.jojosmod.silver_chariot.summon",
+    "sounds": [
+      {
+        "name": "jojosmod:silver_chariot/summon",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "silver_chariot.dismiss": {
+    "subtitle": "subtitles.jojosmod.silver_chariot.dismiss",
+    "sounds": [
+      {
+        "name": "jojosmod:silver_chariot/dismiss",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "silver_chariot.cast": {
+    "subtitle": "subtitles.jojosmod.silver_chariot.cast",
+    "sounds": [
+      {
+        "name": "jojosmod:silver_chariot/cast",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "silver_chariot.impact": {
+    "subtitle": "subtitles.jojosmod.silver_chariot.impact",
+    "sounds": [
+      {
+        "name": "jojosmod:silver_chariot/impact",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "magicians_red.summon": {
+    "subtitle": "subtitles.jojosmod.magicians_red.summon",
+    "sounds": [
+      {
+        "name": "jojosmod:magicians_red/summon",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "magicians_red.dismiss": {
+    "subtitle": "subtitles.jojosmod.magicians_red.dismiss",
+    "sounds": [
+      {
+        "name": "jojosmod:magicians_red/dismiss",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "magicians_red.cast": {
+    "subtitle": "subtitles.jojosmod.magicians_red.cast",
+    "sounds": [
+      {
+        "name": "jojosmod:magicians_red/cast",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "magicians_red.impact": {
+    "subtitle": "subtitles.jojosmod.magicians_red.impact",
+    "sounds": [
+      {
+        "name": "jojosmod:magicians_red/impact",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "hermit_purple.summon": {
+    "subtitle": "subtitles.jojosmod.hermit_purple.summon",
+    "sounds": [
+      {
+        "name": "jojosmod:hermit_purple/summon",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "hermit_purple.dismiss": {
+    "subtitle": "subtitles.jojosmod.hermit_purple.dismiss",
+    "sounds": [
+      {
+        "name": "jojosmod:hermit_purple/dismiss",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "hermit_purple.cast": {
+    "subtitle": "subtitles.jojosmod.hermit_purple.cast",
+    "sounds": [
+      {
+        "name": "jojosmod:hermit_purple/cast",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "hermit_purple.impact": {
+    "subtitle": "subtitles.jojosmod.hermit_purple.impact",
+    "sounds": [
+      {
+        "name": "jojosmod:hermit_purple/impact",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "the_fool.summon": {
+    "subtitle": "subtitles.jojosmod.the_fool.summon",
+    "sounds": [
+      {
+        "name": "jojosmod:the_fool/summon",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "the_fool.dismiss": {
+    "subtitle": "subtitles.jojosmod.the_fool.dismiss",
+    "sounds": [
+      {
+        "name": "jojosmod:the_fool/dismiss",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "the_fool.cast": {
+    "subtitle": "subtitles.jojosmod.the_fool.cast",
+    "sounds": [
+      {
+        "name": "jojosmod:the_fool/cast",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "the_fool.impact": {
+    "subtitle": "subtitles.jojosmod.the_fool.impact",
+    "sounds": [
+      {
+        "name": "jojosmod:the_fool/impact",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "the_world.summon": {
+    "subtitle": "subtitles.jojosmod.the_world.summon",
+    "sounds": [
+      {
+        "name": "jojosmod:the_world/summon",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "the_world.dismiss": {
+    "subtitle": "subtitles.jojosmod.the_world.dismiss",
+    "sounds": [
+      {
+        "name": "jojosmod:the_world/dismiss",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "the_world.cast": {
+    "subtitle": "subtitles.jojosmod.the_world.cast",
+    "sounds": [
+      {
+        "name": "jojosmod:the_world/cast",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "the_world.impact": {
+    "subtitle": "subtitles.jojosmod.the_world.impact",
+    "sounds": [
+      {
+        "name": "jojosmod:the_world/impact",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "the_world.time_stop": {
+    "subtitle": "subtitles.jojosmod.the_world.time_stop",
+    "sounds": [
+      {
+        "name": "jojosmod:the_world/time_stop",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "the_world.resume": {
+    "subtitle": "subtitles.jojosmod.the_world.resume",
+    "sounds": [
+      {
+        "name": "jojosmod:the_world/resume",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
   }
 }

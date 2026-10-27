@@ -80,3 +80,22 @@ Esos recursos no se presentan como originales ni se relicencian retroactivamente
 Su procedencia y avisos históricos se conservan en
 [docs/history/asset-provenance.md](docs/history/asset-provenance.md) y en el historial Git.
 Las entregas 0.7.0–0.9.1 emplearon geometría y atlas propios; 0.9.2 utiliza la adaptación acreditada descrita arriba.
+
+## Cinco Stands de Parte 3 — 0.12.0
+
+Silver Chariot, Magician’s Red y The World adaptan formas, UV y atlas de anime de
+**Roundabout, de Hydraheads y colaboradores**, bajo **Roundabout License v1.2**.
+Se aplica el flujo de Star Platinum: conversión de geometría al rig del mod,
+transformaciones horneadas y keyframes originales, omitiendo duplicados de ráfaga
+y objetos auxiliares. Las fuentes se fijan en la revisión
+`f2390f1240e9b49444d6013e79bfda2038a542fb`; rutas y hashes completos están en
+`art/part_three/upstream/sources.json`. Se conserva la licencia completa en
+`art/star_platinum/upstream/LICENSE-Roundabout.txt`, también incluida en el JAR.
+La geometría/atlas adaptados no se reclaman como originales ni se relicencian MIT.
+
+Hermit Purple y The Fool tienen geometría/atlas originales (MIT). Los 47 clips,
+los cinco sprites, generadores y los 22 efectos Vorbis sintetizados de esta
+entrega son originales MIT. No se usan entradas de grabación ni keyframes de
+Roundabout. Los manifiestos se incluyen en el JAR bajo `META-INF/jojosmod`.
+Los personajes son de Hirohiko Araki y sus titulares; estas licencias no transfieren
+los derechos sobre los personajes. Los recursos anteriores conservan su procedencia.

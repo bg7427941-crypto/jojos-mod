@@ -1,0 +1,691 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.silver_chariot.idle": {
+      "animation_length": 2.4,
+      "loop": true,
+      "bones": {
+        "root": {
+          "position": {
+            "0": [
+              0,
+              0,
+              0
+            ],
+            "1.2": [
+              0,
+              0.25,
+              0
+            ],
+            "2.4": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    "animation.silver_chariot.move": {
+      "animation_length": 0.8,
+      "loop": true,
+      "bones": {
+        "root": {
+          "rotation": [
+            5,
+            0,
+            0
+          ]
+        },
+        "right_leg": {
+          "rotation": {
+            "0": [
+              -15,
+              0,
+              0
+            ],
+            "0.4": [
+              15,
+              0,
+              0
+            ],
+            "0.8": [
+              -15,
+              0,
+              0
+            ]
+          }
+        },
+        "right_arm": {
+          "rotation": {
+            "0": [
+              10,
+              0,
+              0
+            ],
+            "0.4": [
+              -10,
+              0,
+              0
+            ],
+            "0.8": [
+              10,
+              0,
+              0
+            ]
+          }
+        },
+        "left_leg": {
+          "rotation": {
+            "0": [
+              15,
+              0,
+              0
+            ],
+            "0.4": [
+              -15,
+              0,
+              0
+            ],
+            "0.8": [
+              15,
+              0,
+              0
+            ]
+          }
+        },
+        "left_arm": {
+          "rotation": {
+            "0": [
+              -10,
+              0,
+              0
+            ],
+            "0.4": [
+              10,
+              0,
+              0
+            ],
+            "0.8": [
+              -10,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    "animation.silver_chariot.attack": {
+      "animation_length": 0.6,
+      "loop": false,
+      "bones": {
+        "torso": {
+          "rotation": {
+            "0": [
+              0,
+              0,
+              0
+            ],
+            "0.09": [
+              0,
+              -14,
+              0
+            ],
+            "0.15": [
+              0,
+              14,
+              0
+            ],
+            "0.6": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "right_arm": {
+          "rotation": {
+            "0": [
+              -5,
+              0,
+              -5
+            ],
+            "0.1": [
+              -14,
+              8,
+              -12
+            ],
+            "0.15": [
+              0,
+              0,
+              -5
+            ],
+            "0.6": [
+              -5,
+              0,
+              -5
+            ]
+          }
+        },
+        "right_forearm": {
+          "rotation": {
+            "0": [
+              -8,
+              0,
+              0
+            ],
+            "0.1": [
+              -18,
+              0,
+              0
+            ],
+            "0.15": [
+              0,
+              0,
+              0
+            ],
+            "0.6": [
+              -8,
+              0,
+              0
+            ]
+          }
+        },
+        "rapier": {
+          "position": {
+            "0": [
+              0,
+              0,
+              0
+            ],
+            "0.1": [
+              0,
+              0,
+              1
+            ],
+            "0.15": [
+              0,
+              0,
+              -1.5
+            ],
+            "0.6": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    "animation.silver_chariot.secondary": {
+      "animation_length": 0.95,
+      "loop": false,
+      "bones": {
+        "rapier": {
+          "position": {
+            "0": [
+              0,
+              0,
+              0
+            ],
+            "0.11": [
+              0,
+              0,
+              1
+            ],
+            "0.15": [
+              0,
+              0,
+              -1.5
+            ],
+            "0.21": [
+              0,
+              0,
+              1
+            ],
+            "0.25": [
+              0,
+              0,
+              -1.5
+            ],
+            "0.31": [
+              0,
+              0,
+              1
+            ],
+            "0.35": [
+              0,
+              0,
+              -1.5
+            ],
+            "0.41": [
+              0,
+              0,
+              1
+            ],
+            "0.45": [
+              0,
+              0,
+              -1.5
+            ],
+            "0.51": [
+              0,
+              0,
+              1
+            ],
+            "0.55": [
+              0,
+              0,
+              -1.5
+            ],
+            "0.61": [
+              0,
+              0,
+              1
+            ],
+            "0.65": [
+              0,
+              0,
+              -1.5
+            ],
+            "0.95": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "right_arm": {
+          "rotation": [
+            -6,
+            0,
+            -5
+          ]
+        },
+        "right_forearm": {
+          "rotation": [
+            -8,
+            0,
+            0
+          ]
+        },
+        "left_arm": {
+          "rotation": [
+            -15,
+            5,
+            12
+          ]
+        }
+      }
+    },
+    "animation.silver_chariot.utility": {
+      "animation_length": 0.6,
+      "loop": false,
+      "bones": {
+        "right_arm": {
+          "rotation": {
+            "0": [
+              0,
+              0,
+              0
+            ],
+            "0.2": [
+              -65,
+              -25,
+              -15
+            ],
+            "0.5": [
+              -65,
+              -25,
+              -15
+            ],
+            "0.6": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "left_arm": {
+          "rotation": {
+            "0": [
+              0,
+              0,
+              0
+            ],
+            "0.2": [
+              -65,
+              25,
+              15
+            ],
+            "0.5": [
+              -65,
+              25,
+              15
+            ],
+            "0.6": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    "animation.silver_chariot.summon": {
+      "animation_length": 0.25,
+      "loop": false,
+      "bones": {
+        "root": {
+          "scale": {
+            "0": [
+              0.02,
+              0.02,
+              0.02
+            ],
+            "0.25": [
+              1,
+              1,
+              1
+            ]
+          },
+          "position": {
+            "0": [
+              0,
+              -2,
+              0
+            ],
+            "0.25": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    "animation.silver_chariot.dismiss": {
+      "animation_length": 0.2,
+      "loop": false,
+      "bones": {
+        "root": {
+          "scale": {
+            "0": [
+              1,
+              1,
+              1
+            ],
+            "0.2": [
+              0.01,
+              0.01,
+              0.01
+            ]
+          }
+        }
+      }
+    },
+    "animation.silver_chariot.recover": {
+      "animation_length": 0.2,
+      "loop": false,
+      "bones": {
+        "right_arm": {
+          "rotation": {
+            "0": [
+              -45,
+              0,
+              -8
+            ],
+            "0.2": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "left_arm": {
+          "rotation": {
+            "0": [
+              -45,
+              0,
+              8
+            ],
+            "0.2": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    "animation.silver_chariot.time_stop": {
+      "animation_length": 0.7,
+      "loop": false,
+      "bones": {
+        "torso": {
+          "rotation": {
+            "0": [
+              0,
+              0,
+              0
+            ],
+            "0.3": [
+              -12,
+              0,
+              0
+            ],
+            "0.7": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "right_arm": {
+          "rotation": {
+            "0": [
+              0,
+              0,
+              0
+            ],
+            "0.3": [
+              -50,
+              0,
+              -80
+            ],
+            "0.7": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "left_arm": {
+          "rotation": {
+            "0": [
+              0,
+              0,
+              0
+            ],
+            "0.3": [
+              -50,
+              0,
+              80
+            ],
+            "0.7": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    "animation.silver_chariot.armor_on": {
+      "animation_length": 1,
+      "loop": true,
+      "bones": {
+        "armor_body": {
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "armor_head": {
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "armor_left_arm": {
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "armor_left_forearm": {
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "armor_left_leg": {
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "armor_left_shin": {
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "armor_right_arm": {
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "armor_right_forearm": {
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "armor_right_leg": {
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "armor_right_shin": {
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "armor_torso": {
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        }
+      }
+    },
+    "animation.silver_chariot.armor_off": {
+      "animation_length": 1,
+      "loop": true,
+      "bones": {
+        "armor_body": {
+          "scale": [
+            0.001,
+            0.001,
+            0.001
+          ]
+        },
+        "armor_head": {
+          "scale": [
+            0.001,
+            0.001,
+            0.001
+          ]
+        },
+        "armor_left_arm": {
+          "scale": [
+            0.001,
+            0.001,
+            0.001
+          ]
+        },
+        "armor_left_forearm": {
+          "scale": [
+            0.001,
+            0.001,
+            0.001
+          ]
+        },
+        "armor_left_leg": {
+          "scale": [
+            0.001,
+            0.001,
+            0.001
+          ]
+        },
+        "armor_left_shin": {
+          "scale": [
+            0.001,
+            0.001,
+            0.001
+          ]
+        },
+        "armor_right_arm": {
+          "scale": [
+            0.001,
+            0.001,
+            0.001
+          ]
+        },
+        "armor_right_forearm": {
+          "scale": [
+            0.001,
+            0.001,
+            0.001
+          ]
+        },
+        "armor_right_leg": {
+          "scale": [
+            0.001,
+            0.001,
+            0.001
+          ]
+        },
+        "armor_right_shin": {
+          "scale": [
+            0.001,
+            0.001,
+            0.001
+          ]
+        },
+        "armor_torso": {
+          "scale": [
+            0.001,
+            0.001,
+            0.001
+          ]
+        }
+      }
+    }
+  }
+}

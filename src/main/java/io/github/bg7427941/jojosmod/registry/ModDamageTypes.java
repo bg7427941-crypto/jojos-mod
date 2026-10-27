@@ -15,6 +15,14 @@ public final class ModDamageTypes {
     public static final ResourceKey<DamageType> EMERALD_SPLASH = ResourceKey.create(Registries.DAMAGE_TYPE,
             Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "emerald_splash"));
 
+    public static final ResourceKey<DamageType> CRUSADER_STRIKE = ResourceKey.create(Registries.DAMAGE_TYPE,
+            Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "crusader_strike"));
+    public static final ResourceKey<DamageType> CRUSADER_FIRE = ResourceKey.create(Registries.DAMAGE_TYPE,
+            Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "crusader_fire"));
+    public static DamageSource crusader(ServerPlayer owner, boolean fire) {
+        return new DamageSource(owner.level().registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE)
+                .getOrThrow(fire ? CRUSADER_FIRE : CRUSADER_STRIKE), owner, owner);
+    }
     private ModDamageTypes() {}
 
     public static DamageSource barrage(ServerPlayer owner, TrainingStandEntity stand) {

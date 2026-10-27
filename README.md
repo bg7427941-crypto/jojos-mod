@@ -12,15 +12,32 @@ El [plan de Parte 3](docs/part-three-release.md) propone el catálogo y el recor
 empezando por Star Platinum; el desarrollo específico de Whitesnake queda para una expansión posterior.
 El estado descrito abajo corresponde al prototipo actual.
 
+La **0.12.0** incorpora **Silver Chariot, Magician’s Red, Hermit Purple,
+The Fool y The World**, con tres técnicas por Stand, modelos editables, atlas,
+animaciones, efectos de sonido y aprendizaje persistente propios. **R** invoca,
+**Z** es la técnica principal, **X** la secundaria y **C** la utilidad/defensa.
+**G** permite la parada temporal local de The World (voluntad 4, tres segundos)
+y de Star Platinum avanzado (voluntad 6, dos segundos), con reglas para PvP,
+proyectiles, restauración y activaciones simultáneas.
+
+La flecha Stardust ofrece ahora los **seis Crusaders al 1/6 cada uno**. The World
+está disponible por disco/núcleo en creativo y comandos hasta implementar el
+encuentro de DIO. Las partidas existentes se conservan. Son primeros conjuntos
+jugables, con repertorios avanzados pendientes: consulta el
+[diseño y límites](docs/part-three-stands-design.md) y la
+[guía de prueba 0.12.0](docs/playtest-0.12.0.md).
+Cliente y servidor deben usar **0.12.0, protocolo 10**.
+
 La **primera prueba de Hierophant Green, 0.11.0**, añade una segunda identidad
 jugable de Parte 3. **R** lo invoca y **Z** lanza Emerald Splash: nueve esmeraldas
 reales en tres pulsos, preparación de 0,3 s, alcance máximo de 14 bloques y
 enfriamiento de 5 s. Su modelo y atlas nuevos, seis animaciones y cinco sonidos
 originales acompañan la descarga. La [guía 0.11.0](docs/playtest-0.11.0.md) permite
 probar puntería, paredes, progreso y juego con amigos. Cliente y servidor deben
-usar **0.11.0, protocolo 9**.
+usar la versión actual juntos; la entrega 0.11.0 usaba protocolo 9.
 
-La flecha Stardust sortea ahora **Star Platinum o Hierophant Green al 50 %**.
+En 0.11.0, la flecha Stardust sorteaba Star Platinum o Hierophant Green al 50 %.
+Desde 0.12.0 ofrece los seis Crusaders con igual probabilidad.
 Las asignaciones existentes se conservan. El primer despertar de Hierophant Green
 da +2 de voluntad una vez; causar daño de salud a tres hostiles distintos con
 Emerald Splash da +1 y reduce su enfriamiento a 4 s desde la siguiente activación.
@@ -33,7 +50,7 @@ hostiles distintos. Cada desafío completo concede **+1 de voluntad una sola vez
 y mejora el enfriamiento de su habilidad: Star Finger de **6 a 5 s** e intercepción
 de **3 a 2,5 s**. El panel y `/stand progress` muestran el avance y las reglas.
 La [guía 0.10.0](docs/playtest-0.10.0.md) detalla la prueba de progresión y guardado.
-La entrega 0.10.0 usaba el protocolo 8; la actual usa el 9.
+La entrega 0.10.0 usaba el protocolo 8; la actual usa el 10.
 
 La **integración de audio 0.9.3** añade `single_ora`, exclusivo de Z, y admite
 `ora.ogg` en el [paquete de recursos local](docs/anime-audio.md). R, Z, X y V
@@ -42,7 +59,7 @@ propone la prueba de reproducción e interrupciones. Los ocho clips de prueba
 añadidos manualmente en `main` se conservan e incluyen
 en el JAR actual; los otros eventos mantienen los efectos sintetizados. Su
 [procedencia y condiciones](THIRD_PARTY_NOTICES.md) se distinguen de los recursos
-originales. La primera entrega 0.9.3 usaba el protocolo 7; la actual usa el 9.
+originales. La primera entrega 0.9.3 usaba el protocolo 7; la actual usa el 10.
 
 La **revisión visual 0.9.2** adapta el modelo y el atlas del anime de Star Platinum
 de **Roundabout**, por Hydraheads y colaboradores, a nuestro rig de GeckoLib.
@@ -124,7 +141,7 @@ son decisiones de balance del mod.
 
 Cada cofre nuevo de templo del desierto tiene un **20 %** de probabilidad de añadir
 una flecha Stardust, conservando el loot vanilla. Esa flecha tiene su propio sorteo,
-que contiene Star Platinum y Hierophant Green al 50 % cada uno; la flecha antigua mantiene Echoes/Little Feet.
+que contiene los seis Crusaders al 1/6 cada uno; la flecha antigua mantiene Echoes/Little Feet.
 El núcleo `jojosmod:star_platinum_core` está disponible en creativo/comandos y se
 combina con un disco vacío. El guardián puede guardar y recuperar este Stand.
 

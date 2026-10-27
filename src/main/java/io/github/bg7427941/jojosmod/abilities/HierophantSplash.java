@@ -37,7 +37,7 @@ public final class HierophantSplash {
     }
 
     public static Optional<TrainingStandEntity> active(ServerPlayer owner) {
-        if (!owner.isAlive() || owner.isRemoved() || owner.isSpectator()
+        if (!owner.isAlive() || owner.isRemoved() || owner.isSpectator() || TimeStop.isFrozen(owner)
                 || PlayerStands.get(owner).standId().filter(ModStands.HIEROPHANT_GREEN.id()::equals).isEmpty()) return Optional.empty();
         return StandController.getActive(owner).filter(TrainingStandEntity::isHierophantGreen)
                 .filter(stand -> StandController.isActive(owner, stand))

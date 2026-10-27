@@ -23,7 +23,12 @@ La 0.11.0 añade la [primera prueba de Hierophant Green](playtest-0.11.0.md):
 Emerald Splash, modelo/atlas originales, seis animaciones, audio sintetizado y
 progreso personal. La flecha Stardust sortea ambos Stands al 50 %; su
 [ficha](hierophant-green-design.md) deja explícito el repertorio todavía pendiente.
-Este plan sigue describiendo el lanzamiento completo, que aún está en desarrollo.
+La 0.12.0 añade los otros cinco Stands del catálogo con primeros conjuntos de tres
+técnicas, recursos originales y aprendizaje, además de parada temporal local para
+The World y Star Platinum avanzado. La [guía](playtest-0.12.0.md) y el
+[diseño](part-three-stands-design.md) explican las adaptaciones y lo pendiente.
+The World sigue fuera de la flecha hasta desarrollar DIO; esta entrega no cierra
+el encuentro final ni los repertorios avanzados. El lanzamiento completo sigue en desarrollo.
 
 La propuesta de catálogo principal sigue a los Crusaders, con DIO como encuentro de
 cierre. Los nombres y usuarios de referencia pueden contrastarse en el

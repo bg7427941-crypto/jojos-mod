@@ -1,21 +1,55 @@
 package io.github.bg7427941.jojosmod;
 
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
 import io.github.bg7427941.jojosmod.registry.ModAttachments;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
 import io.github.bg7427941.jojosmod.registry.ModDataComponents;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
 import io.github.bg7427941.jojosmod.registry.ModItems;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
 import io.github.bg7427941.jojosmod.registry.ModEntities;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
 import io.github.bg7427941.jojosmod.registry.ModSounds;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
 import io.github.bg7427941.jojosmod.commands.StandTestCommand;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
 import io.github.bg7427941.jojosmod.commands.StandProgressCommand;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
 import io.github.bg7427941.jojosmod.network.ModNetworking;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
 import io.github.bg7427941.jojosmod.stands.StandProgressionConfig;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
 import io.github.bg7427941.jojosmod.abilities.StarPlatinumActions;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
 import io.github.bg7427941.jojosmod.abilities.StarPlatinumLeap;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
 import io.github.bg7427941.jojosmod.abilities.HierophantSplash;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
 import net.neoforged.bus.api.IEventBus;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
 import net.neoforged.fml.common.Mod;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
 import net.neoforged.fml.ModContainer;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
 import net.neoforged.fml.config.ModConfig;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
 import net.neoforged.neoforge.common.NeoForge;
 
 @Mod(JojosMod.MOD_ID)
@@ -41,5 +75,16 @@ public final class JojosMod {
         NeoForge.EVENT_BUS.addListener(StarPlatinumLeap::onDamage);
         NeoForge.EVENT_BUS.addListener(HierophantSplash::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(HierophantSplash::onDamage);
+        NeoForge.EVENT_BUS.addListener(CrusaderActions::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener(CrusaderActions::onIncoming);
+        NeoForge.EVENT_BUS.addListener(CrusaderActions::onDamage);
+        NeoForge.EVENT_BUS.addListener(CrusaderActions::onFall);
+        NeoForge.EVENT_BUS.addListener(TimeStop::onServerTick);
+        NeoForge.EVENT_BUS.addListener(TimeStop::onEntityTick);
+        NeoForge.EVENT_BUS.addListener(TimeStop::onIncoming);
+        NeoForge.EVENT_BUS.addListener(TimeStop::onStopping);
+        NeoForge.EVENT_BUS.addListener(CrusaderLifecycle::onLogout);
+        NeoForge.EVENT_BUS.addListener(CrusaderLifecycle::onDimension);
+        NeoForge.EVENT_BUS.addListener(CrusaderLifecycle::onDeath);
     }
 }

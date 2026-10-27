@@ -1,13 +1,40 @@
 package io.github.bg7427941.jojosmod.stands;
 
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.abilities.BasicAttack;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.abilities.StarPlatinumActions;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.abilities.HierophantSplash;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.entities.TrainingStandEntity;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.registry.ModAttachments;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.registry.ModEntities;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.registry.ModStands;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import java.util.Optional;
+import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
+import io.github.bg7427941.jojosmod.abilities.TimeStop;
+import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.minecraft.server.level.ServerPlayer;
 
 /** All entry points run on the logical server thread. Clients send intentions only. */
@@ -39,7 +66,7 @@ public final class StandController {
     }
 
     public static boolean toggle(ServerPlayer owner) {
-        if (!owner.isAlive() || owner.isRemoved() || owner.isSpectator()) {
+        if (!owner.isAlive() || owner.isRemoved() || owner.isSpectator() || TimeStop.isFrozen(owner)) {
             return false;
         }
         var state = session(owner);
@@ -51,6 +78,7 @@ public final class StandController {
         if (active.isPresent()) {
             StarPlatinumActions.stop(owner);
             HierophantSplash.cancel(owner);
+            CrusaderActions.cancel(owner); TimeStop.cancel(owner);
             active.get().dismiss();
             owner.setData(ModAttachments.STAND_SESSION,
                     new StandSession(Optional.empty(), now + TOGGLE_COOLDOWN_TICKS, state.nextAttackTick()));
@@ -64,6 +92,8 @@ public final class StandController {
         var type = definition.get().id().equals(ModStands.STAR_PLATINUM.id())
                 ? ModEntities.STAR_PLATINUM.get() : definition.get().id().equals(ModStands.HIEROPHANT_GREEN.id())
                     ? ModEntities.HIEROPHANT_GREEN.get() : ModEntities.TRAINING_STAND.get();
+        var kit = PartThreeStand.of(definition.get().id());
+        if (kit.isPresent()) type = ModEntities.crusader(kit.get());
         var stand = new TrainingStandEntity(type, owner.level());
         stand.setOwner(owner);
         stand.setStandDefinition(definition.get());
@@ -79,7 +109,7 @@ public final class StandController {
 
     /** Returns whether an attempt was accepted; misses consume cooldown as well. */
     public static boolean attack(ServerPlayer owner) {
-        if (!owner.isAlive() || owner.isRemoved() || owner.isSpectator()) {
+        if (!owner.isAlive() || owner.isRemoved() || owner.isSpectator() || TimeStop.isFrozen(owner)) {
             return false;
         }
         var active = getActive(owner);
@@ -91,6 +121,7 @@ public final class StandController {
                 || active.get().distanceToSqr(owner) > Math.pow(definition.get().combat().tetherDistance(), 2)) {
             return false;
         }
+        if (active.get().isCrusader()) return CrusaderActions.primary(owner);
         int cooldown = definition.get().combat().cooldownTicks();
         if (active.get().isHierophantGreen()) {
             if (!HierophantSplash.start(owner, active.get())) return false;
@@ -105,6 +136,7 @@ public final class StandController {
     public static void dismiss(ServerPlayer owner) {
         StarPlatinumActions.stop(owner);
         HierophantSplash.cancel(owner);
+        CrusaderActions.cancel(owner); TimeStop.cancel(owner);
         getActive(owner).ifPresent(TrainingStandEntity::dismiss);
         var state = session(owner);
         owner.setData(ModAttachments.STAND_SESSION,

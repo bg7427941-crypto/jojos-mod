@@ -64,6 +64,32 @@ public final class ModEntities {
                     .build(ResourceKey.create(Registries.ENTITY_TYPE,
                             Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "emerald_shard"))));
 
+    public static final DeferredHolder<EntityType<?>, EntityType<TrainingStandEntity>> SILVER_CHARIOT = crusaderType("silver_chariot", 0.65F, 2.0F);
+    public static final DeferredHolder<EntityType<?>, EntityType<TrainingStandEntity>> MAGICIANS_RED = crusaderType("magicians_red", 0.65F, 2.0F);
+    public static final DeferredHolder<EntityType<?>, EntityType<TrainingStandEntity>> HERMIT_PURPLE = crusaderType("hermit_purple", 0.65F, 1.8F);
+    public static final DeferredHolder<EntityType<?>, EntityType<TrainingStandEntity>> THE_FOOL = crusaderType("the_fool", 1.0F, 1.15F);
+    public static final DeferredHolder<EntityType<?>, EntityType<TrainingStandEntity>> THE_WORLD = crusaderType("the_world", 0.65F, 2.0F);
+
+    public static EntityType<TrainingStandEntity> crusader(io.github.bg7427941.jojosmod.stands.PartThreeStand kind) {
+        return switch (kind) {
+            case SILVER_CHARIOT -> SILVER_CHARIOT.get();
+            case MAGICIANS_RED -> MAGICIANS_RED.get();
+            case HERMIT_PURPLE -> HERMIT_PURPLE.get();
+            case THE_FOOL -> THE_FOOL.get();
+            case THE_WORLD -> THE_WORLD.get();
+        };
+    }
+    private static DeferredHolder<EntityType<?>, EntityType<TrainingStandEntity>> crusaderType(String path, float width, float height) {
+        return ENTITIES.register(path, () -> EntityType.Builder.of(TrainingStandEntity::new, MobCategory.MISC)
+                .sized(width, height).noSave().noSummon().clientTrackingRange(TRACKING_RANGE).updateInterval(UPDATE_INTERVAL)
+                .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, path))));
+    }
+    public static final DeferredHolder<EntityType<?>, EntityType<io.github.bg7427941.jojosmod.entities.CrusaderFlameEntity>> CRUSADER_FLAME =
+            ENTITIES.register("crusader_flame", () -> EntityType.Builder
+                    .of(io.github.bg7427941.jojosmod.entities.CrusaderFlameEntity::new, MobCategory.MISC)
+                    .sized(.3F, .3F).noSave().noSummon().clientTrackingRange(TRACKING_RANGE).updateInterval(UPDATE_INTERVAL)
+                    .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "crusader_flame"))));
+
     private ModEntities() {}
 
     public static void register(IEventBus modEventBus) {

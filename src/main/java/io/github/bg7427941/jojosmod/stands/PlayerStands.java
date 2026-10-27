@@ -21,14 +21,17 @@ public final class PlayerStands {
     public static void assign(ServerPlayer player, Identifier standId) {
         Objects.requireNonNull(player, "player");
         Objects.requireNonNull(standId, "standId");
+        if (get(player).standId().filter(standId::equals).isEmpty()) StandController.dismiss(player);
         player.setData(ModAttachments.STAND_DATA, new StandData(Optional.of(standId)));
         StarPlatinumProgress.onAssigned(player);
         HierophantProgress.onAssigned(player);
+        CrusaderProgress.onAssigned(player);
     }
 
     /** Clears the assignment on the server thread and synchronizes the empty value. */
     public static void clear(ServerPlayer player) {
         Objects.requireNonNull(player, "player");
+        StandController.dismiss(player);
         player.setData(ModAttachments.STAND_DATA, StandData.EMPTY);
     }
 }

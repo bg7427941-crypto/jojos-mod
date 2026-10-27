@@ -31,32 +31,32 @@ public final class ModStands {
     public static final StandDefinition STAR_PLATINUM = new StandDefinition(
             Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "star_platinum"),
             "stand.jojosmod.star_platinum", StandDefinition.Tier.STRONG,
-            new StandStats(5, 5, 3, 5, 5, 5), new StandCombat(6.0F, 3.0, 16, 4.0));
+            new StandStats(5, 5, 3, 5, 5, 5), new StandCombat(9.0F, 3.0, 16, 4.0));
 
     public static final StandDefinition HIEROPHANT_GREEN = new StandDefinition(
             Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "hierophant_green"),
             "stand.jojosmod.hierophant_green", StandDefinition.Tier.STRONG,
-            new StandStats(3, 4, 5, 4, 3, 2), new StandCombat(1.0F, 3.0, 100, 4.0));
+            new StandStats(3, 4, 5, 4, 3, 2), new StandCombat(3.0F, 3.0, 100, 4.0));
 
     public static final StandDefinition SILVER_CHARIOT = new StandDefinition(
             Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "silver_chariot"), "stand.jojosmod.silver_chariot", StandDefinition.Tier.STRONG,
-            new StandStats(3, 5, 3, 4, 4, 3), new StandCombat(4.0F, 3.5, 14, 4.0));
+            new StandStats(3, 5, 3, 4, 4, 3), new StandCombat(6.0F, 3.5, 14, 4.0));
 
     public static final StandDefinition MAGICIANS_RED = new StandDefinition(
             Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "magicians_red"), "stand.jojosmod.magicians_red", StandDefinition.Tier.STRONG,
-            new StandStats(4, 4, 3, 4, 3, 2), new StandCombat(6.0F, 3, 50, 4.0));
+            new StandStats(4, 4, 3, 4, 3, 2), new StandCombat(10.0F, 3, 50, 4.0));
 
     public static final StandDefinition HERMIT_PURPLE = new StandDefinition(
             Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "hermit_purple"), "stand.jojosmod.hermit_purple", StandDefinition.Tier.STRONG,
-            new StandStats(2, 3, 2, 5, 2, 1), new StandCombat(3.0F, 3, 24, 4.0));
+            new StandStats(2, 3, 2, 5, 2, 1), new StandCombat(5.0F, 3, 24, 4.0));
 
     public static final StandDefinition THE_FOOL = new StandDefinition(
             Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "the_fool"), "stand.jojosmod.the_fool", StandDefinition.Tier.STRONG,
-            new StandStats(4, 4, 2, 3, 1, 3), new StandCombat(3.0F, 3, 50, 4.0));
+            new StandStats(4, 4, 2, 3, 1, 3), new StandCombat(6.0F, 3, 50, 4.0));
 
     public static final StandDefinition THE_WORLD = new StandDefinition(
             Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "the_world"), "stand.jojosmod.the_world", StandDefinition.Tier.STRONG,
-            new StandStats(5, 5, 3, 5, 4, 4), new StandCombat(6.0F, 3, 20, 4.0));
+            new StandStats(5, 5, 3, 5, 4, 4), new StandCombat(9.0F, 3, 20, 4.0));
 
     /** Equal Crusader rolls; The World remains outside the arrow pool.
      * Equal Part 3 rolls; existing assignments and the original arrow retain their behavior. */

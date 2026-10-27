@@ -45,6 +45,14 @@ public final class ModSounds {
     public static SoundEvent crusader(io.github.bg7427941.jojosmod.stands.PartThreeStand kind, String cue) {
         return CRUSADER.get(kind.path() + "." + cue).get();
     }
+    private static final java.util.Map<io.github.bg7427941.jojosmod.network.StandVoicePayload.Cue, DeferredHolder<SoundEvent, SoundEvent>> VOICES = new java.util.EnumMap<>(io.github.bg7427941.jojosmod.network.StandVoicePayload.Cue.class);
+    public static final DeferredHolder<SoundEvent, SoundEvent> RED_SHOOT = sound("magicians_red.shoot");
+    public static final DeferredHolder<SoundEvent, SoundEvent> CHARIOT_ARMOR = sound("silver_chariot.armor_release");
+    static {
+        for (var cue : io.github.bg7427941.jojosmod.network.StandVoicePayload.Cue.values())
+            if (cue.soundPath() != null) VOICES.put(cue, sound(cue.soundPath()));
+    }
+    public static SoundEvent voice(io.github.bg7427941.jojosmod.network.StandVoicePayload.Cue cue) { return VOICES.get(cue).get(); }
     private ModSounds() {}
 
     private static DeferredHolder<SoundEvent, SoundEvent> sound(String path) {

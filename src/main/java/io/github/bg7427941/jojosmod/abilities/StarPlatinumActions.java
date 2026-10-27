@@ -34,9 +34,9 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 public final class StarPlatinumActions {
     public static final int WINDUP_TICKS = 4;
     public static final int STRIKE_TICKS = 12;
-    public static final int BARRAGE_HITS = 8;
+    public static final int BARRAGE_HITS = 12;
     public static final int BARRAGE_INTERVAL = 3;
-    public static final int BARRAGE_TICKS = 30;
+    public static final int BARRAGE_TICKS = 44;
     public static final int BARRAGE_COOLDOWN = 100;
     public static final int GUARD_TICKS = 40;
     public static final int GUARD_COOLDOWN = 80;
@@ -45,7 +45,7 @@ public final class StarPlatinumActions {
     public static final int STAR_FINGER_TICKS = 18;
     public static final int STAR_FINGER_COOLDOWN = 120;
     public static final int MASTERED_FINGER_COOLDOWN = 100;
-    public static final float STAR_FINGER_DAMAGE = 4;
+    public static final float STAR_FINGER_DAMAGE = 7;
     public static final double STAR_FINGER_REACH = 6;
     public static final int INTERCEPT_WINDUP = 2;
     public static final int INTERCEPT_WINDOW_END = 10;
@@ -256,7 +256,7 @@ public final class StarPlatinumActions {
                     SoundSource.PLAYERS, barrage ? 0.27F : 0.55F, barrage ? 1.14F : 0.94F);
             if (finger) StarPlatinumEffects.starFinger(owner, stand.get(), STAR_FINGER_REACH);
             else StarPlatinumEffects.swing(owner, stand.get(), barrage);
-            BasicAttack.hit(owner, stand.get(), finger ? STAR_FINGER_DAMAGE : strike ? profile.damage() : 1.0F,
+            BasicAttack.hit(owner, stand.get(), finger ? STAR_FINGER_DAMAGE : strike ? profile.damage() : 1.5F,
                     finger ? STAR_FINGER_REACH : profile.reach(), barrage);
             // Damage hooks from other mods may have interrupted the owner during a strike.
             if (session(owner).action() != state.action() || session(owner).startedAt() != state.startedAt()) return;
@@ -279,7 +279,7 @@ public final class StarPlatinumActions {
         if (speed != null) speed.removeModifier(GUARD_SLOW);
         if (state.action() != Action.NONE) {
             StandController.getActive(owner).filter(TrainingStandEntity::isStarPlatinum)
-                    .ifPresent(TrainingStandEntity::stopActionAnimation);
+                    .ifPresent(stand -> { if (cancelVoice) stand.stopActionAnimation(); else stand.finishActionAnimation(); });
             owner.setData(ModAttachments.STAR_SESSION, state.finish());
         }
     }

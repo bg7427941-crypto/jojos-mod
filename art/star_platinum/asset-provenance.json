@@ -40,8 +40,8 @@
   "animation_audit": {
     "clips": 14,
     "bone_tracks": 448,
-    "numeric_keys": 8270,
-    "barrage_contacts": 8,
+    "numeric_keys": 9556,
+    "barrage_contacts": 12,
     "star_finger_peak_seconds": 0.4,
     "star_finger_retracted_seconds": 0.7,
     "star_finger_contact_direction": [
@@ -79,9 +79,9 @@
   },
   "texture_sha256": "855f5a9bb9bf96a16ed2a09902d72deba88d1593e7a6ee1ecd6034e8ae55e8ca",
   "geometry_sha256": "b13fe6c37cf0cb5700c2e992a1c17e02214534021acd26ad90284f3aa0d921da",
-  "animation_sha256": "9f529540f44ea9d926a5ddb86644bfcf8e4e6647d801e8772cfc913ac3089d05",
+  "animation_sha256": "535ab68b024bf58c9035b3eebcfbb7c6d9bb01a5f0a7cb5a3eb91446291952d6",
   "model_source_sha256": "41fda34ed72a75ccc8e1bf5c0edee5fd2b0b7a199867b0b7a06bbaff28f3a1ea",
-  "animation_source_sha256": "dc9022c294b05d6c53f219f9974b978f10a172a57d1e7d66633dc633614a9321",
+  "animation_source_sha256": "98dc459752e35a32d3640d75f27faf89f8e61b97cc668f6567c25c8dfd6fa294",
   "export_source_sha256": "78f07f1e0f52c5424d11a84392693a73c5145c277f50a03c2caecec4ee82092e",
   "transform_source_sha256": "a3c13165e0b75dada74ed23be69871657df3e84857adcb89e50f8768859192da"
 }

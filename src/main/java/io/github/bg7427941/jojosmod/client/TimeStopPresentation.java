@@ -29,6 +29,9 @@ public final class TimeStopPresentation {
             if (level == null || payload.age() < 0 || payload.remaining() < 0 || payload.remaining() > 60) return;
             // Ignore a late end for a different caster.
             if (payload.remaining() == 0 && (scene == null || !scene.owner().equals(payload.owner()))) return;
+            if (payload.remaining() == 0) Minecraft.getInstance().getSoundManager().stop(
+                    Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, payload.world() ? "the_world.time_stop" : "star_platinum.time_stop"),
+                    net.minecraft.sounds.SoundSource.PLAYERS);
             sceneLevel = level; scene = payload; received = level.getGameTime();
             ends = received + payload.remaining();
         });
@@ -44,6 +47,14 @@ public final class TimeStopPresentation {
         if (sceneLevel.getGameTime() > ends + 6) { clear(); return; }
         if (mc.player.position().distanceToSqr(scene.center()) <= TimeStop.RADIUS * TimeStop.RADIUS
                 && mc.options.screenEffectScale().get() > 0) effects.add(EFFECT);
+    }
+
+    /** The temporal recording includes speech; a new cue from its caster replaces that call. */
+    public static void cutCall(java.util.UUID owner) {
+        var mc = Minecraft.getInstance();
+        if (scene != null && mc.level == sceneLevel && scene.owner().equals(owner))
+            mc.getSoundManager().stop(Identifier.fromNamespaceAndPath(JojosMod.MOD_ID,
+                    scene.world() ? "the_world.time_stop" : "star_platinum.time_stop"), net.minecraft.sounds.SoundSource.PLAYERS);
     }
 
     public static void writeUniform(Std140Builder builder) {

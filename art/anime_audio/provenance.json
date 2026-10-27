@@ -1,0 +1,143 @@
+{
+  "version": "0.13.0",
+  "authorship": "Edited third-party JoJo recordings, not original project synthesis.",
+  "terms": "Retain source repository terms and underlying recording rights; see sources.json and THIRD_PARTY_NOTICES.md.",
+  "clips": [
+    {
+      "source": "sp_rush",
+      "file": "src/main/resources/assets/jojosmod/sounds/star_platinum/anime/barrage.ogg",
+      "start_seconds": 0,
+      "duration_seconds": 2.25,
+      "gain": 0.744895904870811,
+      "sha256": "1225112a7e0b280f9fd3305c192470df4b9d2e82419e136ed9d6ca51e2afe48f"
+    },
+    {
+      "source": "world_rush",
+      "file": "src/main/resources/assets/jojosmod/sounds/the_world/anime/barrage.ogg",
+      "start_seconds": 0,
+      "duration_seconds": 2.3,
+      "gain": 1.0662631820232096,
+      "sha256": "9cb1ea4d4bb821942ca944c3de3753790d7fb549591babd0d97edba742c9a3da"
+    },
+    {
+      "source": "world_strike",
+      "file": "src/main/resources/assets/jojosmod/sounds/the_world/anime/strike.ogg",
+      "start_seconds": 0,
+      "duration_seconds": 0.5,
+      "gain": 1.205506095036236,
+      "sha256": "47b4b2b47582ef32931903950211d062d79b41d75f83a1262d27e89ad8baa0b6"
+    },
+    {
+      "source": "chariot_rush",
+      "file": "src/main/resources/assets/jojosmod/sounds/silver_chariot/anime/barrage.ogg",
+      "start_seconds": 0,
+      "duration_seconds": 1.95,
+      "gain": 1.7027600746183253,
+      "sha256": "8e44351d2c1f8684fa7aa23617276ef305678e68b3d73a69fb4069afd360c2a5"
+    },
+    {
+      "source": "chariot_strike",
+      "file": "src/main/resources/assets/jojosmod/sounds/silver_chariot/anime/strike.ogg",
+      "start_seconds": 0,
+      "duration_seconds": 1.034,
+      "gain": 1.7878084675454486,
+      "sha256": "a57a1d58c3775776658aa2b0d914b90abe13a09a334ded02d18c9cd3722b803d"
+    },
+    {
+      "source": "red_shoot",
+      "file": "src/main/resources/assets/jojosmod/sounds/magicians_red/anime/shoot.ogg",
+      "start_seconds": 0,
+      "duration_seconds": 0.34,
+      "gain": 1.1127069394089493,
+      "sha256": "5464c61423ea43c933347616521dd25af8640f068f4d55aa0bf3c649bbb9150d"
+    },
+    {
+      "source": "red_impact",
+      "file": "src/main/resources/assets/jojosmod/sounds/magicians_red/anime/impact.ogg",
+      "start_seconds": 0,
+      "duration_seconds": 0.45,
+      "gain": 0.8877542040565752,
+      "sha256": "a2ea8bc5a5d8b42cbfec7e3ba7ec7cc59370e1248fba6283fa44b64d754bceb6"
+    },
+    {
+      "source": "world_time",
+      "file": "src/main/resources/assets/jojosmod/sounds/the_world/anime/time_stop.ogg",
+      "start_seconds": 0,
+      "duration_seconds": 2.559,
+      "gain": 1.5909540043804848,
+      "sha256": "bece1f36faedcf9dfdcd1e87c02fb8f9df21c27c6e8a73c24163eb1ed67bb4af"
+    },
+    {
+      "source": "star_time",
+      "file": "src/main/resources/assets/jojosmod/sounds/star_platinum/anime/time_stop.ogg",
+      "start_seconds": 0,
+      "duration_seconds": 2.354,
+      "gain": 1.0239528921625571,
+      "sha256": "adf33960233ae6bcf0fef1cae672a0e1177cb746b0340fbcdd413494bb279573"
+    },
+    {
+      "source": "world_resume",
+      "file": "src/main/resources/assets/jojosmod/sounds/the_world/anime/resume.ogg",
+      "start_seconds": 0,
+      "duration_seconds": 1.251,
+      "gain": 1.3012607412909434,
+      "sha256": "e21c8f53add0cdd22557999543ae1dad66921b637a78df09c0197578c05b07c6"
+    },
+    {
+      "source": "emerald_call",
+      "file": "src/main/resources/assets/jojosmod/sounds/hierophant_green/anime/splash_call.ogg",
+      "start_seconds": 0,
+      "duration_seconds": 1.401,
+      "gain": 0.6344801894190131,
+      "sha256": "ce761589ac6b42d1e68df9c22a150f3ac906f0fcb782760abb8c8c9422a99fff"
+    },
+    {
+      "source": "emerald_shoot",
+      "file": "src/main/resources/assets/jojosmod/sounds/hierophant_green/anime/shoot.ogg",
+      "start_seconds": 0,
+      "duration_seconds": 0.18,
+      "gain": 1.0463251414743346,
+      "sha256": "6e9fe232d8ecf685d9de7d4de0bcae4085017a328096b2d2d9e4bbc627a87b2b"
+    },
+    {
+      "source": "crossfire_call",
+      "file": "src/main/resources/assets/jojosmod/sounds/magicians_red/anime/crossfire_call.ogg",
+      "start_seconds": 0,
+      "duration_seconds": 1.996,
+      "gain": 0.5801385067643385,
+      "sha256": "cf7acea6e069bf0419dd51e70cd73e2c349b24316887d17efbf03fa87e4f8b4c"
+    },
+    {
+      "source": "red_bind_call",
+      "file": "src/main/resources/assets/jojosmod/sounds/magicians_red/anime/bind_call.ogg",
+      "start_seconds": 0,
+      "duration_seconds": 1.297,
+      "gain": 0.7239248418972152,
+      "sha256": "b6fb78c0b07bf186228280ad666bd28bc053849c5caa3569933644016d4c4b6f"
+    },
+    {
+      "source": "purple_call",
+      "file": "src/main/resources/assets/jojosmod/sounds/hermit_purple/anime/call.ogg",
+      "start_seconds": 0,
+      "duration_seconds": 1.781,
+      "gain": 1.589616596133958,
+      "sha256": "6b707fe2960e952462159cfb9c4e541b046bc032e123cd16a1e0ad0aa0b1ab29"
+    },
+    {
+      "source": "chariot_armor",
+      "file": "src/main/resources/assets/jojosmod/sounds/silver_chariot/anime/armor.ogg",
+      "start_seconds": 0,
+      "duration_seconds": 1.33,
+      "gain": 1.049512809445249,
+      "sha256": "e618eb0b71e06628a779b57bab4ca5d4bab75f5de27fc471475a504339ac60c8"
+    },
+    {
+      "source": "chariot_impact",
+      "file": "src/main/resources/assets/jojosmod/sounds/silver_chariot/anime/impact.ogg",
+      "start_seconds": 0,
+      "duration_seconds": 0.24,
+      "gain": 0.7246640897283442,
+      "sha256": "a4eb19e680df4510024348d6494fe12b3fd5be9b8c7ed4323a448b2b4086d239"
+    }
+  ]
+}

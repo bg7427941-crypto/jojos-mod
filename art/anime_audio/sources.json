@@ -1,0 +1,175 @@
+{
+  "purpose": "Explicitly requested anime-recording integration; provenance does not relicense underlying recordings.",
+  "sources": [
+    {
+      "id": "sp_rush",
+      "repository": "Hydraheads/RoundaboutMod",
+      "commit": "f2390f1240e9b49444d6013e79bfda2038a542fb",
+      "path": "common/src/main/resources/assets/roundabout/sounds/star_platinum_ora_rush.ogg",
+      "sha": "c39ae83525a1280873d3aadb3e6dc3b971227c3f",
+      "local": "art/anime_audio/upstream/sp_rush.ogg",
+      "duration_seconds": 3.052563,
+      "sha256": "1b4ecb8a5f60b87592d9c90422cd618ee46ff14a889107733b4112e890ce8b59"
+    },
+    {
+      "id": "world_rush",
+      "repository": "Hydraheads/RoundaboutMod",
+      "commit": "f2390f1240e9b49444d6013e79bfda2038a542fb",
+      "path": "common/src/main/resources/assets/roundabout/sounds/stand_theworld_muda5.ogg",
+      "sha": "2a22b49fb8427db04bc3bc36009a7d67e70c6c5b",
+      "local": "art/anime_audio/upstream/world_rush.ogg",
+      "duration_seconds": 3.624896,
+      "sha256": "0f31dda969c3142df117bee9d8af314b5b87fc8348ed61b74acc6a3609300ea6"
+    },
+    {
+      "id": "world_strike",
+      "repository": "Hydraheads/RoundaboutMod",
+      "commit": "f2390f1240e9b49444d6013e79bfda2038a542fb",
+      "path": "common/src/main/resources/assets/roundabout/sounds/the_world_muda.ogg",
+      "sha": "52c2215cbe9a84e30b1980e2ccd4bc73e800bf3c",
+      "local": "art/anime_audio/upstream/world_strike.ogg",
+      "duration_seconds": 1.160792,
+      "sha256": "5197fe235a29d87e82961da18451ec6b3502af7f16f10d119757335c85aefef7"
+    },
+    {
+      "id": "chariot_rush",
+      "repository": "Hydraheads/RoundaboutMod",
+      "commit": "f2390f1240e9b49444d6013e79bfda2038a542fb",
+      "path": "common/src/main/resources/assets/roundabout/sounds/silver_chariot_barrage_cry.ogg",
+      "sha": "71a662881c9909a447c5b4f4d6a6130c2119dd13",
+      "local": "art/anime_audio/upstream/chariot_rush.ogg",
+      "duration_seconds": 3.456,
+      "sha256": "5fce149354f2191dcbed0c0d1695fd510b3de4a00f79c57418cf9c1f8a759e02"
+    },
+    {
+      "id": "chariot_strike",
+      "repository": "Hydraheads/RoundaboutMod",
+      "commit": "f2390f1240e9b49444d6013e79bfda2038a542fb",
+      "path": "common/src/main/resources/assets/roundabout/sounds/silver_chariot_final_hit_cry.ogg",
+      "sha": "70159eaccb26b7b69932443416df35e2fbe1c2da",
+      "local": "art/anime_audio/upstream/chariot_strike.ogg",
+      "duration_seconds": 1.034167,
+      "sha256": "7a95c96c2219af1c135fbb0ce2bf7235e95e207f3aad98c90abaf3d9e9992b5b"
+    },
+    {
+      "id": "red_shoot",
+      "repository": "Hydraheads/RoundaboutMod",
+      "commit": "f2390f1240e9b49444d6013e79bfda2038a542fb",
+      "path": "common/src/main/resources/assets/roundabout/sounds/crossfire_shoot.ogg",
+      "sha": "d007ebf73d758fcf2db25778e844ec2f140641cb",
+      "local": "art/anime_audio/upstream/red_shoot.ogg",
+      "duration_seconds": 0.606122,
+      "sha256": "cca8975a2ced90d46a4803bd57a5878d0206cb830151a2d69dd0a112b44264e1"
+    },
+    {
+      "id": "red_impact",
+      "repository": "Hydraheads/RoundaboutMod",
+      "commit": "f2390f1240e9b49444d6013e79bfda2038a542fb",
+      "path": "common/src/main/resources/assets/roundabout/sounds/crossfire_explode.ogg",
+      "sha": "c0e929e44c97c8e4463cc257c91a64336d429435",
+      "local": "art/anime_audio/upstream/red_impact.ogg",
+      "duration_seconds": 1.238073,
+      "sha256": "6e240aa8c305329703b919afb5dfadff11df4673ae3cde2a1898a6d51a08d80d"
+    },
+    {
+      "id": "world_time",
+      "repository": "Hydraheads/RoundaboutMod",
+      "commit": "f2390f1240e9b49444d6013e79bfda2038a542fb",
+      "path": "common/src/main/resources/assets/roundabout/sounds/timestop_the_world.ogg",
+      "sha": "43683dfe457612fa3b14f7dd703afa4fe3ebd68d",
+      "local": "art/anime_audio/upstream/world_time.ogg",
+      "duration_seconds": 2.559333,
+      "sha256": "ec114715225227da976a6b39d9ef8e3f073a557eeaac00d3e95a8ff46343da83"
+    },
+    {
+      "id": "star_time",
+      "repository": "Hydraheads/RoundaboutMod",
+      "commit": "f2390f1240e9b49444d6013e79bfda2038a542fb",
+      "path": "common/src/main/resources/assets/roundabout/sounds/timestop_star_platinum.ogg",
+      "sha": "d94fec6301684c6407cb1961ad39bc1bd5fe6353",
+      "local": "art/anime_audio/upstream/star_time.ogg",
+      "duration_seconds": 2.353521,
+      "sha256": "12133ff39ff6c52f4e14fbad0bb25d5122e91886a31c76394c3c84f3467aa27d"
+    },
+    {
+      "id": "world_resume",
+      "repository": "Hydraheads/RoundaboutMod",
+      "commit": "f2390f1240e9b49444d6013e79bfda2038a542fb",
+      "path": "common/src/main/resources/assets/roundabout/sounds/timestop_resume_theworld.ogg",
+      "sha": "596fd2a8e52d209f82952d361df1c881ff3291c0",
+      "local": "art/anime_audio/upstream/world_resume.ogg",
+      "duration_seconds": 1.251111,
+      "sha256": "8be14368833c49d32c403d0c9c53423df3047b9e200b0590dd538a73cda2018c"
+    },
+    {
+      "id": "emerald_call",
+      "repository": "StandoByte/Ripples-of-the-Past",
+      "commit": "92d6e4eb2e2bed82e74cba3aa63a3ca96b2979bc",
+      "path": "src/main/resources/assets/jojo/sounds/stand_user/kakyoin_emerald_splash.ogg",
+      "sha": "bef99998dca9d14786581dae275999f5d975ddbc",
+      "local": "art/anime_audio/upstream/emerald_call.ogg",
+      "duration_seconds": 1.401344,
+      "sha256": "748b5256de2803ba172e4cd23296dfeccd4a5fcfc0c9538e63456cef60788b15"
+    },
+    {
+      "id": "emerald_shoot",
+      "repository": "StandoByte/Ripples-of-the-Past",
+      "commit": "92d6e4eb2e2bed82e74cba3aa63a3ca96b2979bc",
+      "path": "src/main/resources/assets/jojo/sounds/stand/hierophant_green_emerald_splash.ogg",
+      "sha": "0db360007843e15826ae523f0dbb2fa0d1caa76e",
+      "local": "art/anime_audio/upstream/emerald_shoot.ogg",
+      "duration_seconds": 1.350656,
+      "sha256": "07a0a2a7491a5ffb098fe191a9c86821455a56d081d80d4241f9690bdc309c47"
+    },
+    {
+      "id": "crossfire_call",
+      "repository": "StandoByte/Ripples-of-the-Past",
+      "commit": "92d6e4eb2e2bed82e74cba3aa63a3ca96b2979bc",
+      "path": "src/main/resources/assets/jojo/sounds/stand_user/avdol_crossfire_hurricane.ogg",
+      "sha": "9ba734f11a389d45528efd0497e4be8da123c6c6",
+      "local": "art/anime_audio/upstream/crossfire_call.ogg",
+      "duration_seconds": 1.996,
+      "sha256": "283a36b642f92da9abbfb9c8643b8493cd8a47fef577abbe8ab174e9244a87a5"
+    },
+    {
+      "id": "red_bind_call",
+      "repository": "StandoByte/Ripples-of-the-Past",
+      "commit": "92d6e4eb2e2bed82e74cba3aa63a3ca96b2979bc",
+      "path": "src/main/resources/assets/jojo/sounds/stand_user/avdol_red_bind.ogg",
+      "sha": "e11a5aa628831b57a5f73789be4a004d967676aa",
+      "local": "art/anime_audio/upstream/red_bind_call.ogg",
+      "duration_seconds": 1.297344,
+      "sha256": "2cf6fa8663e3b45a5505db4282b30e89fb09b1027a69b268b31db2037edad825"
+    },
+    {
+      "id": "purple_call",
+      "repository": "AnotherGuy7/JoJoStands-Sounds",
+      "commit": "592896c3da195070d231f55e30b381982c962662",
+      "path": "Sounds/SummonCries/Hermit Purple.wav",
+      "sha": "60ba5fdad197ac07022dff6640d3948623f94236",
+      "local": "art/anime_audio/upstream/purple_call.wav",
+      "duration_seconds": 1.780958,
+      "sha256": "843d4c97ab119d3224bff65914706e9583a4da177dbd072eaee267293aa1d509"
+    },
+    {
+      "id": "chariot_armor",
+      "repository": "Hydraheads/RoundaboutMod",
+      "commit": "f2390f1240e9b49444d6013e79bfda2038a542fb",
+      "path": "common/src/main/resources/assets/roundabout/sounds/silver_chariot_armor_shed.ogg",
+      "sha": "86f418c8a59c5f5242237b26483a0463c7928f94",
+      "local": "art/anime_audio/upstream/chariot_armor.ogg",
+      "duration_seconds": 1.330313,
+      "sha256": "603f7960e7e654497c08f740457c1659316e8fb25ac19290be23f19cdc72112a"
+    },
+    {
+      "id": "chariot_impact",
+      "repository": "Hydraheads/RoundaboutMod",
+      "commit": "f2390f1240e9b49444d6013e79bfda2038a542fb",
+      "path": "common/src/main/resources/assets/roundabout/sounds/silver_chariot_hit_1.ogg",
+      "sha": "3e18d715c2514ca1887586cff1107f05ec48200a",
+      "local": "art/anime_audio/upstream/chariot_impact.ogg",
+      "duration_seconds": 0.574542,
+      "sha256": "6d6313ab303eb9d8bd731048312fc989f937fb2bee9bf59427bd89a2164f8ae1"
+    }
+  ]
+}

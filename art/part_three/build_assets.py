@@ -125,7 +125,7 @@ def sprite(kind,palette):
     return img
 
 def main():
-    manifest={'version':'0.12.1','license':'Roundabout License v1.2 for the three adapted models/atlases; MIT for original assets, animations and generators; character rights retained by their owners','authorship':'Three pinned Roundabout geometries/UVs/anime atlases adapted through the Star Platinum conversion workflow; original Hermit Purple/The Fool sculptures, original action keyframes and core sprites. No upstream animation keyframes imported.','models':{},'files':{},'upstream':adapt_models.pinned_sources()}
+    manifest={'version':'0.13.0','license':'Roundabout License v1.2 for the three adapted models/atlases; MIT for original assets, animations and generators; character rights retained by their owners','authorship':'Three pinned Roundabout geometries/UVs/anime atlases adapted through the Star Platinum conversion workflow; original Hermit Purple/The Fool sculptures, original action keyframes and core sprites. No upstream animation keyframes imported.','models':{},'files':{},'upstream':adapt_models.pinned_sources()}
     for kind in KINDS:
         TOOLS.stable_id=lambda name,k=kind:str(uuid.uuid5(uuid.NAMESPACE_URL,'jojosmod/part-three/v1/'+k+'/'+name))
         palette=PALETTES[kind];tools.PALETTE=dict(zip(['plate','ivory','dark','gem','gold'],palette));tools.SIZE=512

@@ -76,7 +76,7 @@ public final class HierophantGameTests {
             "native_flight_and_walls", "projectile_range_and_lifetime", "allies_and_pvp",
             "interruption_matrix", "recovery_and_cancelled_flight", "mastery_health_and_bonus",
             "mastery_eligibility_and_coop", "persistence_network_and_legacy", "recipe_storage_no_duplication",
-            "projectile_absorption_no_reward", "guard_reduces_emerald_damage");
+            "projectile_absorption_no_reward", "guard_reduces_emerald_damage", "near_crosshair_hits");
     private static final DeferredRegister<MapCodec<? extends GameTestInstance>> TYPES =
             DeferredRegister.create(Registries.TEST_INSTANCE_TYPE, MOD_ID);
     static { TYPES.register("hierophant", () -> HierophantTestInstance.CODEC); }
@@ -171,6 +171,17 @@ public final class HierophantGameTests {
         helper.succeed();
     }
 
+    private static void nearCrosshairHits(GameTestHelper helper) {
+        var f = fixture(helper);
+        var target = enemy(helper, f.owner.position().add(0, 0, 2.8));
+        target.getAttribute(Attributes.MAX_HEALTH).setBaseValue(100); target.setHealth(100);
+        helper.onEachTick(() -> tick(f));
+        check(helper, StandController.attack(f.owner), "Close-range Emerald Splash did not start");
+        helper.runAfterDelay(35, () -> {
+            check(helper, target.getHealth() == 73, "Shoulder parallax missed a centered close target or changed the nine-projectile damage cap: " + target.getHealth());
+            target.discard(); f.close(); helper.succeed();
+        });
+    }
     private static void timedVolleyAndCooldown(GameTestHelper helper) {
         var f = fixture(helper);
         helper.onEachTick(() -> tick(f));
@@ -201,8 +212,8 @@ public final class HierophantGameTests {
         helper.onEachTick(() -> { tick(clear); tick(blocked); });
         check(helper, StandController.attack(clear.owner) && StandController.attack(blocked.owner), "Flight fixtures did not start");
         helper.runAfterDelay(35, () -> {
-            check(helper, target.getHealth() < 20 && target.getHealth() >= 11,
-                    "Native flight did not hit or exceeded nine damage per volley");
+            check(helper, target.getHealth() < 20 && target.getHealth() >= 0,
+                    "Native flight did not hit or exceeded the bounded volley damage");
             check(helper, hidden.getHealth() == 20, "Emeralds crossed a solid wall");
             check(helper, HierophantProgress.get(clear.owner).splashTargets().size() == 1
                     && HierophantProgress.get(blocked.owner).splashTargets().isEmpty(),
@@ -240,7 +251,7 @@ public final class HierophantGameTests {
                 f.owner.allowPlayerHarm = false;
                 check(helper, StandController.attack(f.owner), "Protected player fixture did not start");
                 fly(shard(f, new Vec3(0, 0, 1.2)));
-                check(helper, friend.getHealth() == 20 && enemy.getHealth() == 19,
+                check(helper, friend.getHealth() == 20 && enemy.getHealth() == 17,
                         "Emeralds hurt a PvP-protected player or failed to pass through to a valid enemy");
             } finally { friend.discard(); enemy.discard(); }
             var ally = enemy(helper, f.owner.position().add(0, 0, 4));
@@ -251,7 +262,7 @@ public final class HierophantGameTests {
                 board.addPlayerToTeam(f.owner.getScoreboardName(), team);
                 board.addPlayerToTeam(ally.getScoreboardName(), team);
                 fly(shard(f, new Vec3(0, 0, 1.2)));
-                check(helper, ally.getHealth() == 20 && hostile.getHealth() == 19,
+                check(helper, ally.getHealth() == 20 && hostile.getHealth() == 17,
                         "An allied creature took damage or blocked cooperative fire");
             } finally { board.removePlayerTeam(team); ally.discard(); hostile.discard(); }
         }
@@ -454,7 +465,7 @@ public final class HierophantGameTests {
                 check(helper, StandController.toggle(defender) && StarPlatinumActions.toggleGuard(defender), "The Star Platinum defender did not guard");
                 check(helper, StandController.attack(f.owner), "Guard attack fixture did not start");
                 fly(shard(f, new Vec3(0, 0, 1.2)));
-                check(helper, Math.abs(defender.getHealth() - 19.6F) < .001,
+                check(helper, Math.abs(defender.getHealth() - 18.8F) < .001,
                         "A frontal guard did not reduce the real emerald projectile's damage");
             } finally { StandController.dismiss(defender); defender.discard(); }
         }
@@ -498,6 +509,7 @@ public final class HierophantGameTests {
                 case "arrow_pool_and_awakening" -> arrowPoolAndAwakening(helper);
                 case "timed_volley_and_cooldown" -> timedVolleyAndCooldown(helper);
                 case "native_flight_and_walls" -> nativeFlightAndWalls(helper);
+                case "near_crosshair_hits" -> nearCrosshairHits(helper);
                 case "projectile_range_and_lifetime" -> projectileRangeAndLifetime(helper);
                 case "allies_and_pvp" -> alliesAndPvp(helper);
                 case "interruption_matrix" -> interruptionMatrix(helper);

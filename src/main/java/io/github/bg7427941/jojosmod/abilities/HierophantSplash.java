@@ -55,6 +55,7 @@ public final class HierophantSplash {
         owner.setData(ModAttachments.HIEROPHANT_SESSION,
                 new HierophantSession(Optional.of(UUID.randomUUID()), now, 0, true, now + cooldown(owner)));
         stand.playAttackAnimation();
+        io.github.bg7427941.jojosmod.effects.StandVoices.play(owner, io.github.bg7427941.jojosmod.network.StandVoicePayload.Cue.EMERALD_SPLASH);
         owner.level().playSound(null, stand.blockPosition(), ModSounds.HIEROPHANT_CHARGE.get(), SoundSource.PLAYERS, .5F, 1);
         HierophantEffects.pulse(owner.level(), stand.position().add(0, 1.35, 0));
         owner.sendSystemMessage(Component.translatable("message.jojosmod.hierophant.splash"), true);
@@ -86,7 +87,7 @@ public final class HierophantSplash {
         }
         if (elapsed >= ACTION_TICKS) {
             owner.setData(ModAttachments.HIEROPHANT_SESSION, state.finish());
-            stand.get().stopActionAnimation();
+            stand.get().finishActionAnimation();
         }
     }
 
@@ -97,11 +98,16 @@ public final class HierophantSplash {
                 ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, owner));
         // A cosmetic hand offset must never create a projectile behind a wall beside the player.
         var origin = obstruction.getType() == HitResult.Type.MISS ? desiredOrigin : eye;
+        // Aim from the cosmetic hand at the server's actual crosshair hit. A fixed far
+        // plane made close targets miss the whole volley because of shoulder parallax.
+        var aimedHit = net.minecraft.world.entity.projectile.ProjectileUtil.getHitResultOnViewVector(owner,
+                entity -> entity instanceof net.minecraft.world.entity.LivingEntity target && EmeraldShardEntity.canDamage(owner, target),
+                EmeraldShardEntity.MAX_RANGE);
+        var aim = aimedHit.getType() == HitResult.Type.MISS ? eye.add(owner.getLookAngle().scale(EmeraldShardEntity.MAX_RANGE)) : aimedHit.getLocation();
+        var centerDirection = aim.subtract(origin).normalize();
         for (int angle : new int[] {-5, 0, 5}) {
             if (!projectileValid(owner, volley)) return;
-            var direction = owner.getLookAngle().yRot((float)Math.toRadians(angle));
-            var aim = eye.add(direction.scale(EmeraldShardEntity.MAX_RANGE));
-            var velocity = aim.subtract(origin).normalize();
+            var velocity = centerDirection.yRot((float)Math.toRadians(angle));
             var shard = new EmeraldShardEntity(ModEntities.EMERALD_SHARD.get(), owner.level());
             shard.initialize(owner, volley, origin);
             shard.shoot(velocity.x, velocity.y, velocity.z, EmeraldShardEntity.SPEED, 0);
@@ -114,6 +120,7 @@ public final class HierophantSplash {
     public static void cancel(ServerPlayer owner) {
         var state = session(owner);
         if (state.volley().isEmpty()) return;
+        io.github.bg7427941.jojosmod.effects.StandVoices.stop(owner);
         owner.setData(ModAttachments.HIEROPHANT_SESSION, state.cancel());
         StandController.getActive(owner).filter(TrainingStandEntity::isHierophantGreen)
                 .ifPresent(TrainingStandEntity::stopActionAnimation);

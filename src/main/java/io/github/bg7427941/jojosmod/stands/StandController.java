@@ -4,37 +4,13 @@ import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
 import io.github.bg7427941.jojosmod.abilities.TimeStop;
 import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.abilities.BasicAttack;
-import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
-import io.github.bg7427941.jojosmod.abilities.TimeStop;
-import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.abilities.StarPlatinumActions;
-import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
-import io.github.bg7427941.jojosmod.abilities.TimeStop;
-import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.abilities.HierophantSplash;
-import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
-import io.github.bg7427941.jojosmod.abilities.TimeStop;
-import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.entities.TrainingStandEntity;
-import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
-import io.github.bg7427941.jojosmod.abilities.TimeStop;
-import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.registry.ModAttachments;
-import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
-import io.github.bg7427941.jojosmod.abilities.TimeStop;
-import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.registry.ModEntities;
-import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
-import io.github.bg7427941.jojosmod.abilities.TimeStop;
-import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import io.github.bg7427941.jojosmod.registry.ModStands;
-import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
-import io.github.bg7427941.jojosmod.abilities.TimeStop;
-import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import java.util.Optional;
-import io.github.bg7427941.jojosmod.abilities.CrusaderActions;
-import io.github.bg7427941.jojosmod.abilities.TimeStop;
-import io.github.bg7427941.jojosmod.stands.PartThreeStand;
 import net.minecraft.server.level.ServerPlayer;
 
 /** All entry points run on the logical server thread. Clients send intentions only. */
@@ -76,6 +52,7 @@ public final class StandController {
         }
         var active = getActive(owner);
         if (active.isPresent()) {
+            io.github.bg7427941.jojosmod.effects.StandVoices.stop(owner);
             StarPlatinumActions.stop(owner);
             HierophantSplash.cancel(owner);
             CrusaderActions.cancel(owner); TimeStop.cancel(owner);
@@ -134,6 +111,7 @@ public final class StandController {
     }
 
     public static void dismiss(ServerPlayer owner) {
+        io.github.bg7427941.jojosmod.effects.StandVoices.stop(owner);
         StarPlatinumActions.stop(owner);
         HierophantSplash.cancel(owner);
         CrusaderActions.cancel(owner); TimeStop.cancel(owner);

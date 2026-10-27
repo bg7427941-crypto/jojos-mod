@@ -61,6 +61,7 @@ public final class TimeStop {
         boolean world = PlayerStands.get(p).standId().filter(ModStands.THE_WORLD.id()::equals).isPresent();
         var bubble = new Bubble(p, stand.get(), world ? 60 : 40);
         BUBBLES.put(p.level(), bubble); tick(p.level());
+        io.github.bg7427941.jojosmod.effects.StandVoices.stop(p);
         stand.get().playCrusaderAnimation("time_stop");
         sound(p.level(), bubble, false);
         for (var player : p.level().players()) if (player.distanceToSqr(p) <= 1024)

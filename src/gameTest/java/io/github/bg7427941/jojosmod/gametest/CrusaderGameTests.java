@@ -47,7 +47,7 @@ public final class CrusaderGameTests {
             "rapier_flurry", "red_bind_cleanup", "vine_anchor_and_collision", "sand_shell_and_glide", "muda_and_guard",
             "armor_tradeoff", "divination_cooldown", "flame_lifetime_and_cancel", "interruption_and_switch",
             "mastery_coop_and_absorption", "persistence_network_legacy", "five_recipes_and_storage", "allies_and_pvp",
-            "time_stop_lifecycle_and_packets", "muda_barrage", "flame_guard", "red_bind_expiry", "time_scene_codec", "hermit_arm_follow");
+            "time_stop_lifecycle_and_packets", "muda_barrage", "flame_guard", "red_bind_expiry", "time_scene_codec", "hermit_arm_follow", "attack_voice_routing");
     private static final DeferredRegister<MapCodec<? extends GameTestInstance>> TYPES = DeferredRegister.create(Registries.TEST_INSTANCE_TYPE, MOD_ID);
     static { TYPES.register("crusader", () -> Test.CODEC); }
     public static void register(IEventBus bus) { TYPES.register(bus); bus.addListener(CrusaderGameTests::registerTests); }
@@ -90,7 +90,7 @@ public final class CrusaderGameTests {
         h.onEachTick(() -> { tick(clear); tick(blocked); });
         check(h, StandController.attack(clear.owner) && StandController.attack(blocked.owner) && !StandController.attack(clear.owner), "No attack, or duplicate primary accepted");
         h.runAfterDelay(35, () -> {
-            float expected = switch (kind) { case SILVER_CHARIOT -> 4; case MAGICIANS_RED, THE_WORLD -> 6; default -> 3; };
+            float expected = switch (kind) { case SILVER_CHARIOT -> 6; case MAGICIANS_RED -> 10; case THE_WORLD -> 9; case HERMIT_PURPLE -> 5; default -> 6; };
             check(h, Math.abs(t.getHealth() - (20 - expected)) < .01 && wall.getHealth() == 20,
                     "Primary damage/count or solid-wall collision failed: " + kind + " health=" + t.getHealth() + "/" + wall.getHealth());
             check(h, CrusaderProgress.get(clear.owner).training(kind).targets().size() == 1
@@ -102,8 +102,8 @@ public final class CrusaderGameTests {
         var f = fixture(h, kind); var t = enemy(h, f.owner.position().add(0, 0, 2.8));
         h.onEachTick(() -> tick(f));
         check(h, CrusaderActions.secondary(f.owner) && !CrusaderActions.secondary(f.owner) && !StandController.attack(f.owner), "Overlapping actions accepted");
-        h.runAfterDelay(38, () -> {
-            float damage = kind == PartThreeStand.SILVER_CHARIOT ? 6 : 10;
+        h.runAfterDelay(48, () -> {
+            float damage = kind == PartThreeStand.SILVER_CHARIOT ? 12 : 18;
             check(h, Math.abs(t.getHealth() - (20 - damage)) < .01 && !CrusaderActions.secondary(f.owner), "Wrong barrage count or cooldown");
             check(h, CrusaderActions.session(f.owner).action == CrusaderSession.Action.NONE, "Barrage never recovered");
             f.close(); t.discard(); h.succeed();
@@ -114,7 +114,7 @@ public final class CrusaderGameTests {
         double speed = t.getAttributeValue(Attributes.MOVEMENT_SPEED);
         h.onEachTick(() -> tick(f)); check(h, CrusaderActions.secondary(f.owner), "Red Bind failed");
         h.runAfterDelay(10, () -> {
-            check(h, t.getHealth() == 17 && t.getAttributeValue(Attributes.MOVEMENT_SPEED) < speed * .11, "Bind did not damage and restrain");
+            check(h, t.getHealth() == 15 && t.getAttributeValue(Attributes.MOVEMENT_SPEED) < speed * .11, "Bind did not damage and restrain");
             f.owner.hurtServer(h.getLevel(), f.owner.damageSources().generic(), 1);
             check(h, Math.abs(t.getAttributeValue(Attributes.MOVEMENT_SPEED) - speed) < .00001
                     && CrusaderActions.session(f.owner).bound == null, "Interruption leaked a movement modifier");
@@ -308,6 +308,40 @@ public final class CrusaderGameTests {
         }
         h.succeed();
     }
+    private static void attackVoices(GameTestHelper h) {
+        var f = fixture(h, PartThreeStand.SILVER_CHARIOT);
+        var g = fixture(h, PartThreeStand.MAGICIANS_RED);
+        var w = fixture(h, PartThreeStand.THE_WORLD);
+        var p = fixture(h, PartThreeStand.HERMIT_PURPLE);
+        var hg = new TestPlayer(h.getLevel()); hg.snapTo(f.owner.position(), 0, 0);
+        PlayerStands.assign(hg, ModStands.HIEROPHANT_GREEN.id()); StandController.toggle(hg);
+        var owners = List.of(f.owner, g.owner, w.owner, p.owner, hg);
+        for (var owner : owners) {
+            for (var other : owners) if (other != owner) owner.protectedPlayers.add(other.getUUID());
+            h.getLevel().addNewPlayer(owner); owner.voices.clear();
+        }
+        check(h, StandController.attack(f.owner) && StandController.attack(g.owner) && StandController.attack(w.owner)
+                && StandController.attack(p.owner) && StandController.attack(hg), "Voice actions were not accepted");
+        check(h, f.owner.voices.getLast().cue().name().equals("CHARIOT_STRIKE")
+                && g.owner.voices.getLast().cue().name().equals("CROSSFIRE")
+                && w.owner.voices.getLast().cue().name().equals("WORLD_STRIKE")
+                && p.owner.voices.getLast().cue().name().equals("PURPLE_CALL")
+                && hg.voices.getLast().cue().name().equals("EMERALD_SPLASH"), "An attack used another Stand's voice");
+        int before = f.owner.voices.size();
+        check(h, !StandController.attack(f.owner) && f.owner.voices.size() == before, "Rejected input replayed an attack voice");
+        h.onEachTick(() -> { tick(f); tick(g); tick(w); tick(p); HierophantSplash.tick(hg); });
+        h.runAfterDelay(17, () -> {
+            check(h, f.owner.voices.getLast().cue().name().equals("CHARIOT_STRIKE"), "Natural completion cut off the authored recovery voice");
+            check(h, CrusaderActions.secondary(f.owner), "Chariot rush did not start");
+            check(h, f.owner.voices.getLast().cue().name().equals("CHARIOT_BARRAGE"), "Chariot rush used thrust audio");
+            check(h, CrusaderActions.secondary(g.owner) && g.owner.voices.getLast().cue().name().equals("RED_BIND"), "Red Bind used Crossfire audio");
+            check(h, CrusaderActions.secondary(w.owner) && w.owner.voices.getLast().cue().name().equals("WORLD_BARRAGE"), "MUDA rush used single-strike audio");
+            f.owner.hurtServer(h.getLevel(), f.owner.damageSources().generic(), 1);
+            check(h, f.owner.voices.getLast().cue().name().equals("STOP")
+                    && g.owner.voices.getLast().cue().name().equals("RED_BIND"), "Interruption failed or canceled another owner's voice");
+            StandController.dismiss(hg); hg.discard(); f.close(); g.close(); w.close(); p.close(); h.succeed();
+        });
+    }
     private static void sceneCodec(GameTestHelper h) {
         var center = new Vec3(17.5, 80.25, -31.75);
         var owner = UUID.randomUUID();
@@ -403,12 +437,17 @@ public final class CrusaderGameTests {
     }
     private static final class TestPlayer extends ServerPlayer {
         final Set<UUID> protectedPlayers = new HashSet<>(); final List<String> messages = new ArrayList<>();
+        final List<io.github.bg7427941.jojosmod.network.StandVoicePayload> voices = new ArrayList<>();
         TestPlayer(ServerLevel level) {
             super(level.getServer(), level, new GameProfile(UUID.randomUUID(), "Crusader" + UUID.randomUUID().toString().substring(0, 6)), ClientInformation.createDefault());
             var transport = new net.minecraft.network.Connection(PacketFlow.SERVERBOUND) { @Override public void setListenerForServerboundHandshake(PacketListener listener) {} };
             new EmbeddedChannel(transport);
             connection = new ServerGamePacketListenerImpl(level.getServer(), transport, this, CommonListenerCookie.createInitial(getGameProfile(), false)) {
-                @Override public void send(Packet<?> p) {} @Override public void tick() {}
+                @Override public void send(Packet<?> p) {
+                    if (p instanceof net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket custom
+                            && custom.payload() instanceof io.github.bg7427941.jojosmod.network.StandVoicePayload voice
+                            && voice.owner().equals(TestPlayer.this.getUUID())) voices.add(voice);
+                } @Override public void tick() {}
             };
             connection.markClientLoaded(); setGameMode(GameType.SURVIVAL); setNoGravity(true);
         }
@@ -423,7 +462,7 @@ public final class CrusaderGameTests {
         Test(TestData<Holder<TestEnvironmentDefinition<?>>> data, String name) { super(data); this.name = name; }
         @Override public void run(GameTestHelper h) {
             switch (name) {
-                case "time_scene_codec" -> sceneCodec(h); case "hermit_arm_follow" -> hermitFollow(h);
+                case "attack_voice_routing" -> attackVoices(h); case "time_scene_codec" -> sceneCodec(h); case "hermit_arm_follow" -> hermitFollow(h);
                 case "rapier_flurry" -> barrage(h, PartThreeStand.SILVER_CHARIOT); case "muda_and_guard" -> { guard(h); }
                 case "muda_barrage" -> barrage(h, PartThreeStand.THE_WORLD);
                 case "flame_guard" -> flameGuard(h); case "red_bind_expiry" -> bindExpiry(h);

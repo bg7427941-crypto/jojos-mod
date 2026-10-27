@@ -17,14 +17,14 @@ from PIL import Image, ImageDraw
 ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
 ASSETS = ROOT / "src/main/resources/assets/jojosmod"
-SIZE = 256
+SIZE = 512
 spec = importlib.util.spec_from_file_location("model_export", ROOT / "art/star_platinum/model_export.py")
 export = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(export)
-export.stable_id = lambda name: str(uuid.uuid5(uuid.NAMESPACE_URL, "jojosmod/hierophant-green/v1/" + name))
+export.stable_id = lambda name: str(uuid.uuid5(uuid.NAMESPACE_URL, "jojosmod/hierophant-green/v2/" + name))
 
-PALETTE = {"web": (33, 133, 91), "plate": (44, 163, 113), "ivory": (212, 230, 185),
-           "dark": (10, 44, 38), "gem": (75, 247, 188), "gold": (184, 189, 99)}
+PALETTE = {"web": (27, 127, 83), "plate": (25, 147, 101), "ivory": (223, 231, 216),
+           "dark": (10, 44, 38), "gem": (82, 224, 157), "gold": (248, 218, 68)}
 
 
 class Model:
@@ -48,8 +48,8 @@ class Model:
         color = PALETTE[material]
         for y in range(h):
             for x in range(w):
-                vein = material == "web" and ((x + y) % 12 == 0 or (x - y) % 12 == 0)
-                base = (177, 221, 178) if vein else color
+                vein = material == "web" and ((x + y) % 10 < 2 or (x - y) % 10 < 2)
+                base = (204, 229, 203) if vein else color
                 shade = .80 + .19 * (1 - x / max(1, w - 1)) + .08 * (1 - y / max(1, h - 1))
                 if x == w - 1 or y == h - 1: shade *= .83
                 if material == "gem": shade += .13 * (x < w / 2)
@@ -83,42 +83,53 @@ def geometry():
         ("right_leg", [-1.8, 12.3, 0], "body"), ("left_leg", [1.8, 12.3, 0], "body"),
         ("right_shin", [-1.8, 6.4, 0], "right_leg"), ("left_shin", [1.8, 6.4, 0], "left_leg")]:
         m.bone(name, pivot, parent)
-    m.cube("waist", "body", [-3.25, 11.5, -1.8], [6.5, 2.2, 3.6], "plate")
-    m.cube("abdomen", "torso", [-2.8, 13.5, -1.65], [5.6, 4.2, 3.3])
-    m.cube("chest", "torso", [-3.5, 17.7, -2], [7, 6.6, 4])
-    m.cube("neck", "head", [-1.4, 24.3, -1.3], [2.8, 1.4, 2.6], "ivory")
-    for side in [-1, 1]:
-        m.cube(f"chest_plate_{side}", "torso", [side * 1.6 - 1.25, 20, -2.25], [2.5, 3.4, .45], "ivory", [0, 0, side * -8])
-        m.cube(f"rib_{side}", "torso", [side * 2.65 - .4, 17.5, -2.05], [.8, 3.5, .5], "plate")
-        m.cube(f"hip_{side}", "body", [side * 3.1 - .8, 11.7, -1.7], [1.6, 2.4, 3.4], "plate", [0, 0, side * -8])
-    m.cube("sternum_gem", "torso", [-.7, 18.2, -2.65], [1.4, 1.4, .8], "gem", [0, 0, 45])
-    m.cube("helmet", "head", [-2.8, 25.3, -2.4], [5.6, 6.2, 4.8], "plate")
-    m.cube("crown", "head", [-2.25, 31.5, -1.9], [4.5, .9, 3.8])
-    m.cube("face", "head", [-2.25, 26.1, -2.75], [4.5, 4.65, .5], "ivory")
-    m.cube("jaw", "head", [-1.6, 25.6, -2.9], [3.2, 1.35, .6], "plate")
-    m.cube("nose_bridge", "head", [-.32, 27.3, -3.03], [.64, 2.1, .5], "plate")
-    m.cube("brow", "head", [-2.6, 30.15, -2.94], [5.2, .7, .55], "plate")
-    for side in [-1, 1]:
-        m.cube(f"temple_{side}", "head", [side * 2.9 - .55, 26.3, -1.8], [1.1, 4.3, 3.6], "plate")
-        m.cube(f"ear_{side}", "head", [side * 3.15 - .45, 27.4, -1.05], [.9, 2.1, 2.1], "ivory")
-        m.cube(f"eye_socket_{side}", "head", [side * 1.25 - .73, 28.7, -3.02], [1.46, .8, .18], "dark")
-        m.cube(f"eye_{side}", "head", [side * 1.25 - .42, 28.92, -3.13], [.84, .35, .15], "gem")
+    # Player-based humanoid proportions with a lithe segmented silhouette.
+    m.cube("pelvis", "body", [-3.1, 11.3, -1.7], [6.2, 2.4, 3.4])
+    m.cube("abdomen", "torso", [-2.7, 13.5, -1.65], [5.4, 4.2, 3.3])
+    m.cube("ribcage", "torso", [-3.7, 17.6, -2.05], [7.4, 6.0, 4.1])
+    m.cube("neck", "head", [-1.2, 23.6, -1.2], [2.4, 2.4, 2.4], "ivory")
+    # White segmented mask and emerald melon-patterned crown; no human face underneath.
+    m.cube("cranium", "head", [-2.75, 26, -2.05], [5.5, 5.7, 4.6])
+    m.cube("crown_cap", "head", [-2.2, 31.3, -1.5], [4.4, .8, 3.4])
+    m.cube("mask_center", "head", [-1.45, 26.3, -2.65], [2.9, 4.1, 1.0], "ivory")
+    m.cube("upper_brow", "head", [-2.4, 30.1, -2.55], [4.8, .55, .8], "ivory")
+    m.cube("nose_keel", "head", [-.4, 27.25, -3.1], [.8, 2.3, .65], "ivory")
+    m.cube("lower_mask", "head", [-1.65, 25.7, -2.7], [3.3, 1.3, .7], "ivory")
+    m.cube("mouth_seam", "head", [-.95, 26.5, -3.04], [1.9, .13, .12], "dark")
     for side, prefix in [(-1, "right"), (1, "left")]:
-        x = side * 4.9
-        m.cube(prefix + "_shoulder", prefix + "_arm", [x - 1.9, 22.5, -2.05], [3.8, 2.8, 4.1], "plate")
-        m.cube(prefix + "_upper_arm", prefix + "_arm", [x - 1.35, 18, -1.65], [2.7, 5.1, 3.3])
-        m.cube(prefix + "_elbow", prefix + "_forearm", [x - 1.25, 17.1, -1.6], [2.5, 1.6, 3.2], "ivory")
-        m.cube(prefix + "_forearm", prefix + "_forearm", [x - 1.4, 13.1, -1.7], [2.8, 4.4, 3.4])
-        m.cube(prefix + "_wrist_plate", prefix + "_hand", [x - 1.3, 12.2, -1.55], [2.6, 1.25, 3.1], "plate")
-        m.cube(prefix + "_palm", prefix + "_hand", [x - 1.15, 10.4, -1.2], [2.3, 2.0, 2.4], "plate")
+        m.cube(prefix+"_face_ridge", "head", [side*1.85-.5, 26.8, -2.8], [1, 3.8, .65], "ivory", [0, 0, side*-9])
+        m.cube(prefix+"_eye_recess", "head", [side*1.3-.6, 29.0, -3.08], [1.2, 1, .3], "dark", [0, 0, side*12])
+        m.cube(prefix+"_yellow_eye", "head", [side*1.3-.41, 29.18, -3.29], [.82, .56, .2], "gold", [0, 0, side*12])
+        for stripe in range(3):
+            m.cube(f"{prefix}_eye_slit_{stripe}", "head", [side*1.3-.43+stripe*.3, 29.15, -3.42], [.08, .63, .05], "dark", [0, 0, side*12])
+        m.cube(prefix+"_temple", "head", [side*2.6-.45, 26.7, -.9], [.9, 3.7, 2.6], "ivory")
+        m.cube(prefix+"_ear_center", "head", [side*3-.3, 27.6, -.25], [.6, 1.8, 1.2], "dark")
+        m.cube(prefix+"_ear_plate", "head", [side*3.15-.2, 27.8, -.15], [.4, 1.4, 1], "ivory")
+        # Pale wrapping bands cross the torso instead of a generic armored breastplate.
+        for band in range(3):
+            m.cube(f"{prefix}_pectoral_band_{band}", "torso", [side*1.8-1.7, 18.5+band*1.35, -2.21], [3.4, .52, .28], "ivory", [0, 0, side*-18])
+        m.cube(prefix+"_flank_band", "torso", [side*2.65-.26, 14.4, -1.87], [.52, 3.2, .25], "ivory", [0, 0, side*12])
+        m.cube(prefix+"_hip_band", "body", [side*2.15-.3, 11.25, -1.92], [.6, 2.1, .3], "ivory", [0, 0, side*-28])
+        x=side*4.9
+        m.cube(prefix+"_deltoid", prefix+"_arm", [x-1.65, 21.7, -1.8], [3.3, 2.8, 3.6])
+        m.cube(prefix+"_shoulder_band", prefix+"_arm", [x-1.75, 22.6, -1.95], [3.5, .62, 3.9], "ivory")
+        m.cube(prefix+"_biceps", prefix+"_arm", [x-1.35, 18, -1.55], [2.7, 4.25, 3.1])
+        m.cube(prefix+"_elbow_joint", prefix+"_forearm", [x-1.2, 17.45, -1.5], [2.4, 1.0, 3], "ivory")
+        m.cube(prefix+"_forearm", prefix+"_forearm", [x-1.35, 13.1, -1.65], [2.7, 4.5, 3.3])
+        for band in range(2):
+            m.cube(f"{prefix}_forearm_band_{band}", prefix+"_forearm", [x-1.45, 14.1+band*1.6, -1.75], [2.9, .4, 3.5], "ivory")
+        m.cube(prefix+"_wrist", prefix+"_hand", [x-1.25, 12.35, -1.45], [2.5, .9, 2.9], "ivory")
+        m.cube(prefix+"_palm", prefix+"_hand", [x-1.25, 10.7, -1.25], [2.5, 1.8, 2.5])
         for finger in range(4):
-            m.cube(f"{prefix}_finger_{finger}", prefix + "_hand", [x - 1.15 + finger * .61, 8.7, -.8], [.45, 1.8, 1.4], "ivory")
-        m.cube(prefix + "_thumb", prefix + "_hand", [x + side * 1.15 - .35, 10.3, -.8], [.7, 1.5, 1.6], "ivory", [0, 0, side * 20])
-        lx = side * 1.8
-        m.cube(prefix + "_thigh", prefix + "_leg", [lx - 1.4, 6.2, -1.65], [2.8, 6.1, 3.3])
-        m.cube(prefix + "_knee", prefix + "_shin", [lx - 1.5, 5.7, -1.9], [3, 1.6, 3.7], "plate")
-        m.cube(prefix + "_shin", prefix + "_shin", [lx - 1.25, 1, -1.55], [2.5, 4.8, 3.1])
-        m.cube(prefix + "_foot", prefix + "_shin", [lx - 1.45, 0, -2.4], [2.9, 1.4, 4.1], "plate")
+            m.cube(f"{prefix}_finger_{finger}", prefix+"_hand", [x-1.2+finger*.64, 8.95, -.8], [.48, 1.85, 1.4], "ivory")
+        m.cube(prefix+"_thumb", prefix+"_hand", [x+side*1.25-.3, 10.3, -.8], [.6, 1.6, 1.5], "ivory", [0, 0, side*20])
+        lx=side*1.8
+        m.cube(prefix+"_thigh", prefix+"_leg", [lx-1.5, 6.2, -1.7], [3, 6.1, 3.4])
+        m.cube(prefix+"_thigh_band", prefix+"_leg", [lx-1.6, 10.1, -1.8], [3.2, .55, 3.6], "ivory")
+        m.cube(prefix+"_knee", prefix+"_shin", [lx-1.4, 5.8, -1.9], [2.8, 1.1, 3.5], "ivory")
+        m.cube(prefix+"_calf", prefix+"_shin", [lx-1.3, 1.15, -1.55], [2.6, 4.8, 3.1])
+        m.cube(prefix+"_ankle", prefix+"_shin", [lx-1.4, 1, -1.65], [2.8, .55, 3.3], "ivory")
+        m.cube(prefix+"_foot", prefix+"_shin", [lx-1.45, 0, -2.3], [2.9, 1.2, 4], "ivory")
     return m
 
 
@@ -192,8 +203,9 @@ def main():
     write_json(ASSETS / "items/hierophant_green_core.json", {"model": {"type": "minecraft:model", "model": "jojosmod:item/hierophant_green_core"}})
     write_json(ASSETS / "models/item/hierophant_green_core.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "jojosmod:item/hierophant_green_core"}})
     files = [geo, anim, texture, core_path]
-    manifest = {"version": "0.12.1", "license": "MIT for original resources and generator; character rights remain with their owners",
-        "authorship": "Original player-proportioned geometry, hand-painted procedural jade lattice atlas, six keyframed clips and core sprite. No imported model, texture, animation or recording inputs.",
+    manifest = {"version": "0.13.0", "license": "MIT for original resources and generator; character rights remain with their owners",
+        "visual_references": ["https://jojowiki.com/File:Hierophant_Green_anime_ref_(3).jpg", "https://jojowiki.com/File:US_BD_Set_2_MS_20.png"],
+        "authorship": "Original rebuilt player-based silhouette with segmented white mask, yellow slotted eyes, emerald lattice and wrapping bands; hand-painted procedural jade lattice atlas, six keyframed clips and core sprite. No imported model, texture, animation or recording inputs.",
         "export_utilities": "../star_platinum/model_export.py (project MIT conversion helpers only)",
         "source": "hierophant_green.bbmodel", "cubes": len(model.sculpture.sources), "bones": len(model.sculpture.bones),
         "texture": [SIZE, SIZE], "emerald_pulse_times_seconds": [.3, .4, .5],

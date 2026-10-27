@@ -1,6 +1,6 @@
-> **0.12.1 — presentación:** sonidos distintos y efecto temporal para The World y
-> Star Platinum, Hermit Purple unido a los brazos y animaciones más fluidas.
-> Cliente y servidor: **protocolo 11**. [Guía de prueba](docs/playtest-0.12.1.md).
+> **0.13.0:** Hierophant Green rehecho, animaciones más largas, voces y efectos
+> del anime por ataque, y mayor daño para los siete Stands de Parte 3.
+> Cliente y servidor: **protocolo 12**. [Guía y balance](docs/playtest-0.13.0.md).
 
 # JoJo's Mod
 

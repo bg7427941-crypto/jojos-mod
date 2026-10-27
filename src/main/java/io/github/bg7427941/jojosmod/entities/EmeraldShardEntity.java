@@ -24,7 +24,7 @@ import net.minecraft.world.phys.Vec3;
 public final class EmeraldShardEntity extends ThrowableItemProjectile {
     public static final double MAX_RANGE = 14;
     public static final float SPEED = 1.2F;
-    public static final float DAMAGE = 1;
+    public static final float DAMAGE = 3;
     public static final int MAX_AGE = 25;
     private UUID volley;
     private double travelled;
@@ -70,7 +70,7 @@ public final class EmeraldShardEntity extends ThrowableItemProjectile {
         return owner != null && canDamage(owner, target);
     }
 
-    private static boolean canDamage(ServerPlayer owner, LivingEntity target) {
+    public static boolean canDamage(ServerPlayer owner, LivingEntity target) {
         return target != owner && target.isAlive() && !target.isSpectator() && !owner.isAlliedTo(target)
                 && owner.canAttack(target) && (!(target instanceof ServerPlayer player)
                     || owner.level().isPvpAllowed() && owner.canHarmPlayer(player));

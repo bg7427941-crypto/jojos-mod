@@ -22,7 +22,8 @@ ráfaga de origen. El atlas anime 128×128 se copia byte por byte.
 La adaptación técnica y las trece animaciones son desarrollo de JoJo's Mod y
 tienen licencia MIT. Los catorce efectos sonoros sintetizados, ocho sprites de
 ítems, partículas, HUD, habilidades y progresión siguen siendo del proyecto.
-No se incorpora audio de Roundabout en esta entrega.
+Los ocho clips de prueba añadidos manualmente al repositorio tras la primera
+entrega 0.9.3 tienen la procedencia separada que se detalla a continuación.
 
 Star Platinum y JoJo's Bizarre Adventure son creación de Hirohiko Araki. La
 representación se inspira en Stardust Crusaders; no se reclama la creación del
@@ -33,6 +34,22 @@ Fuentes y manifiestos:
 - [Modelo adaptado, atlas y animaciones](art/star_platinum/README.md).
 - [Sonido sintetizado](art/sounds/original-audio.md).
 - `META-INF/jojosmod/star-platinum-provenance.json` y `sound-original.json` en el JAR.
+
+## Clips de audio de prueba añadidos manualmente
+
+El commit `aba6b09` incorporó ocho grabaciones procesadas de la recopilación de
+referencias de audio de Roundabout: invocación, ORA breve, inicio de ráfaga,
+Star Finger, dos impactos, guardia y bloqueo. La versión actual conserva esos
+archivos y su asignación de eventos sin modificarlos. Los clips no son síntesis
+original ni se relicencian bajo MIT.
+
+[El manifiesto de procedencia](art/sounds/collected-preview-provenance.json) conserva
+los nombres de origen, hashes, enlaces a blobs concretos y los cortes y ajustes de
+volumen. También se incluye como `META-INF/jojosmod/sound-collected-preview.json`
+en el JAR. Los derechos de las grabaciones pertenecen a sus titulares; su edición
+y los permisos de redistribución del audio del anime no se han verificado de
+forma independiente. La licencia del código o del modelo no concede derechos
+adicionales sobre esas grabaciones.
 
 ## Dependencias técnicas
 

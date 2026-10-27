@@ -69,7 +69,8 @@ public final class InterceptionGameTests {
     private static final List<String> CASES = List.of(
             "gate_and_exclusivity", "window_edges", "direction_and_pitch", "types_and_hit_targets",
             "ownership_and_pvp", "single_catch_and_cooldown", "damage_and_dismiss_cleanup",
-            "independent_owners", "other_cooldowns_and_cancellation");
+            "independent_owners", "other_cooldowns_and_cancellation",
+            "training_shooters_and_mastered_cooldown", "training_non_hostile_sources");
     private static final DeferredRegister<MapCodec<? extends GameTestInstance>> TYPES =
             DeferredRegister.create(Registries.TEST_INSTANCE_TYPE, MOD_ID);
 
@@ -87,7 +88,8 @@ public final class InterceptionGameTests {
                 new TestEnvironmentDefinition.SetDifficulty(net.minecraft.world.Difficulty.NORMAL));
         for (var name : CASES) {
             var data = new TestData<>(environment, Level.OVERWORLD, id("star_arena"),
-                    90, 0, true, Rotation.NONE, false, 1, 1, false, 0);
+                    name.equals("training_shooters_and_mastered_cooldown") ? 315 : 90,
+                    0, true, Rotation.NONE, false, 1, 1, false, 0);
             event.registerTest(id("interception/" + name), new InterceptionTestInstance(data, name));
         }
     }
@@ -491,6 +493,88 @@ public final class InterceptionGameTests {
         });
     }
 
+    private static void trainingShootersAndMasteredCooldown(GameTestHelper helper) {
+        var f = fixture(helper);
+        var shooters = new java.util.ArrayList<net.minecraft.world.entity.LivingEntity>();
+        for (int i = 0; i < 3; i++) {
+            var shooter = helper.spawn(EntityTypes.SKELETON, new BlockPos(5, 1, 4 + i));
+            shooter.setNoAi(true);
+            shooter.setNoGravity(true);
+            shooters.add(shooter);
+        }
+        helper.onEachTick(() -> tick(f));
+        check(helper, StarPlatinumActions.intercept(f.owner), "Training interception did not start");
+        for (int round = 0; round < 4; round++) {
+            int index = round == 0 ? 0 : round - 1;
+            if (round != 0) helper.runAfterDelay(round * 61, () ->
+                    check(helper, StarPlatinumActions.intercept(f.owner), "Next training interception did not start"));
+            int expected = round == 0 ? 1 : round;
+            helper.runAfterDelay(round * 61 + 3, () -> {
+                long startedAt = StarPlatinumActions.session(f.owner).startedAt();
+                var arrow = arrow(f, FRONT);
+                arrow.setOwner(shooters.get(index));
+                catchArrow(helper, f, arrow, "Hostile training arrow was not intercepted");
+                check(helper, StarPlatinumProgress.get(f.owner).count(StarPlatinumProgress.Milestone.INTERCEPT) == expected,
+                        "Interception did not count distinct shooters, including a repeated shooter");
+                check(helper, PlayerWillpower.get(f.owner) == (expected == 3 ? 7 : 6),
+                        "Interception awarded willpower before three distinct shooters or duplicated the reward");
+                var state = StarPlatinumActions.session(f.owner);
+                check(helper, state.interceptReadyAt() - startedAt == 60,
+                        "Completing mastery changed an already running cooldown");
+            });
+        }
+        helper.runAfterDelay(244, () -> {
+            check(helper, StarPlatinumActions.intercept(f.owner), "Mastered interception did not start");
+            var state = StarPlatinumActions.session(f.owner);
+            check(helper, state.interceptReadyAt() - state.startedAt() == 50
+                    && StarPlatinumActions.starFingerCooldown(f.owner) == 120,
+                    "Mastered interception did not use 2.5 seconds or also changed Star Finger");
+        });
+        helper.runAfterDelay(293, () -> check(helper, !StarPlatinumActions.intercept(f.owner),
+                "Mastered interception recovered before tick 50"));
+        helper.runAfterDelay(295, () -> {
+            check(helper, StarPlatinumActions.intercept(f.owner), "Mastered interception did not recover after tick 50");
+            var readyAt = StarPlatinumActions.session(f.owner).interceptReadyAt();
+            StandController.dismiss(f.owner);
+            check(helper, StarPlatinumActions.session(f.owner).interceptReadyAt() == readyAt
+                    && PlayerWillpower.get(f.owner) == 7, "Dismissal reset the mastered cooldown or its reward");
+            shooters.forEach(Entity::discard); f.close(); helper.succeed();
+        });
+    }
+
+    private static void trainingNonHostileSources(GameTestHelper helper) {
+        var unowned = fixture(helper);
+        var friendly = fixture(helper);
+        var passive = fixture(helper);
+        var shooter = new TestPlayer(helper.getLevel());
+        var villager = helper.spawn(EntityTypes.VILLAGER, new BlockPos(5, 1, 4));
+        villager.setNoAi(true);
+        var fixtures = List.of(unowned, friendly, passive);
+        for (var f : fixtures) check(helper, StarPlatinumActions.intercept(f.owner), "Source eligibility fixture did not start");
+        helper.onEachTick(() -> fixtures.forEach(InterceptionGameTests::tick));
+        helper.runAfterDelay(3, () -> {
+            var ownerless = arrow(unowned, FRONT);
+            catchArrow(helper, unowned, ownerless, "An ownerless arrow was not caught");
+            var playerArrow = arrow(friendly, FRONT);
+            playerArrow.setOwner(shooter);
+            if (helper.getLevel().isPvpAllowed() && shooter.canHarmPlayer(friendly.owner)) {
+                catchArrow(helper, friendly, playerArrow, "A PvP-enabled player arrow was not caught");
+            } else {
+                reject(helper, playerArrow, friendly.owner, "A PvP-disabled arrow was changed");
+            }
+            var passiveArrow = arrow(passive, FRONT);
+            passiveArrow.setOwner(villager);
+            catchArrow(helper, passive, passiveArrow, "A non-hostile arrow was not caught");
+            for (var f : fixtures) {
+                check(helper, StarPlatinumProgress.get(f.owner).interceptTargets().isEmpty()
+                        && PlayerWillpower.get(f.owner) == 6,
+                        "A player, passive creature or dispenser-style arrow farmed training");
+                f.close();
+            }
+            shooter.discard(); villager.discard(); helper.succeed();
+        });
+    }
+
     private static void check(GameTestHelper helper, boolean condition, String message) {
         helper.assertTrue(condition, Component.literal(message));
     }
@@ -551,6 +635,8 @@ public final class InterceptionGameTests {
                 case "damage_and_dismiss_cleanup" -> damageAndDismissCleanup(helper);
                 case "independent_owners" -> independentOwners(helper);
                 case "other_cooldowns_and_cancellation" -> otherCooldownsAndCancellation(helper);
+                case "training_shooters_and_mastered_cooldown" -> trainingShootersAndMasteredCooldown(helper);
+                case "training_non_hostile_sources" -> trainingNonHostileSources(helper);
                 default -> throw new IllegalArgumentException(name);
             }
         }

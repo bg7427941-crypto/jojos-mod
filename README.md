@@ -12,12 +12,22 @@ El [plan de Parte 3](docs/part-three-release.md) propone el catálogo y el recor
 empezando por Star Platinum; el desarrollo específico de Whitesnake queda para una expansión posterior.
 El estado descrito abajo corresponde al prototipo actual.
 
+La **progresión avanzada 0.10.0** añade dos desafíos de Star Platinum:
+Star Finger con contacto a más de tres bloques e intercepción de flechas de
+hostiles distintos. Cada desafío completo concede **+1 de voluntad una sola vez**
+y mejora el enfriamiento de su habilidad: Star Finger de **6 a 5 s** e intercepción
+de **3 a 2,5 s**. El panel y `/stand progress` muestran el avance y las reglas.
+La [guía 0.10.0](docs/playtest-0.10.0.md) detalla la prueba de progresión y guardado.
+Cliente y servidor deben usar **0.10.0, protocolo 8**.
+
 La **integración de audio 0.9.3** añade `single_ora`, exclusivo de Z, y admite
 `ora.ogg` en el [paquete de recursos local](docs/anime-audio.md). R, Z, X y V
 usan voces que se sustituyen y cancelan por jugador. La [guía 0.9.3](docs/playtest-0.9.3.md)
-propone la prueba de reproducción e interrupciones. El JAR mantiene los catorce
-efectos originales; los clips recopilados se prueban mediante un pack separado.
-Cliente y servidor deben actualizarse juntos al **protocolo 7**.
+propone la prueba de reproducción e interrupciones. Los ocho clips de prueba
+añadidos manualmente en `main` se conservan e incluyen
+en el JAR actual; los otros eventos mantienen los efectos sintetizados. Su
+[procedencia y condiciones](THIRD_PARTY_NOTICES.md) se distinguen de los recursos
+originales. La primera entrega 0.9.3 usaba el protocolo 7; la actual usa el 8.
 
 La **revisión visual 0.9.2** adapta el modelo y el atlas del anime de Star Platinum
 de **Roundabout**, por Hydraheads y colaboradores, a nuestro rig de GeckoLib.
@@ -60,8 +70,8 @@ fuerte por defecto para recuperar su disco. La flecha no sustituye otro Stand.
 | **Z** | Golpe preciso: 6 puntos, preparación 0,2 s, cooldown 0,8 s |
 | **X** | Ráfaga: 8 golpes de 1 punto, cooldown 5 s |
 | **C** | Activar/cancelar guardia frontal: 60 % de reducción, máximo 2 s, cooldown 4 s |
-| **V** | Star Finger: 4 puntos, alcance 6 bloques, preparación 0,4 s, cooldown 6 s; requiere 5 de voluntad |
-| **B** | Intercepción precisa: neutraliza una flecha frontal entre 0,1 y menos de 0,5 s; cooldown 3 s; requiere voluntad 6 |
+| **V** | Star Finger: 4 puntos, alcance 6 bloques, preparación 0,4 s, cooldown 6 s (5 s al dominarlo); requiere 5 de voluntad |
+| **B** | Intercepción precisa: neutraliza una flecha frontal entre 0,1 y menos de 0,5 s; cooldown 3 s (2,5 s al dominarla); requiere voluntad 6 |
 | **J** | Salto con Stand: impulso desde el suelo; cooldown 4 s; requiere voluntad 4 |
 
 El golpe preciso y la ráfaga alcanzan 3 bloques; Star Finger alcanza 6. Respetan
@@ -82,6 +92,16 @@ Con un desafío y la voluntad inicial se alcanza 4 y se desbloquea el salto con 
 Con dos desafíos y la voluntad inicial se alcanza 5 y se desbloquea Star Finger.
 Los tres permiten alcanzar 6 y desbloquear la intercepción precisa. Cada jugador obtiene su progreso por sus propias
 acciones, incluso contra enemigos compartidos. La voluntad no se consume.
+
+Los dos desafíos avanzados requieren **3 enemigos hostiles distintos** por
+categoría. Star Finger cuenta solo daño de salud cuyo punto de contacto esté a
+**más de 3 bloques**; usarlo a corta distancia o absorber todo el daño no cuenta.
+La intercepción cuenta el tirador hostil de una flecha atrapada correctamente;
+flechas de jugadores, criaturas pasivas y dispensadores no dan progreso.
+Cada desafío da +1 de voluntad y su reducción de enfriamiento desde la siguiente
+activación. El enfriamiento que ya esté corriendo no se modifica. Completar los
+cinco desafíos desde la voluntad inicial permite llegar a **8**, sin repetir
+recompensas al morir, reconectar o recuperar el Stand.
 
 El panel muestra voluntad y desafíos; **`/stand`** o **`/stand progress`** permiten
 consultarlos sin permisos de operador. Los valores de daño, tiempos y requisitos
@@ -105,7 +125,8 @@ añade una capa de energía una vez al inicio, aire por pulso e impactos al acer
 Invocación, ORA individual, ráfaga y Star Finger tienen un canal por jugador: una voz nueva
 sustituye su señal anterior y una cancelación la interrumpe, conservando los canales
 de los amigos. El [paquete de audio local](docs/anime-audio.md) permite personalizar
-los eventos. El conjunto incluido no contiene grabaciones del anime ni otros mods.
+los eventos. Los ocho clips de prueba incorporados manualmente se documentan por separado;
+no son audio original del proyecto.
 La [recopilación de referencias del anime](docs/star-platinum-anime-audio-catalog.md)
 organiza los candidatos para escuchar y los puntos de integración por ataque.
 Los efectos usan partículas nativas y respetan los
@@ -453,7 +474,8 @@ dimensión, alcance y paredes, inventario lleno y mano secundaria, guardado/carg
 nativos del jugador y del guardián, recuperación del Stand y aislamiento entre jugadores.
 La entrega Star Platinum añade diez GameTests de tiempos, daño, interrupciones,
 guardia, PvP/equipos con controles positivos, paredes, alcance, loot, recetas,
-almacenamiento y persistencia del hito. El total es **53 tests: 52 del mod y uno de Minecraft**.
+almacenamiento y persistencia del hito. Esa primera entrega reunió **53 tests:
+52 del mod y uno de Minecraft**; las entregas posteriores amplían la batería.
 
 ## Organización
 

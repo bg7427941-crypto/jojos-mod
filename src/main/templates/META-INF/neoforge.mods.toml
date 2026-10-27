@@ -1,4 +1,4 @@
-license="MIT (code and original assets); Roundabout License v1.2 (adapted Star Platinum model and atlas)"
+license="MIT (code and original assets); Roundabout License v1.2 (adapted Star Platinum model and atlas); collected recordings retain their owners' rights"
 
 [[mods]]
 modId="${mod_id}"
@@ -6,9 +6,9 @@ version="${mod_version}"
 displayName="${mod_name}"
 description='''
 An original Minecraft Stand system inspired by JoJo's Bizarre Adventure.
-Star Platinum playtest: Star Finger, precise strike, timed barrage, frontal guard, persistent willpower mastery and progress HUD.
-Stand leap, precise arrow interception and a Star Platinum model and anime atlas adapted from Roundabout by Hydraheads and contributors, with thirteen original animations and synthesized sound effects; see THIRD_PARTY_NOTICES.md.
-Owner-specific voice channels include an optional Z-only ORA resource-pack event. Network protocol 7.
+Star Platinum playtest: Star Finger, precise strike, timed barrage, frontal guard, persistent basic and advanced willpower mastery, earned cooldown bonuses and progress HUD.
+Stand leap, precise arrow interception and a Star Platinum model and anime atlas adapted from Roundabout by Hydraheads and contributors, with thirteen original animations, synthesized sound effects and eight manually added listening-preview clips; see THIRD_PARTY_NOTICES.md.
+Owner-specific voice channels include a Z-only ORA event. Network protocol 8.
 '''
 
 [[dependencies.${mod_id}]]

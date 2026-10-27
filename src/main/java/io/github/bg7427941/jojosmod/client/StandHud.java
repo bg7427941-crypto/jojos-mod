@@ -46,9 +46,12 @@ public final class StandHud {
                 progress.count(Milestone.PRECISE), goal,
                 progress.count(Milestone.BARRAGE), goal,
                 progress.count(Milestone.GUARD), goal);
+        var advanced = Component.translatable("hud.jojosmod.advanced_mastery",
+                progress.count(Milestone.FINGER), goal, progress.count(Milestone.INTERCEPT), goal);
         var fingerKey = Component.keybind("key.jojosmod.star_finger");
         var ability = unlocked
-                ? Component.translatable("hud.jojosmod.star_finger.unlocked", fingerKey)
+                ? Component.translatable(progress.completed(Milestone.FINGER)
+                        ? "hud.jojosmod.star_finger.mastered" : "hud.jojosmod.star_finger.unlocked", fingerKey)
                 : Component.translatable("hud.jojosmod.star_finger.locked", fingerKey,
                         StarPlatinumProgress.STAR_FINGER_REQUIREMENT);
 
@@ -56,7 +59,8 @@ public final class StandHud {
         boolean interceptUnlocked = StarPlatinumProgress.interceptUnlocked(player);
         var interceptKey = Component.keybind("key.jojosmod.star_intercept");
         var interception = interceptUnlocked
-                ? Component.translatable("hud.jojosmod.intercept.unlocked", interceptKey)
+                ? Component.translatable(progress.completed(Milestone.INTERCEPT)
+                        ? "hud.jojosmod.intercept.mastered" : "hud.jojosmod.intercept.unlocked", interceptKey)
                 : Component.translatable("hud.jojosmod.intercept.locked", interceptKey,
                         StarPlatinumProgress.INTERCEPT_REQUIREMENT);
         boolean leapUnlocked = StarPlatinumProgress.leapUnlocked(player);
@@ -65,8 +69,8 @@ public final class StandHud {
                 : Component.translatable("hud.jojosmod.leap.locked", leapKey, StarPlatinumProgress.LEAP_REQUIREMENT);
         int textWidth = Math.max(Math.max(font.width(title), font.width(mastery)),
                 Math.max(font.width(ability), font.width(interception)));
-        int width = Math.max(textWidth, font.width(leap)) + PADDING * 2;
-        int height = font.lineHeight * 5 + PADDING * 2;
+        int width = Math.max(Math.max(textWidth, font.width(leap)), font.width(advanced)) + PADDING * 2;
+        int height = font.lineHeight * 6 + PADDING * 2;
         float scale = Math.min(1.0F, Math.max(1, graphics.guiWidth() - X * 2) / (float) width);
 
         graphics.pose().pushMatrix();
@@ -77,11 +81,12 @@ public final class StandHud {
         graphics.fill(2, 0, width, 1, 0xFFD8B85C);
         graphics.text(font, title, PADDING, PADDING, 0xFFF2E9FF, false);
         graphics.text(font, mastery, PADDING, PADDING + font.lineHeight, 0xFFD3C0EC, false);
-        graphics.text(font, ability, PADDING, PADDING + font.lineHeight * 2,
+        graphics.text(font, advanced, PADDING, PADDING + font.lineHeight * 2, 0xFFD3C0EC, false);
+        graphics.text(font, ability, PADDING, PADDING + font.lineHeight * 3,
                 unlocked ? 0xFFF2D278 : 0xFFB8B4C4, false);
-        graphics.text(font, interception, PADDING, PADDING + font.lineHeight * 3,
+        graphics.text(font, interception, PADDING, PADDING + font.lineHeight * 4,
                 interceptUnlocked ? 0xFFF2D278 : 0xFFB8B4C4, false);
-        graphics.text(font, leap, PADDING, PADDING + font.lineHeight * 4,
+        graphics.text(font, leap, PADDING, PADDING + font.lineHeight * 5,
                 leapUnlocked ? 0xFFF2D278 : 0xFFB8B4C4, false);
         graphics.pose().popMatrix();
     }

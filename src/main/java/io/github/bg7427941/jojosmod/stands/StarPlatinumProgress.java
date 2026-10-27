@@ -23,7 +23,8 @@ import net.minecraft.world.entity.player.Player;
 
 /** Persistent, bounded mastery milestones; repeating the same opponent cannot farm willpower. */
 public record StarPlatinumProgress(boolean awakened, List<UUID> preciseTargets,
-        List<UUID> barrageTargets, List<UUID> guardTargets) {
+        List<UUID> barrageTargets, List<UUID> guardTargets, List<UUID> fingerTargets,
+        List<UUID> interceptTargets) {
     public static final int TARGETS_REQUIRED = 3;
     public static final int STAR_FINGER_REQUIREMENT = 5;
     public static final int INTERCEPT_REQUIREMENT = 6;
@@ -40,17 +41,21 @@ public record StarPlatinumProgress(boolean awakened, List<UUID> preciseTargets,
             Codec.BOOL.optionalFieldOf("awakened", false).forGetter(StarPlatinumProgress::awakened),
             TARGETS_CODEC.optionalFieldOf("precise_targets", List.of()).forGetter(StarPlatinumProgress::preciseTargets),
             TARGETS_CODEC.optionalFieldOf("barrage_targets", List.of()).forGetter(StarPlatinumProgress::barrageTargets),
-            TARGETS_CODEC.optionalFieldOf("guard_targets", List.of()).forGetter(StarPlatinumProgress::guardTargets)
+            TARGETS_CODEC.optionalFieldOf("guard_targets", List.of()).forGetter(StarPlatinumProgress::guardTargets),
+            TARGETS_CODEC.optionalFieldOf("finger_targets", List.of()).forGetter(StarPlatinumProgress::fingerTargets),
+            TARGETS_CODEC.optionalFieldOf("intercept_targets", List.of()).forGetter(StarPlatinumProgress::interceptTargets)
     ).apply(instance, StarPlatinumProgress::new));
     public static final StreamCodec<ByteBuf, StarPlatinumProgress> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.BOOL, StarPlatinumProgress::awakened,
             TARGETS_STREAM_CODEC, StarPlatinumProgress::preciseTargets,
             TARGETS_STREAM_CODEC, StarPlatinumProgress::barrageTargets,
             TARGETS_STREAM_CODEC, StarPlatinumProgress::guardTargets,
+            TARGETS_STREAM_CODEC, StarPlatinumProgress::fingerTargets,
+            TARGETS_STREAM_CODEC, StarPlatinumProgress::interceptTargets,
             StarPlatinumProgress::new);
 
     public enum Milestone {
-        PRECISE("precise"), BARRAGE("barrage"), GUARD("guard");
+        PRECISE("precise"), BARRAGE("barrage"), GUARD("guard"), FINGER("finger"), INTERCEPT("intercept");
 
         private final String key;
         Milestone(String key) { this.key = key; }
@@ -62,13 +67,22 @@ public record StarPlatinumProgress(boolean awakened, List<UUID> preciseTargets,
         this(awakened, List.of(), List.of(), List.of());
     }
 
+    /** Saves and callers from before advanced training start with both new challenges empty. */
+    public StarPlatinumProgress(boolean awakened, List<UUID> preciseTargets,
+            List<UUID> barrageTargets, List<UUID> guardTargets) {
+        this(awakened, preciseTargets, barrageTargets, guardTargets, List.of(), List.of());
+    }
+
     public StarPlatinumProgress {
-        if (!validTargets(preciseTargets) || !validTargets(barrageTargets) || !validTargets(guardTargets)) {
+        if (!validTargets(preciseTargets) || !validTargets(barrageTargets) || !validTargets(guardTargets)
+                || !validTargets(fingerTargets) || !validTargets(interceptTargets)) {
             throw new IllegalArgumentException("Mastery targets must contain at most three distinct UUIDs");
         }
         preciseTargets = List.copyOf(preciseTargets);
         barrageTargets = List.copyOf(barrageTargets);
         guardTargets = List.copyOf(guardTargets);
+        fingerTargets = List.copyOf(fingerTargets);
+        interceptTargets = List.copyOf(interceptTargets);
     }
 
     private static boolean validTargets(List<UUID> targets) {
@@ -86,6 +100,8 @@ public record StarPlatinumProgress(boolean awakened, List<UUID> preciseTargets,
             case PRECISE -> preciseTargets;
             case BARRAGE -> barrageTargets;
             case GUARD -> guardTargets;
+            case FINGER -> fingerTargets;
+            case INTERCEPT -> interceptTargets;
         };
     }
 
@@ -108,7 +124,8 @@ public record StarPlatinumProgress(boolean awakened, List<UUID> preciseTargets,
     public static void onAssigned(ServerPlayer player) {
         var current = get(player);
         if (!hasStarPlatinum(player) || current.awakened()) return;
-        var awakened = new StarPlatinumProgress(true, current.preciseTargets(), current.barrageTargets(), current.guardTargets());
+        var awakened = new StarPlatinumProgress(true, current.preciseTargets(), current.barrageTargets(),
+                current.guardTargets(), current.fingerTargets(), current.interceptTargets());
         int awarded = grant(player, awakened, 2);
         player.sendSystemMessage(Component.translatable("message.jojosmod.star.awakened", awarded,
                 Component.keybind("key.jojosmod.toggle_stand"), Component.keybind("key.jojosmod.basic_attack"),
@@ -123,6 +140,20 @@ public record StarPlatinumProgress(boolean awakened, List<UUID> preciseTargets,
     /** Each opponent counts once, regardless of how many barrage pulses hit it. */
     public static void onBarrageHit(ServerPlayer player, LivingEntity target) {
         record(player, target, Milestone.BARRAGE);
+    }
+
+    /** Called after health damage; distance is measured to the actual ray contact, not the target's centre. */
+    public static void onStarFingerHit(ServerPlayer player, LivingEntity target, double contactDistanceSqr) {
+        double basicReach = ModStands.STAR_PLATINUM.combat().reach();
+        if (starFingerUnlocked(player) && Double.isFinite(contactDistanceSqr)
+                && contactDistanceSqr > basicReach * basicReach) record(player, target, Milestone.FINGER);
+    }
+
+    /** Called only after the real interception has canceled a collision and removed its arrow. */
+    public static void onArrowIntercepted(ServerPlayer player, net.minecraft.world.entity.Entity shooter) {
+        if (interceptUnlocked(player) && shooter instanceof LivingEntity attacker) {
+            record(player, attacker, Milestone.INTERCEPT);
+        }
     }
 
     /** Call only when a frontal guard actually reduces positive incoming damage. */
@@ -147,12 +178,18 @@ public record StarPlatinumProgress(boolean awakened, List<UUID> preciseTargets,
         var updated = new StarPlatinumProgress(current.awakened(),
                 milestone == Milestone.PRECISE ? updatedTargets : current.preciseTargets(),
                 milestone == Milestone.BARRAGE ? updatedTargets : current.barrageTargets(),
-                milestone == Milestone.GUARD ? updatedTargets : current.guardTargets());
+                milestone == Milestone.GUARD ? updatedTargets : current.guardTargets(),
+                milestone == Milestone.FINGER ? updatedTargets : current.fingerTargets(),
+                milestone == Milestone.INTERCEPT ? updatedTargets : current.interceptTargets());
         var name = Component.translatable(milestone.translationKey());
         if (updated.completed(milestone)) {
             int awarded = grant(player, updated, 1);
             player.sendSystemMessage(Component.translatable("message.jojosmod.mastery.completed",
                     name, awarded, PlayerWillpower.get(player)), false);
+            if (milestone == Milestone.FINGER || milestone == Milestone.INTERCEPT) {
+                player.sendSystemMessage(Component.translatable("message.jojosmod.mastery." +
+                        (milestone == Milestone.FINGER ? "finger_bonus" : "intercept_bonus")), false);
+            }
         } else {
             player.setData(ModAttachments.STAR_PROGRESS, updated);
             player.sendSystemMessage(Component.translatable("message.jojosmod.mastery.progress",

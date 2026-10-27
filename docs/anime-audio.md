@@ -1,5 +1,12 @@
 # Audio del anime y paquete de recursos local
 
+**Estado de la rama actual:** los ocho clips de prueba se añadieron manualmente
+en `main` en el commit `aba6b09`, junto con la asignación de eventos. El JAR 0.10.0
+los incorpora sin necesitar un pack adicional. La procedencia está en
+[los avisos](../THIRD_PARTY_NOTICES.md) y en el manifiesto de audio recopilado.
+Las instrucciones siguientes siguen sirviendo para sustituir clips con un pack
+personal. Cliente y servidor actuales usan **0.10.0, protocolo 8**.
+
 La [recopilación de referencias de Star Platinum](star-platinum-anime-audio-catalog.md)
 reúne enlaces para escuchar invocación, ORA y Star Finger, escenas de Parte 3 y
 la asignación por evento. Es un catálogo de investigación; no incluye grabaciones
@@ -7,7 +14,8 @@ descargadas ni sustituye los sonidos de esta versión.
 
 La versión 0.9.3 incluye catorce [efectos originales sintetizados](../art/sounds/original-audio.md)
 para el proyecto, siguiendo la dirección de crear su presentación desde cero.
-No incluye grabaciones de voces del anime ni muestras extraídas de otros mods.
+La entrega original 0.9.3 no incluía grabaciones; la rama actual conserva los
+clips añadidos manualmente descritos arriba.
 La plantilla de
 `extras/anime-audio-pack/` permite sustituirlos en tu cliente con archivos que tengas
 permiso para usar, sin incorporarlos al código ni al JAR. No incluye ni descarga
@@ -39,14 +47,15 @@ Para una frase o un grito continuo de ráfaga, usa `barrage_start.ogg`; ponerlo 
 `swing.ogg` repetiría el clip en cada pulso y superpondría las voces. Ningún evento
 del pack es un bucle. Una cola breve reduce el solapamiento al interrumpir acciones.
 
-`ora.ogg` necesita la versión 0.9.3. Su evento está vacío en el mod base y solo
-suena si un pack proporciona un clip. No se reutiliza durante X ni V y no añade
+`ora.ogg` necesita la versión 0.9.3. Su evento estaba vacío en la entrega original; los clips añadidos manualmente
+ya proporcionan su voz en la rama actual. No se reutiliza durante X ni V y no añade
 un golpe sonoro de sustitución cuando falta. R, Z, X y V comparten un canal por
 propietario: una nueva voz sustituye la anterior de ese jugador. Desinvocar,
 recibir daño que interrumpe la acción, morir o cambiar de dimensión la corta.
 Un intento rechazado por cooldown o por otra acción activa no inicia otra voz.
 
-La versión 0.9.3 usa **protocolo 7**: actualiza cliente y servidor para jugar juntos.
+La versión original 0.9.3 usa **protocolo 7** y 0.10.0 usa **protocolo 8**:
+actualiza cliente y servidor juntos.
 El ZIP sigue siendo un recurso de cliente y cada oyente debe activarlo en su instancia.
 
 Minecraft necesita **OGG Vorbis** para estos archivos. Usa **mono** para que se sitúen

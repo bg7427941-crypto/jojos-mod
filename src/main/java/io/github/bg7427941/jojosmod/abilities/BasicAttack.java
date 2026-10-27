@@ -46,6 +46,8 @@ public final class BasicAttack {
             if (target.getHealth() < healthBefore) {
                 if (action == Action.STRIKE) StarPlatinumProgress.onPreciseHit(owner, target);
                 if (action == Action.BARRAGE) StarPlatinumProgress.onBarrageHit(owner, target);
+                if (action == Action.STAR_FINGER) StarPlatinumProgress.onStarFingerHit(owner, target,
+                        owner.getEyePosition().distanceToSqr(entityHit.getLocation()));
             }
             owner.level().playSound(null, target.blockPosition(), ModSounds.STAR_IMPACT.get(),
                     SoundSource.PLAYERS, barrage ? 0.38F : 0.7F, barrage ? 1.12F : 0.94F);

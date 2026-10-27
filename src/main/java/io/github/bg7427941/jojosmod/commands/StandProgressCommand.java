@@ -38,13 +38,17 @@ public final class StandProgressCommand {
                     Component.translatable(milestone.translationKey()), progress.count(milestone),
                     StarPlatinumProgress.TARGETS_REQUIRED), false);
         }
+        source.sendSuccess(() -> Component.translatable("command.jojosmod.stand.finger_training"), false);
+        source.sendSuccess(() -> Component.translatable("command.jojosmod.stand.intercept_training"), false);
         source.sendSuccess(() -> StarPlatinumProgress.starFingerUnlocked(player)
-                ? Component.translatable("command.jojosmod.stand.star_finger_ready",
+                ? Component.translatable(progress.completed(StarPlatinumProgress.Milestone.FINGER)
+                        ? "command.jojosmod.stand.star_finger_mastered" : "command.jojosmod.stand.star_finger_ready",
                         Component.keybind("key.jojosmod.star_finger"))
                 : Component.translatable("command.jojosmod.stand.star_finger_locked",
                         StarPlatinumProgress.STAR_FINGER_REQUIREMENT), false);
         source.sendSuccess(() -> StarPlatinumProgress.interceptUnlocked(player)
-                ? Component.translatable("command.jojosmod.stand.intercept_ready",
+                ? Component.translatable(progress.completed(StarPlatinumProgress.Milestone.INTERCEPT)
+                        ? "command.jojosmod.stand.intercept_mastered" : "command.jojosmod.stand.intercept_ready",
                         Component.keybind("key.jojosmod.star_intercept"))
                 : Component.translatable("command.jojosmod.stand.intercept_locked",
                         StarPlatinumProgress.INTERCEPT_REQUIREMENT), false);

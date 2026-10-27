@@ -1,5 +1,9 @@
 # Audio por ataque — prueba 0.9.3
 
+Guía histórica de la primera entrega de audio. La rama actual conserva los clips
+subidos manualmente después de esta entrega y añade la
+[progresión 0.10.0](playtest-0.10.0.md), con protocolo 8.
+
 Esta entrega añade el evento opcional `jojosmod:star_platinum.single_ora` para Z
 y admite `ora.ogg` en el constructor del paquete de recursos. Mantiene el modelo
 de Roundabout aprobado en 0.9.2, las habilidades y los catorce sonidos sintetizados

@@ -12,6 +12,7 @@ import io.github.bg7427941.jojosmod.network.LeapPayload;
 import io.github.bg7427941.jojosmod.registry.ModEntities;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -66,6 +67,8 @@ public final class JojosModClient {
         event.registerEntityRenderer(ModEntities.TRAINING_STAND.get(), TrainingStandRenderer::new);
         event.registerEntityRenderer(ModEntities.DISC_KEEPER.get(), DiscKeeperRenderer::new);
         event.registerEntityRenderer(ModEntities.STAR_PLATINUM.get(), context -> new TrainingStandRenderer(context, "star_platinum"));
+        event.registerEntityRenderer(ModEntities.HIEROPHANT_GREEN.get(), context -> new TrainingStandRenderer(context, "hierophant_green"));
+        event.registerEntityRenderer(ModEntities.EMERALD_SHARD.get(), context -> new ThrownItemRenderer<>(context, .45F, true));
     }
 
     private static void onClientTick(ClientTickEvent.Post event) {

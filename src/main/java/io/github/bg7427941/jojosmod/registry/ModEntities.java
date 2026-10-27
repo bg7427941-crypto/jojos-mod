@@ -3,6 +3,7 @@ package io.github.bg7427941.jojosmod.registry;
 import io.github.bg7427941.jojosmod.JojosMod;
 import io.github.bg7427941.jojosmod.entities.TrainingStandEntity;
 import io.github.bg7427941.jojosmod.entities.DiscKeeperEntity;
+import io.github.bg7427941.jojosmod.entities.EmeraldShardEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -46,6 +47,22 @@ public final class ModEntities {
                     .clientTrackingRange(TRACKING_RANGE).updateInterval(UPDATE_INTERVAL)
                     .build(ResourceKey.create(Registries.ENTITY_TYPE,
                             Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "star_platinum"))));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<TrainingStandEntity>> HIEROPHANT_GREEN =
+            ENTITIES.register("hierophant_green", () -> EntityType.Builder
+                    .of(TrainingStandEntity::new, MobCategory.MISC)
+                    .sized(.65F, 2.0F).noSave().noSummon()
+                    .clientTrackingRange(TRACKING_RANGE).updateInterval(UPDATE_INTERVAL)
+                    .build(ResourceKey.create(Registries.ENTITY_TYPE,
+                            Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "hierophant_green"))));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<EmeraldShardEntity>> EMERALD_SHARD =
+            ENTITIES.register("emerald_shard", () -> EntityType.Builder
+                    .of(EmeraldShardEntity::new, MobCategory.MISC)
+                    .sized(.18F, .18F).noSave().noSummon()
+                    .clientTrackingRange(TRACKING_RANGE).updateInterval(UPDATE_INTERVAL)
+                    .build(ResourceKey.create(Registries.ENTITY_TYPE,
+                            Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "emerald_shard"))));
 
     private ModEntities() {}
 

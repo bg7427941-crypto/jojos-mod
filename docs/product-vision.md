@@ -21,6 +21,13 @@ la historia de Parte 3. El primer recorrido de lanzamiento se centrará en Parte
 
 ## Estado real de la base
 
+La 0.11.0 añade una primera versión jugable de Hierophant Green con Emerald
+Splash, recursos propios y dominio persistente, junto a Star Platinum y sus cinco
+desafíos. La [ficha de Hierophant Green](hierophant-green-design.md) mantiene
+pendientes sus otras técnicas. El catálogo de Parte 3, DIO y la parada temporal
+siguen en desarrollo. El siguiente párrafo describe la base histórica de sistemas.
+
+
 La versión 0.4.2 es un prototipo funcional de sistemas. Tiene flechas, asignación
 persistente, invocación, golpe básico, loot de fragmentos, crafteo de discos vacíos,
 dos núcleos de prueba, equipamiento con voluntad y almacenamiento voluntario.

@@ -33,13 +33,18 @@ public final class ModStands {
             "stand.jojosmod.star_platinum", StandDefinition.Tier.STRONG,
             new StandStats(5, 5, 3, 5, 5, 5), new StandCombat(6.0F, 3.0, 16, 4.0));
 
-    /** Dedicated Part 3 pool; the original arrow and existing assignments retain their behavior. */
-    public static final List<StandDefinition> STARDUST_POOL = List.of(STAR_PLATINUM);
+    public static final StandDefinition HIEROPHANT_GREEN = new StandDefinition(
+            Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "hierophant_green"),
+            "stand.jojosmod.hierophant_green", StandDefinition.Tier.STRONG,
+            new StandStats(3, 4, 5, 4, 3, 2), new StandCombat(1.0F, 3.0, 100, 4.0));
+
+    /** Equal Part 3 rolls; existing assignments and the original arrow retain their behavior. */
+    public static final List<StandDefinition> STARDUST_POOL = List.of(STAR_PLATINUM, HIEROPHANT_GREEN);
 
     private static final Map<Identifier, StandDefinition> DEFINITIONS =
             Map.of(TRAINING_STAND.id(), TRAINING_STAND,
                     ECHOES_ACT_1.id(), ECHOES_ACT_1, LITTLE_FEET.id(), LITTLE_FEET,
-                    STAR_PLATINUM.id(), STAR_PLATINUM);
+                    STAR_PLATINUM.id(), STAR_PLATINUM, HIEROPHANT_GREEN.id(), HIEROPHANT_GREEN);
 
     private ModStands() {}
 

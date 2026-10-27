@@ -4,6 +4,7 @@ import io.github.bg7427941.jojosmod.registry.ModStands;
 import io.github.bg7427941.jojosmod.stands.PlayerStands;
 import io.github.bg7427941.jojosmod.stands.PlayerWillpower;
 import io.github.bg7427941.jojosmod.stands.StarPlatinumProgress;
+import io.github.bg7427941.jojosmod.stands.HierophantProgress;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
@@ -28,6 +29,16 @@ public final class StandProgressCommand {
                 .orElseGet(() -> Component.translatable("command.jojosmod.stand.none"));
         source.sendSuccess(() -> Component.translatable("command.jojosmod.stand.status",
                 standName, PlayerWillpower.get(player)), false);
+        var hierophant = HierophantProgress.get(player);
+        boolean hasHierophant = assignment.filter(ModStands.HIEROPHANT_GREEN.id()::equals).isPresent();
+        if (hasHierophant || hierophant.awakened()) {
+            source.sendSuccess(() -> Component.translatable("command.jojosmod.hierophant.training",
+                    hierophant.splashTargets().size(), HierophantProgress.TARGETS_REQUIRED), false);
+            source.sendSuccess(() -> Component.translatable(hierophant.completed()
+                    ? "command.jojosmod.hierophant.mastered" : "command.jojosmod.hierophant.splash",
+                    Component.keybind("key.jojosmod.basic_attack")), false);
+            if (hasHierophant) return 1;
+        }
         var progress = StarPlatinumProgress.get(player);
         if (!progress.awakened() && assignment.filter(ModStands.STAR_PLATINUM.id()::equals).isEmpty()) {
             source.sendSuccess(() -> Component.translatable("command.jojosmod.stand.star_mastery_hint"), false);

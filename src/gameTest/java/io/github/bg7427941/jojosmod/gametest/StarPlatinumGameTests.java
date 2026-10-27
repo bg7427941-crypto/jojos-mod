@@ -131,6 +131,7 @@ public final class StarPlatinumGameTests {
         var respawned = new TestPlayer(helper.getLevel());
         try {
             owner.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.STARDUST_ARROW.get()));
+            owner.getRandom().setSeed(4096); // Keep this Star Platinum milestone test on that branch of the Part 3 pool.
             check(helper, ModItems.STARDUST_ARROW.get().use(owner.level(), owner, InteractionHand.OFF_HAND).consumesAction(),
                     "Stardust arrow did not awaken a Stand");
             check(helper, owner.getOffhandItem().isEmpty() && PlayerStands.get(owner).standId().equals(Optional.of(ModStands.STAR_PLATINUM.id()))
@@ -153,6 +154,7 @@ public final class StarPlatinumGameTests {
             owner.setGameMode(GameType.CREATIVE);
             PlayerStands.clear(owner);
             owner.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.STARDUST_ARROW.get()));
+            owner.getRandom().setSeed(4096);
             check(helper, ModItems.STARDUST_ARROW.get().use(owner.level(), owner, InteractionHand.MAIN_HAND).consumesAction()
                     && owner.getMainHandItem().getCount() == 1 && PlayerWillpower.get(owner) == 3,
                     "Creative awakening consumed its arrow or repeated the milestone");

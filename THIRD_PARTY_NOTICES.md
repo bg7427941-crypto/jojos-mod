@@ -51,6 +51,20 @@ y los permisos de redistribución del audio del anime no se han verificado de
 forma independiente. La licencia del código o del modelo no concede derechos
 adicionales sobre esas grabaciones.
 
+## Hierophant Green — recursos originales desde 0.11.0
+
+El modelo con proporciones de jugador, atlas jade con trama clara, icono de núcleo,
+seis animaciones y cinco efectos de sonido se crean con los
+[generadores del proyecto](art/hierophant_green/README.md). No usan geometría,
+píxeles, keyframes ni grabaciones de Roundabout o de Star Platinum como entradas.
+Se reutilizan los conversores técnicos MIT del proyecto para Blockbench y para
+las vistas de desarrollo. Los recursos nuevos y sus fuentes son MIT.
+
+Hierophant Green y Noriaki Kakyoin son personajes de Hirohiko Araki. La referencia
+visual de la representación es Stardust Crusaders. Los manifiestos
+`META-INF/jojosmod/hierophant-green-provenance.json` y `sound-hierophant-green.json`
+documentan los archivos, hashes y síntesis incluidos en el JAR.
+
 ## Dependencias técnicas
 
 La base adapta el MDK oficial de NeoForge; su aviso MIT se conserva en

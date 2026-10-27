@@ -145,7 +145,7 @@
   "item.jojosmod.silver_chariot_core": "Silver Chariot Core",
   "hud.jojosmod.silver_chariot.primary": "%s · Rapier thrust · 0.7 s cooldown",
   "hud.jojosmod.silver_chariot.secondary": "%s · Rapier flurry · 5 s cooldown",
-  "hud.jojosmod.silver_chariot.utility": "%s · Release armor · 5 s, faster thrusts, +25% damage taken",
+  "hud.jojosmod.silver_chariot.utility": "%s · Release armor · 5 s, faster thrusts, +25%% damage taken",
   "subtitles.jojosmod.silver_chariot.summon": "Silver Chariot · manifests",
   "subtitles.jojosmod.silver_chariot.dismiss": "Silver Chariot · fades",
   "subtitles.jojosmod.silver_chariot.cast": "Silver Chariot · uses a technique",

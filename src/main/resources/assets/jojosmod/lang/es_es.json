@@ -145,7 +145,7 @@
   "item.jojosmod.silver_chariot_core": "Núcleo de Silver Chariot",
   "hud.jojosmod.silver_chariot.primary": "%s · Estocada · enfriamiento 0,7 s",
   "hud.jojosmod.silver_chariot.secondary": "%s · Ráfaga de estocadas · enfriamiento 5 s",
-  "hud.jojosmod.silver_chariot.utility": "%s · Quitar armadura · 5 s, estocadas más rápidas, +25% daño recibido",
+  "hud.jojosmod.silver_chariot.utility": "%s · Quitar armadura · 5 s, estocadas más rápidas, +25%% daño recibido",
   "subtitles.jojosmod.silver_chariot.summon": "Silver Chariot · se manifiesta",
   "subtitles.jojosmod.silver_chariot.dismiss": "Silver Chariot · se desvanece",
   "subtitles.jojosmod.silver_chariot.cast": "Silver Chariot · usa una técnica",

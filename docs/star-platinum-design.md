@@ -1,4 +1,4 @@
-# Star Platinum — prueba jugable 0.9.3
+# Star Platinum — prueba jugable 0.10.0
 
 Combate base y primeros desafíos de progresión de Parte 3. La [ficha oficial de Jotaro](https://jojo-portal.com/en/anime/sc/character/01/)
 sirve de referencia para la fuerza, precisión y ráfagas de puñetazos. La presentación
@@ -38,6 +38,27 @@ El formato anterior `{awakened: true}` carga con los nuevos contadores vacíos s
 repetir su premio. El panel y `/stand progress` muestran el avance al propietario.
 Con voluntad 4 se desbloquea el salto con Stand, con 5 se desbloquea Star Finger: despertar desde 1 y completar dos desafíos
 permite alcanzarla; el tercero lleva a 6 y desbloquea la intercepción precisa. No se consume voluntad.
+
+### Dominio avanzado desde 0.10.0
+
+Star Finger registra tres hostiles distintos solo cuando causa daño de salud y el
+contacto del rayo está a más de tres bloques de los ojos del usuario. La
+intercepción registra tres tiradores hostiles distintos al cancelar correctamente
+la colisión de una flecha normal o espectral. La ventana, orientación, exclusión
+de Perforación y reglas de PvP/equipos existentes se mantienen.
+
+Cada desafío da +1 de voluntad una vez y mejora su propia habilidad: Star Finger
+pasa de 120 a 100 ticks de enfriamiento; intercepción, de 60 a 50. La mejora se
+calcula al aceptar la siguiente activación y no acorta un enfriamiento en curso.
+No afecta al daño, alcance, preparación ni duración de las animaciones. Enemigos
+compartidos sirven a cada participante por separado; jugadores, pasivos y aliados
+no dan progreso. Las flechas sin tirador tampoco lo conceden.
+
+El guardado antiguo conserva sus tres listas y el despertar, y empieza con las
+dos listas nuevas vacías. Cada lista sigue limitada a tres UUID distintos. El
+protocolo de red 8 transmite las cinco listas solo al propietario. La
+[guía 0.10.0](playtest-0.10.0.md) cubre las recompensas, persistencia y cooperación.
+Son desafíos y bonificaciones de balance del mod, no poderes nuevos del canon.
 
 ## Acciones a 20 TPS
 
@@ -116,8 +137,9 @@ solo son visibles durante Star Finger. Hay aura violeta/dorada,
 trayectorias de puños, destellos de impacto y arco frontal de guardia, con partículas
 nativas. Los catorce efectos de audio son síntesis original: ruido con semillas,
 resonadores y osciladores propios, en mono/48 kHz. Invocación, ORA individual opcional de Z, ráfaga y Star Finger
-usan un canal independiente por propietario y se cortan al cancelar. No incluyen
-grabaciones de voces. Las muestras de otras fuentes se pueden probar con un pack personal.
+usan un canal independiente por propietario y se cortan al cancelar. Se conservan esos efectos originales; los ocho clips de prueba añadidos
+manualmente en `main` sustituyen siete eventos en el JAR actual. Su procedencia
+se registra por separado, sin presentarlos como sonidos originales.
 Consulta los [créditos y licencias](../THIRD_PARTY_NOTICES.md).
 Las fuentes editables están en [art/star_platinum](../art/star_platinum/README.md).
 

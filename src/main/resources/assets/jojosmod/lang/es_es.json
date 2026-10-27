@@ -20,7 +20,7 @@
   "mastery.jojosmod.star.barrage": "Ráfaga",
   "mastery.jojosmod.star.guard": "Guardia",
   "message.jojosmod.mastery.progress": "%s: %s/%s enemigos distintos",
-  "message.jojosmod.mastery.completed": "%s dominada: +%s de voluntad (total: %s).",
+  "message.jojosmod.mastery.completed": "Desafío completado: %s. +%s de voluntad (total: %s).",
   "message.jojosmod.mastery.star_finger_unlocked": "¡Star Finger desbloqueado! Pulsa %s con Star Platinum invocado.",
   "command.jojosmod.stand.none": "Ninguno",
   "command.jojosmod.stand.status": "Stand: %s · Voluntad: %s",
@@ -91,5 +91,16 @@
   "command.jojosmod.stand.leap_locked": "El salto con Stand se desbloquea con %s de voluntad.",
   "subtitles.jojosmod.star_platinum.leap": "Star Platinum impulsa el salto",
   "subtitles.jojosmod.star_platinum.leap_land": "Star Platinum amortigua el aterrizaje",
-  "subtitles.jojosmod.star_platinum.single_ora": "Star Platinum: ORA"
+  "subtitles.jojosmod.star_platinum.single_ora": "Star Platinum: ORA",
+  "mastery.jojosmod.star.finger": "Star Finger a distancia",
+  "mastery.jojosmod.star.intercept": "Intercepción",
+  "hud.jojosmod.advanced_mastery": "Star Finger %s/%s · Intercepción %s/%s",
+  "hud.jojosmod.star_finger.mastered": "%s · Star Finger dominado: enfriamiento 5 s",
+  "hud.jojosmod.intercept.mastered": "%s · Intercepción dominada: enfriamiento 2,5 s",
+  "message.jojosmod.mastery.finger_bonus": "Star Finger: enfriamiento de 6 a 5 s a partir de la próxima activación.",
+  "message.jojosmod.mastery.intercept_bonus": "Intercepción: enfriamiento de 3 a 2,5 s a partir de la próxima activación.",
+  "command.jojosmod.stand.finger_training": "Star Finger a distancia: daña la salud de 3 enemigos hostiles distintos con un contacto a más de 3 bloques. Recompensa: +1 de voluntad y enfriamiento de 5 s.",
+  "command.jojosmod.stand.intercept_training": "Intercepción: atrapa flechas de 3 enemigos hostiles distintos. Recompensa: +1 de voluntad y enfriamiento de 2,5 s. Flechas de jugadores y dispensadores no dan progreso.",
+  "command.jojosmod.stand.star_finger_mastered": "Star Finger dominado — pulsa %s; enfriamiento de 5 s.",
+  "command.jojosmod.stand.intercept_mastered": "Intercepción dominada — pulsa %s; enfriamiento de 2,5 s."
 }

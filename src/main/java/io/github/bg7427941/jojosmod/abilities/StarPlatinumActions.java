@@ -44,12 +44,14 @@ public final class StarPlatinumActions {
     public static final int STAR_FINGER_WINDUP = 8;
     public static final int STAR_FINGER_TICKS = 18;
     public static final int STAR_FINGER_COOLDOWN = 120;
+    public static final int MASTERED_FINGER_COOLDOWN = 100;
     public static final float STAR_FINGER_DAMAGE = 4;
     public static final double STAR_FINGER_REACH = 6;
     public static final int INTERCEPT_WINDUP = 2;
     public static final int INTERCEPT_WINDOW_END = 10;
     public static final int INTERCEPT_TICKS = 12;
     public static final int INTERCEPT_COOLDOWN = 60;
+    public static final int MASTERED_INTERCEPT_COOLDOWN = 50;
     private static final Identifier GUARD_SLOW = Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "star_guard");
 
     private StarPlatinumActions() {}
@@ -115,7 +117,7 @@ public final class StarPlatinumActions {
         long now = owner.level().getGameTime();
         if (busy(owner, state) || coolingDown(owner, state.fingerReadyAt() - now)) return false;
         owner.setData(ModAttachments.STAR_SESSION, new StarPlatinumSession(Action.STAR_FINGER, now, 0,
-                state.barrageReadyAt(), state.guardReadyAt(), now + STAR_FINGER_COOLDOWN, state.interceptReadyAt()));
+                state.barrageReadyAt(), state.guardReadyAt(), now + starFingerCooldown(owner), state.interceptReadyAt()));
         stand.get().playStarFingerAnimation();
         StandVoices.play(owner, Cue.STAR_FINGER);
         owner.sendSystemMessage(Component.translatable("message.jojosmod.star.finger"), true);
@@ -157,7 +159,7 @@ public final class StarPlatinumActions {
         long now = owner.level().getGameTime();
         if (busy(owner, state) || coolingDown(owner, state.interceptReadyAt() - now)) return false;
         owner.setData(ModAttachments.STAR_SESSION, new StarPlatinumSession(Action.INTERCEPT, now, 0,
-                state.barrageReadyAt(), state.guardReadyAt(), state.fingerReadyAt(), now + INTERCEPT_COOLDOWN));
+                state.barrageReadyAt(), state.guardReadyAt(), state.fingerReadyAt(), now + interceptCooldown(owner)));
         stand.get().playInterceptAnimation();
         owner.level().playSound(null, owner.blockPosition(), ModSounds.STAR_INTERCEPT.get(),
                 SoundSource.PLAYERS, 0.45F, 1.0F);
@@ -196,6 +198,17 @@ public final class StarPlatinumActions {
                 SoundSource.PLAYERS, 0.6F, 1.0F);
         StarPlatinumEffects.interceptCatch(owner, hit.getLocation());
         owner.sendSystemMessage(Component.translatable("message.jojosmod.star.intercept_catch"), true);
+        StarPlatinumProgress.onArrowIntercepted(owner, shooter);
+    }
+
+    public static int starFingerCooldown(ServerPlayer owner) {
+        return StarPlatinumProgress.get(owner).completed(StarPlatinumProgress.Milestone.FINGER)
+                ? MASTERED_FINGER_COOLDOWN : STAR_FINGER_COOLDOWN;
+    }
+
+    public static int interceptCooldown(ServerPlayer owner) {
+        return StarPlatinumProgress.get(owner).completed(StarPlatinumProgress.Milestone.INTERCEPT)
+                ? MASTERED_INTERCEPT_COOLDOWN : INTERCEPT_COOLDOWN;
     }
 
     private static boolean busy(ServerPlayer owner, StarPlatinumSession state) {

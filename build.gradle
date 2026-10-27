@@ -103,6 +103,10 @@ tasks.named('jar', Jar) {
         into 'META-INF/jojosmod'
         rename { 'sound-original.json' }
     }
+    from('art/sounds/collected-preview-provenance.json') {
+        into 'META-INF/jojosmod'
+        rename { 'sound-collected-preview.json' }
+    }
 }
 
 // Compile the integration suite during a normal build; execute it with runGameTestServer.

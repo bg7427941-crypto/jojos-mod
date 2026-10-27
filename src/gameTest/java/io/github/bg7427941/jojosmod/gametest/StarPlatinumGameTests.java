@@ -226,7 +226,11 @@ public final class StarPlatinumGameTests {
             }
         }
         var f = fixture(helper);
-        helper.onEachTick(() -> tick(f));
+        helper.onEachTick(() -> {
+            tick(f);
+            // Fake owners do not keep every test chunk entity-ticking. Exercise the real entity timer explicitly.
+            if (!f.stand.isRemoved()) f.stand.tick();
+        });
         check(helper, StarPlatinumActions.toggleGuard(f.owner), "Expiry fixture did not guard");
         helper.runAfterDelay(42, () -> check(helper, StarPlatinumActions.session(f.owner).action() == Action.NONE
                 && Math.abs(f.owner.getAttributeValue(Attributes.MOVEMENT_SPEED) - 0.1) < 0.0001
@@ -238,6 +242,8 @@ public final class StarPlatinumGameTests {
                     && Math.abs(f.owner.getAttributeValue(Attributes.MOVEMENT_SPEED) - 0.1) < 0.0001
                     && StandController.getActive(f.owner).isEmpty(), "Dismissal left a guard, slow modifier or active Stand");
         });
+        helper.runAfterDelay(85, () -> check(helper, !f.stand.isRemoved() && f.stand.isDismissing(),
+                "Desummon removed the entity before its four-tick animation"));
         helper.runAfterDelay(88, () -> {
             check(helper, f.stand.isRemoved(), "Desummon animation never removed the entity");
             f.close(); helper.succeed();

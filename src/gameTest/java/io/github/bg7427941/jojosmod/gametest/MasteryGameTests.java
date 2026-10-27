@@ -66,7 +66,9 @@ public final class MasteryGameTests {
             "finger_gate_and_windup", "finger_walls", "finger_miss_and_cooldown", "finger_interruption",
             "finger_dismiss_and_invalid", "precise_progress_integration", "barrage_progress_integration",
             "guard_progress_integration", "mastery_eligibility", "mastery_coop_and_unique_targets",
-            "mastery_save_death_and_network", "legacy_data_and_reward_cap");
+            "mastery_save_death_and_network", "legacy_data_and_reward_cap", "finger_training_integration",
+            "finger_training_absorption", "advanced_training_eligibility", "advanced_training_coop",
+            "advanced_training_save_and_network", "advanced_training_legacy_and_bounds");
     private static final DeferredRegister<MapCodec<? extends GameTestInstance>> TYPES =
             DeferredRegister.create(Registries.TEST_INSTANCE_TYPE, MOD_ID);
 
@@ -84,7 +86,8 @@ public final class MasteryGameTests {
                 new TestEnvironmentDefinition.SetDifficulty(net.minecraft.world.Difficulty.NORMAL));
         for (var name : CASES) {
             var data = new TestData<>(environment, Level.OVERWORLD, id("star_arena"),
-                    170, 0, true, Rotation.NONE, false, 1, 1, false, 0);
+                    name.equals("finger_training_integration") ? 370 : 170,
+                    0, true, Rotation.NONE, false, 1, 1, false, 0);
             event.registerTest(id("mastery/" + name), new MasteryTestInstance(data, name));
         }
     }
@@ -349,7 +352,8 @@ public final class MasteryGameTests {
 
     private static boolean noMastery(TestPlayer player) {
         var progress = StarPlatinumProgress.get(player);
-        return progress.preciseTargets().isEmpty() && progress.barrageTargets().isEmpty() && progress.guardTargets().isEmpty();
+        return progress.preciseTargets().isEmpty() && progress.barrageTargets().isEmpty() && progress.guardTargets().isEmpty()
+                && progress.fingerTargets().isEmpty() && progress.interceptTargets().isEmpty();
     }
 
     private static void masteryCoopAndUniqueTargets(GameTestHelper helper) {
@@ -440,6 +444,220 @@ public final class MasteryGameTests {
         helper.succeed();
     }
 
+    private static void fingerTrainingIntegration(GameTestHelper helper) {
+        var f = fixture(helper);
+        f.target.discard();
+        PlayerWillpower.set(f.owner, 5);
+        var target = enemy(helper, f.owner.position().add(0, 0, 2));
+        target.getAttribute(Attributes.ARMOR).setBaseValue(0);
+        f.owner.setData(ModAttachments.STAR_PROGRESS, new StarPlatinumProgress(true,
+                List.of(), List.of(), List.of(), List.of(UUID.randomUUID(), UUID.randomUUID()), List.of()));
+        helper.onEachTick(() -> tick(f));
+        check(helper, StarPlatinumActions.starFinger(f.owner), "Close Star Finger did not start");
+        helper.runAfterDelay(20, () -> {
+            check(helper, target.getHealth() == 16 && StarPlatinumProgress.get(f.owner).count(Milestone.FINGER) == 2,
+                    "A successful close-range Star Finger completed the ranged challenge");
+            target.snapTo(f.owner.position().add(0, 0, 5), 0, 0);
+        });
+        helper.runAfterDelay(121, () -> check(helper, StarPlatinumActions.starFinger(f.owner), "Ranged Star Finger did not start"));
+        helper.runAfterDelay(132, () -> {
+            check(helper, target.getHealth() == 12 && StarPlatinumProgress.get(f.owner).completed(Milestone.FINGER)
+                    && PlayerWillpower.get(f.owner) == 6, "Real ranged health damage did not grant the mastery reward");
+            check(helper, StarPlatinumActions.session(f.owner).fingerReadyAt() - StarPlatinumActions.session(f.owner).startedAt() == 120,
+                    "Mastery shortened an already running cooldown");
+            check(helper, StarPlatinumActions.interceptCooldown(f.owner) == 60,
+                    "Star Finger mastery also reduced interception cooldown");
+        });
+        helper.runAfterDelay(242, () -> {
+            check(helper, StarPlatinumActions.starFinger(f.owner), "Mastered Star Finger did not start");
+            var state = StarPlatinumActions.session(f.owner);
+            check(helper, state.fingerReadyAt() - state.startedAt() == 100, "The next mastered activation did not use five seconds");
+        });
+        helper.runAfterDelay(341, () -> check(helper, !StarPlatinumActions.starFinger(f.owner),
+                "Mastered Star Finger recovered before tick 100"));
+        helper.runAfterDelay(343, () -> check(helper, StarPlatinumActions.starFinger(f.owner),
+                "Mastered Star Finger did not recover after tick 100"));
+        helper.runAfterDelay(355, () -> {
+            check(helper, PlayerWillpower.get(f.owner) == 6, "Repeated mastered hits duplicated willpower");
+            target.discard(); f.close(); helper.succeed();
+        });
+    }
+
+    private static void fingerTrainingAbsorption(GameTestHelper helper) {
+        var f = fixture(helper);
+        f.target.discard();
+        PlayerWillpower.set(f.owner, 5);
+        var target = enemy(helper, f.owner.position().add(0, 0, 5));
+        target.getAttribute(Attributes.ARMOR).setBaseValue(0);
+        target.getAttribute(Attributes.MAX_ABSORPTION).setBaseValue(4);
+        target.setAbsorptionAmount(4);
+        check(helper, target.getAbsorptionAmount() == 4, "The absorption fixture did not receive its shield");
+        helper.onEachTick(() -> tick(f));
+        check(helper, StarPlatinumActions.starFinger(f.owner), "Absorption fixture could not attack");
+        helper.runAfterDelay(20, () -> {
+            check(helper, target.getHealth() == 20 && target.getAbsorptionAmount() == 0
+                    && StarPlatinumProgress.get(f.owner).fingerTargets().isEmpty(),
+                    "Absorbed damage counted as ranged health damage");
+            target.discard(); f.close(); helper.succeed();
+        });
+    }
+
+    private static void advancedTrainingEligibility(GameTestHelper helper) {
+        var owner = player(helper);
+        var hostile = enemy(helper, owner.position().add(0, 0, 5));
+        var passive = helper.spawn(EntityTypes.VILLAGER, new BlockPos(4, 1, 4));
+        var other = new TestPlayer(helper.getLevel());
+        try {
+            StarPlatinumProgress.onStarFingerHit(owner, hostile, 25);
+            StarPlatinumProgress.onArrowIntercepted(owner, hostile);
+            check(helper, noMastery(owner), "Locked skills granted advanced training");
+            PlayerWillpower.set(owner, 6);
+            for (var target : List.of(passive, other)) {
+                StarPlatinumProgress.onStarFingerHit(owner, target, 25);
+                StarPlatinumProgress.onArrowIntercepted(owner, target);
+            }
+            StarPlatinumProgress.onArrowIntercepted(owner, null);
+            for (double distance : new double[] {0, 8.99, 9, Double.NaN, Double.POSITIVE_INFINITY}) {
+                StarPlatinumProgress.onStarFingerHit(owner, hostile, distance);
+            }
+            check(helper, noMastery(owner), "Passive targets, player arrows or a contact at/below three blocks gave progress");
+            var board = helper.getLevel().getScoreboard();
+            var team = board.addPlayerTeam("train_" + UUID.randomUUID().toString().substring(0, 8));
+            try {
+                board.addPlayerToTeam(owner.getScoreboardName(), team);
+                board.addPlayerToTeam(hostile.getScoreboardName(), team);
+                check(helper, owner.isAlliedTo(hostile), "The allied hostile fixture did not join the owner's team");
+                StarPlatinumProgress.onStarFingerHit(owner, hostile, 25);
+                StarPlatinumProgress.onArrowIntercepted(owner, hostile);
+                check(helper, noMastery(owner), "An allied hostile farmed advanced training");
+            } finally { board.removePlayerTeam(team); }
+            for (int scenario = 0; scenario < 5; scenario++) {
+                owner.setGameMode(GameType.SURVIVAL);
+                owner.setHealth(20);
+                PlayerStands.assign(owner, ModStands.STAR_PLATINUM.id());
+                if (scenario == 0) owner.setGameMode(GameType.CREATIVE);
+                if (scenario == 1) owner.setGameMode(GameType.SPECTATOR);
+                if (scenario == 2) owner.setHealth(0);
+                if (scenario == 3) PlayerStands.assign(owner, ModStands.ECHOES_ACT_1.id());
+                if (scenario == 4) PlayerStands.clear(owner);
+                StarPlatinumProgress.onStarFingerHit(owner, hostile, 25);
+                StarPlatinumProgress.onArrowIntercepted(owner, hostile);
+                check(helper, noMastery(owner), "An ineligible owner gained advanced progress: " + scenario);
+            }
+            owner.setHealth(20);
+            PlayerStands.assign(owner, ModStands.STAR_PLATINUM.id());
+            StarPlatinumProgress.onStarFingerHit(owner, hostile, 9.01);
+            check(helper, StarPlatinumProgress.get(owner).count(Milestone.FINGER) == 1,
+                    "Contact just beyond three blocks did not qualify");
+        } finally { owner.discard(); hostile.discard(); passive.discard(); other.discard(); }
+        helper.succeed();
+    }
+
+    private static void advancedTrainingCoop(GameTestHelper helper) {
+        var first = player(helper);
+        var second = player(helper);
+        var enemies = enemies(helper, first);
+        try {
+            for (var owner : List.of(first, second)) {
+                // Follow the natural sequence from three willpower, without an operator grant.
+                for (var enemy : enemies) {
+                    StarPlatinumProgress.onPreciseHit(owner, enemy);
+                    StarPlatinumProgress.onBarrageHit(owner, enemy);
+                    StarPlatinumProgress.onGuardBlock(owner, owner.damageSources().mobAttack(enemy));
+                }
+                check(helper, PlayerWillpower.get(owner) == 6, "Base training did not unlock the advanced skills");
+                for (var enemy : enemies) {
+                    for (int repeat = 0; repeat < 2; repeat++) {
+                        StarPlatinumProgress.onStarFingerHit(owner, enemy, 25);
+                        StarPlatinumProgress.onArrowIntercepted(owner, enemy);
+                    }
+                }
+                check(helper, PlayerWillpower.get(owner) == 8 && StarPlatinumProgress.get(owner).completed(Milestone.FINGER)
+                        && StarPlatinumProgress.get(owner).completed(Milestone.INTERCEPT),
+                        "Advanced training did not reward each owner once against shared enemies");
+            }
+            PlayerStands.clear(first);
+            PlayerStands.assign(first, ModStands.STAR_PLATINUM.id());
+            for (var enemy : enemies) {
+                StarPlatinumProgress.onStarFingerHit(first, enemy, 25);
+                StarPlatinumProgress.onArrowIntercepted(first, enemy);
+            }
+            check(helper, PlayerWillpower.get(first) == 8 && StarPlatinumActions.starFingerCooldown(first) == 100
+                    && StarPlatinumActions.interceptCooldown(first) == 50,
+                    "Reacquiring Star Platinum reset rewards or lost cooldown bonuses");
+        } finally { first.discard(); second.discard(); enemies.forEach(Husk::discard); }
+        helper.succeed();
+    }
+
+    private static void advancedTrainingSaveAndNetwork(GameTestHelper helper) {
+        var source = player(helper);
+        var loaded = new TestPlayer(helper.getLevel());
+        var respawned = new TestPlayer(helper.getLevel());
+        var enemies = enemies(helper, source);
+        try {
+            PlayerWillpower.set(source, 6);
+            for (var enemy : enemies) StarPlatinumProgress.onStarFingerHit(source, enemy, 25);
+            StarPlatinumProgress.onArrowIntercepted(source, enemies.getFirst());
+            var expected = StarPlatinumProgress.get(source);
+            var problems = new ProblemReporter.Collector();
+            var output = TagValueOutput.createWithContext(problems, helper.getLevel().registryAccess());
+            source.serializeAttachments(output);
+            loaded.readAttachments(TagValueInput.create(problems, helper.getLevel().registryAccess(), output.buildResult()));
+            respawned.copyAttachmentsFrom(source, true);
+            for (var restored : List.of(loaded, respawned)) {
+                check(helper, StarPlatinumProgress.get(restored).equals(expected) && PlayerWillpower.get(restored) == 7
+                        && StarPlatinumActions.starFingerCooldown(restored) == 100
+                        && StarPlatinumActions.interceptCooldown(restored) == 60, "Persistence changed advanced mastery or its bonuses");
+                for (var enemy : enemies) {
+                    StarPlatinumProgress.onStarFingerHit(restored, enemy, 25);
+                    StarPlatinumProgress.onArrowIntercepted(restored, enemy);
+                }
+                check(helper, PlayerWillpower.get(restored) == 8 && StarPlatinumActions.interceptCooldown(restored) == 50,
+                        "Restoring partial progress repeated rewards or lost the remaining shooters");
+            }
+            var buffer = Unpooled.buffer();
+            try {
+                StarPlatinumProgress.STREAM_CODEC.encode(buffer, expected);
+                check(helper, StarPlatinumProgress.STREAM_CODEC.decode(buffer).equals(expected) && !buffer.isReadable(),
+                        "Advanced owner synchronization lost targets or left unread bytes");
+            } finally { buffer.release(); }
+            check(helper, problems.isEmpty(), "Advanced attachment persistence reported a problem");
+        } finally { source.discard(); loaded.discard(); respawned.discard(); enemies.forEach(Husk::discard); }
+        helper.succeed();
+    }
+
+    private static void advancedTrainingLegacyAndBounds(GameTestHelper helper) {
+        var legacy = new StarPlatinumProgress(true, List.of(UUID.randomUUID()),
+                List.of(UUID.randomUUID()), List.of(UUID.randomUUID()));
+        var json = StarPlatinumProgress.CODEC.codec().encodeStart(JsonOps.INSTANCE, legacy).getOrThrow().getAsJsonObject();
+        json.remove("finger_targets"); json.remove("intercept_targets");
+        check(helper, StarPlatinumProgress.CODEC.codec().parse(JsonOps.INSTANCE, json).getOrThrow().equals(legacy),
+                "Pre-advanced saves lost their existing targets");
+        for (var field : List.of("finger_targets", "intercept_targets")) {
+            for (boolean duplicate : List.of(false, true)) {
+                var invalid = json.deepCopy();
+                var id = UUID.randomUUID();
+                var ids = duplicate ? List.of(id, id) : List.of(id, UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
+                invalid.add(field, net.minecraft.core.UUIDUtil.CODEC.listOf().encodeStart(JsonOps.INSTANCE, ids).getOrThrow());
+                check(helper, StarPlatinumProgress.CODEC.codec().parse(JsonOps.INSTANCE, invalid).error().isPresent(),
+                        "Invalid advanced training targets loaded: " + field + " duplicate=" + duplicate);
+            }
+        }
+        var owner = player(helper);
+        var enemies = enemies(helper, owner);
+        try {
+            PlayerWillpower.set(owner, WillpowerData.MAX_VALUE);
+            for (var enemy : enemies) {
+                StarPlatinumProgress.onStarFingerHit(owner, enemy, 25);
+                StarPlatinumProgress.onArrowIntercepted(owner, enemy);
+            }
+            check(helper, PlayerWillpower.get(owner) == WillpowerData.MAX_VALUE
+                    && StarPlatinumActions.starFingerCooldown(owner) == 100 && StarPlatinumActions.interceptCooldown(owner) == 50,
+                    "The willpower cap blocked mastery bonuses or overflowed");
+        } finally { owner.discard(); enemies.forEach(Husk::discard); }
+        helper.succeed();
+    }
+
     private static void check(GameTestHelper helper, boolean condition, String message) {
         helper.assertTrue(condition, Component.literal(message));
     }
@@ -493,6 +711,12 @@ public final class MasteryGameTests {
                 case "mastery_coop_and_unique_targets" -> masteryCoopAndUniqueTargets(helper);
                 case "mastery_save_death_and_network" -> masterySaveDeathAndNetwork(helper);
                 case "legacy_data_and_reward_cap" -> legacyDataAndRewardCap(helper);
+                case "finger_training_integration" -> fingerTrainingIntegration(helper);
+                case "finger_training_absorption" -> fingerTrainingAbsorption(helper);
+                case "advanced_training_eligibility" -> advancedTrainingEligibility(helper);
+                case "advanced_training_coop" -> advancedTrainingCoop(helper);
+                case "advanced_training_save_and_network" -> advancedTrainingSaveAndNetwork(helper);
+                case "advanced_training_legacy_and_bounds" -> advancedTrainingLegacyAndBounds(helper);
                 default -> throw new IllegalArgumentException(name);
             }
         }

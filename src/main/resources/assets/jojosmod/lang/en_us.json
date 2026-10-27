@@ -91,5 +91,16 @@
   "command.jojosmod.stand.leap_locked": "Stand leap unlocks at %s willpower.",
   "subtitles.jojosmod.star_platinum.leap": "Star Platinum launches a leap",
   "subtitles.jojosmod.star_platinum.leap_land": "Star Platinum cushions the landing",
-  "subtitles.jojosmod.star_platinum.single_ora": "Star Platinum: ORA"
+  "subtitles.jojosmod.star_platinum.single_ora": "Star Platinum: ORA",
+  "mastery.jojosmod.star.finger": "Ranged Star Finger",
+  "mastery.jojosmod.star.intercept": "Interception",
+  "hud.jojosmod.advanced_mastery": "Star Finger %s/%s · Interception %s/%s",
+  "hud.jojosmod.star_finger.mastered": "%s · Star Finger mastered: 5 s cooldown",
+  "hud.jojosmod.intercept.mastered": "%s · Interception mastered: 2.5 s cooldown",
+  "message.jojosmod.mastery.finger_bonus": "Star Finger: cooldown reduced from 6 to 5 s starting with the next activation.",
+  "message.jojosmod.mastery.intercept_bonus": "Interception: cooldown reduced from 3 to 2.5 s starting with the next activation.",
+  "command.jojosmod.stand.finger_training": "Ranged Star Finger: deal health damage to 3 different hostile enemies with a contact more than 3 blocks away. Reward: +1 willpower and a 5 s cooldown.",
+  "command.jojosmod.stand.intercept_training": "Interception: catch arrows from 3 different hostile enemies. Reward: +1 willpower and a 2.5 s cooldown. Player and dispenser arrows give no progress.",
+  "command.jojosmod.stand.star_finger_mastered": "Star Finger mastered — press %s; 5 s cooldown.",
+  "command.jojosmod.stand.intercept_mastered": "Interception mastered — press %s; 2.5 s cooldown."
 }

@@ -129,3 +129,14 @@ editables en el repositorio. Estos recursos mantienen sus términos propios.
 Los derechos sobre las grabaciones subyacentes siguen correspondiendo a sus
 titulares originales. Su procedencia no se presenta como una concesión adicional
 de derechos. No se importaron algoritmos de juego de esos proyectos.
+
+## Sprites de inventario — 0.13.1
+
+Los catorce sprites de inventario se sustituyen por arte nuevo asistido por IA,
+generado con OpenAI image generation. El atlas maestro, brief, SVG editables y
+exportador reproducible están en [art/items](art/items/README.md). No se importan
+sprites de Roundabout ni de otros mods, ni fotogramas del anime. El arte del
+proyecto se distribuye bajo MIT; los derechos sobre los personajes siguen siendo
+de Hirohiko Araki y sus titulares. El manifiesto de fuente y hashes se incluye
+como `META-INF/jojosmod/item-sprites-provenance.json`. Las licencias de los
+modelos, grabaciones y demás recursos existentes se conservan.

@@ -73,3 +73,10 @@ movimiento y del timbre se valora dentro del juego y con una salida de audio rea
 Los próximos Stands partirán de una ficha canónica y una decisión documentada
 sobre modelo, UV, textura y animaciones, con la procedencia correspondiente. Los controles, balance y progresión se decidirán
 mediante pruebas del proyecto.
+
+## Sprites de inventario 0.13.1
+
+Los 14 ítems usan ahora [sprites RGBA64](../art/items/README.md) de arte nuevo
+asistido por IA, con fuente maestra y SVG editables. Se unifican borde, iluminación
+y escala; cada núcleo usa los rasgos y silueta de su Stand. El atlas de ítems es
+independiente de las texturas de entidades y de las entradas de otros mods.

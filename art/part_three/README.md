@@ -1,7 +1,9 @@
 # Modelos y recursos de los cinco Stands nuevos de Parte 3
 
 `build_assets.py` exporta cinco proyectos Blockbench editables, geometría GeckoLib,
-sprites y 47 clips originales. `adapt_models.py` aplica a Silver Chariot,
+y 47 clips originales. Los sprites de inventario se mantienen en
+[`art/items`](../items/README.md); este generador ya no los sobrescribe.
+`adapt_models.py` aplica a Silver Chariot,
 Magician’s Red y The World el mismo flujo de conversión de Star Platinum:
 formas/UV del modelo de Roundabout, atlas de Parte 3 fijado por revisión,
 transformaciones de reposo horneadas y adaptación al rig de técnicas del mod.
@@ -16,7 +18,7 @@ byte por byte (128 × 128). El Java exportado de Chariot se convierte en geometr
 no se incorpora como código de juego compilado.
 
 Hermit Purple (lianas espinosas) y The Fool (cuadrúpedo de arena) mantienen geometría
-y atlas de 512 originales. Todos los keyframes, los cinco sprites de núcleo,
+y atlas de 512 originales. Todos los keyframes,
 los generadores y los **22 sonidos sintetizados mono/48 kHz** son originales MIT,
 sin entradas de grabación. Los personajes pertenecen a Hirohiko Araki y sus titulares.
 
@@ -28,6 +30,7 @@ el soporte GeckoLib. El identificador de modelo coincide con el del recurso de j
 python art/part_three/build_assets.py
 python art/part_three/build_sounds.py
 python art/part_three/preview.py
+python art/items/build_sprites.py
 ```
 
 Requiere Pillow, NumPy para las vistas y FFmpeg/libvorbis para el audio. La versión

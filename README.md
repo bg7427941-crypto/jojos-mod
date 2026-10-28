@@ -8,6 +8,12 @@ Mod de Minecraft inspirado en los Stands de JoJo's Bizarre Adventure. Código MI
 los recursos originales son MIT y los recursos de terceros mantienen sus licencias.
 Consulta [créditos y condiciones de uso](THIRD_PARTY_NOTICES.md).
 
+La **0.13.1** renueva los **14 sprites de ítems** con texturas transparentes de
+64×64: flechas doradas, discos iridiscentes y núcleos con la identidad visual de
+cada Stand. La [galería y fuentes](art/items/README.md) y la
+[guía de prueba visual](docs/playtest-0.13.1.md) muestran los cambios. Conserva el
+combate y audio de 0.13.0, con protocolo **12**.
+
 La meta es una experiencia completa de supervivencia y multijugador, con progresión,
 habilidades fieles a JoJo y modelos y animaciones propios de cada Stand. La primera
 versión pulida se centrará en **Parte 3: Stardust Crusaders**. La
@@ -484,8 +490,8 @@ Este prototipo no tiene salud ni refleja daño al propietario; esa mecánica y s
 configuración se implementarán en una fase posterior. Los valores actuales sirven
 para probar el sistema, no constituyen el balance final.
 
-Los ocho sprites de `src/main/resources/assets/jojosmod/textures/item/` son
-originales de **32×32**, con fuentes SVG y generador en [art/items](art/items/README.md).
+Los catorce sprites de `src/main/resources/assets/jojosmod/textures/item/` son
+de **64×64**, con atlas maestro, SVG y exportador en [art/items](art/items/README.md).
 Flechas, discos, fragmentos y cada núcleo tienen su propia identidad visual.
 
 ## Datos del jugador y pruebas

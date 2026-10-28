@@ -109,23 +109,9 @@ def clips(kind,model):
         for name,scale in [('armor_on',1),('armor_off',.001)]:data[name]=(1,True,{b:{'scale':[scale]*3} for b in sorted(armor)})
     return {'format_version':'1.8.0','animations':{'animation.'+kind+'.'+n:{'animation_length':length,'loop':loop,'bones':b} for n,(length,loop,b) in data.items()}}
 def write(p,data):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(TOOLS.tidy(data),ensure_ascii=False,indent=2)+'\n')
-def sprite(kind,palette):
-    img=Image.new('RGBA',(32,32));d=ImageDraw.Draw(img);a,b,c,e,g=palette
-    d.ellipse((2,2,29,29),fill=c,outline=b,width=2)
-    if kind=='silver_chariot':
-        d.line((9,25,24,6),fill=b,width=3);d.line((6,18,15,25),fill=g,width=2);d.line((9,24,7,27),fill=e,width=2)
-    elif kind=='magicians_red':d.polygon([(15,5),(13,13),(6,18),(12,27),(21,26),(27,17),(21,19),(20,9),(16,15)],fill=a,outline=b);d.polygon([(16,14),(12,22),(16,26),(21,21)],fill=e)
-    elif kind=='hermit_purple':
-        d.arc((7,5,23,19),10,300,fill=a,width=3);d.arc((7,13,25,27),120,410,fill=b,width=3)
-        for x,y in [(11,9),(21,15),(13,24)]:d.polygon([(x,y),(x-3,y-3),(x-3,y+2)],fill=g)
-    elif kind=='the_fool':
-        d.polygon([(6,10),(11,6),(15,11),(22,7),(26,12),(24,24),(15,27),(8,23)],fill=a,outline=b);d.rectangle((9,14,13,17),fill=c);d.rectangle((19,14,23,17),fill=c);d.polygon([(12,21),(20,21),(16,25)],fill=e)
-    else:
-        d.ellipse((7,6,25,24),fill=a,outline=b,width=2);d.line((16,9,16,16,22,16),fill=c,width=2);d.polygon([(10,24),(14,22),(17,25),(21,22),(24,25),(17,29)],fill=e)
-    return img
 
 def main():
-    manifest={'version':'0.13.0','license':'Roundabout License v1.2 for the three adapted models/atlases; MIT for original assets, animations and generators; character rights retained by their owners','authorship':'Three pinned Roundabout geometries/UVs/anime atlases adapted through the Star Platinum conversion workflow; original Hermit Purple/The Fool sculptures, original action keyframes and core sprites. No upstream animation keyframes imported.','models':{},'files':{},'upstream':adapt_models.pinned_sources()}
+    manifest={'version':'0.13.0','license':'Roundabout License v1.2 for the three adapted models/atlases; MIT for original assets, animations and generators; character rights retained by their owners','authorship':'Three pinned Roundabout geometries/UVs/anime atlases adapted through the Star Platinum conversion workflow; original Hermit Purple/The Fool sculptures, original action keyframes. Inventory sprites are maintained separately in art/items. No upstream animation keyframes imported.','models':{},'files':{},'upstream':adapt_models.pinned_sources()}
     for kind in KINDS:
         TOOLS.stable_id=lambda name,k=kind:str(uuid.uuid5(uuid.NAMESPACE_URL,'jojosmod/part-three/v1/'+k+'/'+name))
         palette=PALETTES[kind];tools.PALETTE=dict(zip(['plate','ivory','dark','gem','gold'],palette));tools.SIZE=512
@@ -151,11 +137,9 @@ def main():
         write(geo,{'format_version':'1.12.0','minecraft:geometry':[{'description':{'identifier':'geometry.'+kind,'texture_width':model.atlas.width,'texture_height':model.atlas.height,'visible_bounds_width':3,'visible_bounds_height':3,'visible_bounds_offset':[0,1,0]},'bones':model.sculpture.bones}]})
         write(anim,animation)
         project=TOOLS.blockbench(model.sculpture,animation,tex.read_bytes(),model.atlas.width);project.update(name=kind.replace('_',' ').title(),model_identifier=kind,credit=adapt_models.CREDIT if kind in adapt_models.ADAPTED else "Original JoJo's Mod model/atlas/keyframes. Character by Hirohiko Araki.");project['textures'][0].update(name=kind+'.png',path=kind+'.png');write(folder/f'{kind}.bbmodel',project)
-        icon=ASSETS/f'textures/item/{kind}_core.png';sprite(kind,palette).save(icon)
-        write(ASSETS/f'items/{kind}_core.json',{'model':{'type':'minecraft:model','model':'jojosmod:item/'+kind+'_core'}})
-        write(ASSETS/f'models/item/{kind}_core.json',{'parent':'minecraft:item/generated','textures':{'layer0':'jojosmod:item/'+kind+'_core'}})
-        for p in [geo,anim,tex,icon]:manifest['files'][str(p.relative_to(ROOT))]=hashlib.sha256(p.read_bytes()).hexdigest()
+        for p in [geo,anim,tex]:manifest['files'][str(p.relative_to(ROOT))]=hashlib.sha256(p.read_bytes()).hexdigest()
         manifest['models'][kind]={'cubes':len(model.sculpture.sources),'bones':len(model.sculpture.bones),'clips':len(animation['animations']),'source':kind+'/'+kind+'.bbmodel','atlas':[model.atlas.width,model.atlas.height],'credit':adapt_models.CREDIT if kind in adapt_models.ADAPTED else "Original JoJo's Mod geometry/atlas/animation" }
         print(kind,manifest['models'][kind])
+    manifest['item_sprites']='art/items/asset-provenance.json'
     write(HERE/'asset-provenance.json',manifest)
 if __name__=='__main__':main()

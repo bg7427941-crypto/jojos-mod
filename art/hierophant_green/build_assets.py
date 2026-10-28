@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build an original player-proportioned Hierophant Green, its six clips and core sprite.
+"""Build an original player-proportioned Hierophant Green, and its six clips. Inventory sprites live in art/items.
 
 Requires Pillow. Only the project's MIT export utilities are shared; no geometry,
 pixels, keyframes or recordings from another Stand or mod are inputs.
@@ -191,22 +191,12 @@ def main():
     project.update(name="Hierophant Green", model_identifier="hierophant_green", credit="Original geometry, atlas and six animations by JoJo's Mod. Character by Hirohiko Araki.")
     project["textures"][0].update(name="hierophant_green.png", path="hierophant_green.png")
     write_json(HERE / "hierophant_green.bbmodel", project)
-    core = Image.new("RGBA", (32, 32), (0, 0, 0, 0))
-    draw = ImageDraw.Draw(core)
-    draw.ellipse((3, 3, 28, 28), fill=(10, 43, 34), outline=(204, 230, 172), width=2)
-    draw.polygon([(16, 5), (26, 15), (16, 27), (6, 15)], fill=(28, 145, 94), outline=(120, 244, 177), width=1)
-    draw.polygon([(16, 7), (16, 24), (9, 15)], fill=(70, 217, 147))
-    draw.line((10, 14, 22, 14), fill=(226, 250, 199), width=1)
-    draw.line((16, 8, 16, 23), fill=(226, 250, 199), width=1)
-    core_path = ASSETS / "textures/item/hierophant_green_core.png"
-    core.save(core_path)
-    write_json(ASSETS / "items/hierophant_green_core.json", {"model": {"type": "minecraft:model", "model": "jojosmod:item/hierophant_green_core"}})
-    write_json(ASSETS / "models/item/hierophant_green_core.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "jojosmod:item/hierophant_green_core"}})
-    files = [geo, anim, texture, core_path]
+    files = [geo, anim, texture]
     manifest = {"version": "0.13.0", "license": "MIT for original resources and generator; character rights remain with their owners",
         "visual_references": ["https://jojowiki.com/File:Hierophant_Green_anime_ref_(3).jpg", "https://jojowiki.com/File:US_BD_Set_2_MS_20.png"],
-        "authorship": "Original rebuilt player-based silhouette with segmented white mask, yellow slotted eyes, emerald lattice and wrapping bands; hand-painted procedural jade lattice atlas, six keyframed clips and core sprite. No imported model, texture, animation or recording inputs.",
+        "authorship": "Original rebuilt player-based silhouette with segmented white mask, yellow slotted eyes, emerald lattice and wrapping bands; hand-painted procedural jade lattice atlas, six keyframed clips. Inventory sprites are maintained separately in art/items. No imported model, texture, animation or recording inputs.",
         "export_utilities": "../star_platinum/model_export.py (project MIT conversion helpers only)",
+        "item_sprites": "art/items/asset-provenance.json",
         "source": "hierophant_green.bbmodel", "cubes": len(model.sculpture.sources), "bones": len(model.sculpture.bones),
         "texture": [SIZE, SIZE], "emerald_pulse_times_seconds": [.3, .4, .5],
         "files": {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in files}}

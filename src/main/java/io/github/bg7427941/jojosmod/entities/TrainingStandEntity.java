@@ -230,6 +230,9 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         entityData.set(GUARDING, guarding);
     }
 
+    /** Natural recovery lets the authored follow-through finish; a fresh action can replace it. */
+    public void finishActionAnimation() { setGuarding(false); }
+
     public void stopActionAnimation() {
         setGuarding(false);
         stopTriggeredAnim("main", "attack");

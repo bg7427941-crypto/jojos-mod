@@ -35,6 +35,7 @@ public final class StandVoicePlayer {
     private static void receive(StandVoicePayload payload) {
         var minecraft = Minecraft.getInstance();
         checkLevel(minecraft);
+        TimeStopPresentation.cutCall(payload.owner());
         var previous = VOICES.remove(payload.owner());
         if (previous != null) minecraft.getSoundManager().stop(previous.sound());
         if (payload.cue() == Cue.STOP) {
@@ -106,6 +107,7 @@ public final class StandVoicePlayer {
                 case STAR_FINGER -> ModSounds.STAR_FINGER.get();
                 case STRIKE -> ModSounds.STAR_SINGLE_ORA.get();
                 case STOP -> throw new IllegalArgumentException("A stop cue cannot create a voice");
+                default -> ModSounds.voice(cue);
             };
         }
 

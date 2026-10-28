@@ -170,10 +170,10 @@ public final class StarPlatinumGameTests {
         check(helper, StandController.attack(f.owner), "Precise strike did not start");
         check(helper, !StandController.attack(f.owner) && f.target.getHealth() == 20, "Strike ignored preparation or cooldown");
         helper.runAfterDelay(3, () -> check(helper, f.target.getHealth() == 20, "Strike landed before its windup"));
-        helper.runAfterDelay(6, () -> check(helper, f.target.getHealth() == 14, "Precise strike did not deal its explicit six damage"));
+        helper.runAfterDelay(6, () -> check(helper, f.target.getHealth() == 11, "Precise strike did not deal nine damage"));
         helper.runAfterDelay(17, () -> check(helper, StandController.attack(f.owner), "Strike cooldown did not recover"));
         helper.runAfterDelay(24, () -> {
-            check(helper, f.target.getHealth() == 8, "Second precise strike did not resolve once");
+            check(helper, f.target.getHealth() == 2, "Second precise strike did not resolve once");
             f.close(); helper.succeed();
         });
     }
@@ -186,13 +186,13 @@ public final class StarPlatinumGameTests {
         check(helper, !StarPlatinumActions.barrage(f.owner) && !StarPlatinumActions.toggleGuard(f.owner)
                 && !StandController.attack(f.owner), "Actions stacked during a barrage");
         helper.runAfterDelay(3, () -> check(helper, f.target.getHealth() == 20, "Barrage skipped preparation"));
-        helper.runAfterDelay(28, () -> check(helper, f.target.getHealth() == 12,
-                "The eight barrage hits did not bypass only their own normal hit cooldown"));
+        helper.runAfterDelay(42, () -> check(helper, f.target.getHealth() == 2,
+                "The twelve barrage hits did not bypass only their own normal hit cooldown"));
         helper.runAfterDelay(32, () -> check(helper, !StarPlatinumActions.barrage(f.owner)
                 && StarPlatinumActions.session(f.owner).barrageReadyAt() == readyAt, "Rejected input reset or bypassed barrage cooldown"));
         helper.runAfterDelay(102, () -> check(helper, StarPlatinumActions.barrage(f.owner), "Barrage did not recover after five seconds"));
         helper.runAfterDelay(107, () -> {
-            check(helper, f.target.getHealth() < 12, "Recovered barrage did not hit");
+            check(helper, f.target.getHealth() < 2, "Recovered barrage did not hit");
             f.close(); helper.succeed();
         });
     }
@@ -202,12 +202,12 @@ public final class StarPlatinumGameTests {
         helper.onEachTick(() -> tick(f));
         check(helper, StarPlatinumActions.barrage(f.owner), "Barrage fixture did not start");
         helper.runAfterDelay(6, () -> {
-            check(helper, f.target.getHealth() == 19, "Fixture did not reach exactly its first pulse");
+            check(helper, f.target.getHealth() == 18.5F, "Fixture did not reach exactly its first pulse");
             f.owner.hurtServer(helper.getLevel(), f.owner.damageSources().generic(), 1);
             check(helper, StarPlatinumActions.session(f.owner).action() == Action.NONE, "Incoming damage did not interrupt barrage");
         });
         helper.runAfterDelay(32, () -> {
-            check(helper, f.target.getHealth() == 19 && !StarPlatinumActions.barrage(f.owner), "Interrupted barrage resumed or reset cooldown");
+            check(helper, f.target.getHealth() == 18.5F && !StarPlatinumActions.barrage(f.owner), "Interrupted barrage resumed or reset cooldown");
             f.close(); helper.succeed();
         });
     }

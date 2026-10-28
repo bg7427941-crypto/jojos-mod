@@ -141,8 +141,8 @@ public final class MasteryGameTests {
                 && !StarPlatinumActions.toggleGuard(f.owner) && !StandController.attack(f.owner),
                 "An action stacked during Star Finger");
         helper.runAfterDelay(7, () -> check(helper, f.target.getHealth() == 20, "Star Finger landed before its eight-tick windup"));
-        helper.runAfterDelay(10, () -> check(helper, f.target.getHealth() == 16,
-                "Star Finger did not deal four damage beyond the basic attack's reach"));
+        helper.runAfterDelay(10, () -> check(helper, f.target.getHealth() == 13,
+                "Star Finger did not deal seven damage beyond the basic attack's reach"));
         helper.runAfterDelay(20, () -> {
             check(helper, StarPlatinumActions.session(f.owner).action() == Action.NONE && !StarPlatinumActions.starFinger(f.owner),
                     "Star Finger did not recover its action or ignored its longer cooldown");
@@ -184,7 +184,7 @@ public final class MasteryGameTests {
         helper.runAfterDelay(119, () -> check(helper, !StarPlatinumActions.starFinger(f.owner), "Star Finger recovered before six seconds"));
         helper.runAfterDelay(122, () -> check(helper, StarPlatinumActions.starFinger(f.owner), "Star Finger did not recover after six seconds"));
         helper.runAfterDelay(133, () -> {
-            check(helper, f.target.getHealth() == 16, "Recovered Star Finger did not resolve once");
+            check(helper, f.target.getHealth() == 13, "Recovered Star Finger did not resolve once");
             f.close(); helper.succeed();
         });
     }
@@ -455,13 +455,13 @@ public final class MasteryGameTests {
         helper.onEachTick(() -> tick(f));
         check(helper, StarPlatinumActions.starFinger(f.owner), "Close Star Finger did not start");
         helper.runAfterDelay(20, () -> {
-            check(helper, target.getHealth() == 16 && StarPlatinumProgress.get(f.owner).count(Milestone.FINGER) == 2,
+            check(helper, target.getHealth() == 13 && StarPlatinumProgress.get(f.owner).count(Milestone.FINGER) == 2,
                     "A successful close-range Star Finger completed the ranged challenge");
             target.snapTo(f.owner.position().add(0, 0, 5), 0, 0);
         });
         helper.runAfterDelay(121, () -> check(helper, StarPlatinumActions.starFinger(f.owner), "Ranged Star Finger did not start"));
         helper.runAfterDelay(132, () -> {
-            check(helper, target.getHealth() == 12 && StarPlatinumProgress.get(f.owner).completed(Milestone.FINGER)
+            check(helper, target.getHealth() == 6 && StarPlatinumProgress.get(f.owner).completed(Milestone.FINGER)
                     && PlayerWillpower.get(f.owner) == 6, "Real ranged health damage did not grant the mastery reward");
             check(helper, StarPlatinumActions.session(f.owner).fingerReadyAt() - StarPlatinumActions.session(f.owner).startedAt() == 120,
                     "Mastery shortened an already running cooldown");
@@ -489,9 +489,9 @@ public final class MasteryGameTests {
         PlayerWillpower.set(f.owner, 5);
         var target = enemy(helper, f.owner.position().add(0, 0, 5));
         target.getAttribute(Attributes.ARMOR).setBaseValue(0);
-        target.getAttribute(Attributes.MAX_ABSORPTION).setBaseValue(4);
-        target.setAbsorptionAmount(4);
-        check(helper, target.getAbsorptionAmount() == 4, "The absorption fixture did not receive its shield");
+        target.getAttribute(Attributes.MAX_ABSORPTION).setBaseValue(7);
+        target.setAbsorptionAmount(7);
+        check(helper, target.getAbsorptionAmount() == 7, "The absorption fixture did not receive its shield");
         helper.onEachTick(() -> tick(f));
         check(helper, StarPlatinumActions.starFinger(f.owner), "Absorption fixture could not attack");
         helper.runAfterDelay(20, () -> {

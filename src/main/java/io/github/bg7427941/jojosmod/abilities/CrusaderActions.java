@@ -1,6 +1,8 @@
 package io.github.bg7427941.jojosmod.abilities;
 
 import io.github.bg7427941.jojosmod.effects.CrusaderEffects;
+import io.github.bg7427941.jojosmod.effects.StandVoices;
+import io.github.bg7427941.jojosmod.network.StandVoicePayload.Cue;
 import io.github.bg7427941.jojosmod.entities.CrusaderFlameEntity;
 import io.github.bg7427941.jojosmod.entities.TrainingStandEntity;
 import io.github.bg7427941.jojosmod.registry.ModAttachments;
@@ -112,6 +114,16 @@ public final class CrusaderActions {
         s.kind = kind; s.action = action; s.startedAt = owner.level().getGameTime(); s.pulses = 0;
         s.volley = UUID.randomUUID();
         stand.playCrusaderAnimation(animation);
+        var voice = switch (kind) {
+            case SILVER_CHARIOT -> animation.equals("attack") ? Cue.CHARIOT_STRIKE : animation.equals("secondary") ? Cue.CHARIOT_BARRAGE : null;
+            case THE_WORLD -> animation.equals("attack") ? Cue.WORLD_STRIKE : animation.equals("secondary") ? Cue.WORLD_BARRAGE : null;
+            case MAGICIANS_RED -> animation.equals("attack") ? Cue.CROSSFIRE : animation.equals("secondary") ? Cue.RED_BIND : null;
+            case HERMIT_PURPLE -> animation.equals("utility") ? null : Cue.PURPLE_CALL;
+            case THE_FOOL -> null;
+        };
+        if (voice != null) StandVoices.play(owner, voice);
+        if (kind == PartThreeStand.SILVER_CHARIOT && animation.equals("utility"))
+            owner.level().playSound(null, stand.blockPosition(), io.github.bg7427941.jojosmod.registry.ModSounds.CHARIOT_ARMOR.get(), net.minecraft.sounds.SoundSource.PLAYERS, .65F, 1);
         CrusaderEffects.sound(owner.level(), kind, "cast", stand.position());
         CrusaderEffects.burst(owner.level(), kind, stand.position().add(0, 1, 0), 6);
     }
@@ -129,25 +141,26 @@ public final class CrusaderActions {
             if (t >= windup && s.pulses == 0) {
                 s.pulses++;
                 switch (s.kind) {
-                    case SILVER_CHARIOT -> strike(owner, 4, 3.5);
+                    case SILVER_CHARIOT -> strike(owner, s.kind.definition().combat().damage(), 3.5);
                     case MAGICIANS_RED -> {
                         var flame = new CrusaderFlameEntity(ModEntities.CRUSADER_FLAME.get(), owner.level());
                         flame.initialize(owner, s.volley); owner.level().addFreshEntity(flame);
+                        owner.level().playSound(null, stand.get().blockPosition(), io.github.bg7427941.jojosmod.registry.ModSounds.RED_SHOOT.get(), net.minecraft.sounds.SoundSource.PLAYERS, .65F, 1);
                     }
-                    case HERMIT_PURPLE -> strike(owner, 3, 5);
-                    case THE_WORLD -> strike(owner, 6, 3);
+                    case HERMIT_PURPLE -> strike(owner, s.kind.definition().combat().damage(), 5);
+                    case THE_WORLD -> strike(owner, s.kind.definition().combat().damage(), 3);
                     case THE_FOOL -> sand(owner);
                 }
             }
             if (s.kind == PartThreeStand.THE_FOOL && s.pulses < 3 && t >= 6 + s.pulses * 2) { s.pulses++; sand(owner); }
-            if (t >= (s.kind == PartThreeStand.THE_FOOL ? 14 : 12)) finish(owner);
+            if (t >= (s.kind == PartThreeStand.THE_FOOL ? 14 : 12)) finish(owner, false);
         } else if (s.action == Action.SECONDARY) {
             if (s.kind == PartThreeStand.MAGICIANS_RED) {
                 if (t >= 5 && s.pulses == 0) {
                     s.pulses++;
                     target(owner, 10).ifPresent(target -> {
                         var token = s.volley;
-                        s.bound = target; damage(owner, target, 3, true);
+                        s.bound = target; damage(owner, target, 5, true);
                         if (!java.util.Objects.equals(token, session(owner).volley)) return;
                         var speed = target.getAttribute(Attributes.MOVEMENT_SPEED);
                         if (speed != null) speed.addOrUpdateTransientModifier(new AttributeModifier(bindId(owner), -.9, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
@@ -156,11 +169,11 @@ public final class CrusaderActions {
                 if (s.bound != null && (!s.bound.isAlive() || s.bound.level() != owner.level()
                         || !canDamage(owner, s.bound) || !owner.hasLineOfSight(s.bound) || s.bound.distanceToSqr(owner) > 144)) finish(owner);
                 else if (s.bound != null && t % 4 == 0) CrusaderEffects.line(owner.level(), s.kind, stand.get().position().add(0, 1, 0), s.bound.getEyePosition());
-                if (t >= 45) finish(owner);
+                if (t >= 45) finish(owner, false);
             } else {
-                int max = s.kind == PartThreeStand.SILVER_CHARIOT ? 6 : 10;
-                if (s.pulses < max && t >= 3 + s.pulses * 2) { s.pulses++; strike(owner, 1, 3.5); }
-                if (t >= 3 + max * 2 + 4) finish(owner);
+                int max = s.kind == PartThreeStand.SILVER_CHARIOT ? 10 : 12;
+                if (s.pulses < max && t >= 3 + s.pulses * 3) { s.pulses++; strike(owner, s.kind == PartThreeStand.SILVER_CHARIOT ? 1.2F : 1.5F, 3.5); }
+                if (t >= 3 + max * 3 + 4) finish(owner, false);
             }
         } else if (s.action == Action.GRAPPLE) {
             if (s.anchor == null || t >= 12 || owner.getEyePosition().distanceTo(s.anchor) < 1.7) { finish(owner); return; }
@@ -175,10 +188,10 @@ public final class CrusaderActions {
             if (velocity.y < -.12) owner.setDeltaMovement(velocity.x, -.12, velocity.z);
             owner.resetFallDistance(); owner.syncVelocity = true;
             if (t % 5 == 0) CrusaderEffects.burst(owner.level(), s.kind, owner.position(), 4);
-            if (t >= 60) finish(owner);
+            if (t >= 60) finish(owner, false);
         } else if (s.action == Action.DEFENSE) {
             if (t % 5 == 0) CrusaderEffects.burst(owner.level(), s.kind, owner.position().add(0, 1, 0), 8);
-            if (t >= 40) finish(owner);
+            if (t >= 40) finish(owner, false);
         }
     }
     private static void strike(ServerPlayer owner, float amount, double reach) {
@@ -197,7 +210,7 @@ public final class CrusaderActions {
         for (var t : owner.level().getEntitiesOfClass(LivingEntity.class, owner.getBoundingBox().inflate(6), t -> canDamage(owner, t))) {
             var delta = t.getEyePosition().subtract(owner.getEyePosition());
             if (delta.lengthSqr() <= 36 && delta.normalize().dot(owner.getLookAngle()) >= .8 && owner.hasLineOfSight(t)) {
-                damage(owner, t, 1, false);
+                damage(owner, t, 2, false);
                 if (++count == 8) break;
             }
         }
@@ -216,14 +229,19 @@ public final class CrusaderActions {
         return hit;
     }
     private static Identifier bindId(ServerPlayer owner) { return Identifier.fromNamespaceAndPath("jojosmod", "red_bind/" + owner.getUUID()); }
-    private static void finish(ServerPlayer owner) {
+    private static void finish(ServerPlayer owner) { finish(owner, true); }
+    private static void finish(ServerPlayer owner, boolean interrupted) {
         var s = session(owner);
         boolean running = s.action != Action.NONE;
+        if (interrupted && running) StandVoices.stop(owner);
         if (s.bound != null) { var speed = s.bound.getAttribute(Attributes.MOVEMENT_SPEED); if (speed != null) speed.removeModifier(bindId(owner)); s.bound = null; }
         s.action = Action.NONE; s.anchor = null;
-        if (running) StandController.getActive(owner).filter(TrainingStandEntity::isCrusader).ifPresent(TrainingStandEntity::stopActionAnimation);
+        if (running) StandController.getActive(owner).filter(TrainingStandEntity::isCrusader).ifPresent(stand -> {
+            if (interrupted) stand.stopActionAnimation(); else stand.finishActionAnimation();
+        });
     }
     public static void cancel(ServerPlayer owner) {
+        if (PartThreeStand.of(owner).isPresent()) StandVoices.stop(owner);
         if (!owner.hasData(ModAttachments.CRUSADER_SESSION)) return;
         finish(owner); var s = session(owner); s.volley = null; s.armorUntil = 0;
         StandController.getActive(owner).filter(TrainingStandEntity::isCrusader).ifPresent(e -> e.setArmorReleased(false));

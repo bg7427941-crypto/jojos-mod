@@ -25,11 +25,11 @@ BONES = (
     "right_thigh", "right_shin", "right_foot",
 )
 FINGERS = ("right_finger_index", "right_finger_middle")
-BARRAGE_CONTACTS = tuple(round(0.2 + index * 0.15, 2) for index in range(8))
+BARRAGE_CONTACTS = tuple(round(0.2 + index * 0.15, 2) for index in range(12))
 CLIP_LENGTHS = {
     "idle": 2.4, "move": 1.2, "summon": 0.4, "dismiss": 0.2,
-    "strike": 0.6, "barrage": 1.5, "guard": 0.8, "recover": 0.22,
-    "star_finger": 0.9, "intercept": 0.6, "intercept_catch": 0.22,
+    "strike": 1.0, "barrage": 2.2, "guard": 0.8, "recover": 0.22,
+    "star_finger": 1.35, "intercept": 0.6, "intercept_catch": 0.22,
     "leap": 0.55, "leap_land": 0.25, "time_stop": 0.7,
 }
 
@@ -82,6 +82,10 @@ def _clip(name, knots, *, loop=False):
     contacts, elbows, cloth and finger scale. Identical tracks stay constant.
     """
     length = CLIP_LENGTHS[name]
+    if name in {"strike", "star_finger"}:
+        old_end = .6 if name == "strike" else .9
+        preserve_until = .35 if name == "strike" else .7
+        knots = [(round(time if time <= preserve_until else preserve_until + (time - preserve_until) * (length - preserve_until) / (old_end - preserve_until), 5), value) for time, value in knots]
     authored_times = [time for time, _ in knots]
     if authored_times[0] != 0 or authored_times[-1] != length:
         raise ValueError(f"{name}: authored poses must span the entire clip")
@@ -308,7 +312,7 @@ def _barrage():
         "waist": [2, -3, -1], "chest": [1, 4, -1],
         "scarf_tail_left": [24, -6, 6], "scarf_tail_right": [29, 7, -7],
     }, position={"hover": [0, 1.1, -0.3]})
-    knots.extend([(1.36, settle), (1.5, ready)])
+    knots.extend([(2.02, settle), (2.2, ready)])
     return _clip("barrage", knots)
 
 

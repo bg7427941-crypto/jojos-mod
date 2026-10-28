@@ -109,3 +109,23 @@ bajo MIT. No contienen grabaciones del anime ni keyframes de terceros. La
 procedencia reproducible está en `art/part_three/time-effects-provenance.json`.
 Las geometrías y atlas adaptados de Roundabout conservan sus créditos y licencia.
 Los ocho clips añadidos manualmente anteriormente no se han modificado.
+
+### Grabaciones de combate (0.13.0)
+
+Se integran diecisiete ediciones de grabaciones por petición explícita del
+propietario, con originales, revisiones y hashes en `art/anime_audio/sources.json`
+y recortes/ganancias en `art/anime_audio/provenance.json`. No son audio original MIT.
+
+Se acredita a Hydraheads y colaboradores (Roundabout, revisión
+`f2390f1240e9b49444d6013e79bfda2038a542fb`, licencia v1.2), StandoByte y
+colaboradores (Ripples of the Past, revisión
+`92d6e4eb2e2bed82e74cba3aa63a3ca96b2979bc`, GPL-3.0 para los cuatro recursos
+independientes de audio y sus ediciones) y AnotherGuy7 y colaboradores
+(JoJoStands-Sounds, revisión `592896c3da195070d231f55e30b381982c962662`, sin
+licencia declarada para la llamada de Hermit Purple). Se incluye GPL-3.0 en
+`META-INF/jojosmod/audio-licenses/LICENSE-GPL-3.0.txt` y se conservan los originales
+editables en el repositorio. Estos recursos mantienen sus términos propios.
+
+Los derechos sobre las grabaciones subyacentes siguen correspondiendo a sus
+titulares originales. Su procedencia no se presenta como una concesión adicional
+de derechos. No se importaron algoritmos de juego de esos proyectos.

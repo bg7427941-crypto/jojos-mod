@@ -60,8 +60,8 @@
     "subtitle": "subtitles.jojosmod.star_platinum.barrage_start",
     "sounds": [
       {
-        "name": "jojosmod:star_platinum/barrage_start",
-        "attenuation_distance": 16
+        "name": "jojosmod:star_platinum/anime/barrage",
+        "attenuation_distance": 24
       }
     ]
   },
@@ -159,11 +159,12 @@
     ]
   },
   "hierophant_green.splash": {
+    "replace": true,
     "subtitle": "subtitles.jojosmod.hierophant_green.splash",
     "sounds": [
       {
-        "name": "jojosmod:hierophant_green/splash",
-        "attenuation_distance": 16
+        "name": "jojosmod:hierophant_green/anime/shoot",
+        "attenuation_distance": 24
       }
     ]
   },
@@ -207,11 +208,11 @@
     ]
   },
   "silver_chariot.impact": {
+    "replace": true,
     "subtitle": "subtitles.jojosmod.silver_chariot.impact",
     "sounds": [
       {
-        "name": "jojosmod:silver_chariot/impact",
-        "stream": false,
+        "name": "jojosmod:silver_chariot/anime/impact",
         "attenuation_distance": 24
       }
     ]
@@ -247,11 +248,11 @@
     ]
   },
   "magicians_red.impact": {
+    "replace": true,
     "subtitle": "subtitles.jojosmod.magicians_red.impact",
     "sounds": [
       {
-        "name": "jojosmod:magicians_red/impact",
-        "stream": false,
+        "name": "jojosmod:magicians_red/anime/impact",
         "attenuation_distance": 24
       }
     ]
@@ -327,11 +328,11 @@
     ]
   },
   "the_fool.impact": {
+    "replace": true,
     "subtitle": "subtitles.jojosmod.the_fool.impact",
     "sounds": [
       {
-        "name": "jojosmod:the_fool/impact",
-        "stream": false,
+        "name": "jojosmod:star_platinum/impact_2",
         "attenuation_distance": 24
       }
     ]
@@ -367,41 +368,42 @@
     ]
   },
   "the_world.impact": {
+    "replace": true,
     "subtitle": "subtitles.jojosmod.the_world.impact",
     "sounds": [
       {
-        "name": "jojosmod:the_world/impact",
-        "stream": false,
+        "name": "jojosmod:star_platinum/impact_1",
         "attenuation_distance": 24
       }
     ]
   },
   "the_world.time_stop": {
+    "replace": true,
     "subtitle": "subtitles.jojosmod.the_world.time_stop",
     "sounds": [
       {
-        "name": "jojosmod:the_world/time_stop",
-        "stream": false,
-        "attenuation_distance": 32
+        "name": "jojosmod:the_world/anime/time_stop",
+        "attenuation_distance": 24
       }
     ]
   },
   "the_world.resume": {
+    "replace": true,
     "subtitle": "subtitles.jojosmod.the_world.resume",
     "sounds": [
       {
-        "name": "jojosmod:the_world/resume",
-        "stream": false,
-        "attenuation_distance": 32
+        "name": "jojosmod:the_world/anime/resume",
+        "attenuation_distance": 24
       }
     ]
   },
   "star_platinum.time_stop": {
+    "replace": true,
     "subtitle": "subtitles.jojosmod.star_platinum.time_stop",
     "sounds": [
       {
-        "name": "jojosmod:star_platinum/time_stop",
-        "attenuation_distance": 32
+        "name": "jojosmod:star_platinum/anime/time_stop",
+        "attenuation_distance": 24
       }
     ]
   },
@@ -411,6 +413,106 @@
       {
         "name": "jojosmod:star_platinum/resume",
         "attenuation_distance": 32
+      }
+    ]
+  },
+  "the_world.strike_call": {
+    "replace": true,
+    "subtitle": "subtitles.jojosmod.the_world.strike_call",
+    "sounds": [
+      {
+        "name": "jojosmod:the_world/anime/strike",
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "the_world.barrage_call": {
+    "replace": true,
+    "subtitle": "subtitles.jojosmod.the_world.barrage_call",
+    "sounds": [
+      {
+        "name": "jojosmod:the_world/anime/barrage",
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "silver_chariot.strike_call": {
+    "replace": true,
+    "subtitle": "subtitles.jojosmod.silver_chariot.strike_call",
+    "sounds": [
+      {
+        "name": "jojosmod:silver_chariot/anime/strike",
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "silver_chariot.barrage_call": {
+    "replace": true,
+    "subtitle": "subtitles.jojosmod.silver_chariot.barrage_call",
+    "sounds": [
+      {
+        "name": "jojosmod:silver_chariot/anime/barrage",
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "silver_chariot.armor_release": {
+    "replace": true,
+    "subtitle": "subtitles.jojosmod.silver_chariot.armor_release",
+    "sounds": [
+      {
+        "name": "jojosmod:silver_chariot/anime/armor",
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "magicians_red.shoot": {
+    "replace": true,
+    "subtitle": "subtitles.jojosmod.magicians_red.shoot",
+    "sounds": [
+      {
+        "name": "jojosmod:magicians_red/anime/shoot",
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "magicians_red.crossfire_call": {
+    "replace": true,
+    "subtitle": "subtitles.jojosmod.magicians_red.crossfire_call",
+    "sounds": [
+      {
+        "name": "jojosmod:magicians_red/anime/crossfire_call",
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "magicians_red.bind_call": {
+    "replace": true,
+    "subtitle": "subtitles.jojosmod.magicians_red.bind_call",
+    "sounds": [
+      {
+        "name": "jojosmod:magicians_red/anime/bind_call",
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "hierophant_green.splash_call": {
+    "replace": true,
+    "subtitle": "subtitles.jojosmod.hierophant_green.splash_call",
+    "sounds": [
+      {
+        "name": "jojosmod:hierophant_green/anime/splash_call",
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "hermit_purple.call": {
+    "replace": true,
+    "subtitle": "subtitles.jojosmod.hermit_purple.call",
+    "sounds": [
+      {
+        "name": "jojosmod:hermit_purple/anime/call",
+        "attenuation_distance": 24
       }
     ]
   }

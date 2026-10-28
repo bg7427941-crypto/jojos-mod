@@ -90,7 +90,7 @@ def clips(kind, rig, original):
     if kind == 'the_fool':
         wind = pose(base, {'body': [-8, 0, 0], 'head': [-12, 0, 0]}, {'root': [0, -.25, .3]})
         hit = pose(base, {'body': [7, 0, 0], 'head': [12, 0, 0]}, {'root': [0, .8, -1.1]})
-        data['attack'] = bake(.6, [(0, base), (.19, wind), (.3, hit), (.4, pose(hit, {'head': [7, 0, 0]})), (.6, base)])
+        data['attack'] = bake(1.0, [(0, base), (.19, wind), (.3, hit), (.4, pose(hit, {'head': [7, 0, 0]})), (.72, pose(base, {'torso': [2, 2, 0]})), (1.0, base)])
     else:
         wind = pose(base, {'body': [0, -10, 2], 'torso': [1, -20, -4],
                            'right_arm': [-25, 20, -24], 'right_forearm': [-75, 0, 0]}, {'root': [0, .3, .35]})
@@ -106,12 +106,12 @@ def clips(kind, rig, original):
         if kind == 'magicians_red':
             wind = pose(wind, {'left_arm': [-38, -20, 24], 'left_forearm': [-59, 0, 0], 'torso': [4, -5, 0]})
             hit = pose(hit, {'torso': [-7, 5, 0], 'left_arm': [-86, -4, 13], 'left_forearm': [-7, 0, 0]})
-        data['attack'] = bake(.6, [(0, base), (round(contact * .62, 4), wind), (contact, hit),
-                                 (round(contact + .07, 4), pose(hit, {'torso': [-2, 12, 0]})), (.6, base)])
+        data['attack'] = bake(1.0, [(0, base), (round(contact * .62, 4), wind), (contact, hit),
+                                 (round(contact + .07, 4), pose(hit, {'torso': [-2, 12, 0]})), (.72, pose(base, {'torso': [2, 2, 0]})), (1.0, base)])
     if kind in ['silver_chariot', 'the_world']:
         frames = [(0, base)]
-        for i in range(6 if kind == 'silver_chariot' else 10):
-            t = round(.15 + i * .1, 4)
+        for i in range(10 if kind == 'silver_chariot' else 12):
+            t = round(.15 + i * .15, 4)
             if kind == 'silver_chariot':
                 load = pose(base, {'torso': [0, 6, -2]}, {'rapier': [0, 0, .8]})
                 strike = pose(base, {'torso': [-2, 15, 1], 'right_forearm': [-2, 0, 0]}, {'rapier': [0, 0, -1.7], 'root': [0, .55, -.5]})
@@ -123,7 +123,7 @@ def clips(kind, rig, original):
                                      opposite + '_arm': [-37, 0, sign * 17], opposite + '_forearm': [-58, 0, 0],
                                      'torso': [-4, sign * 16, sign * 3], 'head': [2, -sign * 10, 0]}, {'root': [0, .5, -.7]})
             frames.extend([(round(t - .045, 4), load), (t, strike)])
-        length = .95 if kind == 'silver_chariot' else 1.35
+        length = 1.85 if kind == 'silver_chariot' else 2.2
         frames.append((length, base))
         data['secondary'] = bake(length, frames)
     # Add eased shoulders, elbows, waist and follow-through to long support poses.
@@ -137,7 +137,7 @@ def clips(kind, rig, original):
         held = pose(base, rotations, {'root': [0, .75, 0]})
         breathe = pose(held, {'head': [2, -2, 1]}, {'root': [0, 1, 0]})
         data[name] = bake(length, [(0, base), (min(.2, length * .3), held), (length * .6, breathe), (length - .1, held), (length, base)])
-    data['summon'] = bake(.25, [(0, pose(base, position={'root': [0, -2, .6]}, scale={'root': [.02] * 3})), (.18, pose(base, position={'root': [0, .7, -.15]}, scale={'root': [1.04] * 3})), (.25, base)])
+    data['summon'] = bake(.55, [(0, pose(base, position={'root': [0, -2, .6]}, scale={'root': [.02] * 3})), (.38, pose(base, position={'root': [0, .7, -.15]}, scale={'root': [1.04] * 3})), (.55, base)])
     data['dismiss'] = bake(.2, [(0, base), (.2, pose(base, scale={'root': [.01] * 3}))])
     data['recover'] = bake(.2, [(0, pose(base, {'torso': [2, 4, 1]})), (.2, base)])
     expanded = pose(base, {'torso': [-12, 0, 0], 'head': [7, 0, 0], 'right_arm': [-48, -15, -75],
@@ -157,7 +157,7 @@ def hierophant(original, rig):
                           'left_forearm': [-6, 0, 0], 'right_forearm': [-6, 0, 0],
                           'left_hand': [-14, 7, 0], 'right_hand': [-14, -7, 0]}, {'root': [0, .6, -.8]})
     recoil = pose(release, {'torso': [-2, 2, 0], 'left_forearm': [-14, 0, 0], 'right_forearm': [-14, 0, 0]}, {'root': [0, .6, -.4]})
-    original['animations'][f'animation.{kind}.splash'] = bake(.9, [(0, base), (.2, charge), (.3, release), (.4, recoil), (.5, release), (.68, recoil), (.9, base)])
+    original['animations'][f'animation.{kind}.splash'] = bake(1.6, [(0, base), (.2, charge), (.3, release), (.4, recoil), (.5, release), (.68, recoil), (1.05, pose(base, {'torso': [3, 1, 0]})), (1.6, base)])
     for name in ['summon', 'dismiss', 'recover']:
         length = original['animations'][f'animation.{kind}.{name}']['animation_length']
         start, end = base, base

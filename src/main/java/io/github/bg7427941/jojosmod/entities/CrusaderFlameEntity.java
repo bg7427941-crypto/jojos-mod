@@ -45,7 +45,7 @@ public final class CrusaderFlameEntity extends ThrowableItemProjectile {
     }
     @Override protected void onHitEntity(EntityHitResult hit) {
         var p = validOwner();
-        if (p != null && hit.getEntity() instanceof LivingEntity target) CrusaderActions.damage(p, target, 6, true);
+        if (p != null && hit.getEntity() instanceof LivingEntity target) CrusaderActions.damage(p, target, io.github.bg7427941.jojosmod.registry.ModStands.MAGICIANS_RED.combat().damage(), true);
     }
     @Override protected void onHit(HitResult hit) {
         super.onHit(hit);

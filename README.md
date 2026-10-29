@@ -8,6 +8,21 @@ Mod de Minecraft inspirado en los Stands de JoJo's Bizarre Adventure. Código MI
 los recursos originales son MIT y los recursos de terceros mantienen sus licencias.
 Consulta [créditos y condiciones de uso](THIRD_PARTY_NOTICES.md).
 
+La **0.14.0** añade el recorrido de supervivencia de Parte 3: guardianes naturales
+junto a templos del desierto, guía `/stand journey`, hitos de voluntad, núcleos por
+dominio y un encuentro voluntario con **DIO y The World**, con ataques anunciados,
+cuchillos, parada temporal y recompensas personales para quienes participen.
+Hierophant Green recibe tentáculos y barrera; los otros Crusaders tienen técnicas
+avanzadas con **V**. Los usuarios compatibles tienen un presupuesto individual de
+movimiento en paradas ajenas, ampliado tras derrotar a DIO. Cliente y servidor deben
+usar **0.14.0, protocolo 13**. Las partidas anteriores se conservan.
+
+Consulta la [auditoría y estado](docs/implementation-audit.md), el
+[diseño del encuentro](docs/dio-encounter-design.md) y la
+[guía de supervivencia y prueba con amigos](docs/playtest-0.14.0.md).
+Los apartados de versiones anteriores que siguen documentan su alcance histórico.
+
+
 La **0.13.1** renueva los **14 sprites de ítems** con texturas transparentes de
 64×64: flechas doradas, discos iridiscentes y núcleos con la identidad visual de
 cada Stand. La [galería y fuentes](art/items/README.md) y la

@@ -1,4 +1,13 @@
-# Hierophant Green — primera prueba jugable, 0.11.0
+# Hierophant Green — 0.14.0
+
+La 0.14.0 incorpora tentáculo de sujeción (X) y barrera fija de contraataque (C),
+con animaciones, efectos y controles en el panel. La [guía actual](playtest-0.14.0.md)
+define contactos, daño, alcance, interrupciones y balance. El núcleo se obtiene
+al completar el dominio y visitar al guardián. La posesión queda fuera de este
+conjunto. Lo siguiente documenta la entrega inicial 0.11.0; su daño, flecha y
+protocolo históricos fueron ampliados por 0.12.0–0.14.0.
+
+## Primera prueba jugable — 0.11.0 (histórico)
 
 Segundo Stand de la primera versión de Stardust Crusaders, con Noriaki Kakyoin
 como usuario de referencia. Su identidad inicial es atacar a distancia con

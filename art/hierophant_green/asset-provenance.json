@@ -1,12 +1,13 @@
 {
-  "version": "0.13.0",
+  "version": "0.14.0",
   "license": "MIT for original resources and generator; character rights remain with their owners",
   "visual_references": [
     "https://jojowiki.com/File:Hierophant_Green_anime_ref_(3).jpg",
     "https://jojowiki.com/File:US_BD_Set_2_MS_20.png"
   ],
-  "authorship": "Original rebuilt player-based silhouette with segmented white mask, yellow slotted eyes, emerald lattice and wrapping bands; hand-painted procedural jade lattice atlas, six keyframed clips. Inventory sprites are maintained separately in art/items. No imported model, texture, animation or recording inputs.",
+  "authorship": "Original rebuilt player-based silhouette with segmented white mask, yellow slotted eyes, emerald lattice and wrapping bands; hand-painted procedural jade lattice atlas, eight keyframed clips. Inventory sprites are maintained separately in art/items. No imported model, texture, animation or recording inputs.",
   "export_utilities": "../star_platinum/model_export.py (project MIT conversion helpers only)",
+  "item_sprites": "art/items/asset-provenance.json",
   "source": "hierophant_green.bbmodel",
   "cubes": 79,
   "bones": 14,
@@ -21,8 +22,7 @@
   ],
   "files": {
     "src/main/resources/assets/jojosmod/geckolib/models/entity/hierophant_green.geo.json": "3bb0fb3f0e86832c97d32a90f26090b4a217d7e26ac0f54b536ba7c75d11d56d",
-    "src/main/resources/assets/jojosmod/geckolib/animations/entity/hierophant_green.animation.json": "48e6f348eb9ed60174bd968603e2c05718c5a65d4ef82a63989370291265d6f3",
+    "src/main/resources/assets/jojosmod/geckolib/animations/entity/hierophant_green.animation.json": "b891220eff63445d65c91781a6ee66663251a0afa60ca2c1efa6cdff5ffaa35b",
     "src/main/resources/assets/jojosmod/textures/entity/hierophant_green.png": "f616cbb057f82bc3fadc4633de87aead1ee9b40d5e21758ad6ae4e27df1fa1ce"
-  },
-  "item_sprites": "art/items/asset-provenance.json"
+  }
 }

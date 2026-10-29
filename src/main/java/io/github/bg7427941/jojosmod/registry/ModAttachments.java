@@ -64,6 +64,14 @@ public final class ModAttachments {
             ATTACHMENTS.register("time_frozen", () -> AttachmentType.builder(() -> false)
                     .sync((holder, recipient) -> true, net.minecraft.network.codec.ByteBufCodecs.BOOL).build());
 
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<io.github.bg7427941.jojosmod.abilities.HierophantTools.State>> HIEROPHANT_TOOLS =
+            ATTACHMENTS.register("hierophant_tools", () -> AttachmentType.builder(io.github.bg7427941.jojosmod.abilities.HierophantTools.State::new).build());
+
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<io.github.bg7427941.jojosmod.journey.JourneyProgress>> JOURNEY_PROGRESS =
+            ATTACHMENTS.register("journey_progress", () -> AttachmentType.builder(() -> io.github.bg7427941.jojosmod.journey.JourneyProgress.EMPTY)
+                    .serialize(io.github.bg7427941.jojosmod.journey.JourneyProgress.CODEC).copyOnDeath()
+                    .sync((holder,recipient)->holder==recipient,io.github.bg7427941.jojosmod.journey.JourneyProgress.STREAM_CODEC).build());
+
     private ModAttachments() {}
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<StarLeapSession>> STAR_LEAP =

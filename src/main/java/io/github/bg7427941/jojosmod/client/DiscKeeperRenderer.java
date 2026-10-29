@@ -8,11 +8,11 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.resources.Identifier;
 
-/** Reuses the project's original mannequin until the keeper has dedicated artwork. */
+/** Original robed keeper, separate from the training mannequin and DIO. */
 public final class DiscKeeperRenderer extends GeoEntityRenderer<DiscKeeperEntity, EntityRenderState> {
     public DiscKeeperRenderer(EntityRendererProvider.Context context) {
         super(context, new DefaultedEntityGeoModel<>(
-                Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "training_stand")));
+                Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "disc_keeper")));
         this.shadowRadius = 0.3F;
     }
 }

@@ -35,7 +35,9 @@ public final class StandProgressCommand {
     public static void register(RegisterCommandsEvent event) {
         event.getDispatcher().register(Commands.literal("stand")
                 .executes(context -> status(context.getSource()))
-                .then(Commands.literal("progress").executes(context -> status(context.getSource()))));
+                .then(Commands.literal("progress").executes(context -> status(context.getSource())))
+                .then(Commands.literal("journey").executes(context -> { io.github.bg7427941.jojosmod.journey.StardustJourney.guide(context.getSource().getPlayerOrException());return 1; }))
+                .then(Commands.literal("claim").executes(context -> io.github.bg7427941.jojosmod.journey.StardustJourney.claim(context.getSource().getPlayerOrException())?1:0)));
     }
 
     private static int status(CommandSourceStack source) throws com.mojang.brigadier.exceptions.CommandSyntaxException {
@@ -47,6 +49,7 @@ public final class StandProgressCommand {
                 .orElseGet(() -> Component.translatable("command.jojosmod.stand.none"));
         source.sendSuccess(() -> Component.translatable("command.jojosmod.stand.status",
                 standName, PlayerWillpower.get(player)), false);
+        source.sendSuccess(() -> Component.translatable("hud.jojosmod.journey_hint"),false);
         var kind = PartThreeStand.of(player);
         if (kind.isPresent()) {
             var k = kind.get();
@@ -54,6 +57,7 @@ public final class StandProgressCommand {
             source.sendSuccess(() -> Component.translatable("hud.jojosmod." + k.path() + ".primary", Component.keybind("key.jojosmod.basic_attack")), false);
             source.sendSuccess(() -> Component.translatable("hud.jojosmod." + k.path() + ".secondary", Component.keybind("key.jojosmod.star_barrage")), false);
             source.sendSuccess(() -> Component.translatable("hud.jojosmod." + k.path() + ".utility", Component.keybind("key.jojosmod.star_guard")), false);
+            source.sendSuccess(() -> Component.translatable("hud.jojosmod."+k.path()+".advanced",Component.keybind("key.jojosmod.star_finger")),false);
             if (k == PartThreeStand.THE_WORLD) source.sendSuccess(() -> Component.translatable("hud.jojosmod.time", Component.keybind("key.jojosmod.time_stop"), 4), false);
             return 1;
         }
@@ -65,7 +69,10 @@ public final class StandProgressCommand {
             source.sendSuccess(() -> Component.translatable(hierophant.completed()
                     ? "command.jojosmod.hierophant.mastered" : "command.jojosmod.hierophant.splash",
                     Component.keybind("key.jojosmod.basic_attack")), false);
-            if (hasHierophant) return 1;
+            if (hasHierophant) {
+                source.sendSuccess(() -> Component.translatable("hud.jojosmod.hierophant.tentacle",Component.keybind("key.jojosmod.star_barrage")),false);
+                source.sendSuccess(() -> Component.translatable("hud.jojosmod.hierophant.barrier",Component.keybind("key.jojosmod.star_guard")),false);return 1;
+            }
         }
         var progress = StarPlatinumProgress.get(player);
         if (!progress.awakened() && assignment.filter(ModStands.STAR_PLATINUM.id()::equals).isEmpty()) {

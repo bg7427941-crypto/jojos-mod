@@ -9,10 +9,10 @@ import net.neoforged.neoforge.network.PacketDistributor;
 public final class StandVoices {
     private StandVoices() {}
 
-    public static void play(ServerPlayer owner, Cue cue) {
+    public static void play(net.minecraft.world.entity.Entity owner, Cue cue) {
         PacketDistributor.sendToPlayersTrackingEntityAndSelf(owner,
                 new StandVoicePayload(owner.getUUID(), cue, owner.position().add(0, 1, 0)));
     }
 
-    public static void stop(ServerPlayer owner) { play(owner, Cue.STOP); }
+    public static void stop(net.minecraft.world.entity.Entity owner) { play(owner, Cue.STOP); }
 }

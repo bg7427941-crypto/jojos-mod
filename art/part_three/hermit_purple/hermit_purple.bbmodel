@@ -6322,6 +6322,61 @@
         }
       },
       "snapping": 20
+    },
+    {
+      "name": "animation.hermit_purple.advanced",
+      "uuid": "f63e62b3-ba36-57b7-a31c-b8369e62d751",
+      "loop": "once",
+      "override": false,
+      "length": 1.5,
+      "animators": {
+        "c76a5018-9e33-5376-a01a-a8520c3de03d": {
+          "name": "root",
+          "type": "bone",
+          "keyframes": [
+            {
+              "channel": "rotation",
+              "data_points": [
+                {
+                  "x": "0",
+                  "y": "0",
+                  "z": "0"
+                }
+              ],
+              "uuid": "5ba0c490-30ad-5298-a383-1b0c54112292",
+              "time": 0,
+              "interpolation": "linear"
+            },
+            {
+              "channel": "rotation",
+              "data_points": [
+                {
+                  "x": "0",
+                  "y": "-8",
+                  "z": "0"
+                }
+              ],
+              "uuid": "683c0415-49ae-5429-898a-2c2321208fe8",
+              "time": 0.4,
+              "interpolation": "linear"
+            },
+            {
+              "channel": "rotation",
+              "data_points": [
+                {
+                  "x": "0",
+                  "y": "0",
+                  "z": "0"
+                }
+              ],
+              "uuid": "cf15f1a5-4108-5464-a2dc-d05e269edd7e",
+              "time": 1.5,
+              "interpolation": "linear"
+            }
+          ]
+        }
+      },
+      "snapping": 20
     }
   ]
 }

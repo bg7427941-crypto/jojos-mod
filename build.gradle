@@ -92,6 +92,7 @@ tasks.withType(JavaCompile).configureEach {
 
 tasks.named('jar', Jar) {
     from('LICENSE')
+    from('art/journey/asset-provenance.json') { into 'META-INF/jojosmod'; rename { 'journey-provenance.json' } }
     from('art/items/asset-provenance.json') { into 'META-INF/jojosmod'; rename { 'item-sprites-provenance.json' } }
     from('art/anime_audio/LICENSE-GPL-3.0.txt') { into 'META-INF/jojosmod/audio-licenses' }
     from('art/anime_audio/sources.json') { into 'META-INF/jojosmod'; rename { 'anime-audio-sources.json' } }

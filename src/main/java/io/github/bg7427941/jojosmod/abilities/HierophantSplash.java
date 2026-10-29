@@ -51,7 +51,7 @@ public final class HierophantSplash {
     public static boolean start(ServerPlayer owner, TrainingStandEntity stand) {
         var state = session(owner);
         long now = owner.level().getGameTime();
-        if (active(owner).filter(current -> current == stand).isEmpty() || state.casting() || now < state.readyAt()) return false;
+        if (active(owner).filter(current -> current == stand).isEmpty() || state.casting() || HierophantTools.busy(owner) || now < state.readyAt()) return false;
         owner.setData(ModAttachments.HIEROPHANT_SESSION,
                 new HierophantSession(Optional.of(UUID.randomUUID()), now, 0, true, now + cooldown(owner)));
         stand.playAttackAnimation();

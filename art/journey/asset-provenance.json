@@ -1,0 +1,28 @@
+{
+  "version": "0.14.0",
+  "license": "MIT for original project art/generator; character rights retained by Hirohiko Araki and their holders",
+  "authorship": "Original player-based DIO and robed fictional disc service NPC. New cube geometry, UV palette atlas and keyframes; no geometry or pixels imported from other mods.",
+  "references": [
+    "https://jojo-portal.com/anime/sc/character/07/"
+  ],
+  "files": {
+    "src/main/resources/assets/jojosmod/geckolib/models/entity/dio.geo.json": "3212570f5c239574a88be79d044f3c10dc38c44b46089670764019984eb07a11",
+    "src/main/resources/assets/jojosmod/geckolib/animations/entity/dio.animation.json": "4502753fb43f140f7265bf80e32e885d3880ffd4f5cae71dcd4e62504a23acb5",
+    "src/main/resources/assets/jojosmod/textures/entity/dio.png": "350c27c18962e1c3ba373aa8829d5e68292209c8fc8d9f5f9727813a4912a2c3",
+    "src/main/resources/assets/jojosmod/geckolib/models/entity/disc_keeper.geo.json": "e72a3a008e9eff6856e83f634c736b6e813aea040562c150e8ecccc0237c1a74",
+    "src/main/resources/assets/jojosmod/geckolib/animations/entity/disc_keeper.animation.json": "44313f1f1103a31da18546e1d9ed8731fd211ffad755a8fe3985fc2a08b6db94",
+    "src/main/resources/assets/jojosmod/textures/entity/disc_keeper.png": "0f63e2720098de1ead65955528acad6dc59872e2e1a8227540cf938e385de6d7"
+  },
+  "models": {
+    "dio": {
+      "cubes": 49,
+      "bones": 14,
+      "source": "art/journey/dio/dio.bbmodel"
+    },
+    "disc_keeper": {
+      "cubes": 39,
+      "bones": 14,
+      "source": "art/journey/disc_keeper/disc_keeper.bbmodel"
+    }
+  }
+}

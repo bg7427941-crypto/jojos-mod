@@ -1,7 +1,7 @@
 # Modelos y recursos de los cinco Stands nuevos de Parte 3
 
 `build_assets.py` exporta cinco proyectos Blockbench editables, geometría GeckoLib,
-y 47 clips originales. Los sprites de inventario se mantienen en
+y 52 clips originales. Los sprites de inventario se mantienen en
 [`art/items`](../items/README.md); este generador ya no los sobrescribe.
 `adapt_models.py` aplica a Silver Chariot,
 Magician’s Red y The World el mismo flujo de conversión de Star Platinum:

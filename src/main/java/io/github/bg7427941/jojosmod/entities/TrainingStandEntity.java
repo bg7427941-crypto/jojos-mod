@@ -67,6 +67,7 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
 
     private final AnimatableInstanceCache animationCache = GeckoLibUtil.createInstanceCache(this);
     private @Nullable ServerPlayer owner;
+    private @Nullable DioEntity encounterOwner;
     private long dismissAt = -1;
 
     public TrainingStandEntity(EntityType<? extends TrainingStandEntity> type, Level level) {
@@ -79,6 +80,8 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         this.owner = Objects.requireNonNull(owner, "owner");
         entityData.set(OWNER_ID, owner.getId());
     }
+
+    public void setEncounterOwner(DioEntity owner) { encounterOwner=owner; entityData.set(OWNER_ID,owner.getId()); }
 
     /** Synced owner identity for observer render layers. */
     public int getOwnerEntityId() { return entityData.get(OWNER_ID); }
@@ -129,6 +132,14 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
             return;
         }
 
+        if (encounterOwner != null) {
+            if (encounterOwner.level()!=level() || !encounterOwner.ownsProjection(this)) {discard();return;}
+            double yaw=Math.toRadians(encounterOwner.getYRot());
+            var at=encounterOwner.position().add(Math.cos(yaw)*.9+Math.sin(yaw),.15,Math.sin(yaw)*.9-Math.cos(yaw));
+            setPos(distanceToSqr(encounterOwner)>64?at:position().lerp(at,.35));
+            setYRot(encounterOwner.getYRot());setXRot(0);setDeltaMovement(Vec3.ZERO);
+            entityData.set(MOVING,encounterOwner.getDeltaMovement().horizontalDistanceSqr()>.001);return;
+        }
         var player = getOwner();
         if (player == null || player.isRemoved() || !player.isAlive() || player.isSpectator()
                 || player.level() != level() || !StandController.isActive(player, this)) {
@@ -140,7 +151,7 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         var forward = new Vec3(-Math.sin(yaw), 0, Math.cos(yaw));
         var side = new Vec3(Math.cos(yaw), 0, Math.sin(yaw));
         boolean acting = isStarPlatinum() && StarPlatinumActions.isBusy(player)
-                || isHierophantGreen() && HierophantSplash.session(player).casting()
+                || isHierophantGreen() && (HierophantSplash.session(player).casting() || io.github.bg7427941.jojosmod.abilities.HierophantTools.busy(player))
                 || isCrusader() && CrusaderActions.session(player).action != io.github.bg7427941.jojosmod.stands.CrusaderSession.Action.NONE;
         var target = player.position()
                 .add(forward.scale(acting ? 0.45 : -FOLLOW_BEHIND))
@@ -242,6 +253,7 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
         stopTriggeredAnim("main", "intercept_catch");
         stopTriggeredAnim("main", "secondary"); stopTriggeredAnim("main", "utility");
         stopTriggeredAnim("main", "time_stop");
+        stopTriggeredAnim("main", "advanced");
         if (isStarPlatinum() || isHierophantGreen() || isCrusader()) triggerAnim("main", "recover");
     }
 
@@ -276,7 +288,7 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
             controllers.add(new AnimationController<TrainingStandEntity>("locomotion", 3, state -> state.setAndContinue(
                     RawAnimation.begin().thenLoop(prefix + (entityData.get(MOVING) ? "move" : "idle")))));
             var main = new AnimationController<TrainingStandEntity>("main", 0, state -> com.geckolib.animation.object.PlayState.STOP);
-            for (var clip : java.util.List.of("attack", "secondary", "utility", "summon", "dismiss", "recover", "time_stop"))
+            for (var clip : java.util.List.of("attack", "secondary", "utility", "advanced", "summon", "dismiss", "recover", "time_stop"))
                 main.triggerableAnim(clip, RawAnimation.begin().thenPlay(prefix + clip));
             controllers.add(main);
             if (kind.get() == PartThreeStand.SILVER_CHARIOT)
@@ -289,6 +301,8 @@ public final class TrainingStandEntity extends Entity implements GeoEntity {
                     entityData.get(MOVING) ? HIEROPHANT_MOVE : HIEROPHANT_IDLE)));
             controllers.add(new AnimationController<TrainingStandEntity>("main", 0, state -> com.geckolib.animation.object.PlayState.STOP)
                     .triggerableAnim("attack", RawAnimation.begin().thenPlay("animation.hierophant_green.splash"))
+                    .triggerableAnim("secondary", RawAnimation.begin().thenPlay("animation.hierophant_green.tentacle"))
+                    .triggerableAnim("utility", RawAnimation.begin().thenPlay("animation.hierophant_green.barrier"))
                     .triggerableAnim("summon", RawAnimation.begin().thenPlay("animation.hierophant_green.summon"))
                     .triggerableAnim("dismiss", RawAnimation.begin().thenPlay("animation.hierophant_green.dismiss"))
                     .triggerableAnim("recover", RawAnimation.begin().thenPlay("animation.hierophant_green.recover")));

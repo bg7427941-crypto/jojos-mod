@@ -2,11 +2,11 @@
 
 Modelo humanoide con proporciones de jugador, 79 cubos y 14 huesos. El atlas
 512×512 dibuja la trama clara sobre verde jade, máscara, placas y cristal central.
-Las seis animaciones son reposo, movimiento, invocación, desinvocación, recuperación
-y Emerald Splash; sus tres pulsos visuales coinciden con 0,3, 0,4 y 0,5 segundos.
+Las ocho animaciones son reposo, movimiento, invocación, desinvocación, recuperación,
+Emerald Splash, tentáculo y barrera; sus tres pulsos visuales coinciden con 0,3, 0,4 y 0,5 segundos.
 
 `hierophant_green.bbmodel` se abre en Blockbench con el formato GeckoLib. Incluye
-la textura y las seis curvas editables. Los JSON de ejecución se exportan a
+la textura y las ocho curvas editables. Los JSON de ejecución se exportan a
 `src/main/resources/assets/jojosmod/geckolib/`. La textura de entidad es original;
 el icono de núcleo se mantiene en [`art/items`](../items/README.md), y el generador
 del modelo ya no lo sobrescribe. No se importan geometría, píxeles ni keyframes de Roundabout

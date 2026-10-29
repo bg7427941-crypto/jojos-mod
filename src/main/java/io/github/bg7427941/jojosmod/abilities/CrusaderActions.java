@@ -53,7 +53,7 @@ public final class CrusaderActions {
     public static boolean primary(ServerPlayer owner) {
         var stand = active(owner); if (stand.isEmpty()) return false;
         var s = session(owner); long now = owner.level().getGameTime();
-        if (s.action != Action.NONE || now < s.primaryReady) return false;
+        if (s.action != Action.NONE || now < s.primaryReady || now < s.rapierUntil) return false;
         var kind = PartThreeStand.of(owner).orElseThrow();
         int cd = kind.cooldown();
         if (CrusaderProgress.get(owner).training(kind).completed()) cd = cd * 4 / 5;
@@ -136,6 +136,7 @@ public final class CrusaderActions {
         if (s.kind == PartThreeStand.SILVER_CHARIOT) stand.get().setArmorReleased(now < s.armorUntil);
         if (s.action == Action.NONE) return;
         long t = now - s.startedAt;
+        if (s.action == Action.ADVANCED) { CrusaderAdvanced.tick(owner); return; }
         if (s.action == Action.PRIMARY) {
             int windup = s.kind == PartThreeStand.SILVER_CHARIOT ? 3 : s.kind == PartThreeStand.THE_WORLD ? 4 : 6;
             if (t >= windup && s.pulses == 0) {
@@ -230,7 +231,7 @@ public final class CrusaderActions {
     }
     private static Identifier bindId(ServerPlayer owner) { return Identifier.fromNamespaceAndPath("jojosmod", "red_bind/" + owner.getUUID()); }
     private static void finish(ServerPlayer owner) { finish(owner, true); }
-    private static void finish(ServerPlayer owner, boolean interrupted) {
+    static void finish(ServerPlayer owner, boolean interrupted) {
         var s = session(owner);
         boolean running = s.action != Action.NONE;
         if (interrupted && running) StandVoices.stop(owner);
@@ -243,7 +244,7 @@ public final class CrusaderActions {
     public static void cancel(ServerPlayer owner) {
         if (PartThreeStand.of(owner).isPresent()) StandVoices.stop(owner);
         if (!owner.hasData(ModAttachments.CRUSADER_SESSION)) return;
-        finish(owner); var s = session(owner); s.volley = null; s.armorUntil = 0;
+        finish(owner); var s = session(owner); s.volley = null; s.armorUntil = 0; s.rapierUntil = 0;
         StandController.getActive(owner).filter(TrainingStandEntity::isCrusader).ifPresent(e -> e.setArmorReleased(false));
     }
     public static boolean flameValid(ServerPlayer owner, UUID volley) {
@@ -252,7 +253,7 @@ public final class CrusaderActions {
     }
     public static void onDamage(LivingDamageEvent.Post event) {
         if (event.getEntity() instanceof ServerPlayer p && event.getHealthDamage() > 0
-                && session(p).action != Action.DEFENSE && session(p).action != Action.GLIDE) cancel(p);
+                && session(p).action != Action.DEFENSE && session(p).action != Action.GLIDE && !CrusaderAdvanced.domeActive(p)) cancel(p);
     }
     public static void onIncoming(LivingIncomingDamageEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer owner) || active(owner).isEmpty()) return;

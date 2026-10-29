@@ -43,7 +43,7 @@ public final class StandVoicePlayer {
             return;
         }
         var level = minecraft.level;
-        if (level == null || level.getPlayerByUUID(payload.owner()) == null) return;
+        if (level == null || findOwner(level,payload.owner()) == null) return;
         var event = VoiceSound.soundFor(payload.cue());
         var definition = minecraft.getSoundManager().getSoundEvent(event.location());
         // Optional voices stay silent without a resource-pack clip, without warnings.
@@ -80,6 +80,12 @@ public final class StandVoicePlayer {
         }
     }
 
+    private static net.minecraft.world.entity.Entity findOwner(ClientLevel level, UUID uuid) {
+        var player=level.getPlayerByUUID(uuid);if(player!=null)return player;
+        for(var entity:level.entitiesForRendering())if(entity instanceof io.github.bg7427941.jojosmod.entities.DioEntity&&entity.getUUID().equals(uuid))return entity;
+        return null;
+    }
+
     private record Playing(VoiceSound sound, int startedAt) {}
 
     private static final class VoiceSound extends AbstractTickableSoundInstance {
@@ -113,7 +119,7 @@ public final class StandVoicePlayer {
 
         @Override
         public void tick() {
-            var player = level.getPlayerByUUID(owner);
+            var player = findOwner(level,owner);
             if (Minecraft.getInstance().level != level || player == null
                     || !player.isAlive() || player.isSpectator()) {
                 stop();

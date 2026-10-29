@@ -25,9 +25,10 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 
-/** Persistent service NPC prototype; boss combat and natural placement are later milestones. */
+/** Persistent neutral service NPC at desert temples; its separate DIO challenge is voluntary. */
 public final class DiscKeeperEntity extends Entity implements GeoEntity {
-    private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.training_stand.idle");
+    private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.disc_keeper.idle");
+    private java.util.Optional<net.minecraft.core.BlockPos> temple = java.util.Optional.empty();
     private final AnimatableInstanceCache animationCache = GeckoLibUtil.createInstanceCache(this);
 
     public DiscKeeperEntity(EntityType<? extends DiscKeeperEntity> type, Level level) {
@@ -36,6 +37,9 @@ public final class DiscKeeperEntity extends Entity implements GeoEntity {
         setCustomName(Component.translatable("entity.jojosmod.disc_keeper"));
         setCustomNameVisible(true);
     }
+
+    public void setTemple(net.minecraft.core.BlockPos position) { temple=java.util.Optional.of(position.immutable()); }
+    public java.util.Optional<net.minecraft.core.BlockPos> temple() { return temple; }
 
     @Override
     public boolean isPickable() {
@@ -48,6 +52,12 @@ public final class DiscKeeperEntity extends Entity implements GeoEntity {
         if (hand == InteractionHand.MAIN_HAND && !player.getMainHandItem().is(ModItems.EMPTY_STAND_DISC.get())
                 && player.getOffhandItem().is(ModItems.EMPTY_STAND_DISC.get())) {
             hand = InteractionHand.OFF_HAND;
+        }
+        if (temple.isPresent() && player instanceof ServerPlayer serverPlayer && !player.getItemInHand(hand).is(ModItems.EMPTY_STAND_DISC.get())) {
+            if (serverPlayer.distanceToSqr(this)>9 || !serverPlayer.hasLineOfSight(this)) return InteractionResult.FAIL;
+            if (serverPlayer.isShiftKeyDown()) io.github.bg7427941.jojosmod.journey.StardustJourney.challenge(serverPlayer,this);
+            else io.github.bg7427941.jojosmod.journey.StardustJourney.meet(serverPlayer,this);
+            return InteractionResult.SUCCESS_SERVER;
         }
         return player instanceof ServerPlayer serverPlayer
                 ? StandStorage.storeAtKeeper(serverPlayer, this, hand) : InteractionResult.SUCCESS_SERVER;
@@ -69,11 +79,11 @@ public final class DiscKeeperEntity extends Entity implements GeoEntity {
 
     @Override
     protected void readAdditionalSaveData(ValueInput input) {
-        // Position, name and UUID use Entity's native persistence; no player data lives on the NPC.
+        temple = input.read("Temple", net.minecraft.core.BlockPos.CODEC);
     }
 
     @Override
-    protected void addAdditionalSaveData(ValueOutput output) {}
+    protected void addAdditionalSaveData(ValueOutput output) { temple.ifPresent(pos -> output.store("Temple",net.minecraft.core.BlockPos.CODEC,pos)); }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {

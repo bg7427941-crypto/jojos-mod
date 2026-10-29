@@ -55,6 +55,7 @@ public final class StandController {
             io.github.bg7427941.jojosmod.effects.StandVoices.stop(owner);
             StarPlatinumActions.stop(owner);
             HierophantSplash.cancel(owner);
+            io.github.bg7427941.jojosmod.abilities.HierophantTools.cancel(owner);
             CrusaderActions.cancel(owner); TimeStop.cancel(owner);
             active.get().dismiss();
             owner.setData(ModAttachments.STAND_SESSION,
@@ -114,6 +115,7 @@ public final class StandController {
         io.github.bg7427941.jojosmod.effects.StandVoices.stop(owner);
         StarPlatinumActions.stop(owner);
         HierophantSplash.cancel(owner);
+            io.github.bg7427941.jojosmod.abilities.HierophantTools.cancel(owner);
         CrusaderActions.cancel(owner); TimeStop.cancel(owner);
         getActive(owner).ifPresent(TrainingStandEntity::dismiss);
         var state = session(owner);

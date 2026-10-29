@@ -92,6 +92,8 @@ public final class StandHud {
             lines.add(Component.translatable("hud.jojosmod." + k.path() + ".primary", Component.keybind("key.jojosmod.basic_attack")));
             lines.add(Component.translatable("hud.jojosmod." + k.path() + ".secondary", Component.keybind("key.jojosmod.star_barrage")));
             lines.add(Component.translatable("hud.jojosmod." + k.path() + ".utility", Component.keybind("key.jojosmod.star_guard")));
+            lines.add(Component.translatable("hud.jojosmod."+k.path()+".advanced",Component.keybind("key.jojosmod.star_finger")));
+            lines.add(Component.translatable("hud.jojosmod.journey_hint"));
             if (k == PartThreeStand.THE_WORLD) lines.add(Component.translatable("hud.jojosmod.time", Component.keybind("key.jojosmod.time_stop"), 4));
             if (player.getExistingData(ModAttachments.TIME_FROZEN).orElse(false)) lines.add(Component.translatable("hud.jojosmod.time.frozen"));
             draw(graphics, minecraft, lines, java.util.Collections.nCopies(lines.size(), 0xFFF2E9DD), k.color()); return;
@@ -102,8 +104,11 @@ public final class StandHud {
                     Component.translatable("hud.jojosmod.willpower", Component.translatable(ModStands.HIEROPHANT_GREEN.translationKey()), PlayerWillpower.get(player)),
                     Component.translatable("hud.jojosmod.hierophant.mastery", progress.splashTargets().size(), HierophantProgress.TARGETS_REQUIRED),
                     Component.translatable(progress.completed() ? "hud.jojosmod.hierophant.mastered" : "hud.jojosmod.hierophant.splash",
-                            Component.keybind("key.jojosmod.basic_attack"))),
-                    List.of(0xFFE9FFF0, 0xFFC1E6CC, 0xFFF2D278), 0xFF45C88D);
+                            Component.keybind("key.jojosmod.basic_attack")),
+                    Component.translatable("hud.jojosmod.hierophant.tentacle",Component.keybind("key.jojosmod.star_barrage")),
+                    Component.translatable("hud.jojosmod.hierophant.barrier",Component.keybind("key.jojosmod.star_guard")),
+                    Component.translatable("hud.jojosmod.journey_hint")),
+                    java.util.Collections.nCopies(6,0xFFE9FFF0), 0xFF45C88D);
             return;
         }
         if (assignment.filter(ModStands.STAR_PLATINUM.id()::equals).isEmpty()) return;

@@ -140,3 +140,18 @@ proyecto se distribuye bajo MIT; los derechos sobre los personajes siguen siendo
 de Hirohiko Araki y sus titulares. El manifiesto de fuente y hashes se incluye
 como `META-INF/jojosmod/item-sprites-provenance.json`. Las licencias de los
 modelos, grabaciones y demás recursos existentes se conservan.
+
+## Recorrido y técnicas de Parte 3 — 0.14.0
+
+Los modelos de DIO y el guardián neutral, sus atlas, keyframes y conversor son arte
+original del proyecto, distribuidos bajo MIT. Sus fuentes Blockbench, vistas y
+hashes están en [art/journey](art/journey/README.md) y el manifiesto del JAR
+`META-INF/jojosmod/journey-provenance.json`. DIO y los Stands pertenecen a Hirohiko
+Araki y sus titulares. El guardián es un personaje de servicio original del mod.
+
+Los modelos tridimensionales simples de cuchillo y estoque son geometría original;
+sus materiales usan texturas vanilla de Minecraft mediante identificadores, sin
+copiar esos archivos al JAR. Las nuevas poses, lianas y cúpula son originales.
+The World del jefe conserva el modelo/atlas adaptados de Roundabout y sus créditos.
+Se reutilizan las grabaciones ya acreditadas para voces/efectos; no se incorporan
+nuevas grabaciones de terceros en esta versión.

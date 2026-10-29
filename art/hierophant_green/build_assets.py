@@ -192,9 +192,9 @@ def main():
     project["textures"][0].update(name="hierophant_green.png", path="hierophant_green.png")
     write_json(HERE / "hierophant_green.bbmodel", project)
     files = [geo, anim, texture]
-    manifest = {"version": "0.13.0", "license": "MIT for original resources and generator; character rights remain with their owners",
+    manifest = {"version": "0.14.0", "license": "MIT for original resources and generator; character rights remain with their owners",
         "visual_references": ["https://jojowiki.com/File:Hierophant_Green_anime_ref_(3).jpg", "https://jojowiki.com/File:US_BD_Set_2_MS_20.png"],
-        "authorship": "Original rebuilt player-based silhouette with segmented white mask, yellow slotted eyes, emerald lattice and wrapping bands; hand-painted procedural jade lattice atlas, six keyframed clips. Inventory sprites are maintained separately in art/items. No imported model, texture, animation or recording inputs.",
+        "authorship": "Original rebuilt player-based silhouette with segmented white mask, yellow slotted eyes, emerald lattice and wrapping bands; hand-painted procedural jade lattice atlas, eight keyframed clips. Inventory sprites are maintained separately in art/items. No imported model, texture, animation or recording inputs.",
         "export_utilities": "../star_platinum/model_export.py (project MIT conversion helpers only)",
         "item_sprites": "art/items/asset-provenance.json",
         "source": "hierophant_green.bbmodel", "cubes": len(model.sculpture.sources), "bones": len(model.sculpture.bones),

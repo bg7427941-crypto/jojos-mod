@@ -76,10 +76,12 @@ public final class JojosModClient {
     private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.TRAINING_STAND.get(), TrainingStandRenderer::new);
         event.registerEntityRenderer(ModEntities.DISC_KEEPER.get(), DiscKeeperRenderer::new);
+        event.registerEntityRenderer(ModEntities.DIO.get(), DioRenderer::new);
         event.registerEntityRenderer(ModEntities.STAR_PLATINUM.get(), context -> new TrainingStandRenderer(context, "star_platinum"));
         event.registerEntityRenderer(ModEntities.HIEROPHANT_GREEN.get(), context -> new TrainingStandRenderer(context, "hierophant_green"));
         for (var kind : PartThreeStand.values()) event.registerEntityRenderer(ModEntities.crusader(kind), context -> new TrainingStandRenderer(context, kind.path()));
         event.registerEntityRenderer(ModEntities.CRUSADER_FLAME.get(), context -> new ThrownItemRenderer<>(context, .8F, true));
+        event.registerEntityRenderer(ModEntities.STAND_WEAPON.get(), context -> new ThrownItemRenderer<>(context, .65F, false));
         event.registerEntityRenderer(ModEntities.EMERALD_SHARD.get(), context -> new ThrownItemRenderer<>(context, .45F, true));
     }
 

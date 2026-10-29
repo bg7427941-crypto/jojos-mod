@@ -1,4 +1,12 @@
-# Catálogo jugable de Parte 3 — 0.12.0
+# Catálogo jugable de Parte 3 — 0.14.0
+
+La 0.14.0 añade las [técnicas avanzadas y la campaña](playtest-0.14.0.md).
+El [encuentro de DIO](dio-encounter-design.md) ya permite obtener The World jugando.
+Los valores de daño y ráfagas de la primera tabla son históricos de 0.12.0;
+la [tabla 0.13.0](playtest-0.13.0.md) y la [ampliación 0.14.0](playtest-0.14.0.md)
+son la referencia del balance actual.
+
+## Conjunto inicial — 0.12.0 (histórico)
 
 Esta entrega añade los cinco Stands que faltaban del catálogo principal propuesto:
 Silver Chariot (Polnareff), Magician’s Red (Avdol), Hermit Purple (Joseph), The Fool
@@ -110,3 +118,17 @@ avanzadas y control ambiental de arena; cuchillos y encuentro de DIO; animación
 reanudar y presupuestos temporales individuales. Hierophant Green todavía necesita
 barrera, tentáculos y posesión. Echoes/Little Feet y Whitesnake mantienen el alcance
 anterior, fuera del catálogo de lanzamiento de Parte 3.
+
+## Técnicas y obtención actuales — 0.14.0
+
+Se implementan el estoque lanzado, los cuchillos, el detector de vida, conducción
+de Hamon y una cúpula protectora de arena para el grupo. Hierophant Green añade
+tentáculos y barrera fija de contraataque. Los usuarios compatibles, incluido DIO,
+agotan su presupuesto al moverse en una parada ajena; salir y volver no lo renueva.
+La [guía actual](playtest-0.14.0.md) fija valores, controles y cancelaciones.
+
+El guardián entrega una vez el núcleo del Crusader que hayas dominado, por jugador
+y Stand. DIO entrega el núcleo de The World a cada participante, también al volver
+a conectarse, con reserva si el inventario está lleno. La posesión, fotografías
+con cámaras, control ambiental extenso y otras escenas adicionales del repertorio
+se conservan como propuestas posteriores y no bloquean el recorrido actual.

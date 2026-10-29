@@ -111,7 +111,7 @@ def clips(kind,model):
 def write(p,data):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(TOOLS.tidy(data),ensure_ascii=False,indent=2)+'\n')
 
 def main():
-    manifest={'version':'0.13.0','license':'Roundabout License v1.2 for the three adapted models/atlases; MIT for original assets, animations and generators; character rights retained by their owners','authorship':'Three pinned Roundabout geometries/UVs/anime atlases adapted through the Star Platinum conversion workflow; original Hermit Purple/The Fool sculptures, original action keyframes. Inventory sprites are maintained separately in art/items. No upstream animation keyframes imported.','models':{},'files':{},'upstream':adapt_models.pinned_sources()}
+    manifest={'version':'0.14.0','license':'Roundabout License v1.2 for the three adapted models/atlases; MIT for original assets, animations and generators; character rights retained by their owners','authorship':'Three pinned Roundabout geometries/UVs/anime atlases adapted through the Star Platinum conversion workflow; original Hermit Purple/The Fool sculptures, original action keyframes. Inventory sprites are maintained separately in art/items. No upstream animation keyframes imported.','models':{},'files':{},'upstream':adapt_models.pinned_sources()}
     for kind in KINDS:
         TOOLS.stable_id=lambda name,k=kind:str(uuid.uuid5(uuid.NAMESPACE_URL,'jojosmod/part-three/v1/'+k+'/'+name))
         palette=PALETTES[kind];tools.PALETTE=dict(zip(['plate','ivory','dark','gem','gold'],palette));tools.SIZE=512
@@ -126,6 +126,7 @@ def main():
         else: GEOMETRY[kind](model)
         animation=clips(kind,model)
         if kind != 'hermit_purple': animation=motion.clips(kind,model.sculpture.bones,animation)
+        else: animation['animations']['animation.hermit_purple.advanced']={'animation_length':1.5,'loop':False,'bones':{'root':{'rotation':{'0':[0,0,0],'.4':[0,8,0],'1.5':[0,0,0]}}}}
         folder=HERE/kind;folder.mkdir(exist_ok=True)
         tex=ASSETS/f'textures/entity/{kind}.png'
         if kind in adapt_models.ADAPTED:

@@ -90,6 +90,16 @@ public final class ModEntities {
                     .sized(.3F, .3F).noSave().noSummon().clientTrackingRange(TRACKING_RANGE).updateInterval(UPDATE_INTERVAL)
                     .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(JojosMod.MOD_ID, "crusader_flame"))));
 
+    public static final DeferredHolder<EntityType<?>, EntityType<io.github.bg7427941.jojosmod.entities.StandWeaponEntity>> STAND_WEAPON =
+            ENTITIES.register("stand_weapon", () -> EntityType.Builder.of(io.github.bg7427941.jojosmod.entities.StandWeaponEntity::new, MobCategory.MISC)
+                    .sized(.18F,.18F).noSave().noSummon().clientTrackingRange(TRACKING_RANGE).updateInterval(1)
+                    .build(ResourceKey.create(Registries.ENTITY_TYPE,Identifier.fromNamespaceAndPath(JojosMod.MOD_ID,"stand_weapon"))));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<io.github.bg7427941.jojosmod.entities.DioEntity>> DIO =
+            ENTITIES.register("dio", () -> EntityType.Builder.of(io.github.bg7427941.jojosmod.entities.DioEntity::new, MobCategory.MONSTER)
+                    .sized(.6F,1.95F).noSave().clientTrackingRange(10).updateInterval(2)
+                    .build(ResourceKey.create(Registries.ENTITY_TYPE,Identifier.fromNamespaceAndPath(JojosMod.MOD_ID,"dio"))));
+
     private ModEntities() {}
 
     public static void register(IEventBus modEventBus) {

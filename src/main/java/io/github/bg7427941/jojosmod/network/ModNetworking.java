@@ -12,7 +12,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.HandlerThread;
 
 public final class ModNetworking {
-    private static final String PROTOCOL_VERSION = "12";
+    private static final String PROTOCOL_VERSION = "13";
 
     private ModNetworking() {}
 
@@ -35,13 +35,13 @@ public final class ModNetworking {
             }
         });
         registrar.playToServer(BarragePayload.TYPE, BarragePayload.STREAM_CODEC, (payload, context) -> {
-            if (context.player() instanceof ServerPlayer player) { if (PartThreeStand.of(player).isPresent()) CrusaderActions.secondary(player); else StarPlatinumActions.barrage(player); }
+            if (context.player() instanceof ServerPlayer player) { if (PartThreeStand.of(player).isPresent()) CrusaderActions.secondary(player); else if (io.github.bg7427941.jojosmod.abilities.HierophantSplash.active(player).isPresent()) io.github.bg7427941.jojosmod.abilities.HierophantTools.tentacle(player); else StarPlatinumActions.barrage(player); }
         });
         registrar.playToServer(GuardPayload.TYPE, GuardPayload.STREAM_CODEC, (payload, context) -> {
-            if (context.player() instanceof ServerPlayer player) { if (PartThreeStand.of(player).isPresent()) CrusaderActions.utility(player); else StarPlatinumActions.toggleGuard(player); }
+            if (context.player() instanceof ServerPlayer player) { if (PartThreeStand.of(player).isPresent()) CrusaderActions.utility(player); else if (io.github.bg7427941.jojosmod.abilities.HierophantSplash.active(player).isPresent()) io.github.bg7427941.jojosmod.abilities.HierophantTools.barrier(player); else StarPlatinumActions.toggleGuard(player); }
         });
         registrar.playToServer(StarFingerPayload.TYPE, StarFingerPayload.STREAM_CODEC, (payload, context) -> {
-            if (context.player() instanceof ServerPlayer player) StarPlatinumActions.starFinger(player);
+            if (context.player() instanceof ServerPlayer player) { if (PartThreeStand.of(player).isPresent()) io.github.bg7427941.jojosmod.abilities.CrusaderAdvanced.start(player); else StarPlatinumActions.starFinger(player); }
         });
         registrar.playToServer(InterceptPayload.TYPE, InterceptPayload.STREAM_CODEC, (payload, context) -> {
             if (context.player() instanceof ServerPlayer player) StarPlatinumActions.intercept(player);

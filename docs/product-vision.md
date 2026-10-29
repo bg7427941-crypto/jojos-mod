@@ -19,32 +19,20 @@ Los sistemas de discos ya existentes se conservan, junto con sus ítems, identif
 y datos guardados; su papel es una adaptación transversal del mod, no un elemento de
 la historia de Parte 3. El primer recorrido de lanzamiento se centrará en Parte 3.
 
-## Estado real de la base
+## Estado real de la base — 0.14.0
 
-La 0.12.0 amplía los siete Stands propuestos de Parte 3 con conjuntos jugables,
-modelos/animaciones/audio y progreso propios para los cinco que faltaban; añade
-parada temporal local para The World y Star Platinum avanzado. El
-[diseño](part-three-stands-design.md) separa esos conjuntos del repertorio completo,
-los límites de la parada y el encuentro de DIO, todavía pendiente.
+El catálogo jugable de Parte 3 tiene modelos y conjuntos propios. La 0.14.0 añade
+la campaña de supervivencia: guardián natural de los templos, aprendizaje, núcleos
+por dominio y DIO con su Stand, cuchillos y parada temporal. Las victorias y los
+núcleos se conceden por participación, con guardado y reclamación segura. La guía
+`/stand journey` y un árbol de avances explican el recorrido. Se conserva la base
+de discos, voluntad, flechas, progresión y presentación de 0.13.1.
 
-La 0.11.0 añadió una primera versión jugable de Hierophant Green con Emerald
-Splash, recursos propios y dominio persistente, junto a Star Platinum y sus cinco
-desafíos. La [ficha de Hierophant Green](hierophant-green-design.md) mantiene
-pendientes sus otras técnicas. El catálogo completo y el encuentro de DIO
-siguen en desarrollo. El siguiente párrafo describe la base histórica de sistemas.
-
-
-La versión 0.4.2 es un prototipo funcional de sistemas. Tiene flechas, asignación
-persistente, invocación, golpe básico, loot de fragmentos, crafteo de discos vacíos,
-dos núcleos de prueba, equipamiento con voluntad y almacenamiento voluntario.
-Sus 43 GameTests y la comprobación con un cliente verifican esos recorridos.
-
-Echoes ACT 1 y Little Feet todavía comparten un maniquí y un golpe genérico.
-Whitesnake no está implementado. En 0.6.0, Star Platinum añade Star Finger y tres
-desafíos de voluntad que se completan con acciones propias en supervivencia;
-los núcleos se obtienen con creativo/comandos y el guardián se invoca por comandos.
-El juego con dos clientes remotos sigue pendiente. Estos puntos impiden considerar
-terminada una experiencia de supervivencia o un Stand solo por estar registrado.
+La [auditoría](implementation-audit.md) distingue lo implementado de lo reservado
+para expansiones y de la prueba humana de cierre. El [diseño de DIO](dio-encounter-design.md)
+y la [guía 0.14.0](playtest-0.14.0.md) fijan obtención, reintentos y límites.
+Echoes ACT 1 y Little Feet conservan el prototipo y sus datos anteriores; Whitesnake
+pertenece a Stone Ocean. No se presentan como Stands completos de este lanzamiento.
 
 ## Fidelidad a JoJo
 
@@ -160,8 +148,8 @@ Las pruebas con FakePlayers no sustituyen la comprobación con dos clientes.
 | Encuentro de DIO y parada temporal | Desafío final coherente con Parte 3 y progresión de sus poderes | Interacción entre usuarios, objetivos y proyectiles con dos clientes |
 | Candidato de lanzamiento | Recorrido completo, balance, rendimiento y documentación | Partida compartida de principio a fin y ausencia de fallos bloqueantes |
 
-La aparición y el combate del guardián siguen siendo trabajo pendiente del diseño
-anterior. Se retomarán con el desarrollo de discos y Whitesnake; el siguiente objetivo
+La aparición del guardián como servicio se implementa en 0.14.0; su combate y
+Whitesnake siguen en el diseño de expansión de Stone Ocean; el siguiente objetivo
 principal es Star Platinum dentro del recorrido de Parte 3. El catálogo futuro puede
 ampliarse a otras partes una vez cerrado y probado el primer lanzamiento.
 

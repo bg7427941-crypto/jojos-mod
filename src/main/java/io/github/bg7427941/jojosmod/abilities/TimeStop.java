@@ -31,16 +31,17 @@ public final class TimeStop {
     private static final Map<ServerLevel, Bubble> BUBBLES = new HashMap<>();
     private record Snapshot(Vec3 position, Vec3 velocity, float yaw, float pitch) {}
     private static final class Bubble {
-        final ServerPlayer owner;
+        final LivingEntity owner;
         final TrainingStandEntity stand;
         final Vec3 center;
         final long started;
         final long until;
         final boolean world;
         final Map<Entity, Snapshot> targets = new LinkedHashMap<>();
-        Bubble(ServerPlayer p, TrainingStandEntity s, int duration) {
+        final Map<java.util.UUID,Long> movementUntil = new HashMap<>();
+        Bubble(LivingEntity p, TrainingStandEntity s, int duration, boolean isWorld) {
             owner = p; stand = s; center = p.position(); started = p.level().getGameTime(); until = started + duration;
-            world = PlayerStands.get(p).standId().filter(ModStands.THE_WORLD.id()::equals).isPresent();
+            world = isWorld;
         }
     }
     private TimeStop() {}
@@ -59,7 +60,7 @@ public final class TimeStop {
         if (now < s.timeReady || BUBBLES.containsKey(p.level())) return false;
         s.timeReady = now + 600;
         boolean world = PlayerStands.get(p).standId().filter(ModStands.THE_WORLD.id()::equals).isPresent();
-        var bubble = new Bubble(p, stand.get(), world ? 60 : 40);
+        var bubble = new Bubble(p, stand.get(), world ? 60 : 40, world);
         BUBBLES.put(p.level(), bubble); tick(p.level());
         io.github.bg7427941.jojosmod.effects.StandVoices.stop(p);
         stand.get().playCrusaderAnimation("time_stop");
@@ -68,18 +69,40 @@ public final class TimeStop {
             player.sendSystemMessage(Component.translatable("message.jojosmod.time.start", p.getName()), true);
         return true;
     }
+    public static boolean startBoss(io.github.bg7427941.jojosmod.entities.DioEntity owner, int duration) {
+        if (!(owner.level() instanceof ServerLevel level) || !owner.isAlive() || owner.isRemoved()
+                || isFrozen(owner) || BUBBLES.containsKey(level)) return false;
+        var bubble=new Bubble(owner,null,Math.max(1,Math.min(60,duration)),true);
+        BUBBLES.put(level,bubble);tick(level);io.github.bg7427941.jojosmod.effects.StandVoices.stop(owner);sound(level,bubble,false);return true;
+    }
+    public static int movementBudget(ServerPlayer p) {
+        boolean world=PlayerStands.get(p).standId().filter(ModStands.THE_WORLD.id()::equals).isPresent();
+        return (world?30:20)+(io.github.bg7427941.jojosmod.journey.StardustJourney.progress(p).defeatedDio()?20:0);
+    }
     public static boolean isFrozen(Entity entity) {
         return entity.level() instanceof ServerLevel l && BUBBLES.containsKey(l) && BUBBLES.get(l).targets.containsKey(entity);
     }
     private static boolean valid(ServerLevel level, Bubble b) {
         return level.getGameTime() < b.until && b.owner.isAlive() && !b.owner.isRemoved() && !b.owner.isSpectator()
                 && b.owner.level() == level && b.owner.distanceToSqr(b.center) <= RADIUS * RADIUS
-                && StandController.isActive(b.owner, b.stand) && !b.stand.isRemoved() && !b.stand.isDismissing();
+                && (!(b.owner instanceof ServerPlayer p) || b.stand != null && StandController.isActive(p, b.stand)
+                    && !b.stand.isRemoved() && !b.stand.isDismissing());
     }
     private static boolean eligible(Bubble b, Entity e) {
-        if (e == b.owner || e.isRemoved() || e.isSpectator() || !(e instanceof LivingEntity || e instanceof Projectile)) return false;
-        if (e instanceof ServerPlayer p && (p.getAbilities().instabuild || compatible(p)
-                || !b.owner.level().isPvpAllowed() || !b.owner.canHarmPlayer(p))) return false;
+        if (e == b.owner || e.isRemoved() || e.isSpectator() || e.distanceToSqr(b.center)>RADIUS*RADIUS
+                || !(e instanceof LivingEntity || e instanceof Projectile)) return false;
+        if (e instanceof ServerPlayer p) {
+            if(p.getAbilities().instabuild)return false;
+            if(b.owner instanceof ServerPlayer caster && (!caster.level().isPvpAllowed() || !caster.canHarmPlayer(p))) return false;
+            if(compatible(p)) {
+                long until=b.movementUntil.computeIfAbsent(p.getUUID(),id->p.level().getGameTime()+movementBudget(p));
+                if(p.level().getGameTime()<until)return false;
+            }
+        }
+        if(e instanceof io.github.bg7427941.jojosmod.entities.DioEntity) {
+            long until=b.movementUntil.computeIfAbsent(e.getUUID(),id->e.level().getGameTime()+30);
+            if(e.level().getGameTime()<until)return false;
+        }
         return !b.owner.isAlliedTo(e);
     }
     public static void onServerTick(ServerTickEvent.Pre event) {
@@ -167,7 +190,7 @@ public final class TimeStop {
             }
         }
     }
-    public static void cancel(ServerPlayer owner) {
+    public static void cancel(Entity owner) {
         for (var level : java.util.List.copyOf(BUBBLES.keySet())) if (BUBBLES.get(level).owner == owner) end(level);
     }
     public static void onStopping(ServerStoppingEvent event) {

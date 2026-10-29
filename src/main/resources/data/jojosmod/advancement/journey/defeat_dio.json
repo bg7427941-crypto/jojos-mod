@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "id": "jojosmod:the_world_core"
+    },
+    "title": {
+      "translate": "advancement.jojosmod.journey.defeat_dio"
+    },
+    "description": {
+      "translate": "advancement.jojosmod.journey.defeat_dio.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "milestone": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "milestone"
+    ]
+  ],
+  "parent": "jojosmod:journey/meet_keeper"
+}

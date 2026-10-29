@@ -1,5 +1,15 @@
 # Primera versión completa: Stardust Crusaders
 
+## Estado de la implementación — 0.14.0
+
+La campaña de supervivencia, el guardián natural, los siete núcleos, DIO, las
+recompensas compartidas y las técnicas principales avanzadas están implementadas.
+La [auditoría](implementation-audit.md) y la [guía 0.14.0](playtest-0.14.0.md)
+definen el cierre técnico y la prueba con personas que todavía debe valorar ritmo,
+balance e inmersión. La posesión de jugadores y otros repertorios opcionales del
+manga no se anuncian como funciones incluidas. Los siguientes apartados conservan
+la dirección y la evolución histórica del plan.
+
 ## Dirección confirmada y propuesta de alcance
 
 El usuario confirmó **Parte 3** como centro de la primera versión completa y pulida.
@@ -42,7 +52,7 @@ cierre. Los nombres y usuarios de referencia pueden contrastarse en el
 | Magician's Red | Muhammad Avdol | Catálogo principal de Crusaders |
 | Hermit Purple | Joseph Joestar | Catálogo principal de Crusaders |
 | The Fool | Iggy | Catálogo principal de Crusaders |
-| The World | DIO | Poder del encuentro final; obtención por jugadores pendiente de diseño |
+| The World | DIO | Recompensa personal del encuentro de DIO desde 0.14.0 |
 
 El orden después de Star Platinum se ajustará al coste real de las habilidades y
 los recursos visuales. Otros antagonistas y encuentros de Parte 3 podrán formar parte

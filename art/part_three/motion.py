@@ -143,6 +143,18 @@ def clips(kind, rig, original):
     expanded = pose(base, {'torso': [-12, 0, 0], 'head': [7, 0, 0], 'right_arm': [-48, -15, -75],
                            'left_arm': [-48, 15, 75], 'right_forearm': [-16, 0, 0], 'left_forearm': [-16, 0, 0]}, {'root': [0, 1, 0]})
     data['time_stop'] = bake(.7, [(0, base), (.13, expanded), (.36, pose(expanded, {'head': [5, 0, 0]})), (.7, base)])
+    # Advanced V contacts at 0.4 s; rapier disappears only while the physical weapon is away.
+    advanced_base = pose(base)
+    if kind == 'silver_chariot':
+        advanced_base['rapier']['scale'] = [1, 1, 1]
+        toss = pose(advanced_base, {'torso': [-3, 20, 0], 'right_arm': [-70, 0, -8], 'right_forearm': [-8, 0, 0]}, scale={'rapier': [.001] * 3})
+        data['advanced'] = bake(2.0, [(0, advanced_base), (.3, pose(advanced_base, {'right_arm': [-35, 0, -12]})), (.4, toss), (1.72, toss), (1.76, advanced_base), (2, advanced_base)])
+    elif kind == 'the_fool':
+        held = pose(base, {'torso': [-10, 0, 0], 'head': [7, 0, 0], 'right_arm': [-25, 0, -30], 'left_arm': [-25, 0, 30]}, {'root': [0, .3, 0]})
+        data['advanced'] = bake(3.3, [(0, base), (.4, held), (2.9, held), (3.3, base)])
+    else:
+        held = pose(base, {'torso': [-6, 12, 0], 'right_arm': [-85, -8, -18], 'left_arm': [-58, 10, 28], 'right_forearm': [-5, 0, 0], 'left_forearm': [-22, 0, 0]})
+        data['advanced'] = bake(1.5, [(0, base), (.27, pose(base, {'torso': [4, -10, 0]})), (.4, held), (.85, held), (1.5, base)])
     for name, clip in data.items(): original['animations'][f'animation.{kind}.{name}'] = clip
     return original
 
@@ -158,6 +170,10 @@ def hierophant(original, rig):
                           'left_hand': [-14, 7, 0], 'right_hand': [-14, -7, 0]}, {'root': [0, .6, -.8]})
     recoil = pose(release, {'torso': [-2, 2, 0], 'left_forearm': [-14, 0, 0], 'right_forearm': [-14, 0, 0]}, {'root': [0, .6, -.4]})
     original['animations'][f'animation.{kind}.splash'] = bake(1.6, [(0, base), (.2, charge), (.3, release), (.4, recoil), (.5, release), (.68, recoil), (1.05, pose(base, {'torso': [3, 1, 0]})), (1.6, base)])
+    grasp = pose(base, {'torso': [2, -14, 0], 'right_arm': [-88, -12, -8], 'right_forearm': [-8, 0, 0], 'left_arm': [-35, 28, 20]}, {'root': [0, .2, -.5]})
+    spread = pose(base, {'torso': [-4, 0, 0], 'right_arm': [-55, 0, -70], 'left_arm': [-55, 0, 70], 'right_forearm': [-18, 0, 0], 'left_forearm': [-18, 0, 0]})
+    original['animations'][f'animation.{kind}.tentacle'] = bake(2.2, [(0, base), (.22, charge), (.3, grasp), (1.8, grasp), (2.2, base)])
+    original['animations'][f'animation.{kind}.barrier'] = bake(1.5, [(0, base), (.3, spread), (.95, spread), (1.5, base)])
     for name in ['summon', 'dismiss', 'recover']:
         length = original['animations'][f'animation.{kind}.{name}']['animation_length']
         start, end = base, base

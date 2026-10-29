@@ -26,6 +26,7 @@ public final class PlayerStands {
         StarPlatinumProgress.onAssigned(player);
         HierophantProgress.onAssigned(player);
         CrusaderProgress.onAssigned(player);
+        io.github.bg7427941.jojosmod.journey.StardustJourney.onAssigned(player);
     }
 
     /** Clears the assignment on the server thread and synchronizes the empty value. */

@@ -78,7 +78,7 @@ def generateModMetadata = tasks.register('generateModMetadata', ProcessResources
         geckolib_version: geckolib_version,
         network_protocol: '13',
         asset_license: "MIT (code and original assets); Roundabout License v1.2 (adapted models); GPL-3.0 for specified independent audio assets; collected playtest recordings retain their owners' rights",
-        audio_description: 'Internal audio playtest build with collected recordings; public distribution uses the separate public-alpha artifact.'
+        audio_description: 'Alpha with the previously collected anime recordings assigned to Stand attacks and time stop; see the audio credits and provenance.'
     ]
     inputs.properties properties
     expand properties
@@ -201,6 +201,48 @@ def publicAlphaDist = tasks.register('publicAlphaDist', Zip) {
     from('distribution/PUBLIC_NOTICES.md') { rename { 'THIRD_PARTY_NOTICES.md' } }
     from('art/star_platinum/upstream/LICENSE-Roundabout.txt')
     from(layout.buildDirectory.dir('publicAlphaVerification'))
+}
+
+// Owner-selected alpha: preserve the existing attack recordings and their terms.
+// The original-audio publicAlphaDist remains independently buildable.
+def animeAlphaJar = tasks.register('animeAlphaJar', Jar) {
+    group = 'distribution'
+    description = 'Build the alpha with the existing anime attack recordings and credits.'
+    dependsOn tasks.named('jar')
+    archiveClassifier = 'anime-alpha'
+    from({ zipTree(tasks.named('jar', Jar).get().archiveFile.get().asFile) }) {
+        exclude 'META-INF/MANIFEST.MF'
+    }
+    manifest.attributes('JoJosMod-Distribution': 'anime-alpha', 'JoJosMod-Network-Protocol': '13')
+}
+
+def verifyAnimeAlpha = tasks.register('verifyAnimeAlpha', Exec) {
+    group = 'verification'
+    description = 'Check recorded audio hashes, mappings, credits and the actual anime-alpha JAR.'
+    dependsOn animeAlphaJar
+    inputs.file(animeAlphaJar.flatMap { it.archiveFile })
+    inputs.dir('tools/release')
+    inputs.dir('art/anime_audio')
+    inputs.file('art/sounds/collected-preview-provenance.json')
+    commandLine releasePython.get(), 'tools/release/verify_anime_alpha.py', animeAlphaJar.get().archiveFile.get().asFile
+}
+
+tasks.register('animeAlphaDist', Zip) {
+    group = 'distribution'
+    description = 'Create the owner-selected alpha download with anime audio and editable audio sources.'
+    dependsOn verifyAnimeAlpha
+    archiveBaseName = mod_id
+    archiveClassifier = 'anime-alpha'
+    destinationDirectory = layout.buildDirectory.dir('distributions')
+    from(animeAlphaJar)
+    from('distribution/INSTALL.md', 'distribution/KNOWN_ISSUES.md', 'distribution/RELEASE_NOTES.md')
+    from('LICENSE', 'LICENSE-MDK.txt', 'THIRD_PARTY_NOTICES.md')
+    from('art/star_platinum/upstream/LICENSE-Roundabout.txt')
+    from('art/anime_audio/LICENSE-GPL-3.0.txt')
+    from('art/anime_audio') { into 'sources/art/anime_audio'; exclude '__pycache__/**' }
+    from('art/sounds/collected-preview-provenance.json') { into 'sources/art/sounds' }
+    from(['LICENSE', 'THIRD_PARTY_NOTICES.md']) { into 'sources' }
+    from(layout.buildDirectory.dir('animeAlphaVerification'))
 }
 
 tasks.withType(AbstractArchiveTask).configureEach {

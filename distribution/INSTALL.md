@@ -8,7 +8,7 @@
 | Java | 25 |
 | NeoForge | 26.3.0.95, versión probada |
 | GeckoLib para NeoForge/Minecraft 26.3 | 5.5.7, versión probada |
-| JoJo's Mod | 0.14.1-alpha.1, JAR `-public-alpha.jar` |
+| JoJo's Mod | 0.14.1-alpha.1, JAR `-anime-alpha.jar` o `-public-alpha.jar` |
 | Protocolo del mod | 13 |
 
 El mismo JAR sirve para cliente y servidor dedicado. Cada jugador necesita el
@@ -21,7 +21,7 @@ versiones o varios JAR de JoJo's Mod en una misma carpeta.
    [NeoForge](https://neoforged.net/). Configura Java 25 en el lanzador.
 2. Descarga [GeckoLib](https://modrinth.com/mod/geckolib) 5.5.7 para **NeoForge y 26.3**.
    Copia su JAR a `mods/` del perfil.
-3. Descomprime el ZIP de esta alpha. Copia **solo el JAR `-public-alpha.jar`** a
+3. Descomprime el ZIP de esta alpha. Copia **solo un JAR de JoJo's Mod** a
    la misma carpeta `mods/`; los documentos pueden guardarse fuera.
 4. Arranca el perfil y comprueba la versión del mod en la lista de mods.
 5. Crea un mundo de supervivencia o entra en un servidor con la misma alpha.
@@ -58,9 +58,13 @@ el JAR anterior y sustituye el de todos los jugadores y servidor a la vez.
 está validado. Los cofres ya abiertos no regeneran su loot, aunque todavía puede
 aparecer el guardián al visitar el templo.
 
-El audio público usa efectos sintetizados. Los paquetes de recursos personales
-pueden sustituir eventos en el cliente; no se descargan ni envían grabaciones a
-los amigos. Activa subtítulos o ajusta Jugadores en Música y sonidos.
+`-anime-alpha.jar` incorpora las grabaciones del anime ya asignadas a ataques y
+paradas temporales; no necesita un paquete de recursos adicional. La alternativa
+`-public-alpha.jar` usa efectos sintetizados. Para cambiar, cierra el juego,
+retira el JAR de JoJo's Mod y coloca el otro. Conserva mundos y configuración:
+ambas variantes usan versión 0.14.1-alpha.1 y protocolo 13. No instales las dos.
+Las fuentes de audio de `sources/` son documentos/editables; no se ponen en `mods/`.
+Activa subtítulos o ajusta Jugadores en Música y sonidos.
 El shader temporal respeta la intensidad de efectos de pantalla de Minecraft;
 ponla a 0 para desactivarlo. Respeta también Ocultar destellos.
 

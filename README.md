@@ -10,7 +10,9 @@ DIO con recompensas personales. Es un proyecto de fans sin afiliación oficial.
 
 ## Instalar y jugar
 
-Usa el **JAR terminado en `-public-alpha.jar`** del paquete público. Instala
+Usa el **JAR terminado en `-anime-alpha.jar`** para jugar con los audios del anime
+ya recopilados. También está disponible `-public-alpha.jar`, con efectos originales.
+Instala solo una variante, junto a
 NeoForge y GeckoLib en cliente y servidor; todos deben usar la misma versión del
 mod. **Protocolo 13**. Las dependencias se descargan por separado.
 
@@ -39,18 +41,19 @@ Echoes ACT 1 y Little Feet conservan sus prototipos y datos anteriores. Whitesna
 y otras partes son futuras expansiones. Consulta [limitaciones](distribution/KNOWN_ISSUES.md),
 [cambios](distribution/RELEASE_NOTES.md) y la [auditoría](docs/implementation-audit.md).
 
-El paquete público usa **43 efectos originales sintetizados**, incluyendo señales
-de ataque en los espacios de voz; no incorpora grabaciones del anime. La versión
-interna de pruebas conserva sus clips por separado. Los modelos adaptados de
+El paquete `anime-alpha` conserva **25 grabaciones** de ataques y paradas temporales
+junto a los efectos propios. El alternativo `public-alpha` usa **43 efectos
+originales sintetizados**, incluyendo señales en los espacios de voz. Ambos
+conservan las mismas habilidades, partidas y protocolo. Los modelos adaptados de
 Roundabout mantienen su autoría y condiciones; los originales y el código son MIT.
-[Créditos públicos](distribution/PUBLIC_NOTICES.md) · [Avisos del repositorio](THIRD_PARTY_NOTICES.md).
+[Créditos de audio y modelos](THIRD_PARTY_NOTICES.md) · [Avisos de la alternativa original](distribution/PUBLIC_NOTICES.md).
 
 ## Construir y verificar
 
 Con JDK 25 y Python 3.11 o posterior, desde la raíz:
 
 ```sh
-./gradlew build runGameTestServer publicAlphaDist
+./gradlew build runGameTestServer animeAlphaDist publicAlphaDist
 python3 -m unittest discover -s tools/release -p 'test_*.py'
 ```
 
@@ -58,8 +61,9 @@ En Windows usa `gradlew.bat`. El proceso Gradle necesita Python en PATH; puedes
 seleccionarlo con `-PpythonExecutable=python` o `-PpythonExecutable=py`.
 
 El ZIP verificado está en `build/distributions/`; contiene JAR público, guía,
-limitaciones, avisos y SHA-256. El JAR normal de `build/libs/` corresponde al audio
-interno de pruebas; `runClient` conserva ese entorno. Distribuye el **público**.
+limitaciones, avisos y SHA-256. El ZIP `-anime-alpha.zip` incluye las grabaciones
+y sus fuentes editables; `-public-alpha.zip` es la alternativa con efectos propios.
+`runClient` y el JAR normal conservan los audios habituales.
 El verificador revisa audio por hash, referencias de sonido, subtítulos,
 versión/protocolo, dependencias, licencias y clases incluidas.
 

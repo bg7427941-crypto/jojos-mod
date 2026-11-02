@@ -1,11 +1,10 @@
-# Audio del anime y paquete de recursos local
+# Audio y paquetes personales — estado de la alpha
 
-**Estado de la rama actual:** los ocho clips de prueba se añadieron manualmente
-en `main` en el commit `aba6b09`, junto con la asignación de eventos. El JAR 0.10.0
-los incorpora sin necesitar un pack adicional. La procedencia está en
-[los avisos](../THIRD_PARTY_NOTICES.md) y en el manifiesto de audio recopilado.
-Las instrucciones siguientes siguen sirviendo para sustituir clips con un pack
-personal. Cliente y servidor actuales usan **0.10.0, protocolo 8**.
+La distribución `-public-alpha.jar` de 0.14.1-alpha.1 usa efectos sintetizados
+originales. El JAR interno de desarrollo conserva las grabaciones recopiladas,
+con su procedencia separada en THIRD_PARTY_NOTICES.md. Ambos usan protocolo 13.
+Los apartados sobre 0.9.3/0.10.0 que siguen son históricos; las instrucciones del
+constructor siguen permitiendo sustituir eventos de Star Platinum en tu cliente.
 
 La [recopilación de referencias de Star Platinum](star-platinum-anime-audio-catalog.md)
 reúne enlaces para escuchar invocación, ORA y Star Finger, escenas de Parte 3 y

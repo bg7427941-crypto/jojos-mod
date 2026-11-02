@@ -1,0 +1,44 @@
+name: Error en la alpha
+description: Reporta un fallo con versiones y pasos para reproducirlo.
+title: '[Alpha] '
+body:
+  - type: input
+    id: versions
+    attributes:
+      label: Versiones exactas
+      description: JoJo's Mod, Minecraft, NeoForge, GeckoLib y Java.
+    validations:
+      required: true
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Dónde ocurre
+      options:
+        - Un jugador
+        - LAN con amigos
+        - Servidor dedicado
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Pasos para reproducirlo
+      description: Incluye Stand, teclas, dificultad y si ocurre al reconectar o morir.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Resultado esperado y observado
+    validations:
+      required: true
+  - type: textarea
+    id: other_mods
+    attributes:
+      label: Otros mods, shaders y paquetes de recursos
+      description: Indica si también ocurre sin ellos.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs o crash report
+      description: Adjunta latest.log y crash report si existe; elimina datos personales.

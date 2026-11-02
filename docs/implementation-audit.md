@@ -66,3 +66,9 @@ y pertenece a los no muertos, por lo que la técnica de Hamon aplica su bonifica
 La evaluación de equilibrio y diversión con dos personas sigue siendo la prueba
 humana de cierre. El controlador de audio del entorno es nulo: se verifica la
 selección/reproducción en el motor, y la escucha corresponde a la prueba del jugador.
+
+## Preparación pública 0.14.1-alpha.1
+
+La [auditoría de publicación](public-alpha.md) cierra empaquetado público con audio
+original, créditos, instalación, límites, reportes y comprobación automática del
+JAR. Las reglas de campaña y los datos de 0.14.0 se conservan.

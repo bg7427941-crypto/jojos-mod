@@ -72,3 +72,5 @@ versión/protocolo, dependencias, licencias y clases incluidas.
 
 [Publicar una alpha](docs/public-alpha.md) · [Reportar un error](https://github.com/bg7427941-crypto/jojos-mod/issues/new/choose)
 · [Contribuir](CONTRIBUTING.md) · [Historial de entregas](HISTORY.md).
+
+Para CurseForge: [textos, icono y campos de publicación](distribution/curseforge/README.md).

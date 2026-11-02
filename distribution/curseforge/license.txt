@@ -1,0 +1,26 @@
+Mixed licenses — this is not a blanket MIT license for all bundled content.
+
+Project code and original assets: MIT. Full text:
+https://github.com/bg7427941-crypto/jojos-mod/blob/main/LICENSE
+
+Adapted Star Platinum, Silver Chariot, Magician's Red and The World model geometry,
+UVs and atlases: Roundabout License v1.2, by Hydraheads and contributors, with the
+historical GenericName/GenericName72 credits. Full text is bundled in the JAR as
+LICENSE-Roundabout.txt and preserved in the source repository.
+
+The anime-alpha file contains independently credited recordings from Roundabout,
+Ripples of the Past and JoJoStands-Sounds, including the specified GPL-3.0 audio
+assets. Their terms, source revisions and edits are listed in THIRD_PARTY_NOTICES.md
+and the JAR's META-INF/jojosmod/ manifests. GPL-3.0 text is bundled for the specified
+independent audio assets. Underlying recording rights remain with their owners;
+independent permission to redistribute the underlying anime recordings has not
+been verified. No project license grants rights the project does not hold.
+
+The public-alpha alternative contains original synthesized audio in place of those
+recordings. The adapted models retain the Roundabout conditions in both variants.
+
+JoJo's Bizarre Adventure and its characters belong to Hirohiko Araki and the
+respective rights holders. This is an unofficial fan project.
+
+Full provenance and notices:
+https://github.com/bg7427941-crypto/jojos-mod/blob/main/THIRD_PARTY_NOTICES.md

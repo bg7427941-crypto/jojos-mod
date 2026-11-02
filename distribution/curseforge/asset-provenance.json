@@ -1,0 +1,23 @@
+{
+  "license": "MIT for new icon vector and rendering; existing in-game content keeps its documented asset terms",
+  "icon": {
+    "source": "icon.svg",
+    "output": "icon.png",
+    "author": "JoJos Mod project",
+    "description": "New geometric star, arrow and orbit emblem. No imported character artwork, anime frames, game logo or other project avatar.",
+    "renderer": "CairoSVG",
+    "size": [
+      400,
+      400
+    ],
+    "source_sha256": "5a7333e99e02a0787d6327b478a7d958cd9b0cb8a2df8299dfed67741c047fb4",
+    "png_sha256": "04afa384a78c9751cfd4ca541bdbedf47fa7a96460c4686fa4c31b83a73b98ae"
+  },
+  "gallery": {
+    "file": "gallery/inventory.png",
+    "type": "unaltered in-game screenshot",
+    "captured_build": "0.13.1",
+    "note": "Inventory textures remain identical in 0.14.1-alpha.1; no generated or enhanced gameplay imagery.",
+    "sha256": "70e09f1265a8b0e1452e61c7662e15ea8481363a9ceb98afd50999df6c88b4b1"
+  }
+}

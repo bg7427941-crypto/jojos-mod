@@ -1,0 +1,43 @@
+{
+  "purpose": "Manual CurseForge form reference, not an API payload",
+  "name_proposal": "Stardust Resolve",
+  "summary": "Awaken seven Part 3 Stands, master their abilities and challenge DIO with friends in a JoJo-inspired survival adventure.",
+  "game": "Minecraft Java Edition",
+  "class": "Mods",
+  "primary_category_suggestion": "Magic",
+  "additional_categories_suggestions": [
+    "Adventure and RPG",
+    "Mobs"
+  ],
+  "mod_version": "0.14.1-alpha.1",
+  "release_type": "Alpha",
+  "minecraft_versions": [
+    "26.3"
+  ],
+  "loader": "NeoForge",
+  "tested_neoforge": "26.3.0.95",
+  "java": 25,
+  "client_required": true,
+  "server_required": true,
+  "network_protocol": "13",
+  "file_name": "jojosmod-0.14.1-alpha.1-anime-alpha.jar",
+  "file_sha256": "965ab07d8b4bdc6a91ed642ceb1bb03f0214c62a534f6a33bec5367d251af0fa",
+  "license_selection": "Custom",
+  "license_text_file": "license.txt",
+  "dependencies": [
+    {
+      "name": "GeckoLib",
+      "slug": "geckolib",
+      "project_id": 388172,
+      "relation": "Required Dependency",
+      "tested_version": "5.5.7",
+      "loader": "NeoForge",
+      "minecraft": "26.3"
+    }
+  ],
+  "source_url": "https://github.com/bg7427941-crypto/jojos-mod",
+  "issues_url": "https://github.com/bg7427941-crypto/jojos-mod/issues",
+  "icon": "icon.png",
+  "description": "description.md",
+  "changelog": "changelog.md"
+}

@@ -42,6 +42,9 @@ No distribuye dependencias, mundos, credenciales ni clases de pruebas.
 
 ## Publicación manual
 
+La [preparación específica de CurseForge](../distribution/curseforge/README.md)
+incluye descripción en inglés, icono, créditos y valores del formulario.
+
 1. Comprueba instalación/volumen en tu PC y una partida con amigos en un mundo
    de prueba. Registra problemas de equilibrio como incidencias de la alpha.
 2. En GitHub Releases, crea **`v0.14.1-alpha.1`**, elige el commit validado de `main`

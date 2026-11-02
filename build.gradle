@@ -75,7 +75,10 @@ def generateModMetadata = tasks.register('generateModMetadata', ProcessResources
         mod_version: mod_version,
         minecraft_version: minecraft_version,
         neo_version: neo_version,
-        geckolib_version: geckolib_version
+        geckolib_version: geckolib_version,
+        network_protocol: '13',
+        asset_license: "MIT (code and original assets); Roundabout License v1.2 (adapted models); GPL-3.0 for specified independent audio assets; collected playtest recordings retain their owners' rights",
+        audio_description: 'Internal audio playtest build with collected recordings; public distribution uses the separate public-alpha artifact.'
     ]
     inputs.properties properties
     expand properties
@@ -128,4 +131,79 @@ tasks.named('jar', Jar) {
 // Compile the integration suite during a normal build; execute it with runGameTestServer.
 tasks.named('check') {
     dependsOn tasks.named('gameTestClasses')
+}
+
+// Public packages use an explicit hash-checked allowlist of original audio. The
+// normal development JAR and runClient keep the owner's existing audio playtest.
+def releasePython = providers.gradleProperty('pythonExecutable').orElse('python3')
+def publicAudioDirectory = layout.buildDirectory.dir('generated/publicAlphaAudio')
+def generatePublicAlphaAudio = tasks.register('generatePublicAlphaAudio', Exec) {
+    inputs.files(fileTree('art') { include '**/*provenance.json' })
+    inputs.files(fileTree('src/main/resources/assets/jojosmod/sounds'))
+    inputs.file('src/main/resources/assets/jojosmod/sounds.json')
+    inputs.dir('src/main/resources/assets/jojosmod/lang')
+    inputs.dir('tools/release')
+    outputs.dir(publicAudioDirectory)
+    commandLine releasePython.get(), 'tools/release/public_audio.py', '--output', publicAudioDirectory.get().asFile
+}
+
+def generatePublicAlphaMetadata = tasks.register('generatePublicAlphaMetadata', ProcessResources) {
+    def properties = [
+        mod_id: mod_id, mod_name: mod_name, mod_version: mod_version,
+        minecraft_version: minecraft_version, neo_version: neo_version,
+        geckolib_version: geckolib_version, network_protocol: '13',
+        asset_license: 'MIT (code and original assets); Roundabout License v1.2 (adapted models and atlases)',
+        audio_description: 'Public alpha with original synthesized effects. No collected anime recordings are included.'
+    ]
+    inputs.properties properties
+    expand properties
+    from 'src/main/templates'
+    into layout.buildDirectory.dir('generated/publicAlphaMetadata')
+}
+
+def publicAlphaJar = tasks.register('publicAlphaJar', Jar) {
+    group = 'distribution'
+    description = 'Build the public alpha with original audio and retained model credits.'
+    dependsOn tasks.named('jar'), generatePublicAlphaAudio, generatePublicAlphaMetadata
+    archiveClassifier = 'public-alpha'
+    from({ zipTree(tasks.named('jar', Jar).get().archiveFile.get().asFile) }) {
+        exclude 'META-INF/MANIFEST.MF', 'META-INF/neoforge.mods.toml', 'THIRD_PARTY_NOTICES.md'
+        exclude 'assets/jojosmod/sounds/**', 'assets/jojosmod/sounds.json', 'assets/jojosmod/lang/**'
+        exclude 'META-INF/jojosmod/anime-audio-*', 'META-INF/jojosmod/sound-collected-preview.json'
+        exclude 'META-INF/jojosmod/audio-licenses/**'
+    }
+    from(publicAudioDirectory)
+    from(generatePublicAlphaMetadata)
+    from('distribution/PUBLIC_NOTICES.md') { rename { 'THIRD_PARTY_NOTICES.md' } }
+    manifest.attributes('JoJosMod-Distribution': 'public-alpha', 'JoJosMod-Network-Protocol': '13')
+}
+
+def verifyPublicAlpha = tasks.register('verifyPublicAlpha', Exec) {
+    group = 'verification'
+    description = 'Check actual public JAR audio, credits, metadata, resources and class isolation.'
+    dependsOn publicAlphaJar
+    inputs.file(publicAlphaJar.flatMap { it.archiveFile })
+    inputs.dir('tools/release')
+    inputs.files('gradle.properties', 'src/main/java/io/github/bg7427941/jojosmod/network/ModNetworking.java')
+    commandLine releasePython.get(), 'tools/release/verify_public_alpha.py', publicAlphaJar.get().archiveFile.get().asFile
+}
+
+def publicAlphaDist = tasks.register('publicAlphaDist', Zip) {
+    group = 'distribution'
+    description = 'Create the verified player download, install guide, credits and checksum.'
+    dependsOn verifyPublicAlpha
+    archiveBaseName = mod_id
+    archiveClassifier = 'public-alpha'
+    destinationDirectory = layout.buildDirectory.dir('distributions')
+    from(publicAlphaJar)
+    from('distribution/INSTALL.md', 'distribution/KNOWN_ISSUES.md', 'distribution/RELEASE_NOTES.md')
+    from('LICENSE', 'LICENSE-MDK.txt')
+    from('distribution/PUBLIC_NOTICES.md') { rename { 'THIRD_PARTY_NOTICES.md' } }
+    from('art/star_platinum/upstream/LICENSE-Roundabout.txt')
+    from(layout.buildDirectory.dir('publicAlphaVerification'))
+}
+
+tasks.withType(AbstractArchiveTask).configureEach {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
 }

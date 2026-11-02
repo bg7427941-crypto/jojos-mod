@@ -1,3 +1,10 @@
+# Distribuciones desde 0.14.1-alpha.1
+
+Este archivo describe los recursos del repositorio y del JAR interno de pruebas.
+El JAR público usa solo efectos sintetizados originales y reemplaza estos avisos
+por [PUBLIC_NOTICES.md](distribution/PUBLIC_NOTICES.md); excluye grabaciones y
+sus manifiestos. Los modelos adaptados conservan los créditos y licencia.
+
 # Autoría y dependencias
 
 ## Star Platinum — adaptación de Roundabout desde 0.9.2

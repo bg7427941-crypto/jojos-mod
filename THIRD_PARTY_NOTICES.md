@@ -1,9 +1,11 @@
 # Distribuciones desde 0.14.1-alpha.1
 
-Este archivo describe los recursos del repositorio y del JAR interno de pruebas.
-El JAR público usa solo efectos sintetizados originales y reemplaza estos avisos
-por [PUBLIC_NOTICES.md](distribution/PUBLIC_NOTICES.md); excluye grabaciones y
-sus manifiestos. Los modelos adaptados conservan los créditos y licencia.
+Este archivo describe el repositorio y el JAR `anime-alpha`, que conserva las
+grabaciones de ataques recopiladas y sus manifiestos. El ZIP con anime incorpora
+fuentes editables y licencias en `sources/art/anime_audio/`. La alternativa
+`public-alpha` usa solo efectos originales y reemplaza estos avisos por
+[PUBLIC_NOTICES.md](distribution/PUBLIC_NOTICES.md). Los modelos adaptados
+conservan sus créditos y licencia en ambas variantes.
 
 # Autoría y dependencias
 

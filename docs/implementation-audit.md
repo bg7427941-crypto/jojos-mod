@@ -72,3 +72,7 @@ selección/reproducción en el motor, y la escucha corresponde a la prueba del j
 La [auditoría de publicación](public-alpha.md) cierra empaquetado público con audio
 original, créditos, instalación, límites, reportes y comprobación automática del
 JAR. Las reglas de campaña y los datos de 0.14.0 se conservan.
+
+Se añade también `animeAlphaDist`, elegido por el propietario, con las grabaciones
+habituales, créditos, fuentes editables y verificación separada. La alternativa
+de audio original se conserva sin cambiar las reglas de juego ni los datos.

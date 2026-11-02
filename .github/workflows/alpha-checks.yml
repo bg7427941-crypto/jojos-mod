@@ -28,7 +28,7 @@ jobs:
           python-version: '3.12'
       - uses: gradle/actions/setup-gradle@v4
       - name: Compile, run native tests and verify the public package
-        run: ./gradlew --no-daemon build runGameTestServer publicAlphaDist
+        run: ./gradlew --no-daemon build runGameTestServer animeAlphaDist publicAlphaDist
       - name: Prove the release gate rejects invalid artifacts
         run: python3 -m unittest discover -s tools/release -p 'test_*.py'
       - name: Retain the public download
@@ -36,6 +36,12 @@ jobs:
         with:
           name: jojosmod-public-alpha
           path: build/distributions/*-public-alpha.zip
+          if-no-files-found: error
+      - name: Retain the alpha with anime recordings
+        uses: actions/upload-artifact@v4
+        with:
+          name: jojosmod-anime-alpha
+          path: build/distributions/*-anime-alpha.zip
           if-no-files-found: error
       - name: Retain test evidence
         if: always()
@@ -45,3 +51,4 @@ jobs:
           path: |
             run/gametest/logs/*.log
             build/publicAlphaVerification/*
+            build/animeAlphaVerification/*

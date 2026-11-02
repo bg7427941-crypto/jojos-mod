@@ -1,8 +1,9 @@
 # Audio y paquetes personales — estado de la alpha
 
-La distribución `-public-alpha.jar` de 0.14.1-alpha.1 usa efectos sintetizados
-originales. El JAR interno de desarrollo conserva las grabaciones recopiladas,
-con su procedencia separada en THIRD_PARTY_NOTICES.md. Ambos usan protocolo 13.
+La distribución `-anime-alpha.jar` de 0.14.1-alpha.1 incorpora las grabaciones
+recopiladas para ataques y paradas temporales, sin necesitar un pack adicional.
+La alternativa `-public-alpha.jar` usa efectos originales sintetizados. Ambas
+usan protocolo 13 y conservan la partida. Créditos: THIRD_PARTY_NOTICES.md.
 Los apartados sobre 0.9.3/0.10.0 que siguen son históricos; las instrucciones del
 constructor siguen permitiendo sustituir eventos de Star Platinum en tu cliente.
 

@@ -12,8 +12,10 @@ como descarga pública experimental.
 - DIO con fases, The World, avisos de ataques y parada temporal.
 - Guardianes, avances, `/stand journey`, `/stand progress` y `/stand claim`;
   recompensas por participación y recuperación con inventario lleno.
-- Paquete público separado con 43 efectos sintetizados originales. Los espacios
-  de voz usan señales de acción; no contiene grabaciones recopiladas del anime.
+- Paquete `anime-alpha` con las 25 grabaciones habituales, sin cambios de asignación
+  a ataques y paradas temporales, con créditos y fuentes de audio editables.
+- Alternativa `public-alpha` con 43 efectos sintetizados originales y señales de
+  acción en los espacios de voz; se puede intercambiar conservando la partida.
 - Descripción actual, dependencias, instalación, limitaciones, créditos,
   reporte de errores, checksum y verificación automática de distribución.
 
@@ -33,3 +35,7 @@ El JAR público se instala y conecta a un servidor NeoForge dedicado limpio.
 Se comprobaron invocación, controles, shader temporal y los 52 eventos sonoros en
 cliente real; el lanzador del cliente es de desarrollo y carga el mod desde JAR.
 La construcción repetida produjo JAR y ZIP idénticos byte por byte.
+
+La variante con anime incorpora un verificador independiente que comprueba hashes,
+asignaciones de ataque, créditos, licencias y archivos de ejecución sin alterar
+las comprobaciones de la variante original. Se conservan versión y protocolo.

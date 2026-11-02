@@ -14,9 +14,9 @@
   son futuras ampliaciones. No se anuncia todo el manga como implementado.
 - **Prototipos antiguos.** Echoes ACT 1 y Little Feet mantienen datos y mecánicas
   iniciales, con presentación/poderes pendientes. Whitesnake es una expansión.
-- **Audio público sin voces grabadas.** Los ataques y paradas temporales usan
-  efectos sintetizados. La escucha final de volumen y claridad necesita al jugador;
-  el entorno automatizado no tiene salida sonora.
+- **Dos variantes de audio.** `anime-alpha` conserva voces/efectos recopilados y
+  `public-alpha` usa síntesis original. Instala solo una. La escucha final de
+  volumen y claridad necesita al jugador; el entorno automatizado no tiene salida sonora.
 - **Partidas previas.** Se conservan datos de 0.14.0; no se garantiza volver a
   versiones antiguas después de guardar con esta alpha. Actualiza sobre una copia.
 - **Loot probabilístico.** Los cofres abiertos no reciben loot nuevo. La flecha

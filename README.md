@@ -10,6 +10,9 @@ DIO con recompensas personales. Es un proyecto de fans sin afiliación oficial.
 
 ## Instalar y jugar
 
+[Descargar JAR de la alpha con audios del anime](https://github.com/bg7427941-crypto/jojos-mod/raw/refs/heads/main/releases/0.14.1-alpha.1/jojosmod-0.14.1-alpha.1-anime-alpha.jar)
+· [Checksum e instrucciones de esta descarga](releases/0.14.1-alpha.1/README.md).
+
 Usa el **JAR terminado en `-anime-alpha.jar`** para jugar con los audios del anime
 ya recopilados. También está disponible `-public-alpha.jar`, con efectos originales.
 Instala solo una variante, junto a
